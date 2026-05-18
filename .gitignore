@@ -1,0 +1,20 @@
+# Local agent working files
+.claude/
+
+# Build & Output
+build/
+bin/
+obj/
+
+# Test Results & Debug Logs
+debug_output.txt
+final_test_results.txt
+full_test_results.txt
+port_scan.txt
+test_results.txt
+
+# IDE Files
+.vscode/
+.settings/
+.project
+.cproject
