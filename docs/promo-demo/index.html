@@ -93,6 +93,8 @@
           </p>
           <div class="hero-actions" aria-label="Key proof points">
             <a href="#pipeline">看流程</a>
+            <a href="#cases">看故障案例</a>
+            <a href="#roi">看 ROI</a>
             <a href="#evidence">看证据链</a>
           </div>
         </div>
@@ -327,6 +329,183 @@
             <p>注：估算不含硬件 BOM、打样、仪器和外协费用；人力成本按 ¥2,000 / 人天。</p>
           </div>
         </div>
+      </section>
+
+      <section id="cases" class="case-section" aria-label="Failure case studies">
+        <div class="section-heading">
+          <p>failure-to-fix cases</p>
+          <h2>客户真正会追问的是：出问题时，这套流程怎么缩短定位时间？</h2>
+        </div>
+        <div class="case-board">
+          <article class="case-card">
+            <div class="case-head">
+              <span>case 01</span>
+              <strong>USART Clock Missing</strong>
+            </div>
+            <p>现象：编译和烧录通过，但串口通道无输出。</p>
+            <div class="case-flow">
+              <span>symptom</span>
+              <span>register probe</span>
+              <span>AI summary</span>
+              <span>engineer confirm</span>
+              <span>regression PASS</span>
+            </div>
+            <ul>
+              <li>读取 RCC_APB1ENR、GPIO AF、USART CR1/BRR。</li>
+              <li>优先排除物理接线和波特率问题。</li>
+              <li>修复后跑 Shell 与 RTCM 回归。</li>
+            </ul>
+            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/01-usart-clock-missing.md">查看完整复盘</a>
+          </article>
+          <article class="case-card">
+            <div class="case-head">
+              <span>case 02</span>
+              <strong>RS422 DE Timing</strong>
+            </div>
+            <p>现象：RTCM 输出存在间歇性丢帧或尾字节异常。</p>
+            <div class="case-flow">
+              <span>capture</span>
+              <span>DMA state</span>
+              <span>DE edge</span>
+              <span>minimal fix</span>
+              <span>CRC BAD: 0</span>
+            </div>
+            <ul>
+              <li>把 DMA 完成、DE 控制和串口输出日志放在同一时间线。</li>
+              <li>定位方向从协议层缩小到收发器方向控制。</li>
+              <li>用 RTCM parser 做修复后证明。</li>
+            </ul>
+            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/02-rs422-de-timing.md">查看完整复盘</a>
+          </article>
+          <article class="case-card">
+            <div class="case-head">
+              <span>case 03</span>
+              <strong>RTCM CRC Validation</strong>
+            </div>
+            <p>现象：有输出但业务侧怀疑数据链路不可信。</p>
+            <div class="case-flow">
+              <span>frame scan</span>
+              <span>type count</span>
+              <span>crc check</span>
+              <span>artifact</span>
+              <span>handoff</span>
+            </div>
+            <ul>
+              <li>解析 RTCM3 帧头、长度、payload 和 CRC24Q。</li>
+              <li>统计消息类型覆盖与异常帧数量。</li>
+              <li>把“能输出”升级成“可验真”。</li>
+            </ul>
+            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/03-rtcm-crc-validation.md">查看完整复盘</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="roi" class="roi-model-section" aria-label="ROI model">
+        <div class="section-heading">
+          <p>roi model</p>
+          <h2>ROI 不是一句“节省 80%”，而是把可压缩环节拆出来</h2>
+        </div>
+        <div class="roi-model-grid">
+          <article class="roi-panel manual-model">
+            <span>traditional manual estimate</span>
+            <h3>15-25 人天</h3>
+            <div class="effort-list">
+              <div><strong>CMake/CubeCLT 迁移</strong><em>0.5-1 天</em></div>
+              <div><strong>USB CDC Shell 框架</strong><em>1-2 天</em></div>
+              <div><strong>UM982 初始化状态机</strong><em>1-2 天</em></div>
+              <div><strong>RTCM 配置与转发</strong><em>1-2 天</em></div>
+              <div><strong>自动化测试 + 证据归档</strong><em>3-5 天</em></div>
+              <div><strong>集成调试 buffer</strong><em>3-8 天</em></div>
+            </div>
+          </article>
+          <article class="roi-panel compression-model">
+            <span>ai-assisted compression</span>
+            <h3>3 人天 + ¥9.22 API 账单</h3>
+            <div class="compression-matrix">
+              <div><b>代码修改</b><i>生成驱动骨架、Shell 命令、配置结构</i></div>
+              <div><b>编译修复</b><i>快速分析 warning/error，缩短反馈回路</i></div>
+              <div><b>测试脚本</b><i>生成 PowerShell runner 与 parser scaffold</i></div>
+              <div><b>日志分析</b><i>串口日志 + 寄存器 dump 转为根因假设</i></div>
+              <div><b>交付归档</b><i>manifest、summary、handoff 自动沉淀</i></div>
+            </div>
+          </article>
+          <article class="roi-panel guardrail-model">
+            <span>human judgement retained</span>
+            <h3>这些不能被 AI 压缩掉</h3>
+            <ul>
+              <li>原理图、供电、隔离与安全边界审核。</li>
+              <li>EMC/ESD、协议边界、量产风险判断。</li>
+              <li>最终代码 review、硬件假设确认和验收签字。</li>
+            </ul>
+            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/roi_model.md">查看 ROI 模型全文</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="usecases" class="usecase-section" aria-label="Commercial use cases">
+        <div class="section-heading">
+          <p>commercial use cases</p>
+          <h2>让客户把这个案例映射到自己的板卡、设备和团队流程</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>01</span>
+            <h3>STM32 板卡 bringup 自动化</h3>
+            <p>适合工控采集板、传感器网关、通信转发板、电机控制外设和飞控扩展模块。</p>
+            <em>CMake / SWD / serial shell / register probe / evidence package</em>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>固件回归测试流水线</h3>
+            <p>适合多版本固件维护、小批量产品迭代、客户现场 bug 修复和老项目工程化改造。</p>
+            <em>protocol tests / CRC parser / summary templates / artifact tracking</em>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>AI 辅助故障诊断流程</h3>
+            <p>适合 HardFault、UART 无输出、DMA idle-line、USB CDC 枚举失败和 watchdog reset loop。</p>
+            <em>failure capture / register targets / AI playbook / human checklist</em>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>工程团队交付证据包</h3>
+            <p>适合需要审查测试证明、外包固件交付、平台团队支撑产品团队的场景。</p>
+            <em>manifest / build log / flash log / functional log / handoff summary</em>
+          </article>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/commercial-use-cases.md">查看商业落地场景全文</a>
+      </section>
+
+      <section id="video" class="video-section" aria-label="Three minute demo script">
+        <div class="section-heading">
+          <p>3-minute demo script</p>
+          <h2>把这套能力拍成 3 分钟视频时，镜头应该围绕“闭环证据”推进</h2>
+        </div>
+        <div class="video-board">
+          <div class="video-screen" aria-label="Demo video storyboard preview">
+            <div class="screen-toolbar">
+              <span></span><span></span><span></span>
+              <strong>demo_capture.timeline</strong>
+            </div>
+            <div class="screen-terminal">
+              <p><b>00:40</b> PS&gt; tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4</p>
+              <p><em>PASS</em> CMake / Ninja build</p>
+              <p><em>PASS</em> STM32CubeProgrammer flash + verify</p>
+              <p><em>PASS</em> USB CDC shell command suite</p>
+              <p><em>PASS</em> RTCM parser CRC BAD: 0</p>
+              <p><em>DONE</em> evidence/baseline-2026-05-18/</p>
+            </div>
+          </div>
+          <div class="storyline">
+            <div><span>0:00</span><strong>痛点</strong><p>手动编译、手动烧录、手动串口测试、问题记录缺失。</p></div>
+            <div><span>0:20</span><strong>目标</strong><p>用 STM32F407 + UM982 展示 build-flash-test-debug-report 闭环。</p></div>
+            <div><span>0:40</span><strong>一条命令</strong><p>展示编译、烧录、Shell 测试和 RTCM parser 连续执行。</p></div>
+            <div><span>1:10</span><strong>证据包</strong><p>展示 manifest、build log、flash log、RTCM CRC log 和 handoff report。</p></div>
+            <div><span>1:40</span><strong>故障注入</strong><p>选 USART clock、RS422 DE 或 RTCM CRC 作为失败复盘。</p></div>
+            <div><span>2:45</span><strong>回归验收</strong><p>修复后测试重新 PASS，工程师确认并归档。</p></div>
+          </div>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/demo-video-script.md">查看 3 分钟视频脚本全文</a>
       </section>
 
       <section class="system-section">

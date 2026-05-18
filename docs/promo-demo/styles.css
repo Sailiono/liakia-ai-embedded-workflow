@@ -350,6 +350,10 @@ h1 span {
 .workflow-section,
 .audience-section,
 .cost-section,
+.case-section,
+.roi-model-section,
+.usecase-section,
+.video-section,
 .system-section,
 .evidence-section,
 .closing-section {
@@ -1895,6 +1899,314 @@ h2 {
   color: var(--ink);
 }
 
+.case-section {
+  background:
+    radial-gradient(circle at 88% 8%, rgba(255, 184, 77, 0.1), transparent 30%),
+    #10120f;
+}
+
+.case-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.case-card,
+.roi-panel,
+.usecase-grid article,
+.video-screen,
+.storyline div {
+  border: 1px solid rgba(244, 241, 232, 0.16);
+  background: rgba(244, 241, 232, 0.055);
+  border-radius: 8px;
+}
+
+.case-card {
+  min-height: 430px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.case-head {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(244, 241, 232, 0.12);
+}
+
+.case-head span,
+.roi-panel > span,
+.usecase-grid span,
+.storyline span {
+  color: var(--green);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.case-head strong {
+  font-size: 22px;
+}
+
+.case-card p,
+.case-card li,
+.roi-panel li,
+.usecase-grid p,
+.storyline p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.case-card p,
+.storyline p {
+  margin: 0;
+}
+
+.case-flow {
+  display: grid;
+  gap: 8px;
+}
+
+.case-flow span {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(84, 215, 255, 0.22);
+  background: rgba(84, 215, 255, 0.06);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+}
+
+.case-card ul,
+.roi-panel ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.doc-link,
+.section-link {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(128, 255, 114, 0.34);
+  background: rgba(128, 255, 114, 0.08);
+  color: var(--green);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-weight: 760;
+}
+
+.doc-link {
+  margin-top: auto;
+}
+
+.section-link {
+  margin-top: 18px;
+}
+
+.roi-model-section {
+  background:
+    linear-gradient(180deg, rgba(244, 241, 232, 0.038), transparent 36%),
+    #151712;
+}
+
+.roi-model-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1.05fr) minmax(260px, 0.85fr);
+  gap: 14px;
+}
+
+.roi-panel {
+  min-height: 420px;
+  padding: 24px;
+}
+
+.roi-panel h3 {
+  margin: 14px 0 20px;
+  font-size: 28px;
+  line-height: 1.18;
+}
+
+.manual-model h3 {
+  color: var(--amber);
+}
+
+.compression-model h3 {
+  color: var(--green);
+}
+
+.effort-list,
+.compression-matrix {
+  display: grid;
+  gap: 10px;
+}
+
+.effort-list div,
+.compression-matrix div {
+  border: 1px solid rgba(244, 241, 232, 0.12);
+  background: rgba(16, 18, 15, 0.68);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.effort-list strong,
+.effort-list em,
+.compression-matrix b,
+.compression-matrix i {
+  display: block;
+}
+
+.effort-list strong,
+.compression-matrix b {
+  color: var(--ink);
+}
+
+.effort-list em,
+.compression-matrix i {
+  margin-top: 5px;
+  color: var(--muted);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.usecase-section {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(84, 215, 255, 0.09), transparent 32%),
+    #10120f;
+}
+
+.usecase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.usecase-grid article {
+  min-height: 310px;
+  padding: 22px;
+}
+
+.usecase-grid h3 {
+  margin: 22px 0 12px;
+  font-size: 22px;
+  line-height: 1.22;
+}
+
+.usecase-grid em {
+  display: block;
+  margin-top: 18px;
+  border-top: 1px solid rgba(244, 241, 232, 0.12);
+  padding-top: 14px;
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.video-section {
+  background:
+    linear-gradient(180deg, rgba(128, 255, 114, 0.04), transparent 44%),
+    #11140f;
+}
+
+.video-board {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) minmax(360px, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.video-screen {
+  overflow: hidden;
+  min-height: 500px;
+  background:
+    linear-gradient(rgba(84, 215, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(84, 215, 255, 0.06) 1px, transparent 1px),
+    rgba(10, 13, 11, 0.9);
+  background-size: 34px 34px;
+}
+
+.screen-toolbar {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(244, 241, 232, 0.12);
+  padding: 0 16px;
+}
+
+.screen-toolbar span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--red);
+}
+
+.screen-toolbar span:nth-child(2) {
+  background: var(--amber);
+}
+
+.screen-toolbar span:nth-child(3) {
+  background: var(--green);
+}
+
+.screen-toolbar strong {
+  margin-left: 8px;
+  color: var(--muted);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+}
+
+.screen-terminal {
+  padding: 24px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.screen-terminal p {
+  margin: 0 0 10px;
+  color: #d9ded2;
+}
+
+.screen-terminal b {
+  color: var(--amber);
+}
+
+.screen-terminal em {
+  display: inline-block;
+  min-width: 54px;
+  color: var(--green);
+  font-style: normal;
+}
+
+.storyline {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.storyline div {
+  min-height: 154px;
+  padding: 18px;
+}
+
+.storyline strong {
+  display: block;
+  margin: 12px 0 8px;
+  font-size: 20px;
+}
+
 .pipeline {
   display: grid;
   grid-template-columns: repeat(6, minmax(160px, 1fr));
@@ -2173,6 +2485,16 @@ h2 {
   .system-section {
     grid-template-columns: 1fr;
   }
+
+  .case-board,
+  .roi-model-grid,
+  .video-board {
+    grid-template-columns: 1fr;
+  }
+
+  .usecase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 1181px) and (max-width: 1400px) {
@@ -2225,6 +2547,8 @@ h2 {
   .pipeline,
   .evidence-grid,
   .audience-grid,
+  .usecase-grid,
+  .storyline,
   .stage-selector {
     grid-template-columns: 1fr;
   }
@@ -2371,6 +2695,10 @@ h2 {
   .workflow-section,
   .audience-section,
   .cost-section,
+  .case-section,
+  .roi-model-section,
+  .usecase-section,
+  .video-section,
   .system-section,
   .evidence-section,
   .closing-section {
