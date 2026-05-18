@@ -1,0 +1,19 @@
+{
+  "project": "",
+  "commit": "",
+  "hardware": "",
+  "toolchain": "",
+  "build": {
+    "command": "",
+    "result": ""
+  },
+  "flash": {
+    "tool": "",
+    "result": ""
+  },
+  "tests": [],
+  "review": {
+    "ai_summary": "",
+    "human_approval": ""
+  }
+}

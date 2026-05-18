@@ -1,0 +1,9 @@
+$ tools/register_probe.ps1 -Target rcc,gpio,usart,usb,fault
+[REG] DHCSR: CPU running, no halt state
+[REG] RCC_APB1ENR: USART2/USART3 clock bits checked
+[REG] RCC_APB2ENR: USART1 clock bit checked
+[REG] GPIOD_MODER: alternate-function mode checked
+[REG] GPIOD_AFRL: USART2 AF mapping checked
+[REG] USB_OTG_FS_DSTS: FS device status checked
+[REG] RCC_CSR: reset flags captured
+[REG-RESULT] PASS

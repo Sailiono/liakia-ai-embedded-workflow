@@ -1,0 +1,10 @@
+$ tools/test_shell.ps1 -Port COM4
+[SHELL] help: PASS
+[SHELL] version: PASS
+[SHELL] status: PASS
+[SHELL] config: PASS
+[SHELL] gnss status: PASS
+[SHELL] rtcm list: PASS
+[SHELL] usb: PASS
+[SHELL] invalid command isolation: PASS
+[SHELL-RESULT] PASS

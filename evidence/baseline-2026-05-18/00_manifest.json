@@ -1,0 +1,29 @@
+{
+  "project": "dpiny-RTK",
+  "workflow": "human-in-the-loop AI embedded delivery",
+  "baseline": "baseline-2026-05-18",
+  "repository": "Sailiono/dpiny-rtk-ai-workflow",
+  "hardware": {
+    "mcu": "STM32F407VET6",
+    "gnss": "UM982",
+    "interfaces": ["USB CDC", "USART3 debug", "dual RS422"]
+  },
+  "toolchain": {
+    "build": "CMake + Ninja",
+    "compiler": "arm-none-eabi-gcc via STM32CubeCLT",
+    "flash": "STM32CubeProgrammer CLI",
+    "tests": ["PowerShell shell test", "RTCM frame parser", "SWD register probe"]
+  },
+  "results": {
+    "build": "PASS",
+    "flash_verify": "PASS",
+    "shell_test": "PASS",
+    "rtcm_crc_bad": 0,
+    "handoff": "PASS"
+  },
+  "review": {
+    "ai_role": "log summarization, script generation, root-cause proposal",
+    "human_role": "requirement confirmation, hardware risk judgement, code review, delivery approval",
+    "owner_mark": "Clark Cui"
+  }
+}

@@ -82,14 +82,14 @@
         </nav>
 
         <div class="hero-content">
-          <p class="eyebrow">AI 全自动流程嵌入式开发工作流</p>
+          <p class="eyebrow">Human-in-the-loop AI embedded delivery</p>
           <h1>
-            <span>从需求到可验证固件，</span>
-            <span>一条命令交付</span>
-            <span>嵌入式系统。</span>
+            <span>把嵌入式研发</span>
+            <span>从手工调试</span>
+            <span>升级为可审计交付闭环。</span>
           </h1>
           <p class="hero-copy">
-            以 dpiny-RTK 为真实案例，把固件开发、硬件接口、编译烧录、串口功能测试、RTCM 校验和结果归档串成可复现的自动化闭环。
+            以 STM32F407 + UM982 RTK 固件为真实硬件案例，展示需求拆解、代码修改、CMake 编译、SWD 烧录、串口测试、RTCM CRC 校验、寄存器诊断和证据归档如何被串成可复现流程。
           </p>
           <div class="hero-actions" aria-label="Key proof points">
             <a href="#pipeline">看流程</a>
@@ -125,6 +125,30 @@
             </div>
           </div>
         </aside>
+      </section>
+
+      <section class="audience-section" aria-label="Why this workflow matters">
+        <div class="section-heading">
+          <p>three audiences</p>
+          <h2>这不是卖一个固件，而是把交付过程变成可管理资产</h2>
+        </div>
+        <div class="audience-grid">
+          <article>
+            <span>老板</span>
+            <h3>降低交付不确定性</h3>
+            <p>缩短 bringup 周期，减少重复调试，降低对单个老工程师经验的依赖，每次交付都有可回放证据。</p>
+          </article>
+          <article>
+            <span>研发中层</span>
+            <h3>每次改动都有验证链</h3>
+            <p>谁改了什么、编译是否通过、烧录是否成功、哪些串口命令测过、RTCM CRC 是否为 0，都能沉淀为 handoff 记录。</p>
+          </article>
+          <article>
+            <span>一线工程师</span>
+            <h3>不替换现有工程栈</h3>
+            <p>继续使用 HAL、FreeRTOS、CMake、CubeCLT 和串口调试习惯，只把 build-flash-test-debug-report 包成闭环。</p>
+          </article>
+        </div>
       </section>
 
       <section id="pipeline" class="workflow-section">
@@ -211,7 +235,7 @@
       <section class="cost-section" aria-label="Cost and velocity comparison">
         <div class="section-heading">
           <p>cost & velocity</p>
-          <h2>最容易让老板点头的不是“AI 很强”，而是交付成本被压到极低</h2>
+          <h2>成本优势是结果，真正的价值是交付风险被压低</h2>
         </div>
         <div class="cost-dashboard">
           <div class="bill-card">
@@ -265,7 +289,7 @@
           </div>
           <div class="compare-card">
             <p>delivery economics</p>
-            <h3>真实 token 账单不到十块，交付主成本回到“人天效率”</h3>
+            <h3>真实 token 账单不到十块，但主卖点是人天、风险和证据链同步压缩</h3>
             <div class="cost-stack">
               <div class="cost-stack-row ai">
                 <span>AI 协同交付</span>
@@ -308,7 +332,7 @@
       <section class="system-section">
         <div class="system-copy">
           <p>real project inside</p>
-          <h2>不是概念图，是一个正在工作的 RTK 基站固件案例</h2>
+          <h2>RTK 固件只是样例，交付闭环才是可迁移能力</h2>
           <p>
             Demo 里的能力来自当前仓库：UM982 非阻塞初始化、RTCM 消息配置、DMA 透传、USB CDC 调试、Watchdog 保活和 Flash CRC 配置记录。
           </p>
@@ -393,7 +417,7 @@
 
       <section class="closing-section">
         <p>promotion angle</p>
-        <h2>把嵌入式开发从“手工经验”升级为“自动化交付系统”。</h2>
+        <h2>把嵌入式开发从“手工经验”升级为“人审闭环的自动化交付系统”。</h2>
         <div class="closing-band">
           <span>AI planning</span>
           <span>firmware build</span>

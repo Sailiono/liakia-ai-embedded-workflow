@@ -1,0 +1,8 @@
+[ENV-01] PowerShell detected
+[ENV-02] CMake detected
+[ENV-03] Ninja detected
+[ENV-04] arm-none-eabi-gcc detected via STM32CubeCLT
+[ENV-05] STM32_Programmer_CLI detected
+[ENV-06] serial port access available
+[ENV-07] project adapter loaded
+[ENV-RESULT] PASS

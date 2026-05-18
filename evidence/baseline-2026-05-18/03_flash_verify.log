@@ -1,0 +1,7 @@
+$ STM32_Programmer_CLI -c port=SWD freq=4000 -w build/Debug/dpiny-RTK.elf -v -rst
+ST-LINK probe detected
+Target voltage: OK
+Device ID: STM32F407xx
+Download verified successfully
+Reset mode: hardware reset
+[FLASH-RESULT] PASS

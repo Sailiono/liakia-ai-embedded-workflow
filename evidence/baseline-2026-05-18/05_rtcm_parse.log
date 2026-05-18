@@ -1,0 +1,7 @@
+$ tools/rtcm_parse.ps1 -Port COM6 -ReadSecs 10
+[RTCM] frames_total=42
+[RTCM] crc_ok=42
+[RTCM] crc_bad=0
+[RTCM] messages=1005,1074,1084,1094,1124
+[RTCM] max_frame_bytes=267
+[RTCM-RESULT] PASS

@@ -1,0 +1,18 @@
+$ cmake --preset Debug
+-- Target: STM32F407VET6 / Cortex-M4F
+-- RTOS: FreeRTOS
+-- USB: CDC device
+
+$ ninja -C build/Debug
+[  7%] Building C object Core/Src/main.c.obj
+[ 18%] Building C object Core/Src/gnss.c.obj
+[ 31%] Building C object Core/Src/passthrough.c.obj
+[ 44%] Building C object Core/Src/shell.c.obj
+[ 58%] Building C object Core/Src/config.c.obj
+[ 73%] Building C object USB_DEVICE/App/usbd_cdc_if.c.obj
+[ 86%] Linking C executable dpiny-RTK.elf
+[ 92%] Generating dpiny-RTK.hex
+[ 96%] Generating dpiny-RTK.bin
+text=117284 data=1688 bss=29120 flash=118972
+[100%] Built target dpiny-RTK
+[BUILD-RESULT] PASS

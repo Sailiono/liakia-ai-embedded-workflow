@@ -1,6 +1,7 @@
-# dpiny-RTK — AI 驱动的全流程 RTK 基准站方案
+# dpiny-RTK — AI-Native Embedded Delivery Workflow Demo
 
-> 从需求规约、任务编排、固件编译、接口映射、自动测试到证据归档，把嵌入式交付做成可复现的工程闭环。
+> Human-in-the-loop AI workflow for embedded firmware delivery.
+> 本仓库用 STM32F407 + UM982 RTK 基准站固件作为真实硬件案例，展示从需求拆解、代码修改、CMake 编译、SWD 烧录、串口自动测试、RTCM CRC 校验、寄存器诊断到证据归档的嵌入式交付闭环。
 
 [![AI Embedded Workflow Demo](docs/promo-demo/preview.svg)](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
 
@@ -9,20 +10,65 @@
 - 发布页 Demo: [https://sailiono.github.io/dpiny-rtk-ai-workflow/](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
 - Demo 源码目录: [docs/promo-demo/](docs/promo-demo/)
 
-**仓库定位**
+## What This Repo Demonstrates
 
-这是面向公开传播的展示版仓库：保留可审查的固件源码、自动化测试脚本和交互式项目主页，剥离开发过程中的参考资料、临时诊断脚本和私有工作区历史。
+This is not only an RTK firmware project.
 
-**成本与效率实测**
+It demonstrates an AI-assisted embedded delivery loop:
+
+```text
+Requirement
+  -> Code change
+  -> CMake / Ninja build
+  -> SWD flash & verify
+  -> Serial functional test
+  -> RTCM CRC validation
+  -> SWD register diagnosis
+  -> Evidence package
+```
+
+核心价值不是“做了一个 RTK 固件”，而是证明一套可迁移到 STM32 板卡、工控采集设备、传感器网关、飞控外设和通信模块的 **build-flash-test-debug-report** 工作流。
+
+## Why It Matters
+
+传统嵌入式研发经常依赖手动 IDE 编译、手动烧录、手动串口测试、口头故障复盘和不可回放的 bringup 经验。本项目把这些步骤标准化成可审查、可复现、可交接的流程：
+
+- 对老板：降低交付不确定性和对单个老工程师的依赖；
+- 对中层：每次改代码都能生成编译、烧录、测试、诊断和 handoff 证据；
+- 对工程师：不替换 HAL / FreeRTOS / CMake / CubeCLT，只把重复验证工作包成闭环。
+
+## Start Here
+
+- [Evidence package](evidence/baseline-2026-05-18/)：可审计的 baseline 交付证据样例。
+- [Failure-to-fix case studies](case-studies/)：真实嵌入式问题如何从现象、寄存器证据到修复回归。
+- [Workflow template](workflow-template/)：把现有 STM32 项目接入同类闭环的适配模板。
+- [ROI model](docs/roi_model.md)：成本、人天和压缩点的估算方法，而不是一句宣传口号。
+- [Commercial use cases](docs/commercial-use-cases.md)：可落地到企业项目的场景。
+- [AI agent playbook](ai-agent/)：AI 在嵌入式项目里如何操作、何时必须人审。
+
+## Demo Highlights
+
+- STM32F407 + FreeRTOS real firmware；
+- UM982 GNSS / RTK module integration；
+- USB CDC + USART debug shell；
+- dual RS422 RTCM output；
+- CMake + Ninja build；
+- STM32CubeProgrammer CLI flash；
+- PowerShell serial test scripts；
+- RTCM frame parser and CRC checker；
+- SWD HotPlug register probe；
+- evidence package for handoff。
+
+## Cost And Delivery Evidence
 
 - AI API 账单参考：DeepSeek V4 Pro / Flash 本月消耗约 **¥9.22 CNY**，约 **118.8M tokens**、**441 API requests**。
 - 本项目开发与测试：约 **1 人 × 3 天 + ¥10 API 消耗**，按 ¥2,000 / 人天计，合计约 **¥6,010**。
 - 纯人工保守估算：固件、接口、脚本、测试、文档和集成闭环约 **15-25 人天**，约 **¥30,000-¥50,000**。
-- 粗略收益：周期压缩 **80%+**，人力成本下降约 **80-88%**（不含硬件 BOM、打样、仪器和外协费用）。
+- 粗略收益：周期压缩 **80%+**，人力成本下降约 **80-88%**。具体估算边界见 [ROI model](docs/roi_model.md)。
 
 <div align="center">
 
-**基于 STM32F407 + Unicore UM982 | CMake + CubeCLT 自动化工具链 | 人+AI 协同全栈开发**
+**基于 STM32F407 + Unicore UM982 | CMake + CubeCLT 自动化工具链 | Human-in-the-loop AI Workflow**
 
 [![MCU](https://img.shields.io/badge/MCU-STM32F407VET6-blue)](https://www.st.com)
 [![GNSS](https://img.shields.io/badge/GNSS-Unicore_UM982-green)](https://www.unicorecomm.com)
@@ -36,9 +82,8 @@
 
 ## 项目亮点
 
-> **这是一个完整的人+AI 协同全栈开发模板项目**，覆盖硬件选型、原理图设计、嵌入式固件开发、自动化构建/烧录/测试全流程。
-> AI 可通过 CMake + Ninja 一键编译、CubeCLT + SWD 自动烧录验证、PowerShell 脚本自动化功能测试与 RTCM 数据校验，
-> 使"修改 → 编译 → 烧录 → 测试 → 反馈"闭环在分钟级完成。
+> **这是一个人审闭环的 AI 嵌入式交付工作流案例**。AI 辅助工程师完成代码修改、日志分析、测试脚本生成和证据归档；关键硬件假设、风险判断、最终代码 review 和交付结论由工程师确认。
+> 目标不是替代现有工程体系，而是把"修改 → 编译 → 烧录 → 测试 → 诊断 → 证据归档"变成分钟级、可复现、可审计的工程闭环。
 
 ---
 
@@ -202,10 +247,10 @@ flowchart LR
 
 ---
 
-## AI 驱动的自动化工具链
+## AI 辅助的自动化工具链
 
-这是本项目最具特色的部分。整套工具链设计使得 AI 可以**全自主**完成
-从代码修改到功能验证的闭环。
+这是本项目最具特色的部分。整套工具链设计使得 AI 可以在工程师审核边界内辅助完成
+从代码修改、自动化验证到证据归档的闭环。
 
 ### 工具链架构
 
@@ -228,7 +273,7 @@ flowchart TB
 ### AI 开发闭环 (实测)
 
 ```
-  AI 分析需求 → 修改 C 代码
+  工程师确认需求 → AI 辅助修改 C 代码
        │
        ▼ (5s)
   ninja 增量编译 → 检查 warning/error
@@ -243,8 +288,8 @@ flowchart TB
   rtcm_parse.ps1 → 15帧 CRC 校验
        │
        ▼
-  ✅ 5/5 PASS → AI 提交代码
-  ❌ FAIL    → AI 读寄存器 (SWD HotPlug) → 定位 → 修复 → 循环
+  ✅ 5/5 PASS → 工程师 review → 提交代码
+  ❌ FAIL    → 收集日志/寄存器 → AI 分析 → 工程师确认 → 最小修复 → 回归
 ```
 
 **关键指标**：
@@ -255,11 +300,11 @@ flowchart TB
 | 烧录验证 | ~3s | STM32CubeProgrammer CLI |
 | Shell 全量测试 | ~15s | test_shell.ps1 |
 | RTCM 数据验证 | ~10s | rtcm_parse.ps1 |
-| **完整闭环** | **< 60s** | **全自动** |
+| **完整闭环** | **< 60s** | **自动化执行 + 人审确认** |
 
 ### 远程调试：SWD HotPlug 寄存器探查
 
-得益于 CubeCLT 的 `HotPlug` 模式，AI 可以在**不中断固件运行**的情况下：
+得益于 CubeCLT 的 `HotPlug` 模式，AI 可以基于工程师授权采集到的寄存器证据，在**不中断固件运行**的情况下辅助定位问题：
 
 | 能力 | 命令 | 实际用例 (本项目) |
 |------|------|-------------------|
@@ -422,6 +467,10 @@ dpiny-RTK/
 ├── Middlewares/           # FreeRTOS + USB Device Library
 ├── cmake/                 # STM32CubeMX CMake 集成
 ├── docs/promo-demo/       # 交互式项目主页
+├── evidence/              # baseline 证据包样例
+├── case-studies/          # 故障诊断与回归案例
+├── workflow-template/     # 可迁移工作流适配模板
+├── ai-agent/              # AI Agent 操作约束与 playbook
 ├── tools/                 # 自动化测试脚本
 │   ├── functional_test.ps1 # 构建、烧录、功能验证入口
 │   ├── test_shell.ps1      # Shell 全量功能测试
