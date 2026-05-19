@@ -66,6 +66,10 @@ Failing snapshot pattern:
       PD5=AF7 USART2_TX
       PD6=AF7 USART2_RX
 
+[REG] GPIOD_AFRH 0x40020C24 = 0x00000077
+      PD8=AF7 USART3_TX
+      PD9=AF7 USART3_RX
+
 [REG] USART2_CR1 0x4000440C = 0x00000000
       UE=0, TE=0, RE=0
 ```
@@ -122,6 +126,9 @@ Passing snapshot pattern:
       PD5=AF, PD6=AF, PD8=AF, PD9=AF
 
 [REG] USART2_CR1 0x4000440C = 0x0000202C
+      UE=1, TE=1, RE=1
+
+[REG] USART3_CR1 0x4000480C = 0x0000202C
       UE=1, TE=1, RE=1
 
 $ tools/rtcm_parse.ps1 -Port COM6 -ReadSecs 10

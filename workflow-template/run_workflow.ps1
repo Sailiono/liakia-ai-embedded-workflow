@@ -89,6 +89,7 @@ if ($config) {
 Write-Host "[WORKFLOW] adapter=$adapterFullPath"
 Write-Host "[WORKFLOW] project=$projectName stage=$Stage output=$OutputDir"
 Write-Host "[WORKFLOW] project_root=$projectRoot"
+$resolvedOutputDir = Resolve-WorkflowPath $projectRoot $OutputDir
 
 $stages = if ($Stage -eq "all") {
     @("env", "build", "flash", "test", "probe", "evidence")
@@ -175,8 +176,21 @@ if ($stages -contains "probe") {
 
 if ($stages -contains "evidence") {
     Invoke-Step "EVIDENCE" {
-        New-Item -ItemType Directory -Force -Path $OutputDir | Out-Null
-        $manifest = Join-Path $OutputDir "manifest.json"
+        New-Item -ItemType Directory -Force -Path $resolvedOutputDir | Out-Null
+        $manifest = Join-Path $resolvedOutputDir "manifest.json"
+        $summaryFiles = @(Get-ChildItem -LiteralPath $resolvedOutputDir -Filter "*_summary.json" -File -Recurse -ErrorAction SilentlyContinue)
+        $testResults = @()
+        foreach ($file in $summaryFiles) {
+            try {
+                $testResults += (Get-Content -LiteralPath $file.FullName -Raw | ConvertFrom-Json)
+            } catch {
+                $testResults += [pscustomobject]@{
+                    file = $file.FullName
+                    result = "UNREADABLE"
+                    error = $_.Exception.Message
+                }
+            }
+        }
         $json = [ordered]@{
             project = $projectName
             adapter = $adapterFullPath
@@ -186,6 +200,8 @@ if ($stages -contains "evidence") {
             build_dir = $buildDir
             elf = $elf
             tests = @($tests | ForEach-Object { $_.name })
+            output_dir = $resolvedOutputDir
+            test_results = $testResults
             dry_run = [bool]$DryRun
         } | ConvertTo-Json -Depth 6
         Set-Content -LiteralPath $manifest -Value $json -Encoding utf8

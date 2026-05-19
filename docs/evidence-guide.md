@@ -41,6 +41,7 @@ Each production-grade run should include:
 - firmware artifact size and SHA256;
 - serial port names and baudrate;
 - protocol parser result with non-zero exit on failure;
+- machine-readable `*_summary.json` files for test gates;
 - register addresses, raw values, and bit decode where register probing is used.
 
 Public showcase logs in this repository are sanitized examples stored under `evidence/public-showcase-baseline-*`. For customer acceptance, rerun the workflow on the target bench and attach raw CubeProgrammer, serial, parser, and register probe transcripts under a separate `realrun-redacted-*` package.

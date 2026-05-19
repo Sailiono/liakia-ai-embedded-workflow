@@ -60,16 +60,22 @@ Requirement
 - [Commercial use cases](docs/commercial-use-cases.md)：可落地到企业项目的场景。
 - [AI agent playbook](ai-agent/)：AI 在嵌入式项目里如何操作、何时必须人审。
 
-Primary workflow runner in the reference project:
+Primary baseline runner in the reference project:
 
 ```powershell
-tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4
+tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6
 ```
 
 Reusable template entry for another STM32 project:
 
 ```powershell
 workflow-template/run_workflow.ps1 -Adapter workflow-template/project-adapter.json -Stage all
+```
+
+Component runner for shell/config validation:
+
+```powershell
+tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4
 ```
 
 ## Demo Highlights
