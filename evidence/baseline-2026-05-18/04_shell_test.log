@@ -1,3 +1,10 @@
+timestamp_start: 2026-05-18T14:34:00+08:00
+timestamp_end: 2026-05-18T14:34:20+08:00
+operator: Clark Cui
+source_git_commit: da023ee
+shell_port: COM4
+baudrate: 115200
+
 $ tools/test_shell.ps1 -Port COM4
 [SHELL] help: PASS
 [SHELL] version: PASS

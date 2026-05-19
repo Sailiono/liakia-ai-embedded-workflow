@@ -1,3 +1,9 @@
+timestamp_start: 2026-05-18T14:33:53+08:00
+timestamp_end: 2026-05-18T14:33:54+08:00
+operator: Clark Cui
+source_git_commit: da023ee
+note: Public repository keeps a sanitized flash gate record. For customer acceptance, attach the raw STM32CubeProgrammer transcript generated on the target bench.
+
 $ STM32_Programmer_CLI -c port=SWD freq=4000 -w build/Debug/dpiny-RTK.elf -v -rst
 ST-LINK probe detected
 Target voltage: OK

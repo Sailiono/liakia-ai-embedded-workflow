@@ -10,6 +10,20 @@
 - 发布页 Demo: [https://sailiono.github.io/dpiny-rtk-ai-workflow/](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
 - Demo 源码目录: [docs/promo-demo/](docs/promo-demo/)
 
+## 30-Second Summary
+
+This repo demonstrates how an embedded team can turn manual firmware delivery into a repeatable loop:
+
+- build firmware from command line;
+- flash and verify target over SWD;
+- test serial shell automatically;
+- validate RTCM stream with CRC gates;
+- collect register-level evidence;
+- generate handoff package;
+- keep AI actions under human review.
+
+这个仓库不是在卖一个 RTK 固件，而是在展示如何把嵌入式研发里的手工步骤变成可复现闭环。**RTK 固件是案例，工作流才是核心产品。**
+
 ## What This Repo Demonstrates
 
 This is not only an RTK firmware project.
@@ -45,6 +59,18 @@ Requirement
 - [ROI model](docs/roi_model.md)：成本、人天和压缩点的估算方法，而不是一句宣传口号。
 - [Commercial use cases](docs/commercial-use-cases.md)：可落地到企业项目的场景。
 - [AI agent playbook](ai-agent/)：AI 在嵌入式项目里如何操作、何时必须人审。
+
+Primary workflow runner in the reference project:
+
+```powershell
+tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4
+```
+
+Reusable template entry for another STM32 project:
+
+```powershell
+workflow-template/run_workflow.ps1 -Adapter workflow-template/project-adapter.yaml -Stage all
+```
 
 ## Demo Highlights
 

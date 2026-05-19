@@ -1,0 +1,26 @@
+project:
+  name: stm32-motor-control
+  mcu: STM32G474RET6
+  toolchain: STM32CubeCLT
+  build_dir: build/Release
+  elf: build/Release/motor-control.elf
+
+build:
+  command: ninja
+  working_dir: build/Release
+
+flash:
+  tool: STM32_Programmer_CLI
+  interface: SWD
+  verify: true
+  reset: true
+
+serial:
+  shell_port: COM12
+  baudrate: 115200
+
+tests:
+  - name: safety-state
+    script: tools/test_safety_state.ps1
+  - name: pwm-config
+    script: tools/test_pwm_config.ps1

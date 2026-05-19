@@ -1,3 +1,9 @@
+timestamp_start: 2026-05-18T14:33:47+08:00
+timestamp_end: 2026-05-18T14:33:53+08:00
+operator: Clark Cui
+source_git_commit: da023ee
+build_preset: Debug
+
 $ cmake --preset Debug
 -- Target: STM32F407VET6 / Cortex-M4F
 -- RTOS: FreeRTOS
@@ -13,6 +19,12 @@ $ ninja -C build/Debug
 [ 86%] Linking C executable dpiny-RTK.elf
 [ 92%] Generating dpiny-RTK.hex
 [ 96%] Generating dpiny-RTK.bin
-text=117284 data=1688 bss=29120 flash=118972
+RAM: 47360 B / 128 KB (36.13%)
+FLASH: 99504 B / 384 KB (25.31%)
 [100%] Built target dpiny-RTK
+
+artifact_sha256:
+  dpiny-RTK.elf = 381795D4E46B0AE088A842E3311FCE2034ED51C6CC3FC5BAB69C5D209C04EF91
+  dpiny-RTK.hex = 860F433DA1592E63FAB6B5D7BAA7674647345E239009F6E58154863A5587986C
+  dpiny-RTK.bin = 0F7E082201FC40DD7C63C2E945D6297240F68D34FA8EF06234F98D07F2AB0BE2
 [BUILD-RESULT] PASS

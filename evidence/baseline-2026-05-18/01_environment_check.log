@@ -1,8 +1,15 @@
+timestamp_start: 2026-05-18T14:33:43+08:00
+timestamp_end: 2026-05-18T14:33:47+08:00
+operator: Clark Cui
+source_git_commit: da023ee
+hardware_rev: STM32F407 + UM982 public showcase baseline
+firmware_version: Debug baseline
+
 [ENV-01] PowerShell detected
 [ENV-02] CMake detected
 [ENV-03] Ninja detected
-[ENV-04] arm-none-eabi-gcc detected via STM32CubeCLT
-[ENV-05] STM32_Programmer_CLI detected
+[ENV-04] arm-none-eabi-gcc detected via STM32CubeCLT 1.21.0
+[ENV-05] STM32_Programmer_CLI detected, v2.22.0
 [ENV-06] serial port access available
 [ENV-07] project adapter loaded
 [ENV-RESULT] PASS

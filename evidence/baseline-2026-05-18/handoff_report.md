@@ -11,6 +11,9 @@
 - RTOS: FreeRTOS
 - Build system: CMake + Ninja
 - Flash method: STM32CubeProgrammer CLI over SWD
+- Source branch: `baseline/test-handoff`
+- Source commit: `da023ee`
+- Artifact SHA256: see `firmware_sha256.txt`
 
 ## Validation
 
@@ -24,9 +27,10 @@
 ## Known Limits
 
 - This package is a public showcase baseline, not a production acceptance record.
+- Raw bench transcripts are intentionally sanitized in this public repository; regenerate them in the target lab for customer sign-off.
 - EMC, ESD, environmental testing, long-run reliability testing, and manufacturing test fixtures are outside this baseline.
 
 ## Next Actions
 
 - Add real lab screenshots or logic-analyzer captures when sharing with a specific customer.
-- Replace sample SHA256 placeholders with generated artifact hashes for a production handoff.
+- Attach raw STM32CubeProgrammer, serial capture, and SWD register probe logs for the customer target.

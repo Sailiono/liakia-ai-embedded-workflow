@@ -1,5 +1,11 @@
-# RTCM3 message parser
-param([string]$Port = "COM6", [int]$Baud = 115200, [int]$ReadSecs = 5)
+# RTCM3 message parser and validation gate
+param(
+    [string]$Port = "COM6",
+    [int]$Baud = 115200,
+    [int]$ReadSecs = 5,
+    [int[]]$ExpectedMessages = @(1005, 1074, 1084, 1094, 1124),
+    [switch]$AllowNoFrames
+)
 
 $p = New-Object System.IO.Ports.SerialPort $Port, $Baud, None, 8, One
 $p.ReadTimeout = 3000
@@ -148,10 +154,37 @@ $frames | Select-Object -First 15 | Format-Table Index, MsgNum, Name, Length, CR
 # Check for expected message types
 Write-Host ""
 Write-Host "--- Expected Messages Check ---"
-$expected = @(1005, 1074, 1084, 1094, 1124)
-foreach ($id in $expected) {
-    $count = if ($msgCount.ContainsKey($id)) { $msgCount[$id] } else { 0 }
-    $status = if ($count -gt 0) { "[OK]" } else { "[MISS]" }
-    $color = if ($count -gt 0) { "Green" } else { "Red" }
-    Write-Host "  MT$id : $count msgs $status" -ForegroundColor $color
+$failed = $false
+
+if (($frames.Count -eq 0) -and (-not $AllowNoFrames)) {
+    Write-Host "[FAIL] no RTCM frames found" -ForegroundColor Red
+    $failed = $true
 }
+
+if ($bad -gt 0) {
+    Write-Host "[FAIL] CRC bad count = $bad" -ForegroundColor Red
+    $failed = $true
+}
+
+if (($frames.Count -eq 0) -and $AllowNoFrames) {
+    Write-Host "  [SKIP] expected message check because no-frame mode is allowed" -ForegroundColor Yellow
+} else {
+    foreach ($id in $ExpectedMessages) {
+        $count = if ($msgCount.ContainsKey($id)) { $msgCount[$id] } else { 0 }
+        $status = if ($count -gt 0) { "[OK]" } else { "[MISS]" }
+        $color = if ($count -gt 0) { "Green" } else { "Red" }
+        Write-Host "  MT$id : $count msgs $status" -ForegroundColor $color
+
+        if ($count -eq 0) {
+            $failed = $true
+        }
+    }
+}
+
+if ($failed) {
+    Write-Host "[RTCM-RESULT] FAIL" -ForegroundColor Red
+    exit 1
+}
+
+Write-Host "[RTCM-RESULT] PASS" -ForegroundColor Green
+exit 0

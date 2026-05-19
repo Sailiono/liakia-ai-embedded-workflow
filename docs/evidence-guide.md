@@ -29,6 +29,22 @@ evidence/baseline-2026-05-18/
 - Register probes are captured when a hardware-level diagnosis is needed.
 - Human reviewer signs off before the evidence package is used as a delivery result.
 
+## Minimum Hard-Evidence Fields
+
+Each production-grade run should include:
+
+- `timestamp_start` and `timestamp_end`;
+- operator or reviewer;
+- source branch and commit SHA;
+- clean/dirty working-tree state;
+- toolchain version;
+- firmware artifact size and SHA256;
+- serial port names and baudrate;
+- protocol parser result with non-zero exit on failure;
+- register addresses, raw values, and bit decode where register probing is used.
+
+Public showcase logs in this repository are sanitized examples. For customer acceptance, rerun the workflow on the target bench and attach raw CubeProgrammer, serial, parser, and register probe transcripts.
+
 ## Human-In-The-Loop Rule
 
 AI can summarize logs and propose root causes, but the final judgement remains with the engineer. Safety-related changes, hardware assumptions, clock-tree changes, flash layout changes, and production configuration changes require explicit human review.

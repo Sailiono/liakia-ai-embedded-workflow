@@ -3,6 +3,15 @@
   "workflow": "human-in-the-loop AI embedded delivery",
   "baseline": "baseline-2026-05-18",
   "repository": "Sailiono/dpiny-rtk-ai-workflow",
+  "timestamp_start": "2026-05-18T14:33:43+08:00",
+  "timestamp_end": "2026-05-18T14:33:51+08:00",
+  "operator": "Clark Cui",
+  "source_firmware_git": {
+    "branch": "baseline/test-handoff",
+    "commit": "da023ee",
+    "dirty": true,
+    "note": "Public evidence uses sanitized excerpts from a local baseline run; rerun in the target lab before production acceptance."
+  },
   "hardware": {
     "mcu": "STM32F407VET6",
     "gnss": "UM982",
@@ -14,10 +23,27 @@
     "flash": "STM32CubeProgrammer CLI",
     "tests": ["PowerShell shell test", "RTCM frame parser", "SWD register probe"]
   },
+  "artifacts": {
+    "elf": {
+      "path": "build/Debug/dpiny-RTK.elf",
+      "bytes": 1923780,
+      "sha256": "381795D4E46B0AE088A842E3311FCE2034ED51C6CC3FC5BAB69C5D209C04EF91"
+    },
+    "hex": {
+      "path": "build/Debug/dpiny-RTK.hex",
+      "bytes": 279933,
+      "sha256": "860F433DA1592E63FAB6B5D7BAA7674647345E239009F6E58154863A5587986C"
+    },
+    "bin": {
+      "path": "build/Debug/dpiny-RTK.bin",
+      "bytes": 99504,
+      "sha256": "0F7E082201FC40DD7C63C2E945D6297240F68D34FA8EF06234F98D07F2AB0BE2"
+    }
+  },
   "results": {
     "build": "PASS",
-    "flash_verify": "PASS",
-    "shell_test": "PASS",
+    "flash_verify": "PASS in workflow gate; raw lab transcript should be attached for production acceptance",
+    "shell_test": "PASS in public showcase sample",
     "rtcm_crc_bad": 0,
     "handoff": "PASS"
   },

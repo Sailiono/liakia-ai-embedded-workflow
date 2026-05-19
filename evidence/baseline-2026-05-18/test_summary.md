@@ -2,6 +2,14 @@
 
 This baseline demonstrates a repeatable build-flash-test-diagnose-handoff loop.
 
+## Run Identity
+
+- Timestamp: 2026-05-18 14:33:43 +08:00
+- Source firmware branch: `baseline/test-handoff`
+- Source firmware commit: `da023ee`
+- Operator: Clark Cui
+- Artifact hashes: see `firmware_sha256.txt`
+
 ## Coverage
 
 - Build passed with CMake + Ninja.
@@ -19,4 +27,4 @@ PASS
 
 ## Notes
 
-This public sample focuses on workflow evidence format. Hardware-specific serial port names, instrument screenshots, and private lab notes are intentionally excluded.
+This public sample focuses on workflow evidence format and uses sanitized local-run excerpts. Hardware-specific raw CubeProgrammer transcripts, serial-port captures, instrument screenshots, and private lab notes should be regenerated and attached for a customer acceptance package.

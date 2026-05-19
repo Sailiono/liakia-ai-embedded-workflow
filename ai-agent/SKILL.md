@@ -37,3 +37,9 @@ It must not:
 11. Apply minimal fix.
 12. Re-run tests.
 13. Generate evidence package.
+
+## Required Checklists
+
+- Before flashing hardware, fill `templates/pre_flash_checklist.md`.
+- Before committing code, fill `templates/pre_commit_checklist.md`.
+- For failed gates, produce `templates/failure_triage_report.md`.

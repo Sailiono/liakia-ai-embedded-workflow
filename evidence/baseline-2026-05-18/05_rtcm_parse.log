@@ -1,3 +1,10 @@
+timestamp_start: 2026-05-18T14:34:22+08:00
+timestamp_end: 2026-05-18T14:34:32+08:00
+operator: Clark Cui
+source_git_commit: da023ee
+rtcm_port: COM6
+baudrate: 115200
+
 $ tools/rtcm_parse.ps1 -Port COM6 -ReadSecs 10
 [RTCM] frames_total=42
 [RTCM] crc_ok=42

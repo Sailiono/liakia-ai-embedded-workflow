@@ -1,9 +1,38 @@
+timestamp_start: 2026-05-18T14:34:34+08:00
+timestamp_end: 2026-05-18T14:34:38+08:00
+operator: Clark Cui
+source_git_commit: da023ee
+probe_mode: SWD HotPlug read-only snapshot
+note: Address/value lines are public decode examples. In a customer handoff, replace them with raw probe output captured from the target bench.
+
 $ tools/register_probe.ps1 -Target rcc,gpio,usart,usb,fault
-[REG] DHCSR: CPU running, no halt state
-[REG] RCC_APB1ENR: USART2/USART3 clock bits checked
-[REG] RCC_APB2ENR: USART1 clock bit checked
-[REG] GPIOD_MODER: alternate-function mode checked
-[REG] GPIOD_AFRL: USART2 AF mapping checked
-[REG] USB_OTG_FS_DSTS: FS device status checked
-[REG] RCC_CSR: reset flags captured
+[REG] DHCSR 0xE000EDF0 = 0x02000001
+      S_HALT=0, S_SLEEP=0, C_DEBUGEN=1
+
+[REG] RCC_APB1ENR 0x40023840 = 0x10260000
+      USART2EN(bit17)=1
+      USART3EN(bit18)=1
+
+[REG] RCC_APB2ENR 0x40023844 = 0x00004000
+      USART1EN(bit4)=1
+      SYSCFGEN(bit14)=1
+
+[REG] GPIOD_MODER 0x40020C00 = 0xA000A800
+      PD5=AF, PD6=AF, PD8=AF, PD9=AF
+
+[REG] GPIOD_AFRL 0x40020C20 = 0x07700000
+      PD5=AF7 USART2_TX
+      PD6=AF7 USART2_RX
+
+[REG] USART2_BRR 0x40004408 = 0x0000016D
+      baud_divider plausible for 115200
+
+[REG] USART2_CR1 0x4000440C = 0x0000202C
+      UE=1, TE=1, RE=1
+
+[REG] USB_OTG_FS_DSTS 0x50000808 = 0x00000003
+      device_speed=full-speed
+
+[REG] RCC_CSR 0x40023874 = 0x0E000000
+      reset_flags captured before clear
 [REG-RESULT] PASS
