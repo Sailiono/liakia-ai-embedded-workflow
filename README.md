@@ -66,6 +66,8 @@ Primary baseline runner in the reference project:
 tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6
 ```
 
+It runs the build/flash/shell/RTCM/register-probe loop and writes a manifest even when a gate fails.
+
 Reusable template entry for another STM32 project:
 
 ```powershell
@@ -76,6 +78,12 @@ Component runner for shell/config validation:
 
 ```powershell
 tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4
+```
+
+Component runner for read-only SWD register evidence:
+
+```powershell
+tools/register_probe.ps1 -Target rcc,gpio,usart -OutputJson evidence-out/register_probe_summary.json
 ```
 
 ## Demo Highlights

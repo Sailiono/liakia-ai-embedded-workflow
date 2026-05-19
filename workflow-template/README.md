@@ -9,7 +9,7 @@ The adapter model is intentionally simple:
 3. flash only after build passes;
 4. run serial tests;
 5. collect logs and optional register probes;
-6. generate evidence package.
+6. generate evidence package, including failed-step logs when a gate fails.
 
 The template does not replace your existing IDE, HAL, FreeRTOS, or driver stack. It wraps the repeatable parts of delivery.
 
@@ -41,7 +41,7 @@ Use `-DryRun` to validate command wiring before touching hardware:
 - `test_shell.ps1`: serial shell test entry.
 - `serial_capture.ps1`: serial capture helper.
 - `rtcm_parse.ps1`: frame parser placeholder.
-- `register_probe.ps1`: SWD register probe placeholder.
+- `register_probe.ps1`: SWD register probe placeholder with array/comma-list target support.
 - `ai_debug_playbook.md`: failure-triage guidance.
 - `handoff_template.md`: delivery report template.
 - `evidence_template/`: manifest and report templates.

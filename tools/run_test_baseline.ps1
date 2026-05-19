@@ -26,13 +26,17 @@ $resolvedOutputDir = if ([System.IO.Path]::IsPathRooted($OutputDir)) {
 $logDir = Join-Path $resolvedOutputDir "logs"
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 
+$registerProbeIsTemplate = $false
 if (-not $RegisterProbeScript) {
     $candidate = Join-Path $repoRoot "tools\register_probe.ps1"
     if (Test-Path -LiteralPath $candidate) {
         $RegisterProbeScript = $candidate
     } else {
         $RegisterProbeScript = Join-Path $repoRoot "workflow-template\register_probe.ps1"
+        $registerProbeIsTemplate = $true
     }
+} elseif ($RegisterProbeScript -match "workflow-template[\\/]+register_probe\.ps1$") {
+    $registerProbeIsTemplate = $true
 }
 
 function Resolve-Pwsh {
@@ -63,8 +67,9 @@ function Invoke-LoggedScript([string]$Name, [string]$Script, [string[]]$Argument
 
     $pwsh = Resolve-Pwsh
     $processArgs = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $Script) + $Arguments
-    & $pwsh @processArgs 2>&1 | Tee-Object -FilePath $LogPath
+    $output = @(& $pwsh @processArgs 2>&1)
     $exitCode = $LASTEXITCODE
+    $output | Tee-Object -FilePath $LogPath | ForEach-Object { Write-Host $_ }
     $result = if ($exitCode -eq 0) { "PASS" } else { "FAIL" }
 
     return [pscustomobject]@{
@@ -101,8 +106,15 @@ if (-not $SkipRtcm) {
 
 if (-not $SkipRegisterProbe) {
     if (Test-Path -LiteralPath $RegisterProbeScript) {
-        $probeArgs = @("-Target", "all")
-        $steps += Invoke-LoggedScript "register_probe" $RegisterProbeScript $probeArgs (Join-Path $logDir "register_probe.log")
+        $probeSummary = Join-Path $resolvedOutputDir "register_probe_summary.json"
+        $probeArgs = @("-Target", "all", "-OutputJson", $probeSummary)
+        $probeStep = Invoke-LoggedScript "register_probe" $RegisterProbeScript $probeArgs (Join-Path $logDir "register_probe.log")
+        if ($registerProbeIsTemplate -and $probeStep.result -eq "PASS") {
+            $probeStep.result = "TEMPLATE_PASS"
+        } elseif ($registerProbeIsTemplate -and $probeStep.result -eq "DRY_RUN") {
+            $probeStep.result = "TEMPLATE_DRY_RUN"
+        }
+        $steps += $probeStep
     } else {
         $logPath = Join-Path $logDir "register_probe.log"
         $msg = "[REG] SKIP: register probe script not found: $RegisterProbeScript"
