@@ -1,0 +1,40 @@
+{
+  "project": {
+    "name": "stm32-sensor-gateway",
+    "root": "../../customer-project",
+    "mcu": "STM32F407VET6",
+    "toolchain": "STM32CubeCLT",
+    "build_dir": "build/Debug",
+    "elf": "build/Debug/sensor-gateway.elf"
+  },
+  "build": {
+    "command": "ninja",
+    "working_dir": "build/Debug"
+  },
+  "flash": {
+    "tool": "STM32_Programmer_CLI",
+    "connect": "port=SWD freq=4000",
+    "verify": true,
+    "reset": true
+  },
+  "tests": [
+    {
+      "name": "telemetry",
+      "script": "tools/test_telemetry.ps1",
+      "args": {
+        "Port": "COM8",
+        "Baud": 115200,
+        "OutputJson": "evidence-out/telemetry_summary.json"
+      }
+    },
+    {
+      "name": "config",
+      "script": "tools/test_config.ps1",
+      "args": {
+        "Port": "COM8",
+        "Baud": 115200,
+        "OutputJson": "evidence-out/config_summary.json"
+      }
+    }
+  ]
+}

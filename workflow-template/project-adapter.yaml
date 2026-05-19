@@ -1,5 +1,6 @@
 project:
   name: dpiny-rtk
+  root: ..
   mcu: STM32F407VET6
   toolchain: STM32CubeCLT
   build_dir: build/Debug

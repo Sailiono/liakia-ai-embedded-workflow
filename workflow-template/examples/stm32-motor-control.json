@@ -1,0 +1,38 @@
+{
+  "project": {
+    "name": "stm32-motor-control",
+    "root": "../../customer-project",
+    "mcu": "STM32G474RET6",
+    "toolchain": "STM32CubeCLT",
+    "build_dir": "build/Release",
+    "elf": "build/Release/motor-control.elf"
+  },
+  "build": {
+    "command": "ninja",
+    "working_dir": "build/Release"
+  },
+  "flash": {
+    "tool": "STM32_Programmer_CLI",
+    "connect": "port=SWD freq=4000",
+    "verify": true,
+    "reset": true
+  },
+  "tests": [
+    {
+      "name": "safety-state",
+      "script": "tools/test_safety_state.ps1",
+      "args": {
+        "Port": "COM12",
+        "OutputJson": "evidence-out/safety_state_summary.json"
+      }
+    },
+    {
+      "name": "pwm-config",
+      "script": "tools/test_pwm_config.ps1",
+      "args": {
+        "Port": "COM12",
+        "OutputJson": "evidence-out/pwm_config_summary.json"
+      }
+    }
+  ]
+}

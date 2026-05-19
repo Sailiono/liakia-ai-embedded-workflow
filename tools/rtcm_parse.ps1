@@ -4,21 +4,28 @@ param(
     [int]$Baud = 115200,
     [int]$ReadSecs = 5,
     [int[]]$ExpectedMessages = @(1005, 1074, 1084, 1094, 1124),
+    [string]$OutputJson = "",
     [switch]$AllowNoFrames
 )
 
-$p = New-Object System.IO.Ports.SerialPort $Port, $Baud, None, 8, One
-$p.ReadTimeout = 3000
-$p.Open()
-Write-Host "Reading RTCM from $Port for $ReadSecs seconds..." -ForegroundColor Cyan
-Start-Sleep -Seconds $ReadSecs
-
-# Read all available data
 $raw = New-Object System.Collections.ArrayList
-while ($p.BytesToRead -gt 0) {
-    [void]$raw.Add($p.ReadByte())
+$p = $null
+try {
+    $p = New-Object System.IO.Ports.SerialPort $Port, $Baud, None, 8, One
+    $p.ReadTimeout = 3000
+    $p.Open()
+    Write-Host "Reading RTCM from $Port for $ReadSecs seconds..." -ForegroundColor Cyan
+    Start-Sleep -Seconds $ReadSecs
+
+    # Read all available data
+    while ($p.BytesToRead -gt 0) {
+        [void]$raw.Add($p.ReadByte())
+    }
+} finally {
+    if ($p -and $p.IsOpen) {
+        $p.Close()
+    }
 }
-$p.Close()
 
 Write-Host "Read $($raw.Count) bytes`n" -ForegroundColor Green
 
@@ -179,6 +186,29 @@ if (($frames.Count -eq 0) -and $AllowNoFrames) {
             $failed = $true
         }
     }
+}
+
+$summary = [ordered]@{
+    test = "rtcm_parse"
+    port = $Port
+    baud = $Baud
+    read_secs = $ReadSecs
+    frames_total = $frames.Count
+    crc_ok = $ok
+    crc_bad = $bad
+    messages = @($msgCount.Keys | Sort-Object)
+    expected_messages = $ExpectedMessages
+    allow_no_frames = [bool]$AllowNoFrames
+    result = if ($failed) { "FAIL" } else { "PASS" }
+}
+
+if ($OutputJson) {
+    $outDir = Split-Path -Parent $OutputJson
+    if ($outDir) {
+        New-Item -ItemType Directory -Force -Path $outDir | Out-Null
+    }
+    $summary | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath $OutputJson -Encoding utf8
+    Write-Host "[RTCM] summary_json=$OutputJson"
 }
 
 if ($failed) {

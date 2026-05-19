@@ -39,7 +39,7 @@ Highlight:
 
 ## 1:10 - 1:40 — Evidence
 
-Show `evidence/baseline-2026-05-18/`.
+Show `evidence/public-showcase-baseline-2026-05-18/`.
 
 Highlight:
 

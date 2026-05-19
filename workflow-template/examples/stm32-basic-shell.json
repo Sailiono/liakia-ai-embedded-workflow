@@ -1,0 +1,30 @@
+{
+  "project": {
+    "name": "stm32-basic-shell",
+    "root": "../../customer-project",
+    "mcu": "STM32F407VET6",
+    "toolchain": "STM32CubeCLT",
+    "build_dir": "build/Debug",
+    "elf": "build/Debug/basic-shell.elf"
+  },
+  "build": {
+    "command": "ninja",
+    "working_dir": "build/Debug"
+  },
+  "flash": {
+    "tool": "STM32_Programmer_CLI",
+    "connect": "port=SWD freq=4000",
+    "verify": true,
+    "reset": true
+  },
+  "tests": [
+    {
+      "name": "shell",
+      "script": "tools/test_shell.ps1",
+      "args": {
+        "Port": "COM4",
+        "Baud": 115200
+      }
+    }
+  ]
+}

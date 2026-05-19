@@ -1,10 +1,11 @@
-# Test Summary — baseline-2026-05-18
+# Test Summary — public-showcase-baseline-2026-05-18
 
 This baseline demonstrates a repeatable build-flash-test-diagnose-handoff loop.
 
 ## Run Identity
 
 - Timestamp: 2026-05-18 14:33:43 +08:00
+- End time: 2026-05-18 14:34:38 +08:00
 - Source firmware branch: `baseline/test-handoff`
 - Source firmware commit: `da023ee`
 - Operator: Clark Cui

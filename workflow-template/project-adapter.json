@@ -1,0 +1,51 @@
+{
+  "project": {
+    "name": "dpiny-rtk",
+    "root": "..",
+    "mcu": "STM32F407VET6",
+    "toolchain": "STM32CubeCLT",
+    "build_dir": "build/Debug",
+    "elf": "build/Debug/dpiny-RTK.elf"
+  },
+  "build": {
+    "command": "ninja",
+    "working_dir": "build/Debug"
+  },
+  "flash": {
+    "tool": "STM32_Programmer_CLI",
+    "connect": "port=SWD freq=4000",
+    "verify": true,
+    "reset": true
+  },
+  "serial": {
+    "shell_port": "COM4",
+    "debug_port": "COM11",
+    "rtcm_port": "COM6",
+    "baudrate": 115200,
+    "require_dtr_rts": true
+  },
+  "tests": [
+    {
+      "name": "shell",
+      "script": "tools/test_shell.ps1",
+      "args": {
+        "Port": "COM4",
+        "Baud": 115200
+      }
+    },
+    {
+      "name": "rtcm",
+      "script": "tools/rtcm_parse.ps1",
+      "args": {
+        "Port": "COM6",
+        "ReadSecs": 10,
+        "OutputJson": "evidence-out/rtcm_summary.json"
+      }
+    }
+  ],
+  "register_probe": {
+    "enabled": true,
+    "interface": "SWD",
+    "targets": ["rcc", "gpio", "usart", "usb", "fault"]
+  }
+}

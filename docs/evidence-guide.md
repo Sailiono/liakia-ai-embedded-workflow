@@ -7,7 +7,7 @@ The goal is not to prove that AI is always correct. The goal is to make embedded
 ## Directory Layout
 
 ```text
-evidence/baseline-2026-05-18/
+evidence/public-showcase-baseline-2026-05-18/
 ├── 00_manifest.json
 ├── 01_environment_check.log
 ├── 02_build_debug.log
@@ -43,7 +43,7 @@ Each production-grade run should include:
 - protocol parser result with non-zero exit on failure;
 - register addresses, raw values, and bit decode where register probing is used.
 
-Public showcase logs in this repository are sanitized examples. For customer acceptance, rerun the workflow on the target bench and attach raw CubeProgrammer, serial, parser, and register probe transcripts.
+Public showcase logs in this repository are sanitized examples stored under `evidence/public-showcase-baseline-*`. For customer acceptance, rerun the workflow on the target bench and attach raw CubeProgrammer, serial, parser, and register probe transcripts under a separate `realrun-redacted-*` package.
 
 ## Human-In-The-Loop Rule
 

@@ -4,7 +4,7 @@ This folder sketches how another STM32 firmware project can be connected to the 
 
 The adapter model is intentionally simple:
 
-1. describe project paths and tools in `project-adapter.yaml`;
+1. describe project paths, tools, and test scripts in `project-adapter.json`;
 2. run build;
 3. flash only after build passes;
 4. run serial tests;
@@ -16,7 +16,7 @@ The template does not replace your existing IDE, HAL, FreeRTOS, or driver stack.
 ## Run
 
 ```powershell
-.\run_workflow.ps1 -Adapter .\project-adapter.yaml -Stage all
+.\run_workflow.ps1 -Adapter .\project-adapter.json -Stage all
 ```
 
 Supported stages:
@@ -28,12 +28,13 @@ env | build | flash | test | probe | evidence | all
 Use `-DryRun` to validate command wiring before touching hardware:
 
 ```powershell
-.\run_workflow.ps1 -Adapter .\project-adapter.yaml -Stage all -DryRun
+.\run_workflow.ps1 -Adapter .\project-adapter.json -Stage all -DryRun
 ```
 
 ## Files
 
-- `project-adapter.yaml`: project-specific configuration.
+- `project-adapter.json`: executable project-specific configuration.
+- `project-adapter.yaml`: readable YAML reference for teams that prefer YAML docs.
 - `run_workflow.ps1`: adapter-driven workflow entry.
 - `build.ps1`: build command wrapper.
 - `flash.ps1`: flash and verify wrapper.
@@ -44,4 +45,4 @@ Use `-DryRun` to validate command wiring before touching hardware:
 - `ai_debug_playbook.md`: failure-triage guidance.
 - `handoff_template.md`: delivery report template.
 - `evidence_template/`: manifest and report templates.
-- `examples/`: migration examples for shell, sensor gateway, and motor-control style projects.
+- `examples/`: JSON migration examples for shell, sensor gateway, and motor-control style projects.

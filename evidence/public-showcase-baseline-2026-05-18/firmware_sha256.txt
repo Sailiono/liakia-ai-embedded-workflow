@@ -1,4 +1,4 @@
-source_run: baseline-2026-05-18 / Debug
+source_run: public-showcase-baseline-2026-05-18 / Debug
 source_git_commit: da023ee
 
 dpiny-RTK.elf  381795D4E46B0AE088A842E3311FCE2034ED51C6CC3FC5BAB69C5D209C04EF91
