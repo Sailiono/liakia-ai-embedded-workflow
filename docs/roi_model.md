@@ -1,4 +1,4 @@
-# ROI Model — AI Assisted Embedded Delivery
+# BenchLoop ROI Model — AI Assisted Embedded Delivery
 
 This model explains where the time and cost compression comes from. It is not a claim that AI replaces engineering judgement.
 

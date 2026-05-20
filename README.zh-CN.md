@@ -1,4 +1,4 @@
-# dpiny-RTK
+# BenchLoop
 
 **AI 原生嵌入式交付闭环示范项目**
 
@@ -12,16 +12,16 @@
 
 [![AI Embedded Workflow Demo](docs/promo-demo/preview.svg)](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
 
-dpiny-RTK 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 项目。
+BenchLoop 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 项目。
 
-它用真实的 STM32F407 + UM982 RTK 基准站固件作为硬件案例，但核心价值是固件外侧的交付闭环：
+它用 **dpiny-RTK** 这个真实的 STM32F407 + UM982 RTK 基准站固件作为第一个硬件案例，但核心价值是固件外侧的交付闭环：
 
 ```text
 需求 -> 代码修改 -> 编译 -> 烧录 -> 串口测试
 -> 协议 gate -> 寄存器 probe -> 证据包 -> 交付
 ```
 
-**RTK 固件是案例，工作流才是核心产品。**
+**dpiny-RTK 是示范案例，BenchLoop 才是工作流。**
 
 ## 一眼看懂
 
@@ -43,6 +43,7 @@ dpiny-RTK 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流
 | 故障复盘案例 | [case-studies/](case-studies/) |
 | ROI 模型 | [docs/roi_model.md](docs/roi_model.md) |
 | 商业落地场景 | [docs/commercial-use-cases.md](docs/commercial-use-cases.md) |
+| 接入你的 STM32 项目 | [docs/adapt-your-stm32-project.zh-CN.md](docs/adapt-your-stm32-project.zh-CN.md) |
 | 远程硬件在环流程 | [docs/remote-hardware-debug-flow.md](docs/remote-hardware-debug-flow.md) |
 | AI 操作手册 | [ai-agent/](ai-agent/) |
 | 可复用工作流模板 | [workflow-template/](workflow-template/) |

@@ -1,6 +1,6 @@
-# Evidence Packages
+# BenchLoop Evidence Packages
 
-This directory contains public, redacted evidence packages for the AI-assisted embedded delivery workflow.
+This directory contains public, redacted evidence packages for the BenchLoop AI-assisted embedded delivery workflow.
 
 | Package | Type | Purpose | Result |
 |---|---|---|---|

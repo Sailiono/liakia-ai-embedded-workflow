@@ -1,4 +1,4 @@
-# 3-Minute Demo Video Script
+# BenchLoop 3-Minute Demo Video Script
 
 ## 0:00 - 0:20 — Pain
 
@@ -20,7 +20,7 @@ Show the repository and the interactive page.
 
 Narration:
 
-> This project uses STM32F407 + UM982 RTK firmware as a real hardware case to demonstrate an AI-assisted build-flash-test-debug-report loop.
+> BenchLoop uses dpiny-RTK, an STM32F407 + UM982 RTK firmware, as a real hardware case to demonstrate an AI-assisted build-flash-test-debug-report loop.
 
 ## 0:40 - 1:10 — One Command
 

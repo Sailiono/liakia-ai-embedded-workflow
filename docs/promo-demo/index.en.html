@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>dpiny-RTK AI Embedded Workflow Demo</title>
+    <title>BenchLoop AI Embedded Workflow Demo</title>
     <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260520-bilingual">
   </head>
   <body>
@@ -20,7 +20,7 @@
         <nav class="topbar" aria-label="Demo navigation">
           <div class="brand">
             <span class="brand-mark"></span>
-            <span>dpiny-RTK</span>
+            <span>BenchLoop</span>
           </div>
           <div class="nav-pills">
             <span>STM32F407</span>
@@ -32,19 +32,20 @@
         </nav>
 
         <div class="hero-content">
-          <p class="eyebrow">Human-in-the-loop AI embedded delivery</p>
+          <p class="eyebrow">AI-assisted embedded firmware delivery workflow</p>
           <h1>
-            <span>Turn embedded firmware work</span>
-            <span>into a remotely verifiable</span>
-            <span>delivery loop.</span>
+            <span>Build, flash, test,</span>
+            <span>diagnose, and archive evidence</span>
+            <span>on real or remote STM32 hardware.</span>
           </h1>
           <p class="hero-copy">
-            A real STM32F407 + UM982 RTK firmware case showing how build, flash, serial tests, RTCM CRC gates, USB CDC reset recovery, register probes, and evidence packaging can become one repeatable workflow.
+            BenchLoop uses dpiny-RTK, a real STM32F407 + UM982 RTK firmware, as its first case study to show how build, flash, serial tests, RTCM CRC gates, USB CDC reset recovery, register probes, and evidence packaging become one repeatable delivery loop.
           </p>
           <div class="hero-actions" aria-label="Key proof points">
             <a href="#proof">View Evidence</a>
             <a href="#workflow">View Workflow</a>
             <a href="#remote-hil">Remote HIL</a>
+            <a href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/adapt-your-stm32-project.md">Adapt STM32</a>
             <a href="https://github.com/Sailiono/dpiny-rtk-ai-workflow">GitHub</a>
           </div>
         </div>
@@ -105,7 +106,7 @@
       <section id="workflow" class="usecase-section" aria-label="Workflow">
         <div class="section-heading">
           <p>how it works</p>
-          <h2>The firmware is the case study. The delivery workflow is the product.</h2>
+          <h2>dpiny-RTK is the demo case. BenchLoop is the reusable delivery workflow.</h2>
         </div>
         <div class="usecase-grid">
           <article>
@@ -178,26 +179,83 @@ PULL: summary.md + manifest.json + logs</code></pre>
           <h2>The strongest public case: USB CDC reset recovery became a regression gate.</h2>
         </div>
         <div class="case-board">
-          <article class="case-card">
+          <article class="case-card is-featured">
             <div class="case-head">
-              <span>featured case</span>
+              <span>featured case · real bench replay</span>
               <strong>USB CDC Reset Recovery</strong>
             </div>
             <p>Windows could enumerate the USB CDC port, but the shell could become unavailable after software reset. The workflow now proves shell recovery before and after reset.</p>
             <div class="case-flow">
-              <span>symptom</span>
+              <span>post-flash probe</span>
               <span>reset gate</span>
-              <span>version probe</span>
+              <span>COM recovery wait</span>
+              <span>version command</span>
               <span>regression PASS</span>
             </div>
             <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/04-usb-cdc-reset-recovery.md">View case study</a>
           </article>
+          <div class="case-support-grid">
+            <article class="case-card">
+              <div class="case-head">
+                <span>supporting case 01</span>
+                <strong>USART Clock Missing</strong>
+              </div>
+              <p>Register evidence narrows a silent serial channel from wiring guesses to RCC/GPIO/USART configuration.</p>
+              <div class="case-flow">
+                <span>register probe</span>
+                <span>AI summary</span>
+                <span>regression PASS</span>
+              </div>
+              <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/01-usart-clock-missing.md">View replay</a>
+            </article>
+            <article class="case-card">
+              <div class="case-head">
+                <span>supporting case 02</span>
+                <strong>RS422 DE Timing</strong>
+              </div>
+              <p>RTCM tail corruption is treated as a transport-layer timing risk, then verified with a CRC gate.</p>
+              <div class="case-flow">
+                <span>DE edge</span>
+                <span>minimal fix</span>
+                <span>CRC BAD: 0</span>
+              </div>
+              <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/02-rs422-de-timing.md">View pattern</a>
+            </article>
+          </div>
         </div>
+      </section>
+
+      <section class="usecase-section" aria-label="Adapt your STM32 project">
+        <div class="section-heading">
+          <p>adaptation path</p>
+          <h2>Bring BenchLoop to another STM32 firmware project without replacing the existing stack.</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>01</span>
+            <h3>Describe the project</h3>
+            <p>Define build directory, ELF path, programmer connection, serial ports, test scripts, and evidence output.</p>
+            <em>project-adapter.json</em>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Wrap existing tools</h3>
+            <p>Keep HAL, FreeRTOS, CubeCLT, ST-LINK, and serial scripts; BenchLoop coordinates them into a reviewable run.</p>
+            <em>build / flash / test / probe</em>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Generate evidence</h3>
+            <p>Every pass or failure should leave logs, summaries, manifest fields, and a handoff boundary.</p>
+            <em>manifest + logs + handoff</em>
+          </article>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/adapt-your-stm32-project.md">How to adapt your STM32 project</a>
       </section>
 
       <section class="closing-section">
         <p>commercial angle</p>
-        <h2>Upgrade embedded delivery from manual debugging to an auditable, remote-capable engineering loop.</h2>
+        <h2>BenchLoop upgrades embedded delivery from manual debugging to an auditable, remote-capable engineering loop.</h2>
         <div class="closing-band">
           <span>AI planning</span>
           <span>firmware build</span>

@@ -1,6 +1,6 @@
-# Commercial Use Cases
+# BenchLoop Commercial Use Cases
 
-This repository is a transferable workflow case, not only a single RTK firmware project.
+BenchLoop is a transferable workflow case, not only a single RTK firmware project.
 
 ## 1. STM32 Board Bringup Automation
 

@@ -2070,6 +2070,29 @@ h2 {
   gap: 14px;
 }
 
+.case-card.is-featured {
+  grid-column: span 2;
+  min-height: 360px;
+  border-color: rgba(128, 255, 114, 0.32);
+  background:
+    linear-gradient(135deg, rgba(128, 255, 114, 0.11), rgba(84, 215, 255, 0.055)),
+    rgba(244, 241, 232, 0.055);
+}
+
+.case-card.is-featured .case-head strong {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.05;
+}
+
+.case-support-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.case-support-grid .case-card {
+  min-height: 0;
+}
+
 .case-card,
 .roi-panel,
 .usecase-grid article,
@@ -2650,6 +2673,10 @@ h2 {
   .remote-grid,
   .video-board {
     grid-template-columns: 1fr;
+  }
+
+  .case-card.is-featured {
+    grid-column: auto;
   }
 
   .remote-flow {

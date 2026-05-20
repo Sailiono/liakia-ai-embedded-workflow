@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>dpiny-RTK AI Embedded Workflow Demo</title>
+    <title>BenchLoop AI Embedded Workflow Demo</title>
     <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260520-bilingual">
   </head>
   <body>
@@ -71,7 +71,7 @@
         <nav class="topbar" aria-label="Demo navigation">
           <div class="brand">
             <span class="brand-mark"></span>
-            <span>dpiny-RTK</span>
+            <span>BenchLoop</span>
           </div>
           <div class="nav-pills">
             <span>STM32F407</span>
@@ -83,20 +83,20 @@
         </nav>
 
         <div class="hero-content">
-          <p class="eyebrow">Human-in-the-loop AI embedded delivery</p>
+          <p class="eyebrow">AI 辅助嵌入式固件交付闭环</p>
           <h1>
-            <span>把嵌入式研发</span>
-            <span>从手工调试</span>
-            <span>升级为可远程验证的交付闭环。</span>
+            <span>编译、烧录、测试、诊断</span>
+            <span>和证据归档</span>
+            <span>都跑在真实或远程 STM32 硬件上。</span>
           </h1>
           <p class="hero-copy">
-            以 STM32F407 + UM982 RTK 固件为真实硬件案例，展示需求拆解、代码修改、CMake 编译、SWD 烧录、串口测试、RTCM CRC 校验、寄存器诊断和证据归档如何在本地或远程测试台上串成可复现流程。
+            BenchLoop 以 dpiny-RTK 这个 STM32F407 + UM982 RTK 固件作为第一个真实案例，展示 build、flash、shell test、RTCM CRC、USB CDC reset recovery、SWD register probe 和 evidence manifest 如何串成可复现交付闭环。
           </p>
           <div class="hero-actions" aria-label="Key proof points">
             <a href="#pipeline">看流程</a>
             <a href="#evidence">看证据链</a>
             <a href="#cases">看故障案例</a>
-            <a href="#roi">看 ROI</a>
+            <a href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/adapt-your-stm32-project.zh-CN.md">如何接入</a>
             <a href="#remote-hil">看远程硬件</a>
           </div>
         </div>
@@ -135,7 +135,7 @@
       <section class="audience-section" aria-label="Why this workflow matters">
         <div class="section-heading">
           <p>three audiences</p>
-          <h2>这不是卖一个固件，而是把交付过程变成可管理资产</h2>
+          <h2>dpiny-RTK 是示范案例，BenchLoop 才是可迁移的交付工作流</h2>
         </div>
         <div class="audience-grid">
           <article>
@@ -159,7 +159,7 @@
       <section id="pipeline" class="workflow-section">
         <div class="section-heading">
           <p>workflow map</p>
-          <h2>AI 把嵌入式交付变成一条可追踪生产线</h2>
+          <h2>BenchLoop 把嵌入式交付变成一条可追踪生产线</h2>
         </div>
         <div class="pipeline-lab" aria-label="Embedded delivery pipeline explorer">
           <div class="stage-selector" role="tablist" aria-label="Workflow stages">
@@ -400,89 +400,71 @@ PULL: summary.md + manifest.json + logs</code></pre>
       <section id="cases" class="case-section" aria-label="Failure case studies">
         <div class="section-heading">
           <p>failure-to-fix cases</p>
-          <h2>客户真正会追问的是：出问题时，这套流程怎么缩短定位时间？</h2>
+          <h2>最强证据先讲：USB CDC reset 问题已经变成 baseline 必跑 gate</h2>
         </div>
         <div class="case-board">
-          <article class="case-card">
+          <article class="case-card is-featured">
             <div class="case-head">
-              <span>case 01</span>
-              <strong>USART Clock Missing</strong>
-            </div>
-            <p>现象：编译和烧录通过，但串口通道无输出。</p>
-            <div class="case-flow">
-              <span>symptom</span>
-              <span>register probe</span>
-              <span>AI summary</span>
-              <span>engineer confirm</span>
-              <span>regression PASS</span>
-            </div>
-            <ul>
-              <li>读取 RCC_APB1ENR、GPIO AF、USART CR1/BRR。</li>
-              <li>优先排除物理接线和波特率问题。</li>
-              <li>修复后跑 Shell 与 RTCM 回归。</li>
-            </ul>
-            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/01-usart-clock-missing.md">查看完整复盘</a>
-          </article>
-          <article class="case-card">
-            <div class="case-head">
-              <span>case 02</span>
-              <strong>RS422 DE Timing</strong>
-            </div>
-            <p>现象：RTCM 输出存在间歇性丢帧或尾字节异常。</p>
-            <div class="case-flow">
-              <span>capture</span>
-              <span>DMA state</span>
-              <span>DE edge</span>
-              <span>minimal fix</span>
-              <span>CRC BAD: 0</span>
-            </div>
-            <ul>
-              <li>把 DMA 完成、DE 控制和串口输出日志放在同一时间线。</li>
-              <li>定位方向从协议层缩小到收发器方向控制。</li>
-              <li>用 RTCM parser 做修复后证明。</li>
-            </ul>
-            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/02-rs422-de-timing.md">查看完整复盘</a>
-          </article>
-          <article class="case-card">
-            <div class="case-head">
-              <span>case 03</span>
-              <strong>RTCM CRC Validation</strong>
-            </div>
-            <p>现象：有输出但业务侧怀疑数据链路不可信。</p>
-            <div class="case-flow">
-              <span>frame scan</span>
-              <span>type count</span>
-              <span>crc check</span>
-              <span>artifact</span>
-              <span>handoff</span>
-            </div>
-            <ul>
-              <li>解析 RTCM3 帧头、长度、payload 和 CRC24Q。</li>
-              <li>统计消息类型覆盖与异常帧数量。</li>
-              <li>把“能输出”升级成“可验真”。</li>
-            </ul>
-            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/03-rtcm-crc-validation.md">查看完整复盘</a>
-          </article>
-          <article class="case-card">
-            <div class="case-head">
-              <span>case 04</span>
+              <span>featured case · real bench replay</span>
               <strong>USB CDC Reset Recovery</strong>
             </div>
-            <p>现象：Windows 能看到 USB CDC 口，但 reset 后 Shell 偶发不可用。</p>
+            <p>现象：Windows 能看到 USB CDC 口，但 reset 后 Shell 偶发不可用。BenchLoop 把这个问题沉淀成自动化 regression gate，reset 前后都要证明 Shell 能响应。</p>
             <div class="case-flow">
-              <span>probe fail</span>
-              <span>reset gate</span>
-              <span>shell version</span>
-              <span>recover</span>
+              <span>post-flash probe</span>
+              <span>software reset</span>
+              <span>COM recovery wait</span>
+              <span>version command</span>
               <span>baseline PASS</span>
             </div>
             <ul>
               <li>把“串口存在但 Shell 不响应”变成自动化 gate。</li>
-              <li>reset 前后都发送 version 验证 CDC Shell 可用。</li>
-              <li>与 build、flash、RTCM CRC 同一 baseline 归档。</li>
+              <li>与 build、flash、Shell、RTCM CRC 和 register probe 同一 baseline 归档。</li>
+              <li>这类修复不再靠人工观察，而是进入每次交付证据链。</li>
             </ul>
             <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/04-usb-cdc-reset-recovery.md">查看完整复盘</a>
           </article>
+          <div class="case-support-grid">
+            <article class="case-card">
+              <div class="case-head">
+                <span>supporting case 01</span>
+                <strong>USART Clock Missing</strong>
+              </div>
+              <p>编译和烧录通过，但串口通道无输出；通过 RCC/GPIO/USART 寄存器证据缩小根因。</p>
+              <div class="case-flow">
+                <span>register probe</span>
+                <span>AI summary</span>
+                <span>engineer confirm</span>
+                <span>regression PASS</span>
+              </div>
+              <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/01-usart-clock-missing.md">查看复盘</a>
+            </article>
+            <article class="case-card">
+              <div class="case-head">
+                <span>supporting case 02</span>
+                <strong>RS422 DE Timing</strong>
+              </div>
+              <p>RTCM 输出存在间歇性丢帧或尾字节异常；把协议问题缩小到收发器方向控制。</p>
+              <div class="case-flow">
+                <span>DMA state</span>
+                <span>DE edge</span>
+                <span>CRC BAD: 0</span>
+              </div>
+              <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/02-rs422-de-timing.md">查看复盘</a>
+            </article>
+            <article class="case-card">
+              <div class="case-head">
+                <span>supporting case 03</span>
+                <strong>RTCM CRC Validation</strong>
+              </div>
+              <p>有输出不等于可信输出；RTCM parser 把链路验证变成可失败、可归档的 gate。</p>
+              <div class="case-flow">
+                <span>frame scan</span>
+                <span>crc check</span>
+                <span>handoff</span>
+              </div>
+              <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/03-rtcm-crc-validation.md">查看复盘</a>
+            </article>
+          </div>
         </div>
       </section>
 

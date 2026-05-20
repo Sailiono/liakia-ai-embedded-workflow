@@ -1,4 +1,4 @@
-# dpiny-RTK
+# BenchLoop
 
 **AI-Native Embedded Delivery Workflow Demo**
 
@@ -12,16 +12,16 @@
 
 [![AI Embedded Workflow Demo](docs/promo-demo/preview.en.svg)](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html)
 
-dpiny-RTK is a public showcase for a **human-in-the-loop AI workflow for embedded firmware delivery**.
+BenchLoop is a public showcase for a **human-in-the-loop AI workflow for embedded firmware delivery**.
 
-It uses a real STM32F407 + UM982 RTK base-station firmware as the hardware case, but the main value is the surrounding delivery loop:
+It uses **dpiny-RTK**, a real STM32F407 + UM982 RTK base-station firmware, as the first hardware case. The main value is the surrounding delivery loop:
 
 ```text
 requirement -> code change -> build -> flash -> serial tests
 -> protocol gates -> register probe -> evidence package -> handoff
 ```
 
-**The RTK firmware is the case study. The workflow is the product.**
+**dpiny-RTK is the demo case. BenchLoop is the workflow.**
 
 ## At A Glance
 
@@ -43,6 +43,7 @@ requirement -> code change -> build -> flash -> serial tests
 | Failure-to-fix cases | [case-studies/](case-studies/) |
 | ROI model | [docs/roi_model.md](docs/roi_model.md) |
 | Commercial use cases | [docs/commercial-use-cases.md](docs/commercial-use-cases.md) |
+| Adapt your STM32 project | [docs/adapt-your-stm32-project.md](docs/adapt-your-stm32-project.md) |
 | Remote hardware-in-the-loop flow | [docs/remote-hardware-debug-flow.md](docs/remote-hardware-debug-flow.md) |
 | AI operation playbook | [ai-agent/](ai-agent/) |
 | Reusable workflow template | [workflow-template/](workflow-template/) |
