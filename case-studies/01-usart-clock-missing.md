@@ -90,9 +90,9 @@ AI can narrow the root-cause search:
 Engineer review target files:
 
 ```text
-Core/Src/usart.c
-Core/Src/main.c
-Core/Src/stm32f4xx_hal_msp.c
+firmware/dpiny-rtk/Core/Src/usart.c
+firmware/dpiny-rtk/Core/Src/main.c
+firmware/dpiny-rtk/Core/Src/stm32f4xx_hal_msp.c
 ```
 
 Confirmation checklist:

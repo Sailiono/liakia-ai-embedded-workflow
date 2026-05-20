@@ -57,8 +57,8 @@ The engineer confirms the timing requirement from the RS422 transceiver and revi
 Typical code area:
 
 ```text
-Core/Src/passthrough.c
-Core/Src/usart.c
+firmware/dpiny-rtk/Core/Src/passthrough.c
+firmware/dpiny-rtk/Core/Src/usart.c
 ```
 
 Fix principle:

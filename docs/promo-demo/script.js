@@ -63,9 +63,9 @@ validation:
       <div class="visual tech-visual planner-console">
         <div class="tech-pane planner-board">
           <div class="pane-title">execution graph</div>
-          <div class="plan-row"><span>01</span><strong>Core/Src/gnss.c</strong><em>non-blocking init + survey state</em></div>
-          <div class="plan-row"><span>02</span><strong>Core/Src/passthrough.c</strong><em>UART4 DMA -> USART1/2</em></div>
-          <div class="plan-row"><span>03</span><strong>Core/Src/shell.c</strong><em>operator command surface</em></div>
+          <div class="plan-row"><span>01</span><strong>firmware/dpiny-rtk/Core/Src/gnss.c</strong><em>non-blocking init + survey state</em></div>
+          <div class="plan-row"><span>02</span><strong>firmware/dpiny-rtk/Core/Src/passthrough.c</strong><em>UART4 DMA -> USART1/2</em></div>
+          <div class="plan-row"><span>03</span><strong>firmware/dpiny-rtk/Core/Src/shell.c</strong><em>operator command surface</em></div>
           <div class="plan-row"><span>04</span><strong>tools/run_test_baseline.ps1</strong><em>evidence runner</em></div>
         </div>
         <div class="tech-pane risk-board">
@@ -323,12 +323,12 @@ function runBuildTerminal() {
     { text: "cmake --preset Debug", tone: "muted" },
     { text: "-- Toolchain: arm-none-eabi-gcc 13.3.1", tone: "muted" },
     { text: "-- Target: STM32F407VET6 / Cortex-M4F", tone: "muted" },
-    { text: "[  7%] Building C object Core/Src/main.c.obj" },
-    { text: "[ 18%] Building C object Core/Src/gnss.c.obj" },
-    { text: "[ 31%] Building C object Core/Src/passthrough.c.obj" },
-    { text: "[ 44%] Building C object Core/Src/shell.c.obj" },
-    { text: "[ 58%] Building C object Core/Src/config.c.obj" },
-    { text: "[ 73%] Building C object USB_DEVICE/App/usbd_cdc_if.c.obj" },
+    { text: "[  7%] Building C object firmware/dpiny-rtk/Core/Src/main.c.obj" },
+    { text: "[ 18%] Building C object firmware/dpiny-rtk/Core/Src/gnss.c.obj" },
+    { text: "[ 31%] Building C object firmware/dpiny-rtk/Core/Src/passthrough.c.obj" },
+    { text: "[ 44%] Building C object firmware/dpiny-rtk/Core/Src/shell.c.obj" },
+    { text: "[ 58%] Building C object firmware/dpiny-rtk/Core/Src/config.c.obj" },
+    { text: "[ 73%] Building C object firmware/dpiny-rtk/USB_DEVICE/App/usbd_cdc_if.c.obj" },
     { text: "[ 86%] Linking C executable dpiny-RTK.elf", tone: "warn" },
     { text: "[ 92%] Generating dpiny-RTK.hex" },
     { text: "[ 96%] Generating dpiny-RTK.bin" },

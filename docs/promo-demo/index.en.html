@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>dpiny-RTK AI Embedded Workflow Demo</title>
+    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260520-bilingual">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero" aria-label="AI embedded workflow hero">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="signal-rail" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <img class="board-ghost" src="./assets/board.svg" alt="">
+
+        <nav class="topbar" aria-label="Demo navigation">
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>dpiny-RTK</span>
+          </div>
+          <div class="nav-pills">
+            <span>STM32F407</span>
+            <span>FreeRTOS</span>
+            <span>UM982</span>
+            <span>RTCM3</span>
+            <a href="./index.html">中文</a>
+          </div>
+        </nav>
+
+        <div class="hero-content">
+          <p class="eyebrow">Human-in-the-loop AI embedded delivery</p>
+          <h1>
+            <span>Turn embedded firmware work</span>
+            <span>into a remotely verifiable</span>
+            <span>delivery loop.</span>
+          </h1>
+          <p class="hero-copy">
+            A real STM32F407 + UM982 RTK firmware case showing how build, flash, serial tests, RTCM CRC gates, USB CDC reset recovery, register probes, and evidence packaging can become one repeatable workflow.
+          </p>
+          <div class="hero-actions" aria-label="Key proof points">
+            <a href="#proof">View Evidence</a>
+            <a href="#workflow">View Workflow</a>
+            <a href="#remote-hil">Remote HIL</a>
+            <a href="https://github.com/Sailiono/dpiny-rtk-ai-workflow">GitHub</a>
+          </div>
+        </div>
+
+        <aside class="mission-panel" aria-label="Latest baseline dashboard">
+          <div class="panel-header">
+            <span>baseline/test-handoff</span>
+            <strong>LAST RUN: PASS</strong>
+          </div>
+          <div class="terminal" aria-label="Automation terminal">
+            <p><span>$</span> .\tools\run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7</p>
+            <p><span>PASS</span> build / flash / shell</p>
+            <p><span>PASS</span> USB CDC reset recovery</p>
+            <p><span>PASS</span> RTCM CRC BAD: 0</p>
+            <p><span>PASS</span> evidence package generated</p>
+          </div>
+          <div class="metric-strip">
+            <div>
+              <strong>8</strong>
+              <span>test gates</span>
+            </div>
+            <div>
+              <strong>52</strong>
+              <span>Remote HIL frames</span>
+            </div>
+            <div>
+              <strong>0</strong>
+              <span>CRC bad</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="proof" class="audience-section" aria-label="Evidence packages">
+        <div class="section-heading">
+          <p>proof first</p>
+          <h2>Not a slide deck: the workflow produces reviewable evidence.</h2>
+        </div>
+        <div class="audience-grid">
+          <article>
+            <span>public sample</span>
+            <h3>Evidence Format</h3>
+            <p>Manifest, logs, firmware artifacts, and handoff structure for public review.</p>
+          </article>
+          <article>
+            <span>real bench</span>
+            <h3>Local Hardware PASS</h3>
+            <p>Redacted bench run covering build, flash, shell tests, RTCM CRC, and USB CDC recovery.</p>
+          </article>
+          <article>
+            <span>remote hil</span>
+            <h3>Remote Bench PASS</h3>
+            <p>Remote build, flash, serial gates, RTCM 52 frames, CRC BAD 0, and evidence pullback.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="workflow" class="usecase-section" aria-label="Workflow">
+        <div class="section-heading">
+          <p>how it works</p>
+          <h2>The firmware is the case study. The delivery workflow is the product.</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>01</span>
+            <h3>Build</h3>
+            <p>CMake, Ninja, CubeCLT, and Arm GCC are invoked from scripts rather than a manual IDE session.</p>
+            <em>cmake --build --preset Debug</em>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Flash</h3>
+            <p>STM32CubeProgrammer performs SWD download, verify, and reset with logs preserved.</p>
+            <em>SWD / verify / reset</em>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Test Gates</h3>
+            <p>Serial shell, RTCM parser, USB CDC reset recovery, and register probes become repeatable gates.</p>
+            <em>shell / CRC / CDC / SWD probe</em>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Evidence</h3>
+            <p>Every run can emit a manifest, summaries, command transcripts, and firmware artifact records.</p>
+            <em>manifest.json / logs / handoff</em>
+          </article>
+        </div>
+      </section>
+
+      <section id="remote-hil" class="remote-section" aria-label="Remote hardware-in-the-loop">
+        <div class="section-heading">
+          <p>remote hardware-in-the-loop</p>
+          <h2>The same loop can run on a bench PC where the hardware is physically connected.</h2>
+        </div>
+        <div class="remote-grid">
+          <article class="remote-proof">
+            <div class="remote-head">
+              <span>remote baseline · 2026-05-20 10:33</span>
+              <strong>PASS</strong>
+            </div>
+            <p>
+              The target board, ST-LINK, USB CDC port, UART shell, and RTCM adapter stay on the bench PC. The developer triggers the same baseline runner remotely and pulls back redacted evidence.
+            </p>
+            <div class="remote-stats">
+              <div><strong>8/8</strong><span>steps passed</span></div>
+              <div><strong>52</strong><span>RTCM frames</span></div>
+              <div><strong>0</strong><span>CRC bad</span></div>
+              <div><strong>21.11s</strong><span>CDC reset gate</span></div>
+            </div>
+            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/evidence/remote-hil-redacted-2026-05-20/test_summary.md">View redacted evidence</a>
+          </article>
+          <article class="remote-console" aria-label="Remote bench transcript">
+            <div class="pane-title">remote_bench.summary</div>
+            <pre><code>ssh bench "tools/run_test_baseline.ps1 ..."
+PASS Debug firmware build
+PASS SWD flash + verify
+PASS functional serial test
+PASS RTCM stream test
+PASS USB CDC reset recovery
+
+RTCM: 4593 bytes / 52 frames / CRC BAD 0
+PULL: summary.md + manifest.json + logs</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-section" aria-label="Failure case">
+        <div class="section-heading">
+          <p>failure-to-fix</p>
+          <h2>The strongest public case: USB CDC reset recovery became a regression gate.</h2>
+        </div>
+        <div class="case-board">
+          <article class="case-card">
+            <div class="case-head">
+              <span>featured case</span>
+              <strong>USB CDC Reset Recovery</strong>
+            </div>
+            <p>Windows could enumerate the USB CDC port, but the shell could become unavailable after software reset. The workflow now proves shell recovery before and after reset.</p>
+            <div class="case-flow">
+              <span>symptom</span>
+              <span>reset gate</span>
+              <span>version probe</span>
+              <span>regression PASS</span>
+            </div>
+            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/04-usb-cdc-reset-recovery.md">View case study</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="closing-section">
+        <p>commercial angle</p>
+        <h2>Upgrade embedded delivery from manual debugging to an auditable, remote-capable engineering loop.</h2>
+        <div class="closing-band">
+          <span>AI planning</span>
+          <span>firmware build</span>
+          <span>hardware flash</span>
+          <span>serial validation</span>
+          <span>RTCM proof</span>
+          <span>handoff package</span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -187,6 +187,7 @@ a {
 }
 
 .nav-pills span,
+.nav-pills a,
 .closing-band span {
   min-height: 30px;
   display: inline-flex;

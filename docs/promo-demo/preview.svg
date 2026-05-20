@@ -100,8 +100,8 @@
 
     <text x="30" y="138" class="monoSmall" fill="#54d7ff">cmake --preset Debug</text>
     <text x="30" y="164" class="monoSmall">-- Toolchain: arm-none-eabi-gcc 13.3.1</text>
-    <text x="30" y="190" class="monoSmall">[ 18%] Building C object Core/Src/gnss.c.obj</text>
-    <text x="30" y="216" class="monoSmall">[ 44%] Building C object Core/Src/shell.c.obj</text>
+    <text x="30" y="190" class="monoSmall">[ 18%] Building C object firmware/.../gnss.c.obj</text>
+    <text x="30" y="216" class="monoSmall">[ 44%] Building C object firmware/.../shell.c.obj</text>
     <text x="30" y="242" class="monoSmall" fill="#ffb84d">[ 86%] Linking C executable dpiny-RTK.elf</text>
 
     <rect x="570" y="72" width="110" height="82" rx="8" fill="#121611" stroke="#80ff72" stroke-opacity=".42"/>
