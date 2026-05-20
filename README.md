@@ -1,10 +1,20 @@
-# dpiny-RTK - AI-Native Embedded Delivery Workflow Demo
+# dpiny-RTK
 
-[Chinese README](README.zh-CN.md) | English
+**AI-Native Embedded Delivery Workflow Demo**
 
-This repository is a public showcase for a **human-in-the-loop AI workflow for embedded firmware delivery**.
+[中文说明](README.zh-CN.md) | English
 
-It uses a real STM32F407 + UM982 RTK base-station firmware as the hardware case, but the core idea is broader:
+[![MCU](https://img.shields.io/badge/MCU-STM32F407VET6-blue)](https://www.st.com)
+[![GNSS](https://img.shields.io/badge/GNSS-Unicore_UM982-green)](https://www.unicorecomm.com)
+[![RTCM](https://img.shields.io/badge/RTCM-3.x_MSM4-orange)](https://www.rtcm.org)
+[![Build](https://img.shields.io/badge/Build-CMake_%2B_Ninja-blueviolet)]()
+[![Workflow](https://img.shields.io/badge/Workflow-Human--in--the--loop_AI-80ff72)]()
+
+[![AI Embedded Workflow Demo](docs/promo-demo/preview.en.svg)](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html)
+
+dpiny-RTK is a public showcase for a **human-in-the-loop AI workflow for embedded firmware delivery**.
+
+It uses a real STM32F407 + UM982 RTK base-station firmware as the hardware case, but the main value is the surrounding delivery loop:
 
 ```text
 requirement -> code change -> build -> flash -> serial tests
@@ -13,25 +23,35 @@ requirement -> code change -> build -> flash -> serial tests
 
 **The RTK firmware is the case study. The workflow is the product.**
 
-[![AI Embedded Workflow Demo](docs/promo-demo/preview.en.svg)](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html)
+## At A Glance
 
-## Interactive Demo
+| Area | What is included |
+|---|---|
+| Reference firmware | STM32F407 + FreeRTOS firmware for a UM982 RTK base-station controller |
+| Delivery workflow | CMake build, SWD flash, serial tests, RTCM CRC gate, USB CDC reset gate, register probe, evidence manifest |
+| Hardware evidence | Redacted local bench and remote hardware-in-the-loop evidence packages |
+| AI model | AI assists implementation, log analysis, test generation, and report drafting; engineers keep final review authority |
+| Reuse target | STM32 board bringup, firmware regression, remote bench validation, and customer issue reproduction |
 
-- English page: [https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html)
-- Chinese page: [https://sailiono.github.io/dpiny-rtk-ai-workflow/](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
-- Demo source: [docs/promo-demo/](docs/promo-demo/)
+## Demo And Documentation
 
-The English page is also available through the Pages redirect at:
+| Resource | Link |
+|---|---|
+| Interactive demo, English | [GitHub Pages](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html) |
+| Interactive demo, Chinese | [GitHub Pages](https://sailiono.github.io/dpiny-rtk-ai-workflow/) |
+| Evidence index | [evidence/README.md](evidence/README.md) |
+| Failure-to-fix cases | [case-studies/](case-studies/) |
+| ROI model | [docs/roi_model.md](docs/roi_model.md) |
+| Commercial use cases | [docs/commercial-use-cases.md](docs/commercial-use-cases.md) |
+| Remote hardware-in-the-loop flow | [docs/remote-hardware-debug-flow.md](docs/remote-hardware-debug-flow.md) |
+| AI operation playbook | [ai-agent/](ai-agent/) |
+| Reusable workflow template | [workflow-template/](workflow-template/) |
 
-```text
-https://sailiono.github.io/dpiny-rtk-ai-workflow/index.en.html
-```
+## Why This Exists
 
-## 30-Second Summary
+Embedded firmware delivery often depends on local IDE builds, manual flashing, hand-operated serial checks, scattered debug notes, and bringup knowledge that is hard to replay.
 
-Embedded firmware delivery often still depends on local IDE builds, manual flashing, hand-operated serial checks, scattered debug notes, and bringup knowledge that is hard to replay.
-
-This repository shows how those manual steps can be turned into a repeatable delivery loop:
+This repository shows how those steps can become a repeatable and auditable workflow:
 
 - build firmware from the command line;
 - flash and verify the target over SWD;
@@ -42,56 +62,16 @@ This repository shows how those manual steps can be turned into a repeatable del
 - generate handoff evidence packages;
 - keep AI actions inside explicit human review boundaries.
 
-This is not a claim that AI should blindly replace embedded engineers. The intended model is:
+The intent is not to let AI blindly operate embedded hardware. The intended model is:
 
 ```text
 AI accelerates implementation, log analysis, test generation, and documentation.
 Engineers keep ownership of hardware assumptions, safety boundaries, code review, and final acceptance.
 ```
 
-## What This Repo Demonstrates
+## Reference Firmware
 
-The reference firmware is an STM32F407-based RTK base-station controller with a UM982 GNSS/RTK module. The firmware itself is useful, but the showcase is designed to demonstrate the surrounding delivery system:
-
-| Capability | What is demonstrated |
-|---|---|
-| Build automation | CMake presets, Ninja, Arm GCC, reproducible command-line build entry |
-| Flash automation | STM32CubeProgrammer CLI over SWD with verify and reset |
-| Serial regression | PowerShell scripts for shell commands, configuration, and validation gates |
-| Protocol validation | RTCM3 frame parser with CRC-24Q checking and non-zero failure exit codes |
-| USB CDC recovery | Reset recovery gate that verifies the shell still responds after software reset |
-| Register evidence | Read-only SWD HotPlug probe for RCC, GPIO, USART, USB, and fault registers |
-| Evidence package | Manifest, logs, JSON summaries, artifact hashes, stage timestamps, and handoff notes |
-| Remote HIL | Redacted remote bench run where build, flash, tests, and evidence pullback happen on a bench PC |
-| AI operating model | Playbooks and checklists that define what AI may do and where engineers must review |
-
-## Why It Matters
-
-For an embedded team, the value is not only faster coding. The stronger value is turning a fragile manual workflow into something that can be reviewed, replayed, handed over, and improved.
-
-For engineering managers:
-
-- each change can produce build, flash, test, register, and handoff evidence;
-- failed tests become structured artifacts instead of chat history;
-- bringup knowledge becomes easier to transfer to another engineer;
-- remote bench work becomes auditable instead of ad hoc.
-
-For embedded engineers:
-
-- the workflow does not replace HAL, FreeRTOS, CMake, CubeCLT, ST-LINK, or serial debugging habits;
-- it wraps familiar tools into a repeatable loop;
-- protocol and register checks reduce guesswork during failure analysis;
-- AI suggestions are grounded in logs, register values, and test outputs.
-
-For business owners:
-
-- delivery risk is reduced because failures become gates and regression cases;
-- remote hardware-in-the-loop makes it easier to work with lab hardware without moving the board;
-- evidence packages make technical progress easier to review without reading every line of code.
-
-## Reference Firmware Case
-
-Firmware source lives under:
+The firmware source lives under:
 
 ```text
 firmware/dpiny-rtk/
@@ -106,41 +86,28 @@ cmake --build --preset Debug
 
 Main firmware elements:
 
-- STM32F407VET6, Cortex-M4F;
-- FreeRTOS task model;
-- UM982 GNSS/RTK module integration;
-- USB CDC shell;
-- USART debug shell;
-- dual RS422 RTCM output path;
-- flash-backed configuration;
-- watchdog strategy;
-- RTCM message configuration and CRC validation.
+| Subsystem | Notes |
+|---|---|
+| MCU | STM32F407VET6, Cortex-M4F |
+| RTOS | FreeRTOS task model |
+| GNSS / RTK | UM982 integration and RTCM output configuration |
+| Interfaces | USB CDC shell, USART debug shell, dual RS422 RTCM output |
+| Reliability | Watchdog strategy and flash-backed configuration |
+| Validation | Shell tests, RTCM parser, USB CDC reset recovery, register probe |
 
-The firmware is intentionally kept as a real embedded case rather than a synthetic toy project. It includes enough hardware interaction to exercise build, flash, serial, protocol, USB, and register-level diagnosis.
+The firmware is intentionally kept as a real embedded case rather than a synthetic toy project. It contains enough hardware interaction to exercise build, flash, serial, protocol, USB, and register-level diagnosis.
 
-## Baseline Runner
+## Workflow Entry Points
 
-The reference workflow runner is:
+Primary baseline runner:
 
 ```powershell
 tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7
 ```
 
-It can run:
+It can run dependency checks, Debug firmware build, SWD flash and verify, shell regression, input validation, RTCM stream parsing, USB CDC reset recovery, read-only register probe, and evidence manifest generation.
 
-- dependency checks;
-- Debug firmware build;
-- SWD flash and verify;
-- functional shell regression;
-- input validation gate;
-- RTCM stream parser and CRC gate;
-- USB CDC reset recovery gate;
-- read-only register probe;
-- manifest and JSON summary generation.
-
-If `-UsbPort` is omitted, the manifest records `SKIP_NO_USB_PORT` instead of silently hiding the USB CDC reset gate.
-
-Component runners are also available:
+Component runners:
 
 ```powershell
 tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4
@@ -149,17 +116,23 @@ tools/usb_cdc_reset_test.ps1 -UsbPort COM7
 tools/register_probe.ps1 -Target rcc,gpio,usart,usb,fault -OutputJson evidence-out/register_probe_summary.json
 ```
 
+Reusable workflow template:
+
+```powershell
+workflow-template/run_workflow.ps1 -Adapter workflow-template/project-adapter.json -Stage all
+```
+
+If `-UsbPort` is omitted, the baseline manifest records `SKIP_NO_USB_PORT` instead of silently hiding the USB CDC reset gate.
+
 ## Evidence Packages
 
-The repository includes redacted evidence packages so that readers can inspect the delivery loop without needing the original bench hardware.
+The repository includes redacted evidence packages so readers can inspect the delivery loop without needing the original bench hardware.
 
 | Package | Type | Purpose | Result |
 |---|---|---|---|
-| [public-showcase-baseline-2026-05-18](evidence/public-showcase-baseline-2026-05-18/) | Public showcase sample | Shows the evidence format and public-safe register decode examples | PASS |
-| [realrun-redacted-2026-05-20](evidence/realrun-redacted-2026-05-20/) | Local bench run | Shows a real hardware baseline with sensitive bench details removed | PASS |
-| [remote-hil-redacted-2026-05-20](evidence/remote-hil-redacted-2026-05-20/) | Remote hardware-in-the-loop run | Shows remote build, flash, serial gates, RTCM CRC, USB CDC reset recovery, and evidence pullback | PASS |
-
-See the evidence index: [evidence/README.md](evidence/README.md).
+| [public-showcase-baseline-2026-05-18](evidence/public-showcase-baseline-2026-05-18/) | Public showcase sample | Evidence format and public-safe register decode examples | PASS |
+| [realrun-redacted-2026-05-20](evidence/realrun-redacted-2026-05-20/) | Local bench run | Real hardware baseline with sensitive bench details removed | PASS |
+| [remote-hil-redacted-2026-05-20](evidence/remote-hil-redacted-2026-05-20/) | Remote HIL run | Remote build, flash, serial gates, RTCM CRC, USB CDC reset recovery, and evidence pullback | PASS |
 
 Typical evidence contents:
 
@@ -176,11 +149,9 @@ test_summary.md
 handoff_report.md
 ```
 
-The public evidence is intentionally redacted. A customer handoff should regenerate raw bench logs, serial transcripts, STM32CubeProgrammer output, register dumps, artifact hashes, and timestamps on the target hardware.
+The public evidence is redacted. A customer handoff should regenerate raw bench logs, serial transcripts, STM32CubeProgrammer output, register dumps, artifact hashes, and timestamps on the target hardware.
 
-## Failure-To-Fix Case Studies
-
-The case studies focus on how a failure becomes a diagnosis path, a minimal fix, and a regression gate.
+## Failure-To-Fix Cases
 
 | Case | Evidence level | What it shows |
 |---|---|---|
@@ -195,8 +166,6 @@ Case 04 is currently the strongest public case because it is tied to a real benc
 
 The remote HIL flow keeps the target board, ST-LINK, USB CDC port, UART shell, and RTCM adapter connected to a bench PC. The developer triggers build, flash, serial tests, protocol gates, and evidence pullback remotely.
 
-This avoids moving the hardware while still preserving a real hardware loop:
-
 ```text
 developer workstation
   -> remote bench command
@@ -208,23 +177,9 @@ developer workstation
 
 The public repository includes only redacted host information.
 
-See: [docs/remote-hardware-debug-flow.md](docs/remote-hardware-debug-flow.md)
-
 ## Reusable Workflow Template
 
-The reusable template lives in:
-
-```text
-workflow-template/
-```
-
-It demonstrates how another STM32 project can describe build, flash, tests, register probes, and evidence output through an adapter-driven workflow.
-
-Example:
-
-```powershell
-workflow-template/run_workflow.ps1 -Adapter workflow-template/project-adapter.json -Stage all
-```
+The reusable template in [workflow-template/](workflow-template/) shows how another STM32 project can describe build, flash, tests, register probes, and evidence output through an adapter-driven workflow.
 
 The template is intentionally conservative:
 
@@ -234,15 +189,9 @@ The template is intentionally conservative:
 - it separates build, flash, test, probe, and evidence stages;
 - it records summaries in a manifest suitable for handoff review.
 
-## AI Agent Operating Model
+## AI Operating Boundary
 
-The AI agent playbook lives in:
-
-```text
-ai-agent/
-```
-
-It defines:
+The AI agent playbook in [ai-agent/](ai-agent/) defines:
 
 - what the AI may do;
 - what the AI must not do;
@@ -251,42 +200,21 @@ It defines:
 - failure triage report templates;
 - rules for keeping fixes minimal and evidence-backed.
 
-This matters because embedded projects can damage hardware or create safety issues if automation crosses the wrong boundary. The repository frames AI as an engineering assistant inside a controlled workflow, not as an unchecked autonomous operator.
+This matters because embedded projects can damage hardware or create safety issues if automation crosses the wrong boundary.
 
-## ROI Model
+## ROI Boundary
 
 The public ROI estimate for this case is roughly:
 
-- AI-assisted delivery: about 3 person-days plus around 10 CNY API spend;
-- conservative manual estimate: about 15-25 person-days;
-- rough cycle reduction: 80%+ under this project's assumptions.
+| Path | Estimate |
+|---|---:|
+| AI-assisted delivery | about 3 person-days plus around 10 CNY API spend |
+| Conservative manual estimate | about 15-25 person-days |
+| Rough cycle reduction | 80%+ under this project's assumptions |
 
-Boundary note: these numbers assume:
-
-- an existing hardware platform;
-- an existing STM32/HAL foundation;
-- a scope focused on firmware bringup, automated validation, and evidence archiving;
-- no PCB redesign, EMC qualification, environmental testing, safety certification, or production fixture development.
+These numbers assume an existing hardware platform, an existing STM32/HAL foundation, and a scope focused on firmware bringup, automated validation, and evidence archiving. They do not include PCB redesign, EMC qualification, environmental testing, safety certification, or production fixture development.
 
 They do not imply the same ratio for all embedded projects.
-
-See: [docs/roi_model.md](docs/roi_model.md)
-
-## Commercial Use Cases
-
-The workflow is meant to be portable beyond this RTK example.
-
-Potential use cases:
-
-- STM32 board bringup automation;
-- firmware regression test loops;
-- AI-assisted failure diagnosis;
-- engineering handoff evidence packages;
-- remote hardware-in-the-loop debugging;
-- legacy firmware engineering cleanup;
-- customer-site issue reproduction and regression proof.
-
-See: [docs/commercial-use-cases.md](docs/commercial-use-cases.md)
 
 ## Repository Layout
 
@@ -301,7 +229,7 @@ docs/promo-demo/          Interactive web showcase, Chinese and English pages
 docs/                     ROI, commercial use cases, demo video script, remote HIL notes
 ```
 
-## What This Project Is Not
+## Scope And Limitations
 
 This repository is not:
 
