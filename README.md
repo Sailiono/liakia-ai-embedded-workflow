@@ -108,6 +108,7 @@ tools/register_probe.ps1 -Target rcc,gpio,usart -OutputJson evidence-out/registe
 - 本项目开发与测试：约 **1 人 × 3 天 + ¥10 API 消耗**，按 ¥2,000 / 人天计，合计约 **¥6,010**。
 - 纯人工保守估算：固件、接口、脚本、测试、文档和集成闭环约 **15-25 人天**，约 **¥30,000-¥50,000**。
 - 粗略收益：周期压缩 **80%+**，人力成本下降约 **80-88%**。具体估算边界见 [ROI model](docs/roi_model.md)。
+- 边界说明：这些数字基于本项目条件，即已有硬件平台、已有 STM32/HAL 基础、目标集中在固件 bringup、自动化验证和证据归档；不代表所有嵌入式项目都能达到相同比例。
 
 <div align="center">
 

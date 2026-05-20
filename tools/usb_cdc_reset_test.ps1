@@ -5,6 +5,7 @@ param(
     [int]$OpenTimeoutMs = 20000,
     [int]$ResponseTimeoutMs = 4000,
     [int]$ResetWaitMs = 2500,
+    [string[]]$ExpectedKeywords = @("dpiny-RTK", "STM32F407", "FreeRTOS"),
     [string]$OutputJson = ""
 )
 
@@ -72,13 +73,25 @@ function Invoke-ShellCommand([string]$PortName, [string]$Command, [int]$TimeoutM
     }
 }
 
-function Assert-VersionResponse([string]$Name, [string]$Text) {
-    if ($Text -notmatch "dpiny-RTK" -or $Text -notmatch "STM32F407" -or $Text -notmatch "FreeRTOS") {
-        Write-Host "[FAIL] $Name" -ForegroundColor Red
-        Write-Host $Text
-        throw "$Name did not return a valid version response."
+function Assert-VersionResponse([string]$Name, [string]$Text, [string[]]$Keywords) {
+    foreach ($keyword in $Keywords) {
+        if ($Text -notmatch [regex]::Escape($keyword)) {
+            Write-Host "[FAIL] $Name" -ForegroundColor Red
+            Write-Host "Missing keyword: $keyword"
+            Write-Host $Text
+            throw "$Name did not return a valid version response."
+        }
     }
     Write-Host "[PASS] $Name" -ForegroundColor Green
+}
+
+function Test-ExpectedKeywords([string]$Text, [string[]]$Keywords) {
+    foreach ($keyword in $Keywords) {
+        if ($Text -notmatch [regex]::Escape($keyword)) {
+            return $false
+        }
+    }
+    return $true
 }
 
 $failed = $false
@@ -98,7 +111,7 @@ try {
     Write-Host "Waiting for USB CDC shell (before software reset)..."
     $before = Invoke-ShellCommand $UsbPort "version" $ResponseTimeoutMs
     Write-Host $before
-    Assert-VersionResponse "USB CDC shell responded before reset" $before
+    Assert-VersionResponse "USB CDC shell responded before reset" $before $ExpectedKeywords
 
     Write-Host "Issuing software reset..."
     [void](Invoke-ShellCommand $UsbPort "reset" 500)
@@ -111,7 +124,7 @@ try {
     Write-Host "Waiting for USB CDC shell (after software reset)..."
     $after = Invoke-ShellCommand $UsbPort "version" $ResponseTimeoutMs
     Write-Host $after
-    Assert-VersionResponse "USB CDC shell responded after reset" $after
+    Assert-VersionResponse "USB CDC shell responded after reset" $after $ExpectedKeywords
 } catch {
     $failed = $true
     Write-Host "[USB-CDC-RESULT] FAIL: $($_.Exception.Message)" -ForegroundColor Red
@@ -121,8 +134,9 @@ $summary = [ordered]@{
     test = "usb_cdc_reset"
     port = $UsbPort
     baud = $Baud
-    before_reset_version_response = ($before -match "dpiny-RTK")
-    after_reset_version_response = ($after -match "dpiny-RTK")
+    before_reset_version_response = (Test-ExpectedKeywords $before $ExpectedKeywords)
+    after_reset_version_response = (Test-ExpectedKeywords $after $ExpectedKeywords)
+    expected_keywords = $ExpectedKeywords
     result = if ($failed) { "FAIL" } else { "PASS" }
 }
 

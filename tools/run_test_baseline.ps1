@@ -107,7 +107,29 @@ if (-not $SkipRtcm) {
     $steps += Invoke-LoggedScript "rtcm_parse" $rtcmScript $rtcmArgs (Join-Path $logDir "rtcm_parse.log")
 }
 
-if ((-not $SkipUsbCdcReset) -and $UsbPort) {
+if ($SkipUsbCdcReset) {
+    $logPath = Join-Path $logDir "usb_cdc_reset.log"
+    $msg = "[USB-CDC] SKIP_DISABLED: reset recovery gate disabled by -SkipUsbCdcReset"
+    Write-Host $msg -ForegroundColor Yellow
+    Set-Content -LiteralPath $logPath -Value $msg -Encoding utf8
+    $steps += [pscustomobject]@{
+        name = "usb_cdc_reset"
+        result = "SKIP_DISABLED"
+        exit_code = $null
+        log = $logPath
+    }
+} elseif (-not $UsbPort) {
+    $logPath = Join-Path $logDir "usb_cdc_reset.log"
+    $msg = "[USB-CDC] SKIP_NO_USB_PORT: pass -UsbPort COMx to enable reset recovery gate"
+    Write-Host $msg -ForegroundColor Yellow
+    Set-Content -LiteralPath $logPath -Value $msg -Encoding utf8
+    $steps += [pscustomobject]@{
+        name = "usb_cdc_reset"
+        result = "SKIP_NO_USB_PORT"
+        exit_code = $null
+        log = $logPath
+    }
+} else {
     $usbScript = Join-Path $repoRoot "tools\usb_cdc_reset_test.ps1"
     if (Test-Path -LiteralPath $usbScript) {
         $usbSummary = Join-Path $resolvedOutputDir "usb_cdc_reset_summary.json"
@@ -118,12 +140,12 @@ if ((-not $SkipUsbCdcReset) -and $UsbPort) {
         $steps += Invoke-LoggedScript "usb_cdc_reset" $usbScript $usbArgs (Join-Path $logDir "usb_cdc_reset.log")
     } else {
         $logPath = Join-Path $logDir "usb_cdc_reset.log"
-        $msg = "[USB-CDC] SKIP: reset recovery script not found: $usbScript"
+        $msg = "[USB-CDC] SKIP_SCRIPT_MISSING: reset recovery script not found: $usbScript"
         Write-Host $msg -ForegroundColor Yellow
         Set-Content -LiteralPath $logPath -Value $msg -Encoding utf8
         $steps += [pscustomobject]@{
             name = "usb_cdc_reset"
-            result = "SKIP"
+            result = "SKIP_SCRIPT_MISSING"
             exit_code = $null
             log = $logPath
         }
