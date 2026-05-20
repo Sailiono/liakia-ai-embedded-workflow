@@ -1,6 +1,6 @@
-# Adapt Your STM32 Project To FirmwareProof
+# Adapt Your STM32 Project To Liakia
 
-FirmwareProof is not tied to the dpiny-RTK firmware. The goal is to wrap an existing STM32 project with a repeatable delivery loop:
+Liakia is not tied to the dpiny-RTK firmware. The goal is to wrap an existing STM32 project with a repeatable delivery loop:
 
 ```text
 build -> flash -> serial tests -> protocol gates -> register probe -> evidence package
@@ -25,7 +25,7 @@ For a first integration, the project owner should provide:
 
 ## 2. Define The Adapter
 
-FirmwareProof uses an adapter-style description so the workflow can stay generic while project details remain explicit.
+Liakia uses an adapter-style description so the workflow can stay generic while project details remain explicit.
 
 Example:
 
@@ -179,7 +179,7 @@ Out of scope for a one-week pilot:
 
 ## 9. Human Review Boundary
 
-FirmwareProof should keep the final engineering decision with humans.
+Liakia should keep the final engineering decision with humans.
 
 Human review is required for:
 

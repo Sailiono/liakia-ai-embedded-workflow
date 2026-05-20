@@ -1,4 +1,4 @@
-# FirmwareProof 3-Minute Demo Video Script
+# Liakia 3-Minute Demo Video Script
 
 ## 0:00 - 0:20 — Pain
 
@@ -20,7 +20,7 @@ Show the repository and the interactive page.
 
 Narration:
 
-> FirmwareProof uses dpiny-RTK, an STM32F407 + UM982 RTK firmware, as a real hardware case to demonstrate an AI-assisted build-flash-test-debug-report loop.
+> Liakia uses dpiny-RTK, an STM32F407 + UM982 RTK firmware, as a real hardware case to demonstrate an AI-assisted build-flash-test-debug-report loop.
 
 ## 0:40 - 1:10 — One Command
 

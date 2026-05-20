@@ -1,6 +1,6 @@
-# 如何把你的 STM32 项目接入 FirmwareProof
+# 如何把你的 STM32 项目接入 Liakia
 
-FirmwareProof 不绑定 dpiny-RTK 固件。它的目标是把现有 STM32 项目包进一套可复现交付闭环：
+Liakia 不绑定 dpiny-RTK 固件。它的目标是把现有 STM32 项目包进一套可复现交付闭环：
 
 ```text
 编译 -> 烧录 -> 串口测试 -> 协议 gate -> 寄存器 probe -> 证据包
@@ -25,7 +25,7 @@ FirmwareProof 不绑定 dpiny-RTK 固件。它的目标是把现有 STM32 项目
 
 ## 2. 定义项目 Adapter
 
-FirmwareProof 使用 adapter 描述项目差异，让工作流保持通用，项目细节保持显式。
+Liakia 使用 adapter 描述项目差异，让工作流保持通用，项目细节保持显式。
 
 示例：
 
@@ -179,7 +179,7 @@ evidence-out/
 
 ## 9. 人工 review 边界
 
-FirmwareProof 应该把最终工程判断权留给人。
+Liakia 应该把最终工程判断权留给人。
 
 以下内容必须人工 review：
 

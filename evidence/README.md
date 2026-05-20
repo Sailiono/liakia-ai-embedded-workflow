@@ -1,6 +1,6 @@
-# FirmwareProof Evidence Packages
+# Liakia Evidence Packages
 
-This directory contains public, redacted evidence packages for the FirmwareProof AI-assisted embedded delivery workflow.
+This directory contains public, redacted evidence packages for the Liakia AI-assisted embedded delivery workflow.
 
 | Package | Type | Purpose | Result |
 |---|---|---|---|

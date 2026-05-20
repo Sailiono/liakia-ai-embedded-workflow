@@ -1,6 +1,6 @@
-# FirmwareProof Commercial Use Cases
+# Liakia Commercial Use Cases
 
-FirmwareProof is a transferable workflow case, not only a single RTK firmware project.
+Liakia is a transferable workflow case, not only a single RTK firmware project.
 
 ## 1. STM32 Board Bringup Automation
 
