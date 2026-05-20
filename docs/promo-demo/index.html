@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>dpiny-RTK AI Embedded Workflow Demo</title>
-    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260520-remote-hil">
+    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260520-flow-remote">
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -86,17 +86,17 @@
           <h1>
             <span>把嵌入式研发</span>
             <span>从手工调试</span>
-            <span>升级为可审计交付闭环。</span>
+            <span>升级为可远程验证的交付闭环。</span>
           </h1>
           <p class="hero-copy">
-            以 STM32F407 + UM982 RTK 固件为真实硬件案例，展示需求拆解、代码修改、CMake 编译、SWD 烧录、串口测试、RTCM CRC 校验、寄存器诊断和证据归档如何被串成可复现流程。
+            以 STM32F407 + UM982 RTK 固件为真实硬件案例，展示需求拆解、代码修改、CMake 编译、SWD 烧录、串口测试、RTCM CRC 校验、寄存器诊断和证据归档如何在本地或远程测试台上串成可复现流程。
           </p>
           <div class="hero-actions" aria-label="Key proof points">
             <a href="#pipeline">看流程</a>
-            <a href="#cases">看故障案例</a>
-            <a href="#remote-hil">看远程硬件</a>
-            <a href="#roi">看 ROI</a>
             <a href="#evidence">看证据链</a>
+            <a href="#cases">看故障案例</a>
+            <a href="#roi">看 ROI</a>
+            <a href="#remote-hil">看远程硬件</a>
           </div>
         </div>
 
@@ -112,7 +112,7 @@
             <p><span>PASS</span> SWD flash + verify</p>
             <p><span>PASS</span> shell / config / reset</p>
             <p><span>PASS</span> RTCM CRC BAD: 0</p>
-            <p><span>PASS</span> remote bench evidence pulled</p>
+            <p><span>PASS</span> evidence package generated</p>
           </div>
           <div class="metric-strip">
             <div>
@@ -125,7 +125,7 @@
             </div>
             <div>
               <strong>1</strong>
-              <span>remote evidence</span>
+              <span>evidence bundle</span>
             </div>
           </div>
         </aside>
@@ -153,69 +153,6 @@
             <p>继续使用 HAL、FreeRTOS、CMake、CubeCLT 和串口调试习惯，只把 build-flash-test-debug-report 包成闭环。</p>
           </article>
         </div>
-      </section>
-
-      <section id="remote-hil" class="remote-section" aria-label="Remote hardware-in-the-loop evidence">
-        <div class="section-heading">
-          <p>remote hardware-in-the-loop</p>
-          <h2>硬件不搬走，也能远程完成编译、烧录、测试和证据回传</h2>
-        </div>
-        <div class="remote-grid">
-          <article class="remote-proof">
-            <div class="remote-head">
-              <span>remote baseline · 2026-05-20 10:33</span>
-              <strong>PASS</strong>
-            </div>
-            <p>
-              样机、ST-LINK、USB CDC、Shell 串口和 RTCM 采集口留在测试台电脑上，开发侧通过授权的远程命令触发同一套 baseline runner。公开展示只保留脱敏后的结果，不暴露主机名、IP、用户名、私有路径或设备序列号。
-            </p>
-            <div class="remote-stats">
-              <div><strong>8/8</strong><span>steps passed</span></div>
-              <div><strong>52</strong><span>RTCM frames</span></div>
-              <div><strong>0</strong><span>CRC bad</span></div>
-              <div><strong>21.11s</strong><span>CDC reset gate</span></div>
-            </div>
-            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/evidence/remote-hil-redacted-2026-05-20/test_summary.md">查看脱敏远程证据</a>
-          </article>
-          <article class="remote-console" aria-label="Remote bench transcript">
-            <div class="pane-title">remote_bench.summary</div>
-            <pre><code>ssh bench "tools/run_test_baseline.ps1 ..."
-PASS dependency check
-PASS Debug firmware build
-PASS SWD flash + verify
-PASS USB CDC post-flash availability
-PASS functional serial test
-PASS input validation gate
-PASS RTCM stream test
-PASS USB CDC reset recovery
-
-RTCM: 4593 bytes / 52 frames / CRC BAD 0
-PULL: summary.md + manifest.json + logs</code></pre>
-          </article>
-          <article class="remote-flow">
-            <div>
-              <span>01</span>
-              <strong>Remote command</strong>
-              <em>开发侧触发 PowerShell baseline runner</em>
-            </div>
-            <div>
-              <span>02</span>
-              <strong>Bench execution</strong>
-              <em>测试台电脑本地访问 ST-LINK 和串口</em>
-            </div>
-            <div>
-              <span>03</span>
-              <strong>Hardware gates</strong>
-              <em>flash、Shell、RTCM、CDC reset 全部脚本化</em>
-            </div>
-            <div>
-              <span>04</span>
-              <strong>Evidence pullback</strong>
-              <em>summary、manifest、logs 回传给开发侧</em>
-            </div>
-          </article>
-        </div>
-        <a class="section-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/remote-hardware-debug-flow.md">查看远程硬件在环流程说明</a>
       </section>
 
       <section id="pipeline" class="workflow-section">
@@ -297,6 +234,69 @@ PULL: summary.md + manifest.json + logs</code></pre>
             <div class="module-canvas" id="moduleCanvas" role="img" aria-label="Workflow stage visualization"></div>
           </article>
         </div>
+      </section>
+
+      <section id="remote-hil" class="remote-section" aria-label="Remote hardware-in-the-loop evidence">
+        <div class="section-heading">
+          <p>remote hardware-in-the-loop</p>
+          <h2>正常交付闭环跑通后，远程测试台也能接入同一套流程</h2>
+        </div>
+        <div class="remote-grid">
+          <article class="remote-proof">
+            <div class="remote-head">
+              <span>remote baseline · 2026-05-20 10:33</span>
+              <strong>PASS</strong>
+            </div>
+            <p>
+              样机、ST-LINK、USB CDC、Shell 串口和 RTCM 采集口留在测试台电脑上，开发侧通过授权的远程命令触发同一套 baseline runner。公开展示只保留脱敏后的结果，不暴露主机名、IP、用户名、私有路径或设备序列号。
+            </p>
+            <div class="remote-stats">
+              <div><strong>8/8</strong><span>steps passed</span></div>
+              <div><strong>52</strong><span>RTCM frames</span></div>
+              <div><strong>0</strong><span>CRC bad</span></div>
+              <div><strong>21.11s</strong><span>CDC reset gate</span></div>
+            </div>
+            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/evidence/remote-hil-redacted-2026-05-20/test_summary.md">查看脱敏远程证据</a>
+          </article>
+          <article class="remote-console" aria-label="Remote bench transcript">
+            <div class="pane-title">remote_bench.summary</div>
+            <pre><code>ssh bench "tools/run_test_baseline.ps1 ..."
+PASS dependency check
+PASS Debug firmware build
+PASS SWD flash + verify
+PASS USB CDC post-flash availability
+PASS functional serial test
+PASS input validation gate
+PASS RTCM stream test
+PASS USB CDC reset recovery
+
+RTCM: 4593 bytes / 52 frames / CRC BAD 0
+PULL: summary.md + manifest.json + logs</code></pre>
+          </article>
+          <article class="remote-flow">
+            <div>
+              <span>01</span>
+              <strong>Remote command</strong>
+              <em>开发侧触发 PowerShell baseline runner</em>
+            </div>
+            <div>
+              <span>02</span>
+              <strong>Bench execution</strong>
+              <em>测试台电脑本地访问 ST-LINK 和串口</em>
+            </div>
+            <div>
+              <span>03</span>
+              <strong>Hardware gates</strong>
+              <em>flash、Shell、RTCM、CDC reset 全部脚本化</em>
+            </div>
+            <div>
+              <span>04</span>
+              <strong>Evidence pullback</strong>
+              <em>summary、manifest、logs 回传给开发侧</em>
+            </div>
+          </article>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/remote-hardware-debug-flow.md">查看远程硬件在环流程说明</a>
       </section>
 
       <section class="cost-section" aria-label="Cost and velocity comparison">
