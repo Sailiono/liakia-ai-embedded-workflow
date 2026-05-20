@@ -13,7 +13,7 @@ Public evidence is redacted. User paths, ST-LINK serial number, and USB device s
 - Shell UART: `COM10`
 - RTCM stream: `COM5`
 - USB CDC shell: `COM12` in the captured baseline
-- Test entry: `tools/run_test_baseline.ps1 -Preset Debug -ComPort COM10 -RtcmPort COM5 -UsbPort COM12`
+- Test entry: `tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM10 -RtcmPort COM5 -UsbPort COM12`
 
 ## 2. Symptom
 

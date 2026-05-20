@@ -37,7 +37,7 @@ The remote node runs the same local bench scripts that an engineer would run in 
 
 ```powershell
 tools/run_test_baseline.ps1 `
-  -Preset Debug `
+  -BuildPreset Debug `
   -ComPort <shell-uart> `
   -RtcmPort <rtcm-uart> `
   -UsbPort <usb-cdc> `

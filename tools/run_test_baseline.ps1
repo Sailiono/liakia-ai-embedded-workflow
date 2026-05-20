@@ -1,14 +1,17 @@
 param(
+    [Alias("Preset")]
     [ValidateSet("Debug", "Release")]
     [string]$BuildPreset = "Debug",
     [string]$ComPort = "COM4",
     [string]$RtcmPort = "COM6",
+    [string]$UsbPort = "",
     [int]$RtcmReadSecs = 10,
     [string]$OutputDir = "evidence-out\baseline",
     [string]$ConnectArgs = "port=SWD freq=4000",
     [string]$RegisterProbeScript = "",
     [switch]$SkipFunctionalTest,
     [switch]$SkipRtcm,
+    [switch]$SkipUsbCdcReset,
     [switch]$SkipRegisterProbe,
     [switch]$DryRun
 )
@@ -104,6 +107,29 @@ if (-not $SkipRtcm) {
     $steps += Invoke-LoggedScript "rtcm_parse" $rtcmScript $rtcmArgs (Join-Path $logDir "rtcm_parse.log")
 }
 
+if ((-not $SkipUsbCdcReset) -and $UsbPort) {
+    $usbScript = Join-Path $repoRoot "tools\usb_cdc_reset_test.ps1"
+    if (Test-Path -LiteralPath $usbScript) {
+        $usbSummary = Join-Path $resolvedOutputDir "usb_cdc_reset_summary.json"
+        $usbArgs = @(
+            "-UsbPort", $UsbPort,
+            "-OutputJson", $usbSummary
+        )
+        $steps += Invoke-LoggedScript "usb_cdc_reset" $usbScript $usbArgs (Join-Path $logDir "usb_cdc_reset.log")
+    } else {
+        $logPath = Join-Path $logDir "usb_cdc_reset.log"
+        $msg = "[USB-CDC] SKIP: reset recovery script not found: $usbScript"
+        Write-Host $msg -ForegroundColor Yellow
+        Set-Content -LiteralPath $logPath -Value $msg -Encoding utf8
+        $steps += [pscustomobject]@{
+            name = "usb_cdc_reset"
+            result = "SKIP"
+            exit_code = $null
+            log = $logPath
+        }
+    }
+}
+
 if (-not $SkipRegisterProbe) {
     if (Test-Path -LiteralPath $RegisterProbeScript) {
         $probeSummary = Join-Path $resolvedOutputDir "register_probe_summary.json"
@@ -151,6 +177,7 @@ $manifest = [ordered]@{
     build_preset = $BuildPreset
     com_port = $ComPort
     rtcm_port = $RtcmPort
+    usb_port = $UsbPort
     output_dir = $resolvedOutputDir
     dry_run = [bool]$DryRun
     steps = $steps

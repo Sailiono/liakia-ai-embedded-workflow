@@ -53,7 +53,7 @@ Requirement
 
 ## Start Here
 
-- [Evidence package](evidence/public-showcase-baseline-2026-05-18/)：可审计的 public-showcase baseline 交付证据样例。
+- [Evidence packages](evidence/)：可审计的 public-showcase、真实 bench、远程 HIL 交付证据入口。
 - [Real bench evidence](evidence/realrun-redacted-2026-05-20/)：真实硬件运行后的脱敏证据包，覆盖 build / flash / shell / RTCM / USB CDC reset recovery。
 - [Remote HIL evidence](evidence/remote-hil-redacted-2026-05-20/)：远程测试台采集的脱敏 baseline，覆盖远程 build / flash / serial gates / RTCM CRC / USB CDC reset recovery。
 - [Remote hardware-in-the-loop flow](docs/remote-hardware-debug-flow.md)：硬件留在测试台，开发侧远程完成 build / flash / test / evidence 闭环的脱敏能力案例。
@@ -69,7 +69,7 @@ Primary baseline runner in the reference project:
 tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6
 ```
 
-It runs the build/flash/shell/RTCM/register-probe loop and writes a manifest even when a gate fails.
+It runs the build/flash/shell/RTCM/register-probe loop and writes a manifest even when a gate fails. Add `-UsbPort COMx` when the target exposes a USB CDC shell and reset recovery should be gated in the same run.
 
 Reusable template entry for another STM32 project:
 
@@ -517,7 +517,8 @@ dpiny-RTK/
 ├── tools/                 # 自动化测试脚本
 │   ├── functional_test.ps1 # 构建、烧录、功能验证入口
 │   ├── test_shell.ps1      # Shell 全量功能测试
-│   └── rtcm_parse.ps1      # RTCM 3.x 帧解析器
+│   ├── rtcm_parse.ps1      # RTCM 3.x 帧解析器
+│   └── usb_cdc_reset_test.ps1 # USB CDC reset recovery gate
 ├── build/Debug/           # 构建输出
 ├── CMakeLists.txt         # 顶层 CMake
 └── README.md

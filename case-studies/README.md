@@ -15,7 +15,11 @@ The cases are written as public workflow examples. They intentionally avoid priv
 
 ## Cases
 
-- [Case 01 — USART clock missing](01-usart-clock-missing.md)
-- [Case 02 — RS422 DE timing](02-rs422-de-timing.md)
-- [Case 03 — RTCM CRC validation](03-rtcm-crc-validation.md)
-- [Case 04 — USB CDC reset recovery](04-usb-cdc-reset-recovery.md)
+| Case | Type | Evidence level |
+|---|---|---|
+| [Case 01 — USART clock missing](01-usart-clock-missing.md) | Public failure-to-fix replay | Medium-high |
+| [Case 02 — RS422 DE timing](02-rs422-de-timing.md) | Diagnosis pattern with regression target | Medium |
+| [Case 03 — RTCM CRC validation](03-rtcm-crc-validation.md) | Validation pattern and parser gate | Medium |
+| [Case 04 — USB CDC reset recovery](04-usb-cdc-reset-recovery.md) | Real bench replay | High |
+
+Case 04 is the current featured example because it shows a real failure becoming a repeatable regression gate inside the same baseline run.

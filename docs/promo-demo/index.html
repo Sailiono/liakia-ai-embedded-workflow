@@ -103,7 +103,7 @@
         <aside class="mission-panel" aria-label="Live baseline dashboard">
           <div class="panel-header">
             <span>baseline/test-handoff</span>
-            <strong>RUNNING</strong>
+            <strong>LAST RUN: PASS</strong>
           </div>
           <div class="terminal" aria-label="Automation terminal">
             <p><span>$</span> .\tools\run_test_baseline.ps1</p>
@@ -121,7 +121,7 @@
             </div>
             <div>
               <strong>52</strong>
-              <span>RTCM frames</span>
+              <span>Remote HIL frames</span>
             </div>
             <div>
               <strong>1</strong>
@@ -579,18 +579,18 @@ PULL: summary.md + manifest.json + logs</code></pre>
               <strong>demo_capture.timeline</strong>
             </div>
             <div class="screen-terminal">
-              <p><b>00:40</b> PS&gt; tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4</p>
-              <p><em>PASS</em> CMake / Ninja build</p>
-              <p><em>PASS</em> STM32CubeProgrammer flash + verify</p>
-              <p><em>PASS</em> USB CDC shell command suite</p>
+              <p><b>00:40</b> PS&gt; tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6</p>
+              <p><em>PASS</em> build / flash / shell</p>
+              <p><em>PASS</em> USB CDC reset recovery</p>
               <p><em>PASS</em> RTCM parser CRC BAD: 0</p>
-              <p><em>DONE</em> evidence/public-showcase-baseline-2026-05-18/</p>
+              <p><em>PASS</em> register probe summary</p>
+              <p><em>DONE</em> evidence-out/baseline/manifest.json</p>
             </div>
           </div>
           <div class="storyline">
             <div><span>0:00</span><strong>痛点</strong><p>手动编译、手动烧录、手动串口测试、问题记录缺失。</p></div>
             <div><span>0:20</span><strong>目标</strong><p>用 STM32F407 + UM982 展示 build-flash-test-debug-report 闭环。</p></div>
-            <div><span>0:40</span><strong>一条命令</strong><p>展示编译、烧录、Shell 测试和 RTCM parser 连续执行。</p></div>
+            <div><span>0:40</span><strong>一条命令</strong><p>展示编译、烧录、Shell、RTCM parser 和 USB CDC reset gate 连续执行。</p></div>
             <div><span>1:10</span><strong>证据包</strong><p>展示 manifest、build log、flash log、RTCM CRC log 和 handoff report。</p></div>
             <div><span>1:40</span><strong>故障注入</strong><p>选 USART clock、RS422 DE、RTCM CRC 或 USB CDC reset 作为失败复盘。</p></div>
             <div><span>2:45</span><strong>回归验收</strong><p>修复后测试重新 PASS，工程师确认并归档。</p></div>

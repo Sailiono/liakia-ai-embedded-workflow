@@ -371,7 +371,7 @@ function runValidation() {
   });
 
   const lines = [
-    { text: "> run_test_baseline.ps1 -Preset Debug -ComPort COM11 -RtcmPort COM6", tone: "cmd" },
+    { text: "> run_test_baseline.ps1 -BuildPreset Debug -ComPort COM11 -RtcmPort COM6", tone: "cmd" },
     { text: "[ENV-02] CMake / Ninja / Arm GCC / STM32CubeProgrammer detected", tone: "ok" },
     { text: "[BUILD-01] Debug firmware build completed", tone: "ok" },
     { text: "[FLASH-01] SWD download, verify, reset completed", tone: "ok" },
