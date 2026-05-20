@@ -84,6 +84,10 @@ Suitable for:
 - teams where firmware, hardware, and test engineers are not in the same room;
 - scarce prototypes that should not be moved between desks.
 
+Public proof point:
+
+- [Remote HIL evidence 2026-05-20](../evidence/remote-hil-redacted-2026-05-20/) shows a redacted remote run with build, flash, serial tests, RTCM CRC gate, USB CDC reset recovery, and evidence pullback all passing.
+
 Delivery scope:
 
 - remote bench command entry;

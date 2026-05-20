@@ -1,0 +1,70 @@
+{
+  "name": "remote-hil-redacted-2026-05-20",
+  "type": "redacted remote hardware-in-the-loop evidence",
+  "timestamp": "2026-05-20T10:33:21+08:00",
+  "collection_mode": "remote bench execution over SSH",
+  "source_branch": "baseline/test-handoff",
+  "source_commit": "eb47ff1",
+  "preset": "Debug",
+  "hardware": {
+    "mcu": "STM32F407",
+    "gnss": "Unicore UM982",
+    "bench_host": "redacted",
+    "bench_ip": "redacted",
+    "st_link_serial": "redacted",
+    "usb_device_serial": "redacted"
+  },
+  "ports": {
+    "shell_uart": "COM10",
+    "rtcm": "COM5",
+    "usb_cdc": "COM12"
+  },
+  "rs422_output": "both",
+  "connect_args": "port=SWD freq=4000",
+  "result": "PASS",
+  "steps": [
+    { "name": "Dependency check", "result": "PASS", "exit_code": 0, "duration_sec": 0.42 },
+    { "name": "Build firmware", "result": "PASS", "exit_code": 0, "duration_sec": 0.52 },
+    { "name": "Flash firmware", "result": "PASS", "exit_code": 0, "duration_sec": 3.96 },
+    { "name": "USB CDC post-flash availability test", "result": "PASS", "exit_code": 0, "duration_sec": 6.68 },
+    { "name": "Functional serial test", "result": "PASS", "exit_code": 0, "duration_sec": 6.32 },
+    { "name": "Input validation test", "result": "PASS", "exit_code": 0, "duration_sec": 12.20 },
+    { "name": "RTCM stream test", "result": "PASS", "exit_code": 0, "duration_sec": 11.08 },
+    { "name": "USB CDC reset recovery test", "result": "PASS", "exit_code": 0, "duration_sec": 21.11 }
+  ],
+  "rtcm": {
+    "read_secs": 10,
+    "bytes": 4593,
+    "frames_total": 52,
+    "ignored_invalid_sync_candidates": 0,
+    "crc_ok": 52,
+    "crc_bad": 0,
+    "message_counts": {
+      "1005": 11,
+      "1074": 9,
+      "1084": 11,
+      "1094": 11,
+      "1124": 10
+    }
+  },
+  "usb_cdc_reset_recovery": {
+    "result": "PASS",
+    "before_reset_version_response": true,
+    "after_reset_version_response": true
+  },
+  "artifacts": {
+    "bin": { "name": "dpiny-RTK.bin", "size_bytes": 103136 },
+    "elf": { "name": "dpiny-RTK.elf", "size_bytes": 1640828 },
+    "hex": { "name": "dpiny-RTK.hex", "size_bytes": 290153 },
+    "map": { "name": "dpiny-RTK.map", "size_bytes": 1121270 }
+  },
+  "redaction": [
+    "bench computer name",
+    "local IP address",
+    "Windows user name",
+    "private local paths",
+    "SSH key path",
+    "ST-LINK serial number",
+    "USB PNP device serial"
+  ]
+}

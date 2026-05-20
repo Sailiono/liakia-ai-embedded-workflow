@@ -62,6 +62,7 @@ Each run produces:
 See the redacted public extract:
 
 - [Real bench evidence 2026-05-20](../evidence/realrun-redacted-2026-05-20/)
+- [Remote HIL evidence 2026-05-20](../evidence/remote-hil-redacted-2026-05-20/)
 - [USB CDC reset recovery case](../case-studies/04-usb-cdc-reset-recovery.md)
 
 ## Case Result
@@ -83,6 +84,18 @@ Functional serial test           PASS
 Input validation test            PASS
 RTCM stream test                 PASS
 USB CDC reset recovery test      PASS
+```
+
+The latest remote bench extract captured:
+
+```text
+Remote baseline time             2026-05-20 10:33:21 +08:00
+RTCM bytes                       4593
+RTCM frames                      52
+CRC OK                           52
+CRC BAD                          0
+USB CDC reset recovery           PASS
+Evidence pullback                summary.md / manifest.json / logs
 ```
 
 ## Why It Matters Commercially

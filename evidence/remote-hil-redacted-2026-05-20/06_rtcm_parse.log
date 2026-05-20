@@ -1,0 +1,29 @@
+Remote bench command:
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File <project>\tools\rtcm_parse.ps1 -Port COM5 -ReadSecs 10
+
+Reading RTCM from COM5 for 10 seconds...
+Read 4593 bytes
+
+=== RTCM Stream Analysis ===
+Total frames found: 52
+Ignored invalid sync candidates: 0
+
+--- Message Types ---
+  MT1005: Station XYZ (ECEF) (11 msgs)
+  MT1074: GPS MSM4 Full PR&PR&CNR (9 msgs)
+  MT1084: GLONASS MSM4 (11 msgs)
+  MT1094: Galileo MSM4 (11 msgs)
+  MT1124: BDS MSM4 Full PR&PR&CNR (10 msgs)
+
+--- CRC Status ---
+  CRC OK: 52
+  CRC BAD: 0
+
+--- Expected Messages Check ---
+  MT1005 : 11 msgs [OK]
+  MT1074 : 9 msgs [OK]
+  MT1084 : 11 msgs [OK]
+  MT1094 : 11 msgs [OK]
+  MT1124 : 10 msgs [OK]
+
+PASS: RTCM stream contains expected messages and CRC is clean
