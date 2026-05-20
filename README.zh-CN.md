@@ -1,51 +1,51 @@
 # dpiny-RTK — AI 原生嵌入式交付闭环示范项目
 
-[English](README.md) | 中文说明
+[英文说明](README.md) | 中文说明
 
-> Human-in-the-loop AI workflow for embedded firmware delivery.
+> 这是一个人审闭环的 AI 嵌入式交付工作流示范项目。
 > 本仓库用 STM32F407 + UM982 RTK 基准站固件作为真实硬件案例，展示从需求拆解、代码修改、CMake 编译、SWD 烧录、串口自动测试、RTCM CRC 校验、寄存器诊断到证据归档的嵌入式交付闭环。
 
 [![AI Embedded Workflow Demo](docs/promo-demo/preview.svg)](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
 
 **交互式项目主页**
 
-- 发布页 Demo: [https://sailiono.github.io/dpiny-rtk-ai-workflow/](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
-- Demo 源码目录: [docs/promo-demo/](docs/promo-demo/)
+- 中文演示页: [https://sailiono.github.io/dpiny-rtk-ai-workflow/](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
+- 英文演示页: [https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html)
+- 演示网页源码目录: [docs/promo-demo/](docs/promo-demo/)
 
-## 30-Second Summary
+## 30 秒看懂
 
-This repo demonstrates how an embedded team can turn manual firmware delivery into a repeatable loop:
+这个仓库展示的是：一个嵌入式团队如何把手工固件交付变成可复现闭环。
 
-- build firmware from command line;
-- flash and verify target over SWD;
-- test serial shell automatically;
-- validate RTCM stream with CRC gates;
-- collect register-level evidence;
-- generate handoff package;
-- keep AI actions under human review.
+- 命令行构建固件；
+- 通过 SWD 烧录并校验目标板；
+- 自动测试串口 Shell；
+- 用 CRC gate 验证 RTCM 输出；
+- 验证 USB CDC reset recovery；
+- 采集寄存器级证据；
+- 生成交付证据包；
+- 让 AI 操作保持在人审边界内。
 
 这个仓库不是在卖一个 RTK 固件，而是在展示如何把嵌入式研发里的手工步骤变成可复现闭环。**RTK 固件是案例，工作流才是核心产品。**
 
-## What This Repo Demonstrates
+## 这个仓库展示什么
 
-This is not only an RTK firmware project.
-
-It demonstrates an AI-assisted embedded delivery loop:
+它展示的是一个 AI 辅助嵌入式交付闭环：
 
 ```text
-Requirement
-  -> Code change
-  -> CMake / Ninja build
-  -> SWD flash & verify
-  -> Serial functional test
-  -> RTCM CRC validation
-  -> SWD register diagnosis
-  -> Evidence package
+需求
+  -> 代码修改
+  -> CMake / Ninja 编译
+  -> SWD 烧录与校验
+  -> 串口功能测试
+  -> RTCM CRC 校验
+  -> SWD 寄存器诊断
+  -> 证据包归档
 ```
 
 核心价值不是“做了一个 RTK 固件”，而是证明一套可迁移到 STM32 板卡、工控采集设备、传感器网关、飞控外设和通信模块的 **build-flash-test-debug-report** 工作流。
 
-## Why It Matters
+## 为什么重要
 
 传统嵌入式研发经常依赖手动 IDE 编译、手动烧录、手动串口测试、口头故障复盘和不可回放的 bringup 经验。本项目把这些步骤标准化成可审查、可复现、可交接的流程：
 
@@ -53,58 +53,58 @@ Requirement
 - 对中层：每次改代码都能生成编译、烧录、测试、诊断和 handoff 证据；
 - 对工程师：不替换 HAL / FreeRTOS / CMake / CubeCLT，只把重复验证工作包成闭环。
 
-## Start Here
+## 从这里开始
 
-- [Evidence packages](evidence/)：可审计的 public-showcase、真实 bench、远程 HIL 交付证据入口。
-- [Real bench evidence](evidence/realrun-redacted-2026-05-20/)：真实硬件运行后的脱敏证据包，覆盖 build / flash / shell / RTCM / USB CDC reset recovery。
-- [Remote HIL evidence](evidence/remote-hil-redacted-2026-05-20/)：远程测试台采集的脱敏 baseline，覆盖远程 build / flash / serial gates / RTCM CRC / USB CDC reset recovery。
-- [Remote hardware-in-the-loop flow](docs/remote-hardware-debug-flow.md)：硬件留在测试台，开发侧远程完成 build / flash / test / evidence 闭环的脱敏能力案例。
-- [Failure-to-fix case studies](case-studies/)：展示真实工程问题的复盘结构；公开仓库中部分寄存器值为脱敏/示例格式，客户交付需附原始 bench log。
-- [Workflow template](workflow-template/)：把现有 STM32 项目接入同类闭环的适配模板。
-- [ROI model](docs/roi_model.md)：成本、人天和压缩点的估算方法，而不是一句宣传口号。
-- [Commercial use cases](docs/commercial-use-cases.md)：可落地到企业项目的场景。
-- [AI agent playbook](ai-agent/)：AI 在嵌入式项目里如何操作、何时必须人审。
+- [证据包入口](evidence/)：可审计的公开展示样例、真实测试台、远程硬件在环交付证据。
+- [真实测试台证据](evidence/realrun-redacted-2026-05-20/)：真实硬件运行后的脱敏证据包，覆盖编译、烧录、Shell、RTCM、USB CDC reset recovery。
+- [远程硬件在环证据](evidence/remote-hil-redacted-2026-05-20/)：远程测试台采集的脱敏 baseline，覆盖远程编译、烧录、串口 gate、RTCM CRC、USB CDC reset recovery。
+- [远程硬件在环流程](docs/remote-hardware-debug-flow.md)：硬件留在测试台，开发侧远程完成编译、烧录、测试、证据回收的脱敏能力案例。
+- [故障复盘案例](case-studies/)：展示真实工程问题如何从现象、寄存器证据走到修复和回归；公开仓库中部分寄存器值为脱敏/示例格式，客户交付需附原始测试台日志。
+- [可复用工作流模板](workflow-template/)：把现有 STM32 项目接入同类闭环的适配模板。
+- [ROI 模型](docs/roi_model.md)：成本、人天和压缩点的估算方法，而不是一句宣传口号。
+- [商业落地场景](docs/commercial-use-cases.md)：可落地到企业项目的场景。
+- [AI 操作手册](ai-agent/)：AI 在嵌入式项目里如何操作、何时必须人审。
 
-Primary baseline runner in the reference project:
+本参考项目的主 baseline runner：
 
 ```powershell
 tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7
 ```
 
-It runs the build/flash/shell/RTCM/USB-CDC/register-probe loop and writes a manifest even when a gate fails. Omit `-UsbPort` when the target does not expose a USB CDC shell; the manifest records `SKIP_NO_USB_PORT`.
+它会运行编译、烧录、Shell 测试、RTCM gate、USB CDC reset recovery、寄存器 probe，并且即使某个 gate 失败，也会写出 manifest。目标板没有 USB CDC Shell 时可以省略 `-UsbPort`，manifest 会记录 `SKIP_NO_USB_PORT`。
 
-Reusable template entry for another STM32 project:
+其他 STM32 项目接入模板的入口：
 
 ```powershell
 workflow-template/run_workflow.ps1 -Adapter workflow-template/project-adapter.json -Stage all
 ```
 
-Component runner for shell/config validation:
+Shell / 配置验证的组件级 runner：
 
 ```powershell
 tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4
 ```
 
-Component runner for read-only SWD register evidence:
+只读 SWD 寄存器证据采集 runner：
 
 ```powershell
 tools/register_probe.ps1 -Target rcc,gpio,usart -OutputJson evidence-out/register_probe_summary.json
 ```
 
-## Demo Highlights
+## 演示重点
 
-- STM32F407 + FreeRTOS real firmware；
-- UM982 GNSS / RTK module integration；
-- USB CDC + USART debug shell；
-- dual RS422 RTCM output；
-- CMake + Ninja build；
-- STM32CubeProgrammer CLI flash；
-- PowerShell serial test scripts；
-- RTCM frame parser and CRC checker；
-- SWD HotPlug register probe；
-- evidence package for handoff。
+- STM32F407 + FreeRTOS 真实固件；
+- UM982 GNSS / RTK 模块集成；
+- USB CDC + USART 调试 Shell；
+- 双路 RS422 RTCM 输出；
+- CMake + Ninja 命令行编译；
+- STM32CubeProgrammer CLI 自动烧录；
+- PowerShell 串口测试脚本；
+- RTCM 帧解析器与 CRC gate；
+- SWD HotPlug 寄存器 probe；
+- 面向交付的 evidence package。
 
-## Cost And Delivery Evidence
+## 成本与交付证据
 
 - AI API 账单参考：DeepSeek V4 Pro / Flash 本月消耗约 **¥9.22 CNY**，约 **118.8M tokens**、**441 API requests**。
 - 本项目开发与测试：约 **1 人 × 3 天 + ¥10 API 消耗**，按 ¥2,000 / 人天计，合计约 **¥6,010**。
@@ -528,7 +528,7 @@ dpiny-RTK/
 ├── build/Debug/           # 构建输出
 ├── CMakeLists.txt         # 顶层 wrapper CMake
 ├── CMakePresets.json      # 根目录构建入口
-├── README.md              # English short entry
+├── README.md              # 英文完整说明入口
 └── README.zh-CN.md        # 中文完整说明
 ```
 
