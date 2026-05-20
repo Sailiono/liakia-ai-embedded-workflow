@@ -1,6 +1,6 @@
-# BenchLoop Commercial Use Cases
+# FirmwareProof Commercial Use Cases
 
-BenchLoop is a transferable workflow case, not only a single RTK firmware project.
+FirmwareProof is a transferable workflow case, not only a single RTK firmware project.
 
 ## 1. STM32 Board Bringup Automation
 

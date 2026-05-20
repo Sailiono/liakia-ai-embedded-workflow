@@ -1,4 +1,4 @@
-# BenchLoop
+# FirmwareProof
 
 **AI-Native Embedded Delivery Workflow Demo**
 
@@ -10,9 +10,9 @@
 [![Build](https://img.shields.io/badge/Build-CMake_%2B_Ninja-blueviolet)]()
 [![Workflow](https://img.shields.io/badge/Workflow-Human--in--the--loop_AI-80ff72)]()
 
-[![AI Embedded Workflow Demo](docs/promo-demo/preview.en.svg)](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html)
+[![AI Embedded Workflow Demo](docs/promo-demo/preview.en.svg)](https://sailiono.github.io/firmware-proof/promo-demo/index.en.html)
 
-BenchLoop is a public showcase for a **human-in-the-loop AI workflow for embedded firmware delivery**.
+FirmwareProof is a public showcase for a **human-in-the-loop AI workflow for embedded firmware delivery**.
 
 It uses **dpiny-RTK**, a real STM32F407 + UM982 RTK base-station firmware, as the first hardware case. The main value is the surrounding delivery loop:
 
@@ -21,7 +21,7 @@ requirement -> code change -> build -> flash -> serial tests
 -> protocol gates -> register probe -> evidence package -> handoff
 ```
 
-**dpiny-RTK is the demo case. BenchLoop is the workflow.**
+**dpiny-RTK is the demo case. FirmwareProof is the workflow.**
 
 ## At A Glance
 
@@ -37,8 +37,8 @@ requirement -> code change -> build -> flash -> serial tests
 
 | Resource | Link |
 |---|---|
-| Interactive demo, English | [GitHub Pages](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html) |
-| Interactive demo, Chinese | [GitHub Pages](https://sailiono.github.io/dpiny-rtk-ai-workflow/) |
+| Interactive demo, English | [GitHub Pages](https://sailiono.github.io/firmware-proof/promo-demo/index.en.html) |
+| Interactive demo, Chinese | [GitHub Pages](https://sailiono.github.io/firmware-proof/) |
 | Evidence index | [evidence/README.md](evidence/README.md) |
 | Failure-to-fix cases | [case-studies/](case-studies/) |
 | ROI model | [docs/roi_model.md](docs/roi_model.md) |

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BenchLoop AI Embedded Workflow Demo</title>
+    <title>FirmwareProof AI Embedded Workflow Demo</title>
     <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260520-bilingual">
   </head>
   <body>
@@ -71,7 +71,7 @@
         <nav class="topbar" aria-label="Demo navigation">
           <div class="brand">
             <span class="brand-mark"></span>
-            <span>BenchLoop</span>
+            <span>FirmwareProof</span>
           </div>
           <div class="nav-pills">
             <span>STM32F407</span>
@@ -90,13 +90,13 @@
             <span>都跑在真实或远程 STM32 硬件上。</span>
           </h1>
           <p class="hero-copy">
-            BenchLoop 以 dpiny-RTK 这个 STM32F407 + UM982 RTK 固件作为第一个真实案例，展示 build、flash、shell test、RTCM CRC、USB CDC reset recovery、SWD register probe 和 evidence manifest 如何串成可复现交付闭环。
+            FirmwareProof 以 dpiny-RTK 这个 STM32F407 + UM982 RTK 固件作为第一个真实案例，展示 build、flash、shell test、RTCM CRC、USB CDC reset recovery、SWD register probe 和 evidence manifest 如何串成可复现交付闭环。
           </p>
           <div class="hero-actions" aria-label="Key proof points">
             <a href="#pipeline">看流程</a>
             <a href="#evidence">看证据链</a>
             <a href="#cases">看故障案例</a>
-            <a href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/adapt-your-stm32-project.zh-CN.md">如何接入</a>
+            <a href="https://github.com/Sailiono/firmware-proof/blob/main/docs/adapt-your-stm32-project.zh-CN.md">如何接入</a>
             <a href="#remote-hil">看远程硬件</a>
           </div>
         </div>
@@ -135,7 +135,7 @@
       <section class="audience-section" aria-label="Why this workflow matters">
         <div class="section-heading">
           <p>three audiences</p>
-          <h2>dpiny-RTK 是示范案例，BenchLoop 才是可迁移的交付工作流</h2>
+          <h2>dpiny-RTK 是示范案例，FirmwareProof 才是可迁移的交付工作流</h2>
         </div>
         <div class="audience-grid">
           <article>
@@ -159,7 +159,7 @@
       <section id="pipeline" class="workflow-section">
         <div class="section-heading">
           <p>workflow map</p>
-          <h2>BenchLoop 把嵌入式交付变成一条可追踪生产线</h2>
+          <h2>FirmwareProof 把嵌入式交付变成一条可追踪生产线</h2>
         </div>
         <div class="pipeline-lab" aria-label="Embedded delivery pipeline explorer">
           <div class="stage-selector" role="tablist" aria-label="Workflow stages">
@@ -257,7 +257,7 @@
               <div><strong>0</strong><span>CRC bad</span></div>
               <div><strong>21.11s</strong><span>CDC reset gate</span></div>
             </div>
-            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/evidence/remote-hil-redacted-2026-05-20/test_summary.md">查看脱敏远程证据</a>
+            <a class="doc-link" href="https://github.com/Sailiono/firmware-proof/blob/main/evidence/remote-hil-redacted-2026-05-20/test_summary.md">查看脱敏远程证据</a>
           </article>
           <article class="remote-console" aria-label="Remote bench transcript">
             <div class="pane-title">remote_bench.summary</div>
@@ -297,7 +297,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
             </div>
           </article>
         </div>
-        <a class="section-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/remote-hardware-debug-flow.md">查看远程硬件在环流程说明</a>
+        <a class="section-link" href="https://github.com/Sailiono/firmware-proof/blob/main/docs/remote-hardware-debug-flow.md">查看远程硬件在环流程说明</a>
       </section>
 
       <section class="cost-section" aria-label="Cost and velocity comparison">
@@ -408,7 +408,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
               <span>featured case · real bench replay</span>
               <strong>USB CDC Reset Recovery</strong>
             </div>
-            <p>现象：Windows 能看到 USB CDC 口，但 reset 后 Shell 偶发不可用。BenchLoop 把这个问题沉淀成自动化 regression gate，reset 前后都要证明 Shell 能响应。</p>
+            <p>现象：Windows 能看到 USB CDC 口，但 reset 后 Shell 偶发不可用。FirmwareProof 把这个问题沉淀成自动化 regression gate，reset 前后都要证明 Shell 能响应。</p>
             <div class="case-flow">
               <span>post-flash probe</span>
               <span>software reset</span>
@@ -421,7 +421,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
               <li>与 build、flash、Shell、RTCM CRC 和 register probe 同一 baseline 归档。</li>
               <li>这类修复不再靠人工观察，而是进入每次交付证据链。</li>
             </ul>
-            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/04-usb-cdc-reset-recovery.md">查看完整复盘</a>
+            <a class="doc-link" href="https://github.com/Sailiono/firmware-proof/blob/main/case-studies/04-usb-cdc-reset-recovery.md">查看完整复盘</a>
           </article>
           <div class="case-support-grid">
             <article class="case-card">
@@ -436,7 +436,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
                 <span>engineer confirm</span>
                 <span>regression PASS</span>
               </div>
-              <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/01-usart-clock-missing.md">查看复盘</a>
+              <a class="doc-link" href="https://github.com/Sailiono/firmware-proof/blob/main/case-studies/01-usart-clock-missing.md">查看复盘</a>
             </article>
             <article class="case-card">
               <div class="case-head">
@@ -449,7 +449,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
                 <span>DE edge</span>
                 <span>CRC BAD: 0</span>
               </div>
-              <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/02-rs422-de-timing.md">查看复盘</a>
+              <a class="doc-link" href="https://github.com/Sailiono/firmware-proof/blob/main/case-studies/02-rs422-de-timing.md">查看复盘</a>
             </article>
             <article class="case-card">
               <div class="case-head">
@@ -462,7 +462,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
                 <span>crc check</span>
                 <span>handoff</span>
               </div>
-              <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/case-studies/03-rtcm-crc-validation.md">查看复盘</a>
+              <a class="doc-link" href="https://github.com/Sailiono/firmware-proof/blob/main/case-studies/03-rtcm-crc-validation.md">查看复盘</a>
             </article>
           </div>
         </div>
@@ -505,7 +505,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
               <li>EMC/ESD、协议边界、量产风险判断。</li>
               <li>最终代码 review、硬件假设确认和验收签字。</li>
             </ul>
-            <a class="doc-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/roi_model.md">查看 ROI 模型全文</a>
+            <a class="doc-link" href="https://github.com/Sailiono/firmware-proof/blob/main/docs/roi_model.md">查看 ROI 模型全文</a>
           </article>
         </div>
       </section>
@@ -547,7 +547,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
             <em>remote command / bench PC / ST-LINK / serial gates / evidence pullback</em>
           </article>
         </div>
-        <a class="section-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/commercial-use-cases.md">查看商业落地场景全文</a>
+        <a class="section-link" href="https://github.com/Sailiono/firmware-proof/blob/main/docs/commercial-use-cases.md">查看商业落地场景全文</a>
       </section>
 
       <section id="video" class="video-section" aria-label="Three minute demo script">
@@ -579,7 +579,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
             <div><span>2:45</span><strong>回归验收</strong><p>修复后测试重新 PASS，工程师确认并归档。</p></div>
           </div>
         </div>
-        <a class="section-link" href="https://github.com/Sailiono/dpiny-rtk-ai-workflow/blob/main/docs/demo-video-script.md">查看 3 分钟视频脚本全文</a>
+        <a class="section-link" href="https://github.com/Sailiono/firmware-proof/blob/main/docs/demo-video-script.md">查看 3 分钟视频脚本全文</a>
       </section>
 
       <section class="system-section">

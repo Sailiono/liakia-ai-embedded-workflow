@@ -1,4 +1,4 @@
-# BenchLoop
+# FirmwareProof
 
 **AI 原生嵌入式交付闭环示范项目**
 
@@ -10,9 +10,9 @@
 [![Build](https://img.shields.io/badge/Build-CMake_%2B_Ninja-blueviolet)]()
 [![Workflow](https://img.shields.io/badge/Workflow-Human--in--the--loop_AI-80ff72)]()
 
-[![AI Embedded Workflow Demo](docs/promo-demo/preview.svg)](https://sailiono.github.io/dpiny-rtk-ai-workflow/)
+[![AI Embedded Workflow Demo](docs/promo-demo/preview.svg)](https://sailiono.github.io/firmware-proof/)
 
-BenchLoop 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 项目。
+FirmwareProof 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 项目。
 
 它用 **dpiny-RTK** 这个真实的 STM32F407 + UM982 RTK 基准站固件作为第一个硬件案例，但核心价值是固件外侧的交付闭环：
 
@@ -21,7 +21,7 @@ BenchLoop 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流
 -> 协议 gate -> 寄存器 probe -> 证据包 -> 交付
 ```
 
-**dpiny-RTK 是示范案例，BenchLoop 才是工作流。**
+**dpiny-RTK 是示范案例，FirmwareProof 才是工作流。**
 
 ## 一眼看懂
 
@@ -37,8 +37,8 @@ BenchLoop 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流
 
 | 资源 | 链接 |
 |---|---|
-| 中文交互演示 | [GitHub Pages](https://sailiono.github.io/dpiny-rtk-ai-workflow/) |
-| 英文交互演示 | [GitHub Pages](https://sailiono.github.io/dpiny-rtk-ai-workflow/promo-demo/index.en.html) |
+| 中文交互演示 | [GitHub Pages](https://sailiono.github.io/firmware-proof/) |
+| 英文交互演示 | [GitHub Pages](https://sailiono.github.io/firmware-proof/promo-demo/index.en.html) |
 | 证据包入口 | [evidence/README.md](evidence/README.md) |
 | 故障复盘案例 | [case-studies/](case-studies/) |
 | ROI 模型 | [docs/roi_model.md](docs/roi_model.md) |

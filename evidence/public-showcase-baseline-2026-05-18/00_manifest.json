@@ -2,7 +2,7 @@
   "project": "dpiny-RTK",
   "workflow": "human-in-the-loop AI embedded delivery",
   "baseline": "public-showcase-baseline-2026-05-18",
-  "repository": "Sailiono/dpiny-rtk-ai-workflow",
+  "repository": "Sailiono/firmware-proof",
   "timestamp_start": "2026-05-18T14:33:43+08:00",
   "timestamp_end": "2026-05-18T14:34:38+08:00",
   "stage_timestamps": {
