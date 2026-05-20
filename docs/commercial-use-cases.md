@@ -74,3 +74,20 @@ Delivery scope:
 - serial functional test log;
 - register probe log;
 - handoff summary.
+
+## 5. Remote Hardware-In-The-Loop Debugging
+
+Suitable for:
+
+- shared hardware benches;
+- remote labs and field-return devices;
+- teams where firmware, hardware, and test engineers are not in the same room;
+- scarce prototypes that should not be moved between desks.
+
+Delivery scope:
+
+- remote bench command entry;
+- build / flash / serial / RTCM / USB CDC test loop;
+- failed-run log retention;
+- redacted evidence package;
+- post-fix regression proof.
