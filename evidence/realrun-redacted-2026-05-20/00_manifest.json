@@ -1,0 +1,47 @@
+{
+  "name": "realrun-redacted-2026-05-20",
+  "type": "redacted bench evidence",
+  "timestamp": "2026-05-20T09:38:17+08:00",
+  "source_report": "dpiny-debug-reports-20260520-093821.zip",
+  "source_branch": "baseline/test-handoff",
+  "source_commit": "eb47ff1",
+  "hardware": {
+    "mcu": "STM32F407",
+    "gnss": "Unicore UM982",
+    "st_link_serial": "redacted",
+    "usb_device_serial": "redacted"
+  },
+  "ports": {
+    "shell_uart": "COM10",
+    "rtcm": "COM5",
+    "usb_cdc": "COM12"
+  },
+  "toolchain": {
+    "cmake": "CMake",
+    "ninja": "Ninja",
+    "gcc": "Arm GNU Toolchain arm-none-eabi 14.2 rel1",
+    "programmer": "STM32CubeProgrammer v2.22.0"
+  },
+  "result": "PASS",
+  "steps": [
+    { "name": "Dependency check", "result": "PASS", "duration_sec": 0.56 },
+    { "name": "Build firmware", "result": "PASS", "duration_sec": 3.04 },
+    { "name": "Flash firmware", "result": "PASS", "duration_sec": 4.00 },
+    { "name": "USB CDC post-flash availability test", "result": "PASS", "duration_sec": 6.70 },
+    { "name": "Functional serial test", "result": "PASS", "duration_sec": 6.41 },
+    { "name": "Input validation test", "result": "PASS", "duration_sec": 13.99 },
+    { "name": "RTCM stream test", "result": "PASS", "duration_sec": 6.89 },
+    { "name": "USB CDC reset recovery test", "result": "PASS", "duration_sec": 20.95 }
+  ],
+  "artifacts": {
+    "bin": { "name": "dpiny-RTK.bin", "size_bytes": 103136 },
+    "elf": { "name": "dpiny-RTK.elf", "size_bytes": 1640828 },
+    "hex": { "name": "dpiny-RTK.hex", "size_bytes": 290153 },
+    "map": { "name": "dpiny-RTK.map", "size_bytes": 1121270 }
+  },
+  "redaction": [
+    "local Windows user path",
+    "ST-LINK serial number",
+    "USB PNP device serial"
+  ]
+}

@@ -1,0 +1,33 @@
+> tools/flash_firmware.ps1 -Preset Debug -ConnectArgs "port=SWD freq=4000"
+
+== Flash firmware ==
+Programmer: STM32CubeProgrammer
+ELF:        <repo>/build/Debug/dpiny-RTK.elf
+Connect:    port=SWD freq=4000
+
+STM32CubeProgrammer v2.22.0
+
+ST-LINK SN  : <redacted>
+ST-LINK FW  : V2J47M34
+Voltage     : 3.24V
+SWD freq    : 4000 KHz
+Connect mode: Normal
+Reset mode  : Software reset
+Device ID   : 0x413
+Device name : STM32F405xx/F407xx/F415xx/F417xx
+NVM size    : 512 KBytes
+Device CPU  : Cortex-M4
+
+Memory Programming ...
+File          : dpiny-RTK.elf
+Size          : 100.72 KB
+Address       : 0x08000000
+
+File download complete
+Verifying...
+Download verified successfully
+
+MCU Reset
+Software reset is performed
+
+Flash done.

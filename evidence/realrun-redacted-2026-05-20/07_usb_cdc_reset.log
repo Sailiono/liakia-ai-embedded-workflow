@@ -1,0 +1,31 @@
+> tools/usb_cdc_reset_test.ps1 -UsbPort COM12
+
+dpiny-RTK USB CDC test
+USB CDC port: COM12
+Available COM ports: COM10, COM12, COM3, COM4, COM5
+PnP entry for COM12: USB Serial Device (COM12), status OK, device serial redacted
+
+Waiting for USB CDC shell (before software reset)...
+>> version
+dpiny-RTK Base Station Firmware
+  Version: v1.0
+  Build:   May 20 2026 09:37:16
+  MCU:     STM32F407VET6 @ 168MHz
+  GNSS:    Unicore UM982
+  RTOS:    FreeRTOS (CMSIS-RTOS v2)
+
+PASS: USB CDC shell responded (before software reset)
+
+>> reset
+Waiting for USB CDC to recover after software reset...
+Waiting for USB CDC shell (after software reset)...
+>> version
+dpiny-RTK Base Station Firmware
+  Version: v1.0
+  Build:   May 20 2026 09:37:16
+  MCU:     STM32F407VET6 @ 168MHz
+  GNSS:    Unicore UM982
+  RTOS:    FreeRTOS (CMSIS-RTOS v2)
+
+PASS: USB CDC shell responded (after software reset)
+PASS: USB CDC recovered after software reset

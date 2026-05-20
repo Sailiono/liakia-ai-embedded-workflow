@@ -1,0 +1,43 @@
+> tools/build_firmware.ps1 -Preset Debug -Rs422Output both
+
+== Toolchain ==
+CMake: CMake
+Ninja: Ninja
+GCC: Arm GNU Toolchain arm-none-eabi 14.2 rel1
+RS422 output: both (mask 3)
+
+== Configure preset Debug ==
+Build type: Debug
+RS422 output mask: 3
+Configuring done
+Generating done
+
+== Build preset Debug ==
+[1/21] Building C object gpio.c.obj
+[2/21] Building C object usart.c.obj
+[3/21] Building C object iwdg.c.obj
+[4/21] Building C object dma.c.obj
+[5/21] Building C object usb_device.c.obj
+[6/21] Building C object freertos.c.obj
+[7/21] Building C object usbd_conf.c.obj
+[8/21] Building C object usbd_desc.c.obj
+[9/21] Building C object main.c.obj
+[10/21] Building C object usbd_cdc_if.c.obj
+[17/21] Building C object passthrough.c.obj
+[18/21] Building C object gnss.c.obj
+[19/21] Building C object config.c.obj
+[20/21] Building C object shell.c.obj
+[21/21] Linking C executable dpiny-RTK.elf
+
+Memory region         Used Size  Region Size  %age Used
+RAM:                    57672 B       128 KB     44.00%
+CCMRAM:                     0 B        64 KB      0.00%
+FLASH:                 103136 B       384 KB     26.23%
+DATA_FLASH:                 0 B       128 KB      0.00%
+
+== Generate HEX/BIN ==
+HEX: <repo>/build/Debug/dpiny-RTK.hex
+BIN: <repo>/build/Debug/dpiny-RTK.bin
+ELF: <repo>/build/Debug/dpiny-RTK.elf
+
+Done.

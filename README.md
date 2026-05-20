@@ -54,6 +54,7 @@ Requirement
 ## Start Here
 
 - [Evidence package](evidence/public-showcase-baseline-2026-05-18/)：可审计的 public-showcase baseline 交付证据样例。
+- [Real bench evidence](evidence/realrun-redacted-2026-05-20/)：真实硬件运行后的脱敏证据包，覆盖 build / flash / shell / RTCM / USB CDC reset recovery。
 - [Failure-to-fix case studies](case-studies/)：展示真实工程问题的复盘结构；公开仓库中部分寄存器值为脱敏/示例格式，客户交付需附原始 bench log。
 - [Workflow template](workflow-template/)：把现有 STM32 项目接入同类闭环的适配模板。
 - [ROI model](docs/roi_model.md)：成本、人天和压缩点的估算方法，而不是一句宣传口号。

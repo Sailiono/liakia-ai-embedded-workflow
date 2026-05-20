@@ -1,0 +1,28 @@
+> tools/rtcm_parse.ps1 -Port COM5 -ReadSecs 6
+
+Reading RTCM from COM5 for 6 seconds...
+Read 2520 bytes
+
+=== RTCM Stream Analysis ===
+Total frames found: 28
+Ignored invalid sync candidates: 0
+
+--- Message Types ---
+MT1005: Station XYZ (ECEF) (6 msgs)
+MT1074: GPS MSM4 Full PR&PR&CNR (6 msgs)
+MT1084: GLONASS MSM4 (6 msgs)
+MT1094: Galileo MSM4 (6 msgs)
+MT1124: BDS MSM4 Full PR&PR&CNR (4 msgs)
+
+--- CRC Status ---
+CRC OK: 28
+CRC BAD: 0
+
+--- Expected Messages Check ---
+MT1005: 6 msgs [OK]
+MT1074: 6 msgs [OK]
+MT1084: 6 msgs [OK]
+MT1094: 6 msgs [OK]
+MT1124: 4 msgs [OK]
+
+PASS: RTCM stream contains expected messages and CRC is clean

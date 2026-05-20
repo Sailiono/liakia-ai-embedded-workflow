@@ -18,3 +18,4 @@ The cases are written as public workflow examples. They intentionally avoid priv
 - [Case 01 — USART clock missing](01-usart-clock-missing.md)
 - [Case 02 — RS422 DE timing](02-rs422-de-timing.md)
 - [Case 03 — RTCM CRC validation](03-rtcm-crc-validation.md)
+- [Case 04 — USB CDC reset recovery](04-usb-cdc-reset-recovery.md)
