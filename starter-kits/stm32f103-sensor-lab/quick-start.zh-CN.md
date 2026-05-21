@@ -17,14 +17,7 @@
 - 每个 gate 的日志；
 - 可直接交给 AI 分析的 `ai_prompt.md`。
 
-第一版推荐复现 **Case B：BMP280 数据质量失败**。它不是地址写错，而是：
-
-```text
-I2C 能通
-chip id 正确
-raw calibration bytes 能读
-但补偿后的温度不可信
-```
+Starter Lab 的重点不是“跑一个假 PASS demo”，而是让你用四个已知有问题的应用层 case 练习排障。建议先跑通 baseline，再按 case 阶梯导入 broken app-layer，先自己找现象和假设，再让 AI 基于同一份 evidence 排查，最后用答案校验结果。
 
 ## 1. 硬件
 
@@ -213,17 +206,35 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 
 如果你暂时不想烧录，必须显式写 `-SkipFlash`。没有 `-Elf` 时 runner 会失败，避免误以为已经测试了新固件。
 
-## 7. 制造 Case B known-bad
+## 7. 进入 Known-Bad Case 阶梯
 
-最快的教学方式是按 Case B 练习卡片操作：
+从这里开始，不再只是验证“板子能跑”。你要按 case A-D 逐步体验：同一个故障，如果只靠人工查日志和代码需要多久；把同一份 evidence 交给 AI 后，定位路径是否更快、更清晰。
 
-```text
-known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md
-```
+推荐训练顺序如下。Case 编号保持 A-D；难度设计从“可见数据异常”逐步走向“时序/状态类问题”。
 
-该文件夹会给出故意改错的应用层文件和练习指南。第一遍请把 known-bad 代码当成黑盒练习：先导入、编译、烧录、观察 evidence，再去看 `ANSWER.zh-CN.md`。
+| 训练顺序 | Case | 练习重点 | 入口 |
+|---:|---|---|---|
+| 1 | Case B | BMP280 chip ID 正常但数据质量失败，适合第一次体验 evidence-first 诊断 | [case-b-bmp280-calibration](known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md) |
+| 2 | Case A | reset 后 I2C 恢复失败，需要结合 reset recovery、GPIO/I2C 状态推理 | [case-a-i2c-bus-stuck-reset](known-bad-cases/case-a-i2c-bus-stuck-reset/README.zh-CN.md) |
+| 3 | Case D | Flash 配置持久化失败，需要对比 reset 前后记录和 raw record | [case-d-flash-persistence-alignment](known-bad-cases/case-d-flash-persistence-alignment/README.zh-CN.md) |
+| 4 | Case C | UART DMA/IDLE stream 边界问题，需要分析速率、截断和 CRC/帧边界 | [case-c-uart-dma-idle-race](known-bad-cases/case-c-uart-dma-idle-race/README.zh-CN.md) |
 
-重新编译、烧录，然后用预期失败模式运行：
+每个 case 文件夹都包含三类内容：
+
+- `app-layer/`：故意改错的应用层文件；
+- `README.zh-CN.md`：如何导入、运行、采集 evidence；
+- `ANSWER.zh-CN.md`：现象、根因和参考修复，只能在你完成排查后打开。
+
+练习时按这个节奏走：
+
+1. 打开所选 case 的 `README.zh-CN.md`，只看导入和运行步骤，不要看 `ANSWER.zh-CN.md`。
+2. 把 `app-layer/` 里的 broken 文件导入你自己的 CubeMX/HAL 工程。
+3. 编译、烧录、运行对应 gate，让它生成 expected-failure evidence。
+4. 先人工排查：记录你看到的失败现象、初步假设、排除项和耗时。
+5. 再生成 AI prompt，让 AI 只基于相同 evidence 给出诊断。
+6. 对比人工路径和 AI 路径，最后打开答案验证。
+
+以下以 Case B 为例。其他 case 的导入文件、预期失败 gate 和手工观察点以各自文件夹内指南为准。
 
 ```powershell
 starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
@@ -240,7 +251,18 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 
 Gate 定义见 [test-gates.zh-CN.md](test-gates.zh-CN.md)。
 
-## 8. 生成 AI 诊断材料
+## 8. 先人工排查，再生成 AI 诊断材料
+
+不要一失败就直接看答案。先给自己 15-30 分钟做一次人工排查，至少写下：
+
+| 项目 | 你需要记录什么 |
+|---|---|
+| 失败现象 | 哪个 gate FAIL，串口输出是什么，reset 前后是否一致 |
+| 已排除原因 | 供电、接线、I2C 地址、chip ID、编译/烧录是否已经确认 |
+| 你的假设 | 你认为最可能的问题文件、函数或状态边界 |
+| 耗时 | 从看到 FAIL 到形成假设用了多久 |
+
+然后用同一份 evidence 生成 AI 诊断材料。
 
 找到上一步输出目录，例如：
 
@@ -267,9 +289,21 @@ failure_triage.md
 
 AI 诊断约束见 [diagnosis-playbook.zh-CN.md](diagnosis-playbook.zh-CN.md)。
 
-## 9. 修复并回归
+## 9. 对比、修复并回归
 
-AI 诊断和人工 review 后，只做 evidence 指向的最小修复。如果卡住，再去看 [case-b-bmp280-calibration/ANSWER.zh-CN.md](known-bad-cases/case-b-bmp280-calibration/ANSWER.zh-CN.md)。
+把人工诊断和 AI 诊断放在一起对比：
+
+| 对比项 | 人工排查 | AI 辅助排查 |
+|---|---|---|
+| 用了哪些 evidence | 你实际查看的日志、manifest、串口输出 | AI 引用的日志、gate、寄存器或 raw value |
+| 根因假设 | 你的排序 | AI 的排序 |
+| 最小修复范围 | 你认为要改的文件/函数 | AI 建议的文件/函数 |
+| 耗时 | 你的实际耗时 | 生成 prompt + AI 分析耗时 |
+| 可信度 | 哪些证据支撑，哪些仍需人工确认 | 哪些结论可接受，哪些需要驳回 |
+
+完成对比后，再打开当前 case 的 `ANSWER.zh-CN.md`。答案不是为了提前泄题，而是用来校验你和 AI 的诊断是否真正基于证据。
+
+AI 诊断和人工 review 后，只做 evidence 指向的最小修复。如果卡住，再去看当前 case 的答案文件，例如 [case-b-bmp280-calibration/ANSWER.zh-CN.md](known-bad-cases/case-b-bmp280-calibration/ANSWER.zh-CN.md)。
 
 重新编译、烧录、运行 baseline：
 

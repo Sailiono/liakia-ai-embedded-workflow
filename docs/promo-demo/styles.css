@@ -367,6 +367,13 @@ h1 span {
   margin-bottom: 34px;
 }
 
+.section-lede {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.72;
+}
+
 h2 {
   margin: 0;
   font-size: 40px;
@@ -2273,6 +2280,8 @@ h2 {
 }
 
 .usecase-grid article {
+  display: flex;
+  flex-direction: column;
   min-height: 310px;
   padding: 22px;
 }
@@ -2293,6 +2302,33 @@ h2 {
   font-size: 12px;
   font-style: normal;
   line-height: 1.6;
+}
+
+.lab-comparison {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.lab-comparison div {
+  border: 1px solid rgba(244, 241, 232, 0.14);
+  background: rgba(244, 241, 232, 0.046);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.lab-comparison strong {
+  display: block;
+  color: var(--green);
+  font-size: 16px;
+}
+
+.lab-comparison span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.62;
 }
 
 .video-section {
@@ -2746,7 +2782,8 @@ h2 {
   }
 
   .remote-stats,
-  .remote-flow {
+  .remote-flow,
+  .lab-comparison {
     grid-template-columns: 1fr;
   }
 

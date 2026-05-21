@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Liakia AI Embedded Workflow Demo</title>
-    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260520-bilingual">
+    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260521-case-ladder">
   </head>
   <body>
     <main class="page-shell">
@@ -82,13 +82,14 @@
       <section id="paths" class="usecase-section" aria-label="Choose your path">
         <div class="section-heading">
           <p>choose your path</p>
-          <h2>Hands-on learning, engineering proof, and project adoption stay separate.</h2>
+          <h2>Understand what Liakia does first, then choose the path that fits your role.</h2>
+          <div class="section-lede">Liakia is not a single RTK firmware and not a one-click fake demo. It turns embedded delivery into a build, flash, test, diagnose, evidence, and handoff loop with three parallel entry points: hands-on lab, engineering proof, and project adoption.</div>
         </div>
         <div class="usecase-grid">
           <article>
             <span>starter</span>
             <h3>STM32F103C8T6 Sensor Lab</h3>
-            <p>Start from an empty IOC, wire a BMP280 sensor, integrate the Liakia application layer, then import known-bad case folders and diagnose real failures from evidence.</p>
+            <p>Start from an empty IOC, wire a BMP280 sensor, pass the baseline, then use four known-bad cases to compare manual debugging with AI-assisted diagnosis from the same evidence.</p>
             <em>IOC / HAL / BMP280 / known-bad case packs</em>
             <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/README.md">Start the lab</a>
           </article>
@@ -112,33 +113,39 @@
       <section id="starter-lab" class="usecase-section" aria-label="Starter lab">
         <div class="section-heading">
           <p>starter lab</p>
-          <h2>The beginner path is not a fake PASS demo; users import broken code and diagnose it themselves.</h2>
+          <h2>The lab loop is: diagnose manually, ask AI with the same evidence, then open the answer.</h2>
+          <div class="section-lede">Users first build a working STM32F103C8T6 + BMP280 baseline, then import one of four known-bad cases. Each case has a broken app-layer folder, a practice guide, and a separate answer key so the root cause is not revealed up front.</div>
         </div>
         <div class="usecase-grid">
           <article>
             <span>01</span>
-            <h3>Generate the low-level project</h3>
+            <h3>Pass the normal baseline</h3>
             <p>The user creates the STM32F103C8T6 CubeMX project and configures SWD, USART1, I2C1, and GPIO. Liakia provides checkpoints, not a prebuilt firmware image.</p>
             <em>IOC / HAL / SWD / USART1 / I2C1</em>
           </article>
           <article>
             <span>02</span>
-            <h3>Run the known-good app layer</h3>
-            <p>The base app must pass shell, BMP280 chip ID, sensor read, and telemetry gates before any fault is injected.</p>
-            <em>baseline first, failure later</em>
+            <h3>Choose the four-case ladder</h3>
+            <p>Cases A-D increase in difficulty. Start with BMP280 data quality, then move to I2C reset recovery, Flash persistence, and UART DMA/IDLE stream boundaries.</p>
+            <em>Case B -> Case A -> Case D -> Case C</em>
           </article>
           <article>
             <span>03</span>
-            <h3>Import known-bad case packs</h3>
-            <p>Each case is a folder with broken code, a practice guide, and a separate answer key. The answer is not shown before the user tries the diagnosis.</p>
-            <em>case folder / broken app-layer / answer key</em>
+            <h3>Diagnose manually first</h3>
+            <p>After importing broken app-layer code, the user inspects gate failures, serial logs, and the manifest, then records symptoms, hypotheses, ruled-out causes, and elapsed time.</p>
+            <em>symptom / hypothesis / elapsed time</em>
           </article>
           <article>
             <span>04</span>
-            <h3>Measure the AI workflow</h3>
-            <p>The runner generates logs, a manifest, and an AI prompt. The user asks AI to reason from evidence, then reviews and fixes the smallest code area.</p>
-            <em>evidence package / AI prompt / regression PASS</em>
+            <h3>Then let AI use the same evidence</h3>
+            <p>The runner creates logs, a manifest, and `ai_prompt.md`. The user asks AI to find the root cause from evidence, compares both paths, then opens the answer.</p>
+            <em>manual vs AI / answer last / regression PASS</em>
           </article>
+        </div>
+        <div class="lab-comparison">
+          <div><strong>Manual first</strong><span>Record the symptom, reasoning path, and elapsed time yourself.</span></div>
+          <div><strong>AI second</strong><span>Give AI the same evidence and require log- and gate-based reasoning only.</span></div>
+          <div><strong>Answer last</strong><span>Open the answer key only after comparison; it validates the diagnosis.</span></div>
         </div>
         <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/README.md">View known-bad lab packs</a>
       </section>

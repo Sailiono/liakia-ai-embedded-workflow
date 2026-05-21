@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Liakia AI Embedded Workflow Demo</title>
-    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260521-reframed">
+    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260521-case-ladder">
   </head>
   <body>
     <main class="page-shell">
@@ -83,13 +83,14 @@
       <section id="paths" class="usecase-section" aria-label="Choose your path">
         <div class="section-heading">
           <p>choose your path</p>
-          <h2>三条入口并列，不再把所有人都塞进同一个工程案例。</h2>
+          <h2>先理解 Liakia 是什么，再按你的角色选择入口。</h2>
+          <div class="section-lede">Liakia 不是单个 RTK 固件，也不是点一下就结束的演示。它把嵌入式交付拆成 build、flash、test、diagnose、evidence、handoff，并提供新手动手 Lab、真实工程证据和客户项目接入三条平行路径。</div>
         </div>
         <div class="usecase-grid">
           <article>
             <span>hands-on</span>
             <h3>Starter-F103 Sensor Lab</h3>
-            <p>面向新手、评估者和想亲手验证的人。从空 IOC 开始，焊线接 BMP280，导入 known-bad 代码，再用 evidence-first 方法排查。</p>
+            <p>面向新手、评估者和想亲手验证的人。从空 IOC 开始，焊线接 BMP280，跑通 baseline，再按四个 known-bad case 体验人工排查和 AI 排查的效率差异。</p>
             <em>STM32F103C8T6 / BMP280 / known-bad case packs</em>
             <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/README.zh-CN.md">进入 Starter Lab</a>
           </article>
@@ -113,33 +114,39 @@
       <section id="starter-lab" class="usecase-section" aria-label="Starter lab">
         <div class="section-heading">
           <p>starter lab</p>
-          <h2>新手模块不是假运行，而是让用户自己导入错误代码、自己采集证据。</h2>
+          <h2>Starter Lab 的核心是“先自己排查，再让 AI 排查，最后看答案”。</h2>
+          <div class="section-lede">用户先搭好 STM32F103C8T6 + BMP280 baseline，再从四个 known-bad case 中选择一个导入。每个 case 都有独立 broken app-layer、操作指南和答案文件；答案默认放在最后，避免一开始泄题。</div>
         </div>
         <div class="usecase-grid">
           <article>
             <span>01</span>
-            <h3>用户自己生成底层工程</h3>
+            <h3>先跑通正常 baseline</h3>
             <p>用户用 CubeMX 创建 STM32F103C8T6 工程，配置 SWD、USART1、I2C1 和 GPIO。Liakia 只给配置检查点，不替用户生成完整工程。</p>
             <em>IOC / HAL / SWD / USART1 / I2C1</em>
           </article>
           <article>
             <span>02</span>
-            <h3>导入可工作的应用层</h3>
-            <p>先让基础 `liakia_lab_app.c` 跑通，确认 shell、BMP280 chip id、sensor read 和 telemetry gate 都能 PASS。</p>
-            <em>baseline first, failure later</em>
+            <h3>选择四级故障练习</h3>
+            <p>Case A-D 按难度递进。推荐从 Case B 的 BMP280 数据异常开始，再进入 I2C reset、Flash 持久化和 UART DMA/IDLE 边界问题。</p>
+            <em>Case B -> Case A -> Case D -> Case C</em>
           </article>
           <article>
             <span>03</span>
-            <h3>切换到 known-bad case 包</h3>
-            <p>每个 case 是独立文件夹，包含故意改错的代码、练习指南和单独答案。用户先导入、烧录、观察失败，再看答案。</p>
-            <em>case folder / broken app-layer / answer key</em>
+            <h3>先人工定位故障</h3>
+            <p>导入 broken app-layer 后，用户自己观察 gate FAIL、串口日志和 manifest，记录失败现象、假设、排除项和耗时。</p>
+            <em>symptom / hypothesis / elapsed time</em>
           </article>
           <article>
             <span>04</span>
-            <h3>用 AI 工作流验证排障效率</h3>
-            <p>runner 生成 logs、manifest 和 `ai_prompt.md`。用户把 evidence 交给 AI，让 AI 基于事实定位问题，再人工确认最小修复。</p>
-            <em>evidence package / AI prompt / regression PASS</em>
+            <h3>再让 AI 用同一证据排查</h3>
+            <p>runner 生成 logs、manifest 和 `ai_prompt.md`。用户让 AI 基于证据定位根因，再和自己的路径对比，最后打开 ANSWER 验证。</p>
+            <em>manual vs AI / answer last / regression PASS</em>
           </article>
+        </div>
+        <div class="lab-comparison">
+          <div><strong>人工优先</strong><span>先记录自己看到的现象、推理路径和耗时。</span></div>
+          <div><strong>AI 第二</strong><span>把同一 evidence 交给 AI，要求只基于日志和 gate 结果分析。</span></div>
+          <div><strong>答案最后</strong><span>完成对比后再打开 ANSWER，用来校验而不是提前泄题。</span></div>
         </div>
         <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/README.zh-CN.md">查看 known-bad 实验包</a>
       </section>

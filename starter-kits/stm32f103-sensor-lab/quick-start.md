@@ -19,14 +19,7 @@ After the lab, you should have an evidence package containing:
 - per-gate logs;
 - an `ai_prompt.md` file ready for evidence-based AI diagnosis.
 
-The recommended first case is **Case B: BMP280 data quality failure**. It is not a trivial wrong-address bug:
-
-```text
-I2C works
-chip id is correct
-raw calibration bytes are readable
-but compensated temperature is not physically credible
-```
+The Starter Lab is not a fake PASS demo. It gives you four intentionally broken application-layer cases. Run the baseline first, import a broken case, diagnose the symptom manually, then give the same evidence to AI and compare the diagnostic path before opening the answer key.
 
 ## 1. Hardware
 
@@ -217,17 +210,35 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 
 If you do not want to flash, pass `-SkipFlash` explicitly. Missing `-Elf` is treated as a failure so the runner does not silently test an old firmware image.
 
-## 7. Inject Case B
+## 7. Start the Known-Bad Case Ladder
 
-For the easiest training path, use the Case B practice card:
+From here, the lab is no longer just proving that the board works. You use cases A-D to compare two paths: how long it takes to diagnose from logs and code manually, and how much faster or clearer the same evidence becomes when given to AI.
 
-```text
-known-bad-cases/case-b-bmp280-calibration/README.md
-```
+Recommended progression:
 
-That folder gives you the intentionally broken application-layer file and the practice guide. Treat the known-bad code as a black-box exercise first: import it, build it, flash it, inspect the evidence, and only then read `ANSWER.md`.
+| Order | Case | Training Focus | Entry |
+|---:|---|---|---|
+| 1 | Case B | BMP280 chip ID passes, but data quality fails. Best first exposure to evidence-first diagnosis. | [case-b-bmp280-calibration](known-bad-cases/case-b-bmp280-calibration/README.md) |
+| 2 | Case A | I2C recovery fails after reset, requiring reset recovery plus GPIO/I2C state reasoning. | [case-a-i2c-bus-stuck-reset](known-bad-cases/case-a-i2c-bus-stuck-reset/README.md) |
+| 3 | Case D | Flash persistence fails across reset, requiring raw record and reload evidence. | [case-d-flash-persistence-alignment](known-bad-cases/case-d-flash-persistence-alignment/README.md) |
+| 4 | Case C | UART DMA/IDLE stream boundary failure, requiring rate, truncation, CRC, and frame-boundary analysis. | [case-c-uart-dma-idle-race](known-bad-cases/case-c-uart-dma-idle-race/README.md) |
 
-Rebuild, flash, and run expected-failure mode:
+Each case folder contains:
+
+- `app-layer/`: intentionally broken application-layer files;
+- `README.md`: import, run, and evidence collection guide;
+- `ANSWER.md`: symptom, root cause, and reference fix, to be opened only after your diagnosis attempt.
+
+Use this loop for every case:
+
+1. Open the selected case `README.md`; read only the import and run steps.
+2. Import the broken files from `app-layer/` into your own CubeMX/HAL project.
+3. Build, flash, and run the expected-failure gate.
+4. Diagnose manually first: record the symptom, hypotheses, ruled-out causes, and elapsed time.
+5. Generate the AI prompt and ask AI to reason from the same evidence.
+6. Compare manual diagnosis with AI-assisted diagnosis, then open the answer key.
+
+The command below uses Case B as the first example. Other cases define their own import files, expected failure gates, and observation points in their case folders.
 
 ```powershell
 starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
@@ -244,7 +255,18 @@ The run should produce `EXPECTED_FAIL`, not a clean PASS. The important part is 
 
 Gate definitions: [test-gates.md](test-gates.md).
 
-## 8. Generate Diagnosis Material
+## 8. Diagnose Manually, Then Generate AI Material
+
+Do not jump straight to the answer. Spend 15-30 minutes on a manual diagnosis first and write down:
+
+| Item | What to Record |
+|---|---|
+| Symptom | Which gate failed, what the serial output says, whether reset changes it |
+| Ruled-out causes | Power, wiring, I2C address, chip ID, build/flash freshness |
+| Your hypothesis | The file, function, state boundary, or timing path you suspect |
+| Elapsed time | How long it took to form a defensible hypothesis |
+
+Then generate AI diagnosis material from the same evidence.
 
 Given an output directory such as:
 
@@ -271,9 +293,21 @@ Give `ai_prompt.md` to an AI assistant and require it to reason only from the ev
 
 AI diagnosis contract: [diagnosis-playbook.md](diagnosis-playbook.md).
 
-## 9. Fix And Regress
+## 9. Compare, Fix, And Regress
 
-After AI diagnosis and human review, apply the minimal fix identified by the evidence. If you are stuck, read [case-b-bmp280-calibration/ANSWER.md](known-bad-cases/case-b-bmp280-calibration/ANSWER.md).
+Compare your manual result with the AI result:
+
+| Comparison | Manual Diagnosis | AI-Assisted Diagnosis |
+|---|---|---|
+| Evidence used | Logs, manifest, serial output you inspected | Logs, gates, registers, or raw values cited by AI |
+| Root-cause ranking | Your hypothesis order | AI hypothesis order |
+| Minimal fix scope | Files/functions you would edit | Files/functions AI recommends |
+| Elapsed time | Your measured time | Prompt generation plus AI analysis time |
+| Confidence | Evidence that supports or weakens your conclusion | AI claims accepted or rejected by human review |
+
+Only after that comparison should you open the current case `ANSWER.md`. The answer key is for validation, not for shortcutting the exercise.
+
+After AI diagnosis and human review, apply the minimal fix identified by the evidence. If you are stuck, read the selected case answer, for example [case-b-bmp280-calibration/ANSWER.md](known-bad-cases/case-b-bmp280-calibration/ANSWER.md).
 
 Rebuild, flash, and re-run the baseline without expected-failure flags:
 
