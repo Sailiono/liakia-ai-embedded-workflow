@@ -4,62 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Liakia AI Embedded Workflow Demo</title>
-    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260520-bilingual">
+    <link rel="stylesheet" href="./styles.css?v=workflow-assets-20260521-reframed">
   </head>
   <body>
-    <svg class="icon-sprite" aria-hidden="true">
-      <symbol id="icon-intake" viewBox="0 0 24 24">
-        <path d="M4 7h8"></path>
-        <path d="M4 12h5"></path>
-        <path d="M4 17h7"></path>
-        <path d="M15 5l5 5-5 5"></path>
-        <path d="M14 10h6"></path>
-      </symbol>
-      <symbol id="icon-ai" viewBox="0 0 24 24">
-        <path d="M12 3v4"></path>
-        <path d="M12 17v4"></path>
-        <path d="M4.8 7.2l2.8 2.8"></path>
-        <path d="M16.4 14l2.8 2.8"></path>
-        <path d="M19.2 7.2l-2.8 2.8"></path>
-        <path d="M7.6 14l-2.8 2.8"></path>
-        <circle cx="12" cy="12" r="4"></circle>
-        <circle cx="12" cy="12" r="1"></circle>
-      </symbol>
-      <symbol id="icon-firmware" viewBox="0 0 24 24">
-        <rect x="6" y="6" width="12" height="12" rx="2"></rect>
-        <path d="M9 2v4"></path>
-        <path d="M15 2v4"></path>
-        <path d="M9 18v4"></path>
-        <path d="M15 18v4"></path>
-        <path d="M2 9h4"></path>
-        <path d="M2 15h4"></path>
-        <path d="M18 9h4"></path>
-        <path d="M18 15h4"></path>
-        <path d="M10 12h4"></path>
-      </symbol>
-      <symbol id="icon-hardware" viewBox="0 0 24 24">
-        <path d="M7 7h10v10H7z"></path>
-        <path d="M4 12H2"></path>
-        <path d="M22 12h-2"></path>
-        <path d="M12 4V2"></path>
-        <path d="M12 22v-2"></path>
-        <path d="M17 12h3"></path>
-        <path d="M4 12h3"></path>
-        <circle cx="12" cy="12" r="2"></circle>
-      </symbol>
-      <symbol id="icon-verify" viewBox="0 0 24 24">
-        <path d="M20 6L9 17l-5-5"></path>
-        <path d="M21 12a9 9 0 1 1-3-6.7"></path>
-      </symbol>
-      <symbol id="icon-archive" viewBox="0 0 24 24">
-        <path d="M4 7h16v13H4z"></path>
-        <path d="M4 7l2-3h12l2 3"></path>
-        <path d="M9 12h6"></path>
-        <path d="M10 16h4"></path>
-      </symbol>
-    </svg>
     <main class="page-shell">
-      <section class="hero" aria-label="AI embedded workflow hero">
+      <section class="hero" aria-label="Liakia workflow hero">
         <div class="hero-grid" aria-hidden="true"></div>
         <div class="signal-rail" aria-hidden="true">
           <span></span>
@@ -74,10 +23,10 @@
             <span>Liakia</span>
           </div>
           <div class="nav-pills">
-            <span>STM32F407</span>
-            <span>FreeRTOS</span>
-            <span>UM982</span>
-            <span>RTCM3</span>
+            <span>STM32</span>
+            <span>Build</span>
+            <span>Flash</span>
+            <span>Evidence</span>
             <a href="./index.en.html">EN</a>
           </div>
         </nav>
@@ -85,49 +34,47 @@
         <div class="hero-content">
           <p class="eyebrow">AI 辅助嵌入式固件交付闭环</p>
           <h1>
-            <span>编译、烧录、测试、诊断</span>
-            <span>和证据归档</span>
-            <span>都跑在真实或远程 STM32 硬件上。</span>
+            <span>Liakia</span>
+            <span>把嵌入式交付</span>
+            <span>变成可复现闭环。</span>
           </h1>
           <p class="hero-copy">
-            Liakia 以 dpiny-RTK 这个 STM32F407 + UM982 RTK 固件作为第一个真实案例，展示 build、flash、shell test、RTCM CRC、USB CDC reset recovery、SWD register probe 和 evidence manifest 如何串成可复现交付闭环。
+            Liakia 把 build、flash、serial test、protocol gate、USB CDC reset recovery、register probe 和 evidence manifest 串成一条人审闭环。dpiny-RTK 证明它能跑在真实工程上；Starter-F103 Lab 让新用户亲手复现这套方法。
           </p>
-          <div class="hero-actions" aria-label="Key proof points">
-            <a href="#paths">F103 Lab</a>
-            <a href="#pipeline">看流程</a>
-            <a href="#evidence">看证据链</a>
-            <a href="#cases">看故障案例</a>
-            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.zh-CN.md">如何接入</a>
+          <div class="hero-actions" aria-label="Key paths">
+            <a href="#paths">选择入口</a>
+            <a href="#starter-lab">动手 Lab</a>
+            <a href="#proof">真实证据</a>
+            <a href="#cases">故障复盘</a>
+            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.zh-CN.md">接入你的项目</a>
           </div>
         </div>
 
-        <aside class="mission-panel" aria-label="Live baseline dashboard">
+        <aside class="mission-panel" aria-label="Latest baseline dashboard">
           <div class="panel-header">
-            <span>baseline/test-handoff</span>
+            <span>latest baseline</span>
             <strong>LAST RUN: PASS</strong>
           </div>
           <div class="terminal" aria-label="Automation terminal">
             <p><span>$</span> .\tools\run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7</p>
-            <p><span>PASS</span> dependency check</p>
-            <p><span>PASS</span> Debug firmware build</p>
-            <p><span>PASS</span> SWD flash + verify</p>
-            <p><span>PASS</span> shell / config / reset</p>
+            <p><span>PASS</span> build / flash / shell</p>
             <p><span>PASS</span> USB CDC reset recovery</p>
-            <p><span>PASS</span> RTCM CRC BAD: 0</p>
-            <p><span>PASS</span> evidence package generated</p>
+            <p><span>PASS</span> RTCM parser CRC BAD: 0</p>
+            <p><span>PASS</span> register probe summary</p>
+            <p><span>DONE</span> evidence-out/baseline/manifest.json</p>
           </div>
           <div class="metric-strip">
             <div>
               <strong>8</strong>
-              <span>test logs</span>
+              <span>test gates</span>
             </div>
             <div>
               <strong>52</strong>
               <span>Remote HIL frames</span>
             </div>
             <div>
-              <strong>1</strong>
-              <span>evidence bundle</span>
+              <strong>0</strong>
+              <span>CRC bad</span>
             </div>
           </div>
         </aside>
@@ -136,142 +83,128 @@
       <section id="paths" class="usecase-section" aria-label="Choose your path">
         <div class="section-heading">
           <p>choose your path</p>
-          <h2>新手动手、工程师审查、团队接入，三条入口并列。</h2>
+          <h2>三条入口并列，不再把所有人都塞进同一个工程案例。</h2>
         </div>
         <div class="usecase-grid">
           <article>
-            <span>starter</span>
-            <h3>STM32F103C8T6 Sensor Lab</h3>
-            <p>从空 IOC 开始，焊线接 BMP280，把 Liakia 应用层接入自己生成的 HAL 工程，再用 known-bad case 体验真实排障。</p>
-            <em>IOC / HAL / BMP280 / known-bad debug</em>
-            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">开始 Starter Lab</a>
+            <span>hands-on</span>
+            <h3>Starter-F103 Sensor Lab</h3>
+            <p>面向新手、评估者和想亲手验证的人。从空 IOC 开始，焊线接 BMP280，导入 known-bad 代码，再用 evidence-first 方法排查。</p>
+            <em>STM32F103C8T6 / BMP280 / known-bad case packs</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/README.zh-CN.md">进入 Starter Lab</a>
           </article>
           <article>
-            <span>engineering</span>
-            <h3>dpiny-RTK Engineering Case</h3>
-            <p>查看 STM32F407 + UM982 RTK 的真实证据包，包括 build、flash、shell、RTCM CRC、USB CDC reset 和 remote HIL。</p>
-            <em>real bench / remote HIL / evidence</em>
-            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/evidence/README.md">查看工程证据</a>
+            <span>engineering proof</span>
+            <h3>dpiny-RTK 工程案例</h3>
+            <p>面向嵌入式工程师。查看 STM32F407 + UM982 真实 bench 和 remote HIL 证据，确认这不是纸面流程。</p>
+            <em>real bench / remote HIL / RTCM CRC / USB CDC reset</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/evidence/README.md">查看证据包</a>
           </article>
           <article>
             <span>team adoption</span>
-            <h3>Adapt Your STM32 Project</h3>
-            <p>用 adapter 描述已有工程的构建、烧录、测试和证据输出，不强制更换 HAL、FreeRTOS、CubeCLT 或现有调试习惯。</p>
-            <em>project-adapter / workflow-template</em>
+            <h3>接入你的 STM32 项目</h3>
+            <p>面向团队负责人和交付方。用 adapter 描述已有工程的 build、flash、test、probe 和 evidence 输出，不替换现有技术栈。</p>
+            <em>project-adapter / workflow-template / handoff</em>
             <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.zh-CN.md">查看接入指南</a>
           </article>
         </div>
       </section>
 
-      <section class="audience-section" aria-label="Why this workflow matters">
+      <section id="starter-lab" class="usecase-section" aria-label="Starter lab">
         <div class="section-heading">
-          <p>three audiences</p>
-          <h2>dpiny-RTK 是示范案例，Liakia 才是可迁移的交付工作流</h2>
+          <p>starter lab</p>
+          <h2>新手模块不是假运行，而是让用户自己导入错误代码、自己采集证据。</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>01</span>
+            <h3>用户自己生成底层工程</h3>
+            <p>用户用 CubeMX 创建 STM32F103C8T6 工程，配置 SWD、USART1、I2C1 和 GPIO。Liakia 只给配置检查点，不替用户生成完整工程。</p>
+            <em>IOC / HAL / SWD / USART1 / I2C1</em>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>导入可工作的应用层</h3>
+            <p>先让基础 `liakia_lab_app.c` 跑通，确认 shell、BMP280 chip id、sensor read 和 telemetry gate 都能 PASS。</p>
+            <em>baseline first, failure later</em>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>切换到 known-bad case 包</h3>
+            <p>每个 case 是独立文件夹，包含故意改错的代码、练习指南和单独答案。用户先导入、烧录、观察失败，再看答案。</p>
+            <em>case folder / broken app-layer / answer key</em>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>用 AI 工作流验证排障效率</h3>
+            <p>runner 生成 logs、manifest 和 `ai_prompt.md`。用户把 evidence 交给 AI，让 AI 基于事实定位问题，再人工确认最小修复。</p>
+            <em>evidence package / AI prompt / regression PASS</em>
+          </article>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/README.zh-CN.md">查看 known-bad 实验包</a>
+      </section>
+
+      <section id="proof" class="audience-section" aria-label="Evidence packages">
+        <div class="section-heading">
+          <p>proof first</p>
+          <h2>推广重点不是“AI 很强”，而是每次交付都留下可审查证据。</h2>
         </div>
         <div class="audience-grid">
           <article>
-            <span>老板</span>
-            <h3>降低交付不确定性</h3>
-            <p>缩短 bringup 周期，减少重复调试，降低对单个老工程师经验的依赖，每次交付都有可回放证据。</p>
+            <span>public sample</span>
+            <h3>证据格式样例</h3>
+            <p>manifest、日志、固件产物、handoff report 的公开结构，方便读者理解交付边界。</p>
           </article>
           <article>
-            <span>研发中层</span>
-            <h3>每次改动都有验证链</h3>
-            <p>谁改了什么、编译是否通过、烧录是否成功、哪些串口命令测过、RTCM CRC 是否为 0，都能沉淀为 handoff 记录。</p>
+            <span>real bench</span>
+            <h3>本地真实台架 PASS</h3>
+            <p>覆盖 build、flash、shell、RTCM CRC、输入校验和 USB CDC reset recovery。</p>
           </article>
           <article>
-            <span>一线工程师</span>
-            <h3>不替换现有工程栈</h3>
-            <p>继续使用 HAL、FreeRTOS、CMake、CubeCLT 和串口调试习惯，只把 build-flash-test-debug-report 包成闭环。</p>
+            <span>remote hil</span>
+            <h3>远程硬件在环 PASS</h3>
+            <p>远程触发测试台执行，RTCM 52 frames、CRC BAD 0，summary、manifest、logs 回传。</p>
           </article>
         </div>
       </section>
 
-      <section id="pipeline" class="workflow-section">
+      <section id="workflow" class="usecase-section" aria-label="Workflow">
         <div class="section-heading">
-          <p>workflow map</p>
-          <h2>Liakia 把嵌入式交付变成一条可追踪生产线</h2>
+          <p>delivery loop</p>
+          <h2>Liakia 的核心是一条工程闭环，而不是某个单点脚本。</h2>
         </div>
-        <div class="pipeline-lab" aria-label="Embedded delivery pipeline explorer">
-          <div class="stage-selector" role="tablist" aria-label="Workflow stages">
-            <button class="stage-card is-active" type="button" role="tab" aria-selected="true" data-stage="0">
-              <span class="stage-icon"><svg><use href="#icon-intake"></use></svg></span>
-              <span class="stage-meta">
-                <span class="stage-number">01</span>
-                <strong>需求规约</strong>
-                <small>目标、接口、测试项和交付物进入可追踪 spec。</small>
-              </span>
-              <span class="stage-meter"></span>
-            </button>
-            <button class="stage-card" type="button" role="tab" aria-selected="false" data-stage="1">
-              <span class="stage-icon"><svg><use href="#icon-ai"></use></svg></span>
-              <span class="stage-meta">
-                <span class="stage-number">02</span>
-                <strong>任务编排</strong>
-                <small>模块边界、风险点、测试入口和依赖关系同步展开。</small>
-              </span>
-              <span class="stage-meter"></span>
-            </button>
-            <button class="stage-card" type="button" role="tab" aria-selected="false" data-stage="2">
-              <span class="stage-icon"><svg><use href="#icon-firmware"></use></svg></span>
-              <span class="stage-meta">
-                <span class="stage-number">03</span>
-                <strong>编译构建</strong>
-                <small>输入 make 命令，观察 CMake/Ninja/Arm GCC 构建流。</small>
-              </span>
-              <span class="stage-meter"></span>
-            </button>
-            <button class="stage-card" type="button" role="tab" aria-selected="false" data-stage="3">
-              <span class="stage-icon"><svg><use href="#icon-hardware"></use></svg></span>
-              <span class="stage-meta">
-                <span class="stage-number">04</span>
-                <strong>接口映射</strong>
-                <small>MCU 外设、DMA、USB CDC 和双 RS422 链路可审计。</small>
-              </span>
-              <span class="stage-meter"></span>
-            </button>
-            <button class="stage-card" type="button" role="tab" aria-selected="false" data-stage="4">
-              <span class="stage-icon"><svg><use href="#icon-verify"></use></svg></span>
-              <span class="stage-meta">
-                <span class="stage-number">05</span>
-                <strong>测试执行</strong>
-                <small>环境、烧录、串口、输入校验和 RTCM CRC 串成 runner。</small>
-              </span>
-              <span class="stage-meter"></span>
-            </button>
-            <button class="stage-card" type="button" role="tab" aria-selected="false" data-stage="5">
-              <span class="stage-icon"><svg><use href="#icon-archive"></use></svg></span>
-              <span class="stage-meta">
-                <span class="stage-number">06</span>
-                <strong>证据归档</strong>
-                <small>固件、日志、summary 和 manifest 形成可回传证据包。</small>
-              </span>
-              <span class="stage-meter"></span>
-            </button>
-          </div>
-
-          <article class="stage-module is-running" aria-label="Interactive workflow stage module">
-            <div class="module-header">
-              <div>
-                <p id="moduleKicker">stage 01 / intake radar</p>
-                <h3 id="moduleTitle">需求捕获雷达</h3>
-              </div>
-              <button class="module-run" type="button" aria-label="运行当前阶段演示">
-                <span></span>
-              </button>
-            </div>
-            <div class="module-copy" id="moduleCopy">
-              捕获 RTK 基站目标、接口约束、测试入口和交付物格式，形成后续自动化任务的输入矩阵。
-            </div>
-            <div class="module-canvas" id="moduleCanvas" role="img" aria-label="Workflow stage visualization"></div>
+        <div class="usecase-grid">
+          <article>
+            <span>01</span>
+            <h3>Build</h3>
+            <p>把 CMake、Ninja、CubeCLT、Arm GCC 编译过程从 IDE 手工操作变成脚本化输入。</p>
+            <em>cmake --build --preset Debug</em>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Flash</h3>
+            <p>STM32CubeProgrammer 负责 SWD download、verify 和 reset，烧录 transcript 留在证据包里。</p>
+            <em>SWD / verify / reset</em>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Test Gates</h3>
+            <p>串口 Shell、RTCM parser、USB CDC reset recovery 和 register probe 都变成可失败的 gate。</p>
+            <em>shell / CRC / CDC / SWD probe</em>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Evidence</h3>
+            <p>每次 PASS 或 FAIL 都产出 manifest、summary、日志和 handoff 记录，方便复盘和交接。</p>
+            <em>manifest.json / logs / handoff</em>
           </article>
         </div>
       </section>
 
-      <section id="remote-hil" class="remote-section" aria-label="Remote hardware-in-the-loop evidence">
+      <section id="remote-hil" class="remote-section" aria-label="Remote hardware-in-the-loop">
         <div class="section-heading">
           <p>remote hardware-in-the-loop</p>
-          <h2>正常交付闭环跑通后，远程测试台也能接入同一套流程</h2>
+          <h2>硬件可以留在测试台，闭环仍然由远程命令触发。</h2>
         </div>
         <div class="remote-grid">
           <article class="remote-proof">
@@ -280,7 +213,7 @@
               <strong>PASS</strong>
             </div>
             <p>
-              样机、ST-LINK、USB CDC、Shell 串口和 RTCM 采集口留在测试台电脑上，开发侧通过授权的远程命令触发同一套 baseline runner。公开展示只保留脱敏后的结果，不暴露主机名、IP、用户名、私有路径或设备序列号。
+              样机、ST-LINK、USB CDC、UART Shell 和 RTCM 采集口留在 bench PC 上。开发侧远程触发同一套 runner，再拉回脱敏证据。
             </p>
             <div class="remote-stats">
               <div><strong>8/8</strong><span>steps passed</span></div>
@@ -293,145 +226,22 @@
           <article class="remote-console" aria-label="Remote bench transcript">
             <div class="pane-title">remote_bench.summary</div>
             <pre><code>ssh bench "tools/run_test_baseline.ps1 ..."
-PASS dependency check
 PASS Debug firmware build
 PASS SWD flash + verify
-PASS USB CDC post-flash availability
 PASS functional serial test
-PASS input validation gate
 PASS RTCM stream test
 PASS USB CDC reset recovery
 
 RTCM: 4593 bytes / 52 frames / CRC BAD 0
 PULL: summary.md + manifest.json + logs</code></pre>
           </article>
-          <article class="remote-flow">
-            <div>
-              <span>01</span>
-              <strong>Remote command</strong>
-              <em>开发侧触发 PowerShell baseline runner</em>
-            </div>
-            <div>
-              <span>02</span>
-              <strong>Bench execution</strong>
-              <em>测试台电脑本地访问 ST-LINK 和串口</em>
-            </div>
-            <div>
-              <span>03</span>
-              <strong>Hardware gates</strong>
-              <em>flash、Shell、RTCM、CDC reset 全部脚本化</em>
-            </div>
-            <div>
-              <span>04</span>
-              <strong>Evidence pullback</strong>
-              <em>summary、manifest、logs 回传给开发侧</em>
-            </div>
-          </article>
-        </div>
-        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/remote-hardware-debug-flow.md">查看远程硬件在环流程说明</a>
-      </section>
-
-      <section class="cost-section" aria-label="Cost and velocity comparison">
-        <div class="section-heading">
-          <p>cost & velocity</p>
-          <h2>成本优势是结果，真正的价值是交付风险被压低</h2>
-        </div>
-        <div class="cost-dashboard">
-          <div class="bill-card">
-            <div class="bill-window">
-              <div class="bill-topbar">
-                <div>
-                  <span>usage console</span>
-                  <strong>用量信息</strong>
-                </div>
-                <em>2026 · 5月</em>
-              </div>
-              <div class="bill-summary">
-                <div>
-                  <span>充值余额</span>
-                  <strong>¥40.77</strong>
-                  <em>CNY</em>
-                </div>
-                <div class="bill-spend">
-                  <span>本月消费</span>
-                  <strong>¥9.22</strong>
-                  <em>CNY</em>
-                </div>
-              </div>
-              <div class="bill-chart">
-                <div class="bill-axis top">¥5</div>
-                <div class="bill-axis bottom">¥0</div>
-                <i style="--h: 14%; --x: 44%"></i>
-                <i style="--h: 82%; --x: 48%"></i>
-                <i style="--h: 70%; --x: 52%"></i>
-              </div>
-              <div class="bill-model-grid">
-                <div>
-                  <span>deepseek-v4-pro</span>
-                  <strong>118,540,845 tokens</strong>
-                  <em>429 API requests</em>
-                  <b style="--bar: 96%"></b>
-                </div>
-                <div>
-                  <span>deepseek-v4-flash</span>
-                  <strong>304,680 tokens</strong>
-                  <em>12 API requests</em>
-                  <b style="--bar: 18%"></b>
-                </div>
-              </div>
-              <div class="bill-proof-row">
-                <div><span>Total requests</span><strong>441</strong></div>
-                <div><span>Token ledger</span><strong>118.8M+</strong></div>
-                <div><span>Cash spend</span><strong>¥9.22</strong></div>
-              </div>
-            </div>
-          </div>
-          <div class="compare-card">
-            <p>delivery economics</p>
-            <h3>真实 token 账单不到十块，但主卖点是人天、风险和证据链同步压缩</h3>
-            <div class="cost-stack">
-              <div class="cost-stack-row ai">
-                <span>AI 协同交付</span>
-                <strong>3 人天</strong>
-                <em>≈ ¥6,010</em>
-                <div><i style="--bar: 22%"></i></div>
-              </div>
-              <div class="cost-stack-row manual">
-                <span>纯人工保守估算</span>
-                <strong>15-25 人天</strong>
-                <em>≈ ¥30,000-¥50,000</em>
-                <div><i style="--bar: 100%"></i></div>
-              </div>
-            </div>
-            <div class="roi-strip">
-              <div><strong>80%+</strong><span>周期压缩</span></div>
-              <div><strong>80-88%</strong><span>成本下降</span></div>
-              <div><strong>11k+</strong><span>自有工程行数</span></div>
-            </div>
-            <div class="cost-note">
-              <strong>按 ¥2,000 / 人天计</strong>
-              <span>3 人天 + 约 ¥10 API 消耗；不含硬件 BOM、打样、仪器和外协费用。</span>
-            </div>
-          </div>
-          <div class="breakdown-card">
-            <div class="pane-title">manual_effort_model.md</div>
-            <table>
-              <tr><th>工作项</th><th>纯人工估算</th><th>AI 工作流结果</th></tr>
-              <tr><td>固件任务/接口实现</td><td>5-8 人天</td><td>AI 生成 + 人审</td></tr>
-              <tr><td>编译/烧录/环境脚本</td><td>2-4 人天</td><td>一条 baseline</td></tr>
-              <tr><td>串口/RTCM 自动测试</td><td>4-6 人天</td><td>脚本化回归</td></tr>
-              <tr><td>文档/交付证据包</td><td>2-3 人天</td><td>自动归档</td></tr>
-              <tr><td>集成调试与修复</td><td>2-4 人天</td><td>分钟级闭环</td></tr>
-            </table>
-            <p>注：估算不含硬件 BOM、打样、仪器和外协费用；人力成本按 ¥2,000 / 人天。</p>
-          </div>
         </div>
       </section>
 
-      <section id="cases" class="case-section" aria-label="Failure case studies">
+      <section id="cases" class="case-section" aria-label="Failure case">
         <div class="section-heading">
-          <p>failure-to-fix cases</p>
-          <h2>最强证据先讲：USB CDC reset 问题已经变成 baseline 必跑 gate</h2>
+          <p>failure-to-fix</p>
+          <h2>强案例优先：USB CDC reset 问题已经变成 baseline 必跑 gate。</h2>
         </div>
         <div class="case-board">
           <article class="case-card is-featured">
@@ -439,19 +249,14 @@ PULL: summary.md + manifest.json + logs</code></pre>
               <span>featured case · real bench replay</span>
               <strong>USB CDC Reset Recovery</strong>
             </div>
-            <p>现象：Windows 能看到 USB CDC 口，但 reset 后 Shell 偶发不可用。Liakia 把这个问题沉淀成自动化 regression gate，reset 前后都要证明 Shell 能响应。</p>
+            <p>Windows 能枚举 USB CDC 口，但 reset 后 Shell 偶发不可用。Liakia 把它沉淀成自动化 regression gate，reset 前后都必须证明 Shell 可响应。</p>
             <div class="case-flow">
               <span>post-flash probe</span>
-              <span>software reset</span>
+              <span>reset gate</span>
               <span>COM recovery wait</span>
               <span>version command</span>
-              <span>baseline PASS</span>
+              <span>regression PASS</span>
             </div>
-            <ul>
-              <li>把“串口存在但 Shell 不响应”变成自动化 gate。</li>
-              <li>与 build、flash、Shell、RTCM CRC 和 register probe 同一 baseline 归档。</li>
-              <li>这类修复不再靠人工观察，而是进入每次交付证据链。</li>
-            </ul>
             <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/04-usb-cdc-reset-recovery.md">查看完整复盘</a>
           </article>
           <div class="case-support-grid">
@@ -460,11 +265,10 @@ PULL: summary.md + manifest.json + logs</code></pre>
                 <span>supporting case 01</span>
                 <strong>USART Clock Missing</strong>
               </div>
-              <p>编译和烧录通过，但串口通道无输出；通过 RCC/GPIO/USART 寄存器证据缩小根因。</p>
+              <p>通过 RCC/GPIO/USART 寄存器证据，把“串口无输出”从接线猜测收敛到配置问题。</p>
               <div class="case-flow">
                 <span>register probe</span>
                 <span>AI summary</span>
-                <span>engineer confirm</span>
                 <span>regression PASS</span>
               </div>
               <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/01-usart-clock-missing.md">查看复盘</a>
@@ -474,255 +278,137 @@ PULL: summary.md + manifest.json + logs</code></pre>
                 <span>supporting case 02</span>
                 <strong>RS422 DE Timing</strong>
               </div>
-              <p>RTCM 输出存在间歇性丢帧或尾字节异常；把协议问题缩小到收发器方向控制。</p>
+              <p>RTCM 尾部异常被当成传输层时序风险处理，再用 CRC gate 验证回归。</p>
               <div class="case-flow">
-                <span>DMA state</span>
                 <span>DE edge</span>
+                <span>minimal fix</span>
                 <span>CRC BAD: 0</span>
               </div>
               <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/02-rs422-de-timing.md">查看复盘</a>
-            </article>
-            <article class="case-card">
-              <div class="case-head">
-                <span>supporting case 03</span>
-                <strong>RTCM CRC Validation</strong>
-              </div>
-              <p>有输出不等于可信输出；RTCM parser 把链路验证变成可失败、可归档的 gate。</p>
-              <div class="case-flow">
-                <span>frame scan</span>
-                <span>crc check</span>
-                <span>handoff</span>
-              </div>
-              <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/03-rtcm-crc-validation.md">查看复盘</a>
             </article>
           </div>
         </div>
       </section>
 
+      <section id="adopt" class="usecase-section" aria-label="Adapt your STM32 project">
+        <div class="section-heading">
+          <p>adaptation path</p>
+          <h2>接入客户项目时，不替换现有栈，只把流程包成闭环。</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>01</span>
+            <h3>描述工程</h3>
+            <p>定义 build directory、ELF path、programmer connection、serial ports、test scripts 和 evidence output。</p>
+            <em>project-adapter.json</em>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>封装现有工具</h3>
+            <p>保留 HAL、FreeRTOS、CubeCLT、ST-LINK 和串口脚本，只让 Liakia 调度它们。</p>
+            <em>build / flash / test / probe</em>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>生成交付证据</h3>
+            <p>每次 PASS 或 FAIL 都留下日志、summary、manifest 和 handoff 边界。</p>
+            <em>manifest + logs + handoff</em>
+          </article>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.zh-CN.md">查看如何接入你的 STM32 项目</a>
+      </section>
+
       <section id="roi" class="roi-model-section" aria-label="ROI model">
         <div class="section-heading">
           <p>roi model</p>
-          <h2>ROI 不是一句“节省 80%”，而是把可压缩环节拆出来</h2>
+          <h2>ROI 不是只讲 API 便宜，而是讲周期、风险和交接歧义被压缩。</h2>
         </div>
         <div class="roi-model-grid">
           <article class="roi-panel manual-model">
-            <span>traditional manual estimate</span>
+            <span>traditional estimate</span>
             <h3>15-25 人天</h3>
             <div class="effort-list">
-              <div><strong>CMake/CubeCLT 迁移</strong><em>0.5-1 天</em></div>
+              <div><strong>CMake / CubeCLT 迁移</strong><em>0.5-1 天</em></div>
               <div><strong>USB CDC Shell 框架</strong><em>1-2 天</em></div>
-              <div><strong>UM982 初始化状态机</strong><em>1-2 天</em></div>
-              <div><strong>RTCM 配置与转发</strong><em>1-2 天</em></div>
-              <div><strong>自动化测试 + 证据归档</strong><em>3-5 天</em></div>
+              <div><strong>RTCM 转发和验证</strong><em>1-2 天</em></div>
+              <div><strong>自动化和证据归档</strong><em>3-5 天</em></div>
               <div><strong>集成调试 buffer</strong><em>3-8 天</em></div>
             </div>
           </article>
           <article class="roi-panel compression-model">
             <span>ai-assisted compression</span>
-            <h3>3 人天 + ¥9.22 API 账单</h3>
+            <h3>3 人天 + 约 ¥10 API 消耗</h3>
             <div class="compression-matrix">
-              <div><b>代码修改</b><i>生成驱动骨架、Shell 命令、配置结构</i></div>
-              <div><b>编译修复</b><i>快速分析 warning/error，缩短反馈回路</i></div>
-              <div><b>测试脚本</b><i>生成 PowerShell runner 与 parser scaffold</i></div>
-              <div><b>日志分析</b><i>串口日志 + 寄存器 dump 转为根因假设</i></div>
-              <div><b>交付归档</b><i>manifest、summary、handoff 自动沉淀</i></div>
+              <div><b>实现</b><i>驱动骨架、Shell 命令、配置结构</i></div>
+              <div><b>反馈</b><i>编译 warning/error 快速分析</i></div>
+              <div><b>测试</b><i>runner、parser 和 gate 复用</i></div>
+              <div><b>归档</b><i>manifest、summary 和 handoff 自动沉淀</i></div>
             </div>
           </article>
           <article class="roi-panel guardrail-model">
-            <span>human judgement retained</span>
-            <h3>这些不能被 AI 压缩掉</h3>
+            <span>guardrails</span>
+            <h3>AI 不替代工程判断</h3>
             <ul>
-              <li>原理图、供电、隔离与安全边界审核。</li>
-              <li>EMC/ESD、协议边界、量产风险判断。</li>
-              <li>最终代码 review、硬件假设确认和验收签字。</li>
+              <li>原理图、供电、隔离、安全边界仍需人工审核。</li>
+              <li>EMC/ESD、协议边界、量产风险不能靠模型拍板。</li>
+              <li>最终代码 review 和验收签字保留在人审闭环内。</li>
             </ul>
             <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/roi_model.md">查看 ROI 模型全文</a>
           </article>
         </div>
       </section>
 
-      <section id="usecases" class="usecase-section" aria-label="Commercial use cases">
-        <div class="section-heading">
-          <p>commercial use cases</p>
-          <h2>让客户把这个案例映射到自己的板卡、设备和团队流程</h2>
-        </div>
-        <div class="usecase-grid">
-          <article>
-            <span>01</span>
-            <h3>STM32 板卡 bringup 自动化</h3>
-            <p>适合工控采集板、传感器网关、通信转发板、电机控制外设和飞控扩展模块。</p>
-            <em>CMake / SWD / serial shell / register probe / evidence package</em>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>固件回归测试流水线</h3>
-            <p>适合多版本固件维护、小批量产品迭代、客户现场 bug 修复和老项目工程化改造。</p>
-            <em>protocol tests / CRC parser / summary templates / artifact tracking</em>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>AI 辅助故障诊断流程</h3>
-            <p>适合 HardFault、UART 无输出、DMA idle-line、USB CDC 枚举失败和 watchdog reset loop。</p>
-            <em>failure capture / register targets / AI playbook / human checklist</em>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>工程团队交付证据包</h3>
-            <p>适合需要审查测试证明、外包固件交付、平台团队支撑产品团队的场景。</p>
-            <em>manifest / build log / flash log / functional log / handoff summary</em>
-          </article>
-          <article>
-            <span>05</span>
-            <h3>远程硬件在环调试</h3>
-            <p>适合样机稀缺、硬件在实验室或测试同事电脑上的真实 bringup 场景。</p>
-            <em>remote command / bench PC / ST-LINK / serial gates / evidence pullback</em>
-          </article>
-        </div>
-        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/commercial-use-cases.md">查看商业落地场景全文</a>
-      </section>
-
-      <section id="video" class="video-section" aria-label="Three minute demo script">
-        <div class="section-heading">
-          <p>3-minute demo script</p>
-          <h2>把这套能力拍成 3 分钟视频时，镜头应该围绕“闭环证据”推进</h2>
-        </div>
-        <div class="video-board">
-          <div class="video-screen" aria-label="Demo video storyboard preview">
-            <div class="screen-toolbar">
-              <span></span><span></span><span></span>
-              <strong>demo_capture.timeline</strong>
-            </div>
-            <div class="screen-terminal">
-              <p><b>00:40</b> PS&gt; tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7</p>
-              <p><em>PASS</em> build / flash / shell</p>
-              <p><em>PASS</em> USB CDC reset recovery</p>
-              <p><em>PASS</em> RTCM parser CRC BAD: 0</p>
-              <p><em>PASS</em> register probe summary</p>
-              <p><em>DONE</em> evidence-out/baseline/manifest.json</p>
-            </div>
-          </div>
-          <div class="storyline">
-            <div><span>0:00</span><strong>痛点</strong><p>手动编译、手动烧录、手动串口测试、问题记录缺失。</p></div>
-            <div><span>0:20</span><strong>目标</strong><p>用 STM32F407 + UM982 展示 build-flash-test-debug-report 闭环。</p></div>
-            <div><span>0:40</span><strong>一条命令</strong><p>展示编译、烧录、Shell、RTCM parser 和 USB CDC reset gate 连续执行。</p></div>
-            <div><span>1:10</span><strong>证据包</strong><p>展示 manifest、build log、flash log、RTCM CRC log 和 handoff report。</p></div>
-            <div><span>1:40</span><strong>故障注入</strong><p>选 USART clock、RS422 DE、RTCM CRC 或 USB CDC reset 作为失败复盘。</p></div>
-            <div><span>2:45</span><strong>回归验收</strong><p>修复后测试重新 PASS，工程师确认并归档。</p></div>
-          </div>
-        </div>
-        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/demo-video-script.md">查看 3 分钟视频脚本全文</a>
-      </section>
-
-      <section class="system-section">
-        <div class="system-copy">
-          <p>real project inside</p>
-          <h2>RTK 固件只是样例，交付闭环才是可迁移能力</h2>
-          <p>
-            Demo 里的能力来自当前仓库：UM982 非阻塞初始化、RTCM 消息配置、DMA 透传、USB CDC 调试、Watchdog 保活和 Flash CRC 配置记录。
-          </p>
-        </div>
-        <div class="architecture" aria-label="System architecture">
-          <svg class="architecture-links" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="arch-link-main" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#54d7ff"/>
-                <stop offset="1" stop-color="#80ff72"/>
-              </linearGradient>
-              <linearGradient id="arch-link-out" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#80ff72"/>
-                <stop offset="1" stop-color="#ffb84d"/>
-              </linearGradient>
-            </defs>
-            <path class="arch-path arch-path-in" d="M260 146 C330 146 342 244 405 244"/>
-            <path class="arch-path arch-path-shell" d="M730 146 C660 146 658 228 595 228"/>
-            <path class="arch-path arch-path-out" d="M500 306 C500 376 574 392 630 392"/>
-          </svg>
-          <div class="chip-block mcu">
-            <span>MCU</span>
-            <strong>STM32F407</strong>
-            <em>168 MHz + FreeRTOS</em>
-          </div>
-          <div class="chip-block gnss">
-            <span>GNSS</span>
-            <strong>UM982</strong>
-            <em>Survey-in / Fixed base</em>
-          </div>
-          <div class="chip-block shell">
-            <span>Control</span>
-            <strong>USB CDC Shell</strong>
-            <em>status / config / rtcm</em>
-          </div>
-          <div class="chip-block rs422">
-            <span>Output</span>
-            <strong>Dual RS422</strong>
-            <em>DMA RTCM passthrough</em>
-          </div>
-        </div>
-      </section>
-
       <section id="evidence" class="evidence-section">
         <div class="section-heading">
           <p>evidence loop</p>
-          <h2>推广时真正有杀伤力的是“证据链”</h2>
+          <h2>证据链才是对外展示时最硬的部分。</h2>
         </div>
         <div class="evidence-grid">
           <article>
-            <h3>环境可复现</h3>
-            <p>CMake、Ninja、Arm GCC、STM32CubeProgrammer 自动检查。</p>
-            <span>01_install_check.log</span>
+            <h3>Environment</h3>
+            <p>CMake、Ninja、Arm GCC、STM32CubeProgrammer 先检查。</p>
+            <span>01_environment_check.log</span>
           </article>
           <article>
-            <h3>固件可追溯</h3>
-            <p>Debug / Release preset 生成 ELF、HEX、BIN。</p>
-            <span>dpiny-RTK.elf/.hex/.bin</span>
+            <h3>Firmware artifacts</h3>
+            <p>ELF、HEX、BIN、size 和 hash 进入 handoff。</p>
+            <span>firmware_sha256.txt</span>
           </article>
           <article>
-            <h3>硬件可落地</h3>
-            <p>SWD 下载、校验、复位，有低速连接兜底路径。</p>
-            <span>03_flash.log</span>
+            <h3>Hardware flash</h3>
+            <p>SWD download、verify、reset transcript 可审查。</p>
+            <span>03_flash_verify.log</span>
           </article>
           <article>
-            <h3>功能可证明</h3>
-            <p>Shell 命令、配置保存、重启保持都能脚本化验证。</p>
-            <span>04_functional_test.log</span>
+            <h3>Functional proof</h3>
+            <p>Shell、config、reset recovery 变成可失败 gate。</p>
+            <span>04_shell_test.log</span>
           </article>
           <article>
-            <h3>异常可控制</h3>
-            <p>非法参数、边界值、未知命令不会污染配置。</p>
-            <span>05_input_validation.log</span>
+            <h3>Protocol truth</h3>
+            <p>RTCM frames、message coverage、CRC BAD 0 由 parser 验证。</p>
+            <span>05_rtcm_parse.log</span>
           </article>
           <article>
-            <h3>数据可验真</h3>
-            <p>RTCM3 帧、消息类型覆盖、CRC BAD 为 0。</p>
-            <span>06_rtcm_parse.log</span>
-          </article>
-          <article>
-            <h3>恢复可回归</h3>
-            <p>USB CDC reset 前后 Shell 都要响应，修复不能只靠人工观察。</p>
-            <span>07_usb_cdc_reset.log</span>
-          </article>
-          <article>
-            <h3>远程可闭环</h3>
-            <p>硬件留在测试台，远程触发 build / flash / test 并回传 evidence。</p>
+            <h3>Remote loop</h3>
+            <p>硬件留在 bench PC，开发侧远程触发同一套 runner。</p>
             <span>remote-hil-redacted-2026-05-20</span>
           </article>
         </div>
       </section>
 
       <section class="closing-section">
-        <p>promotion angle</p>
-        <h2>把嵌入式开发从“手工经验”升级为“人审闭环的自动化交付系统”。</h2>
+        <p>positioning</p>
+        <h2>Liakia 的卖点不是“AI 写了代码”，而是把嵌入式交付从手工经验变成可审计闭环。</h2>
         <div class="closing-band">
-          <span>AI planning</span>
-          <span>firmware build</span>
-          <span>hardware flash</span>
-          <span>serial validation</span>
-          <span>RTCM proof</span>
-          <span>handoff package</span>
+          <span>hands-on lab</span>
+          <span>real bench proof</span>
+          <span>remote HIL</span>
+          <span>workflow adapter</span>
+          <span>evidence package</span>
+          <span>human review</span>
         </div>
       </section>
     </main>
-
-    <script src="./script.js"></script>
   </body>
 </html>

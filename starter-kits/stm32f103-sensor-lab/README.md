@@ -1,34 +1,91 @@
 # Liakia Starter-F103 Sensor Lab
 
-This starter lab is the hands-on entry point for Liakia.
+[中文说明](README.zh-CN.md)
 
-If you want to run the lab, start here:
+This lab is the hands-on entry point for Liakia.
+
+The main repository proves that Liakia can run an evidence-backed delivery loop on a real STM32F407 + RTK firmware project. This starter lab serves a different purpose: it lets a new user build a small STM32F103C8T6 bench, import intentionally broken application code, and experience the same evidence-first diagnosis loop on hardware they can assemble themselves.
+
+Start here if you want to run it:
+
+[Quick start](quick-start.md)
+
+## Why This Lab Exists
+
+A public showcase can prove that the workflow worked once. It does not prove that a new user understands the method.
+
+This lab closes that gap. Instead of shipping a complete prebuilt firmware image, it asks the user to:
+
+1. wire a low-cost F103 board;
+2. create the STM32CubeMX IOC;
+3. generate their own HAL project;
+4. integrate the Liakia application layer;
+5. flash a known-good baseline;
+6. import a known-bad case folder;
+7. collect evidence from a failing run;
+8. ask AI to diagnose only from evidence;
+9. apply the minimal fix;
+10. rerun the regression gates.
+
+The learning value is in doing the loop, not in watching a canned demo print PASS.
+
+## The Mental Model
+
+Liakia does not replace the user's embedded project. It wraps a project with repeatable gates and evidence.
+
+| Layer | Owned by | Purpose |
+|---|---|---|
+| Hardware wiring | User | SWD, UART, I2C, sensor power, shared ground |
+| IOC / HAL generation | User | Real STM32CubeMX project, not a prebuilt firmware image |
+| Application layer | Liakia starter kit | Shell commands, BMP280 checks, telemetry, known-bad imports |
+| Test gates | Liakia tools | Build, flash, shell, sensor, protocol, reset, register probe |
+| Diagnosis | User + AI | Evidence-scoped debugging and minimal fix review |
+| Regression | User + Liakia tools | Confirm the fix with the same gates and archive results |
+
+## What You Will Experience
+
+The first run should be boring:
 
 ```text
-quick-start.md
+wire board -> generate IOC -> add app layer -> build -> flash -> sensor gate PASS
 ```
 
-This folder contains the hardware, wiring, IOC, application layer, known-bad case, test gates, diagnosis, and evidence documents needed to complete the F103 lab.
+The known-bad run should fail in a controlled way:
 
-It is intentionally separate from the dpiny-RTK engineering case:
+```text
+import case folder -> build -> flash -> gate FAIL -> evidence package generated
+```
 
-| Path | Audience | Purpose |
+The final run should prove the fix:
+
+```text
+AI diagnosis -> human review -> minimal code fix -> same gates PASS -> manifest archived
+```
+
+That is the Liakia workflow in miniature.
+
+## Recommended First Path
+
+Use the baseline path first:
+
+[quick-start.md](quick-start.md)
+
+Then import the first case pack:
+
+[known-bad-cases/case-b-bmp280-calibration/README.md](known-bad-cases/case-b-bmp280-calibration/README.md)
+
+Do not read the case answer key until you have reproduced the failure and generated the AI diagnosis packet.
+
+## Case Packs
+
+Each known-bad case is a folder, not just a write-up. The folder includes broken code to import, a practice guide, and a separate answer key.
+
+| Case | What you import | Best for |
 |---|---|---|
-| Starter-F103 Sensor Lab | New users, evaluators, junior engineers | Build a low-cost STM32F103C8T6 bench and experience a real debug loop |
-| dpiny-RTK Engineering Case | Embedded engineers | Inspect a real STM32F407 + RTK delivery workflow with evidence packages |
-| Workflow Template | Team leads, consultants | Adapt the build / flash / test / evidence loop to another STM32 project |
-
-## What This Lab Does
-
-The user creates the STM32CubeMX IOC project and generated HAL code. Liakia provides:
-
-- a guided STM32F103C8T6 hardware wiring path;
-- IOC configuration checkpoints so the generated project stays on track;
-- application-layer code that can be integrated into the generated project;
-- known-bad application cases with realistic embedded failure modes;
-- test and diagnosis expectations for build, flash, shell, sensor, reset, protocol, and evidence gates.
-
-The goal is not to hide embedded complexity. The goal is to make it reproducible.
+| [Case B: BMP280 data quality failure](known-bad-cases/case-b-bmp280-calibration/README.md) | Complete `liakia_lab_app.c` replacement | First real run |
+| [Case A: I2C reset recovery failure](known-bad-cases/case-a-i2c-bus-stuck-reset/README.md) | Port-layer replacement | Reset-state reasoning |
+| [Case C: UART DMA/IDLE stream failure](known-bad-cases/case-c-uart-dma-idle-race/README.md) | DMA/IDLE receive fragment | Advanced serial diagnosis |
+| [Case D: Flash persistence failure](known-bad-cases/case-d-flash-persistence-alignment/README.md) | Config persistence fragment | Reset and raw-record evidence |
 
 ## Hardware Target
 
@@ -37,50 +94,41 @@ Recommended low-cost setup:
 | Item | Role |
 |---|---|
 | STM32F103C8T6 Blue Pill compatible board | Target MCU board |
-| ST-LINK compatible probe | SWD flash and debug access |
-| USB-TTL adapter | UART shell and telemetry capture |
-| BMP280 module | I2C sensor with ID, calibration, and compensation path |
+| ST-LINK compatible probe | SWD flash and read-only register access |
+| USB-TTL 3.3 V adapter | USART1 shell and telemetry capture |
+| BMP280 module | I2C sensor with chip ID, raw values, and data-quality checks |
 | 4.7k pull-up resistors | Optional I2C pull-ups if the module does not include them |
 | Jumper wires | SWD, UART, I2C, and common ground |
 
-## Learning Flow
-
-```text
-Create IOC manually
-  -> Generate HAL project
-  -> Add Liakia application layer
-  -> Build
-  -> Flash through ST-LINK
-  -> Run serial shell tests
-  -> Run BMP280 protocol gates
-  -> Trigger a known-bad failure
-  -> Collect logs and register evidence
-  -> Fix the application layer
-  -> Re-run regression
-  -> Generate evidence package
-```
-
-## Lab Documents
+## Documents
 
 | Document | Purpose |
 |---|---|
-| [Quick start](quick-start.md) | Complete English path from wiring to known-bad diagnosis and regression |
-| [中文快速上手](quick-start.zh-CN.md) | 同一实验的中文快速上手 |
-| [Chinese guide](README.zh-CN.md) | Main hands-on guide |
+| [Quick start](quick-start.md) | Complete path from wiring to known-bad diagnosis and regression |
 | [BOM](bom.md) | Parts and selection notes |
 | [Wiring](wiring.md) | SWD, UART, and I2C wiring |
 | [CubeMX / IOC guide](cubemx-ioc-guide.md) | User-generated IOC checkpoints |
-| [Missions](missions/README.md) | Step-by-step lab story |
-| [Known-bad cases](known-bad-cases/README.md) | Realistic failure modes for AI-assisted diagnosis |
 | [Application layer contract](app-layer/README.md) | How to integrate Liakia application code into generated HAL code |
-| [F103 HAL port template](app-layer/port-template/) | Platform bridge template for generated CubeMX projects |
+| [Known-bad case packs](known-bad-cases/README.md) | Importable broken code, practice guides, and answer keys |
 | [Test gates](test-gates.md) | PASS / FAIL criteria for shell, sensor, protocol, reset, and evidence gates |
 | [Diagnosis playbook](diagnosis-playbook.md) | How to give evidence to an AI assistant without turning debugging into guessing |
 | [Evidence template](evidence-template/README.md) | Manifest, log, and summary examples |
 | [Troubleshooting](troubleshooting.md) | Common hardware, UART, I2C, and reset failures |
 | [Tools](tools/) | Starter runner, F103 register probe, and diagnosis prompt generation |
-| [Automation plan](future-automation.md) | Follow-up enhancements |
+
+## Success Criteria
+
+The lab is successful when the user can show:
+
+- a working normal F103 + BMP280 baseline;
+- at least one known-bad case imported from a case folder;
+- a failing gate with evidence archived;
+- an AI diagnosis prompt generated from that evidence;
+- a minimal fix;
+- a new regression run that passes.
+
+This proves that the user has not only seen Liakia, but has used its workflow.
 
 ## Boundary
 
-This starter lab is a project adapter and application-layer exercise. It does not ship a complete STM32CubeMX project because the learning value is in creating the IOC, generating the HAL code, and then using Liakia to debug the application-level failures on top of that generated base.
+This starter lab is not a complete product firmware and does not replace the dpiny-RTK engineering case. It is a training bench and adoption path for the workflow. The professional proof remains the STM32F407 + RTK evidence packages; the starter lab makes the method learnable.

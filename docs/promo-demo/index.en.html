@@ -34,12 +34,12 @@
         <div class="hero-content">
           <p class="eyebrow">AI-assisted embedded firmware delivery workflow</p>
           <h1>
-            <span>Build, flash, test,</span>
-            <span>diagnose, and archive evidence</span>
-            <span>on real or remote STM32 hardware.</span>
+            <span>Not just an RTK firmware demo,</span>
+            <span>but a hands-on, reviewable,</span>
+            <span>transferable embedded delivery workflow.</span>
           </h1>
           <p class="hero-copy">
-            Liakia uses dpiny-RTK, a real STM32F407 + UM982 RTK firmware, as its first case study to show how build, flash, serial tests, RTCM CRC gates, USB CDC reset recovery, register probes, and evidence packaging become one repeatable delivery loop.
+            Liakia turns build, flash, serial tests, protocol gates, USB CDC reset recovery, register probes, and evidence manifests into a human-reviewed loop. dpiny-RTK proves it on a real engineering project; Starter-F103 lets new users reproduce the method themselves.
           </p>
           <div class="hero-actions" aria-label="Key proof points">
             <a href="#paths">Starter Lab</a>
@@ -82,15 +82,15 @@
       <section id="paths" class="usecase-section" aria-label="Choose your path">
         <div class="section-heading">
           <p>choose your path</p>
-          <h2>Hands-on lab, engineering proof, and project adoption stay separate.</h2>
+          <h2>Hands-on learning, engineering proof, and project adoption stay separate.</h2>
         </div>
         <div class="usecase-grid">
           <article>
             <span>starter</span>
             <h3>STM32F103C8T6 Sensor Lab</h3>
-            <p>Start from an empty IOC, wire a BMP280 sensor, integrate the Liakia application layer into your generated HAL project, then debug known-bad cases.</p>
-            <em>IOC / HAL / BMP280 / known-bad debug</em>
-            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.md">Start the lab</a>
+            <p>Start from an empty IOC, wire a BMP280 sensor, integrate the Liakia application layer, then import known-bad case folders and diagnose real failures from evidence.</p>
+            <em>IOC / HAL / BMP280 / known-bad case packs</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/README.md">Start the lab</a>
           </article>
           <article>
             <span>engineering</span>
@@ -107,6 +107,40 @@
             <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.md">Read adaptation guide</a>
           </article>
         </div>
+      </section>
+
+      <section id="starter-lab" class="usecase-section" aria-label="Starter lab">
+        <div class="section-heading">
+          <p>starter lab</p>
+          <h2>The beginner path is not a fake PASS demo; users import broken code and diagnose it themselves.</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>01</span>
+            <h3>Generate the low-level project</h3>
+            <p>The user creates the STM32F103C8T6 CubeMX project and configures SWD, USART1, I2C1, and GPIO. Liakia provides checkpoints, not a prebuilt firmware image.</p>
+            <em>IOC / HAL / SWD / USART1 / I2C1</em>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Run the known-good app layer</h3>
+            <p>The base app must pass shell, BMP280 chip ID, sensor read, and telemetry gates before any fault is injected.</p>
+            <em>baseline first, failure later</em>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Import known-bad case packs</h3>
+            <p>Each case is a folder with broken code, a practice guide, and a separate answer key. The answer is not shown before the user tries the diagnosis.</p>
+            <em>case folder / broken app-layer / answer key</em>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Measure the AI workflow</h3>
+            <p>The runner generates logs, a manifest, and an AI prompt. The user asks AI to reason from evidence, then reviews and fixes the smallest code area.</p>
+            <em>evidence package / AI prompt / regression PASS</em>
+          </article>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/README.md">View known-bad lab packs</a>
       </section>
 
       <section id="proof" class="audience-section" aria-label="Evidence packages">
@@ -255,7 +289,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
         </div>
       </section>
 
-      <section class="usecase-section" aria-label="Adapt your STM32 project">
+      <section id="adopt" class="usecase-section" aria-label="Adapt your STM32 project">
         <div class="section-heading">
           <p>adaptation path</p>
           <h2>Bring Liakia to another STM32 firmware project without replacing the existing stack.</h2>
@@ -323,72 +357,6 @@ PULL: summary.md + manifest.json + logs</code></pre>
             <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/roi_model.md">Read ROI model</a>
           </article>
         </div>
-      </section>
-
-      <section id="usecases" class="usecase-section" aria-label="Commercial use cases">
-        <div class="section-heading">
-          <p>commercial use cases</p>
-          <h2>Map this showcase to real boards, field issues, and team delivery processes.</h2>
-        </div>
-        <div class="usecase-grid">
-          <article>
-            <span>01</span>
-            <h3>STM32 board bringup automation</h3>
-            <p>Industrial I/O boards, sensor gateways, communication adapters, motor-control peripherals, and flight-system add-ons.</p>
-            <em>CMake / SWD / serial shell / register probe / evidence package</em>
-          </article>
-          <article>
-            <span>02</span>
-            <h3>Firmware regression workflow</h3>
-            <p>Multi-version maintenance, small-batch iteration, field bug fixes, and legacy firmware modernization.</p>
-            <em>protocol tests / CRC parser / summary templates / artifact tracking</em>
-          </article>
-          <article>
-            <span>03</span>
-            <h3>AI-assisted failure diagnosis</h3>
-            <p>HardFault, silent UART, DMA idle-line issues, USB CDC enumeration failures, and watchdog reset loops.</p>
-            <em>failure capture / register targets / AI playbook / human checklist</em>
-          </article>
-          <article>
-            <span>04</span>
-            <h3>Remote hardware-in-the-loop</h3>
-            <p>Useful when prototypes stay in a lab, at a teammate's desk, or on a customer bench.</p>
-            <em>remote command / bench PC / ST-LINK / serial gates / evidence pullback</em>
-          </article>
-        </div>
-        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/commercial-use-cases.md">Read commercial use cases</a>
-      </section>
-
-      <section id="video" class="video-section" aria-label="Three minute demo script">
-        <div class="section-heading">
-          <p>3-minute demo script</p>
-          <h2>A short demo should move through the evidence loop, not through abstract claims.</h2>
-        </div>
-        <div class="video-board">
-          <div class="video-screen" aria-label="Demo video storyboard preview">
-            <div class="screen-toolbar">
-              <span></span><span></span><span></span>
-              <strong>demo_capture.timeline</strong>
-            </div>
-            <div class="screen-terminal">
-              <p><b>00:40</b> PS&gt; tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7</p>
-              <p><em>PASS</em> build / flash / shell</p>
-              <p><em>PASS</em> USB CDC reset recovery</p>
-              <p><em>PASS</em> RTCM parser CRC BAD: 0</p>
-              <p><em>PASS</em> register probe summary</p>
-              <p><em>DONE</em> evidence-out/baseline/manifest.json</p>
-            </div>
-          </div>
-          <div class="storyline">
-            <div><span>0:00</span><strong>Pain</strong><p>Manual builds, manual flashing, serial checks, and missing debug records.</p></div>
-            <div><span>0:20</span><strong>Goal</strong><p>Use STM32F407 + UM982 to demonstrate a build-flash-test-debug-report loop.</p></div>
-            <div><span>0:40</span><strong>One command</strong><p>Build, flash, shell, RTCM parser, and USB CDC reset gate run continuously.</p></div>
-            <div><span>1:10</span><strong>Evidence</strong><p>Show manifest, build log, flash log, RTCM CRC log, and handoff report.</p></div>
-            <div><span>1:40</span><strong>Fault</strong><p>Use USART clock, RS422 DE, RTCM CRC, or USB CDC reset as the failure replay.</p></div>
-            <div><span>2:45</span><strong>Regression</strong><p>After the fix, the same gates pass and the engineer archives the result.</p></div>
-          </div>
-        </div>
-        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/demo-video-script.md">Read the 3-minute script</a>
       </section>
 
       <section id="evidence" class="evidence-section">
