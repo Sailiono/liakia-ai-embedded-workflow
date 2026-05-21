@@ -1,19 +1,44 @@
-# Case D: Flash Config Persistence Alignment Bug
+# Case D: Flash Config Persistence Regression
 
-## 1. Why This Case Matters
+## Practice Card
 
-Configuration persistence often looks simple, but real firmware can fail in subtle ways:
+This case validates state persistence across reset. It is a good second-stage case after the BMP280 path works.
+
+Application area:
 
 ```text
-immediate readback works
-after reset, config is lost
-fields are shifted
-old config is misinterpreted after a version change
+config record layout
+Flash page erase/write path
+post-reset config load path
 ```
 
-This is a strong automation case because manual "set and look" testing often misses post-reset state.
+Exercise setup:
 
-## 2. Expected Symptoms
+1. Add or enable `config get`, `config set`, and `config save`.
+2. Save one value.
+3. Verify immediate readback.
+4. Trigger software reset.
+5. Verify post-reset readback.
+6. If it fails, dump the raw record and generate diagnosis material.
+
+Observe:
+
+```text
+pre-reset config readback
+post-reset config readback
+raw Flash record
+CRC result
+record version
+record length
+```
+
+## Stop Here For The Exercise
+
+Everything below this line is the answer key.
+
+## Answer Key
+
+Typical symptom:
 
 ```text
 config set threshold 2500
@@ -23,7 +48,7 @@ reset
 config get -> threshold=0 or invalid FAIL
 ```
 
-## 3. Possible Root Causes
+Likely root cause family:
 
 - F103 Flash half-word write granularity handled incorrectly;
 - page erase address is wrong;
@@ -32,56 +57,7 @@ config get -> threshold=0 or invalid FAIL
 - version / length fields are not checked;
 - byte writes are used where hardware expects half-word writes.
 
-## 4. Evidence To Collect
-
-Command output:
-
-```text
-config get
-config set threshold 2500
-config save
-config get
-reset
-config get
-```
-
-Flash raw dump:
-
-```text
-config page base address
-magic
-version
-length
-crc
-raw payload hex
-decoded fields
-```
-
-Registers:
-
-```text
-FLASH_SR
-FLASH_CR
-RCC_CSR reset reason
-```
-
-## 5. Expected AI Diagnosis
-
-The AI should separate:
-
-```text
-RAM config path
-Flash write success
-post-reset load address
-CRC payload range
-stable struct layout
-```
-
-If pre-reset PASS and post-reset FAIL, persistence is more likely than the shell parser.
-
-## 6. Fix Direction
-
-Recommended record format:
+Fix direction:
 
 ```c
 typedef struct {
@@ -98,14 +74,13 @@ typedef struct {
 Requirements:
 
 - fixed field widths;
-- no dependence on compiler padding;
-- initialize reserved bytes before write;
-- CRC does not include `crc32` itself;
+- initialized reserved fields;
+- CRC excludes `crc32` itself;
 - Flash writes obey half-word or word constraints;
 - raw readback after save;
 - verification again after reset.
 
-## 7. PASS Criteria
+Regression:
 
 ```text
 pre-reset config readback PASS
@@ -114,7 +89,3 @@ post-reset config readback PASS
 crc check PASS
 manifest records flash page and config version
 ```
-
-## 8. Demonstration Value
-
-This case is effective for both engineering managers and firmware engineers. It shows Liakia is not just a demo runner; it can turn hidden persistence bugs into reviewable regression evidence.

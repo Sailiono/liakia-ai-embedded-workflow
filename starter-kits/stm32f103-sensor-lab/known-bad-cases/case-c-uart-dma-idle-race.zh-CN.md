@@ -1,18 +1,44 @@
 # Case C：UART DMA + IDLE Frame Race
 
-## 1. 为什么这个 case 留到第二阶段
+## 练习卡片
 
-这个 case 专业度更高，但对新手入口也更难。它需要用户在 IOC 中启用 DMA、USART IDLE 中断或等价的帧接收机制。
+这是高级 case，需要 DMA/IDLE 接收路径，不属于新手第一轮必做内容。
 
-它适合第二阶段，因为它展示的是嵌入式中非常典型的偶发问题：
+应用层关注位置：
 
 ```text
-低频正常
-高频偶发 CRC BAD
-日志看起来像随机丢字节
+UART receive path
+DMA/IDLE frame boundary
+telemetry stream parser
 ```
 
-## 2. 预期现象
+练习步骤：
+
+1. 在 IOC 中扩展 UART DMA receive 和 IDLE interrupt；
+2. 加入高频 telemetry stream；
+3. 先运行低频 gate 并确认 PASS；
+4. 再运行高频 gate，采集 frame statistics；
+5. 把统计结果和接收路径代码交给 AI。
+
+观察：
+
+```text
+frames_total
+crc_ok
+crc_bad
+bad frame lengths
+where bad frames are truncated
+idle interrupt count
+DMA remaining count snapshots
+```
+
+## 练习到这里先停止
+
+下面是答案解析。
+
+## 答案解析
+
+典型现象：
 
 ```text
 shell command PASS
@@ -22,62 +48,23 @@ telemetry stream 20 Hz occasionally CRC BAD
 bad frame length often -1 byte
 ```
 
-## 3. 可能根因
+常见根因方向：
 
 - USART IDLE 标志清除顺序错误；
 - DMA NDTR 快照时机不稳定；
-- ring buffer write index 先更新，数据后写入；
-- frame delimiter 和 DMA 半传输事件竞争；
-- 高速连续帧中最后一个字节被下一轮覆盖。
+- ring buffer write index 先更新，数据后可见；
+- frame delimiter 和 DMA half-transfer event 竞争；
+- 高频连续帧中最后一个字节被覆盖。
 
-## 4. 应收集证据
+修复方向：
 
-串口统计：
+- 在 IDLE ISR 中按正确顺序清 SR/DR；
+- 让 NDTR 读取避开竞争；
+- 数据可见后再更新 ring buffer index；
+- frame parser 同时使用 length 和 CRC gate；
+- 增加高频压力测试。
 
-```text
-frames_total
-crc_ok
-crc_bad
-bad_frame_lengths
-bad_frame_tail_bytes
-bad_frame_cluster_time
-```
-
-寄存器/状态：
-
-```text
-USART1_SR
-USART1_DR
-USART1_BRR
-DMA1_CNDTR
-DMA1_CCR
-rx_write_index
-rx_read_index
-idle_irq_count
-```
-
-## 5. AI 诊断期望
-
-AI 不应该只说“串口不稳定”。合理路径是：
-
-```text
-shell PASS -> 基础 USART 配置大概率正确
-低频 PASS -> 协议格式和 CRC 算法大概率正确
-高频偶发 bad frame -> 接收边界、DMA 快照或 ring buffer 可疑
-bad length clustered at frame tail -> 帧尾截断比随机噪声更可能
-```
-
-## 6. 修复方向
-
-常见修复策略：
-
-- 在 IDLE ISR 中先清 SR/DR，再冻结 DMA；
-- 读取 NDTR 时保证不会和 DMA 写入竞争；
-- ring buffer 更新顺序改为“数据可见后更新索引”；
-- 对帧解析增加长度和 CRC 双 gate；
-- 在测试脚本中增加高频压力测试。
-
-## 7. 通过标准
+回归标准：
 
 ```text
 telemetry 1 Hz: crc_bad = 0
@@ -85,7 +72,3 @@ telemetry 20 Hz, 60 seconds: crc_bad = 0
 bad_frame_lengths = []
 manifest records stress duration and frame count
 ```
-
-## 8. 展示价值
-
-这类问题人工调试成本高，尤其是“偶发 CRC BAD”。Liakia 可以把偶发变成统计，并把 AI 分析限制在 DMA/IDLE/ring buffer 的证据上。

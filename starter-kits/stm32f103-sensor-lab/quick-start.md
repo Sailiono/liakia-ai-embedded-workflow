@@ -219,25 +219,13 @@ If you do not want to flash, pass `-SkipFlash` explicitly. Missing `-Elf` is tre
 
 ## 7. Inject Case B
 
-For the easiest training path, temporarily change `S16Le` in your copied `liakia_lab_app.c` from:
+For the easiest training path, use the Case B practice card:
 
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
+```text
+known-bad-cases/case-b-bmp280-calibration.md
 ```
 
-to the known-bad version:
-
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[0] << 8) | p[1]);
-}
-```
-
-This simulates a BMP280 signed calibration endian bug. A reference fragment is also available under `app-layer/known-bad/`.
-
-Case design details: [known-bad-cases/case-b-bmp280-calibration.md](known-bad-cases/case-b-bmp280-calibration.md).
+That page gives the application-layer location and the minimal injection instructions. Treat the known-bad change as a black-box exercise first: apply it, build it, flash it, and inspect the evidence before reading the answer key.
 
 Rebuild, flash, and run expected-failure mode:
 
@@ -285,13 +273,7 @@ AI diagnosis contract: [diagnosis-playbook.md](diagnosis-playbook.md).
 
 ## 9. Fix And Regress
 
-Restore correct little-endian decoding:
-
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
-```
+After AI diagnosis and human review, apply the minimal fix identified by the evidence. If you are stuck, read the Answer Key section in [case-b-bmp280-calibration.md](known-bad-cases/case-b-bmp280-calibration.md).
 
 Rebuild, flash, and re-run the baseline without expected-failure flags:
 

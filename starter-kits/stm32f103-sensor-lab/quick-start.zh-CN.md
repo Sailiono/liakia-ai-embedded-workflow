@@ -215,25 +215,13 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 
 ## 7. 制造 Case B known-bad
 
-最快的教学方式是在你复制到用户工程里的 `liakia_lab_app.c` 中，把：
+最快的教学方式是按 Case B 练习卡片操作：
 
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
+```text
+known-bad-cases/case-b-bmp280-calibration.zh-CN.md
 ```
 
-临时改成：
-
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[0] << 8) | p[1]);
-}
-```
-
-这会模拟 BMP280 signed calibration endian bug。参考片段也放在 [app-layer/known-bad/](app-layer/known-bad/)。
-
-Case 设计细节见 [known-bad-cases/case-b-bmp280-calibration.zh-CN.md](known-bad-cases/case-b-bmp280-calibration.zh-CN.md)。
+该页面会给出应用层位置和最小注入方式。第一遍请把 known-bad 改动当成黑盒练习：先应用、编译、烧录、观察 evidence，再去看答案解析。
 
 重新编译、烧录，然后用预期失败模式运行：
 
@@ -281,13 +269,7 @@ AI 诊断约束见 [diagnosis-playbook.zh-CN.md](diagnosis-playbook.zh-CN.md)。
 
 ## 9. 修复并回归
 
-把 `S16Le` 修回正确 little-endian：
-
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
-```
+AI 诊断和人工 review 后，只做 evidence 指向的最小修复。如果卡住，再去看 [case-b-bmp280-calibration.zh-CN.md](known-bad-cases/case-b-bmp280-calibration.zh-CN.md) 的答案解析。
 
 重新编译、烧录、运行 baseline：
 

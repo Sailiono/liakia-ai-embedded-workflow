@@ -1,87 +1,90 @@
-# Case B: BMP280 Calibration Sign / Endian Bug
+# Case B: BMP280 Data Quality Failure
 
-## 1. Why This Case Is First Priority
+## Practice Card
 
-It does not require complex hardware, DMA, or Flash writes. With only a BMP280 connected, the user can reproduce a common embedded issue:
+This is the recommended first known-bad exercise. It requires only the F103 board, USART1 shell, and BMP280.
 
-```text
-I2C works
-chip id is correct
-raw bytes are readable
-but compensated temperature is not credible
-```
-
-The first pass only implements the temperature compensation gate. Pressure compensation is reserved for later expansion. This case demonstrates Liakia's core point: **a working protocol does not guarantee trustworthy data**.
-
-## 2. Known-Bad Code Point
-
-Reference known-bad file:
+Application references:
 
 ```text
-app-layer/known-bad/case_b_bmp280_calibration/liakia_bmp280_case_b.c
+app-layer/src/liakia_lab_app.c
+app-layer/known-bad/case_b_bmp280_calibration/
 ```
 
-Intentional bug:
+Exercise setup:
+
+1. Confirm the base app can run `version`, `diag i2c`, `sensor id`, and `sensor read`.
+2. Temporarily inject the known-bad helper into your copied `liakia_lab_app.c`.
+3. Build and flash.
+4. Run the baseline with `-ExpectedFailureGate data_quality -AllowExpectedFailure`.
+5. Generate `ai_prompt.md` with `diagnose_starter_f103.ps1`.
+
+Do not start by reading the answer. First observe:
+
+```text
+sensor id
+raw calibration bytes
+raw temperature adc
+compensated temperature
+DATA_QUALITY result
+telemetry once
+```
+
+Evidence to give AI:
+
+```text
+serial logs
+sensor read output
+calibration decode code
+temperature compensation code
+00_manifest.json
+test_summary.md
+```
+
+The intended question for AI is:
+
+```text
+Chip ID and raw reads appear to work, but the data-quality gate fails.
+Use only the evidence to rank likely causes and propose a minimal fix.
+```
+
+## Stop Here For The Exercise
+
+Everything below this line is the answer key. Read it after you have collected evidence and tried the AI diagnosis path.
+
+## Answer Key
+
+The first-pass implementation only checks BMP280 temperature compensation. Pressure compensation is intentionally left for later.
+
+Expected failure shape:
+
+```text
+SENSOR_ID addr=0x76 id=0x58 result=PASS
+RAW_CALIB result=PASS ...
+RAW_TEMP adc=... result=PASS
+COMP_TEMP x100=... result=FAIL
+DATA_QUALITY result=FAIL
+```
+
+Likely root cause family:
+
+- BMP280 calibration little-endian assembly;
+- signed / unsigned conversion;
+- intermediate integer width;
+- compensation formula mismatch.
+
+The common teaching bug is a signed 16-bit little-endian decode mistake:
 
 ```c
-static int16_t S16(const uint8_t *p) {
+static int16_t S16Le(const uint8_t *p) {
   return (int16_t)(((uint16_t)p[0] << 8) | p[1]);
 }
 ```
 
-BMP280 calibration bytes are little-endian. If signed 16-bit values such as `dig_T2` / `dig_T3` are assembled in the wrong byte order, chip ID and raw I2C reads can still PASS while the compensated result moves outside the physical range.
-
-## 3. Expected Failure Shape
-
-```text
-SENSOR_ID addr=0x76 id=0x58 result=PASS
-raw_calib_read result=PASS
-raw_temp range=normal
-temperature_x100 out_of_range
-DATA_QUALITY result=FAIL reason=compensated_temperature_invalid
-```
-
-## 4. Evidence To Collect
-
-```text
-chip id
-raw calibration bytes 0x88..0x8D
-decoded dig_T1 / dig_T2 / dig_T3
-raw temperature adc
-compensated temperature_x100
-expected physical range
-```
-
-Recommended data-quality gate:
-
-```text
-temperature_x100 must be between -4000 and 8500
-raw adc must not be 0x00000 or 0xFFFFF
-chip id must equal 0x58
-```
-
-## 5. Expected AI Diagnosis
-
-The AI should first rule out:
-
-- wrong I2C address;
-- completely unresponsive sensor;
-- USART shell issue;
-- SWD flash issue.
-
-Then focus on:
-
-- calibration endian;
-- signed / unsigned conversion;
-- integer width;
-- BMP280 compensation formula.
-
-## 6. Fix
-
-Fix point:
+BMP280 calibration bytes are little-endian. The fix is:
 
 ```c
-static int16_t S16(const uint8_t *p) {
+static int16_t S16Le(const uint8_t *p) {
   return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
 }
 ```
@@ -92,9 +95,10 @@ Regression:
 sensor id PASS
 raw calibration read PASS
 temperature range PASS
+data_quality PASS
 telemetry CRC PASS
 ```
 
-## 7. Demonstration Value
+Demonstration value:
 
-This case is persuasive for engineers because it is not a wiring failure. Low-level reads appear correct, but the calculated data is wrong. Manual debugging often bounces between hardware, bus, sensor, and algorithm suspicion; Liakia separates evidence layers and narrows the path.
+This case shows that "I2C works" does not mean "sensor data is trustworthy." Low-level reads can pass while application-layer interpretation is wrong.

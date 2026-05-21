@@ -21,23 +21,13 @@
 
 ## 推荐接入方式
 
-为了让新手路径最短，第一版推荐直接在复制到用户工程的 `liakia_lab_app.c` 中制造这一处 known-bad：
+为了让新手路径最短，第一版推荐按这里的练习卡片操作：
 
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[0] << 8) | p[1]);
-}
+```text
+../../known-bad-cases/case-b-bmp280-calibration.zh-CN.md
 ```
 
-修复时再改回：
-
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
-```
-
-`case_b_bmp280_calibration/` 里的文件用于展示这个问题的独立应用层片段，便于代码 review 和 AI 诊断时引用；它不是完整 CubeMX 工程。
+该页面会告诉你如何注入 bug，但不会一开始解释根因。`case_b_bmp280_calibration/` 里的文件用于展示这个问题的独立应用层片段，便于代码 review 和 AI 诊断时引用；它不是完整 CubeMX 工程。
 
 这个 case 不是 I2C 地址写错。它的设计目标是模拟工程中更麻烦的情况：
 
@@ -49,3 +39,5 @@ raw bytes 能读
 ```
 
 这类问题能展示 Liakia 的核心价值：协议层和数据质量 gate 能把“看起来能跑”的代码拦下来，并把 AI 分析限定在有证据的范围内。
+
+建议先跑 gate 并生成诊断材料，再读答案解析。

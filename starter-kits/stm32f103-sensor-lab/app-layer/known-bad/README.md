@@ -21,23 +21,13 @@ User flow:
 
 ## Recommended Injection Method
 
-For the shortest beginner path, temporarily change `S16Le` in the copied `liakia_lab_app.c`:
+For the shortest beginner path, follow the practice card in:
 
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[0] << 8) | p[1]);
-}
+```text
+../../known-bad-cases/case-b-bmp280-calibration.md
 ```
 
-Then fix it back:
-
-```c
-static int16_t S16Le(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
-```
-
-The files under `case_b_bmp280_calibration/` show the issue as an isolated application-layer fragment for code review and AI diagnosis. They are not a complete CubeMX project.
+That page tells you how to inject the bug without explaining the root cause first. The files under `case_b_bmp280_calibration/` show the issue as an isolated application-layer fragment for code review and AI diagnosis. They are not a complete CubeMX project.
 
 The case is not a wrong I2C address. It simulates a more useful engineering condition:
 
@@ -49,3 +39,5 @@ but compensated temperature is not credible
 ```
 
 This demonstrates Liakia's value: protocol and data-quality gates can stop code that "appears to work" and keep AI analysis evidence-scoped.
+
+Read the answer key only after running the gate and generating diagnosis material.

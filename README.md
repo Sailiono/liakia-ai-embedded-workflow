@@ -23,9 +23,27 @@ requirement -> code change -> build -> flash -> serial tests
 
 **dpiny-RTK is the demo case. Liakia is the workflow.**
 
-Use this README as a navigation page. Pick one path below, then stay inside that folder or guide until the demo is complete.
+Use this README as a guided front page. It first explains what Liakia is, then routes you into the right demo path.
 
-## At A Glance
+## What Liakia Does
+
+Liakia is not a firmware library and not a single RTK product. It is a workflow pattern for turning embedded firmware work into a repeatable delivery loop:
+
+```text
+build the firmware
+flash the target
+run hardware-facing tests
+capture protocol and register evidence
+generate a handoff package
+keep AI suggestions under human review
+```
+
+The repository contains two complementary ways to understand that workflow:
+
+- a **professional engineering case**, based on the real dpiny-RTK STM32F407 + UM982 firmware;
+- a **hands-on starter lab**, based on a low-cost STM32F103C8T6 + BMP280 bench that readers can wire and debug themselves.
+
+## What This Repo Proves
 
 | Area | What is included |
 |---|---|
@@ -34,6 +52,14 @@ Use this README as a navigation page. Pick one path below, then stay inside that
 | Hardware evidence | Redacted local bench and remote hardware-in-the-loop evidence packages |
 | AI model | AI assists implementation, log analysis, test generation, and report drafting; engineers keep final review authority |
 | Reuse target | STM32 board bringup, firmware regression, remote bench validation, and customer issue reproduction |
+
+## Why The Starter Lab Exists
+
+The dpiny-RTK case proves that the workflow can operate on a real firmware project with bench evidence. That is useful for engineers, but it is not the easiest first contact for a new reader.
+
+The STM32F103 starter lab exists for a different reason: it lets someone build a small bench, inject a realistic known-bad application bug, observe a failing gate, generate diagnosis material, and then fix the issue with the same evidence-first method. It is intentionally not a prebuilt firmware image. The learning value is in wiring the board, generating the IOC, integrating the application layer, and seeing the loop fail and recover on real hardware.
+
+Use the starter lab if you want to feel the workflow. Use the engineering case if you want to audit the stronger production-like evidence.
 
 ## Choose Your Path
 
@@ -59,11 +85,9 @@ Use this README as a navigation page. Pick one path below, then stay inside that
 | AI operation playbook | [ai-agent/](ai-agent/) |
 | Reusable workflow template | [workflow-template/](workflow-template/) |
 
-## Why This Exists
+## Workflow Principles
 
-Embedded firmware delivery often depends on local IDE builds, manual flashing, hand-operated serial checks, scattered debug notes, and bringup knowledge that is hard to replay.
-
-This repository shows how those steps can become a repeatable and auditable workflow:
+The workflow is built around a few concrete engineering rules:
 
 - build firmware from the command line;
 - flash and verify the target over SWD;
@@ -74,7 +98,7 @@ This repository shows how those steps can become a repeatable and auditable work
 - generate handoff evidence packages;
 - keep AI actions inside explicit human review boundaries.
 
-The intent is not to let AI blindly operate embedded hardware. The intended model is:
+The intent is not to let AI blindly operate embedded hardware. The intended operating model is:
 
 ```text
 AI accelerates implementation, log analysis, test generation, and documentation.

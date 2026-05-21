@@ -1,82 +1,70 @@
-# Case A：I2C Bus Stuck After Software Reset
+# Case A：Reset-Related I2C Failure
 
-## 1. 为什么这个 case 有价值
+## 练习卡片
 
-这个问题不是“地址错”或“线没接”这种初级错误。它的特点是：
+这是第二阶段 case。建议先确认 BMP280 基础路径已经能跑通。
+
+应用层关注位置：
 
 ```text
-冷启动可能正常
-软件 reset 后失败
-断电重上电可能恢复
+platform I2C recovery path
+reset recovery gate
+register_probe_f103.ps1
 ```
 
-这种现象很容易被误判为传感器质量、接线松动、模块兼容性或随机偶发。它适合展示 Liakia 的优势：把 reset reason、GPIO 状态、I2C scan 和恢复动作串成证据链。
+练习步骤：
 
-## 2. 预期现象
+1. 从冷启动后 `sensor id` PASS 的固件开始；
+2. 加入或保留一个不完整的 I2C reset-recovery 路径；
+3. 编译并烧录；
+4. 对比冷启动和 software reset 后的行为；
+5. 收集串口日志和寄存器快照。
+
+观察：
+
+```text
+diag i2c before reset
+sensor id before reset
+diag i2c after reset
+sensor id after reset
+SDA/SCL idle state if available
+```
+
+交给 AI 的 evidence：
+
+```text
+reset 前后串口日志
+RCC_CSR
+GPIOB_IDR
+I2C1_CR1
+I2C1_SR1
+I2C1_SR2
+platform I2C recovery code
+```
+
+## 练习到这里先停止
+
+下面是答案解析。
+
+## 答案解析
+
+典型现象：
 
 ```text
 power cycle -> sensor id PASS
 software reset -> sensor id FAIL
 diag i2c -> no ACK
-SDA idle state -> low
+SDA may be low or I2C BUSY may remain set
 ```
 
-## 3. 应收集证据
+常见根因方向：
 
-串口：
-
-```text
-version
-diag i2c
-sensor id
-reset
-version
-diag i2c
-sensor id
-```
-
-寄存器：
-
-```text
-RCC_CSR      reset reason
-RCC_APB1ENR  I2C1EN
-GPIOB_CRL    PB6/PB7 mode
-GPIOB_IDR    SDA/SCL input state
-I2C1_CR1     peripheral enable / reset bit
-I2C1_SR1     busy / error flags
-I2C1_SR2     bus busy state
-```
-
-物理：
-
-```text
-SDA idle voltage
-SCL idle voltage
-I2C pull-up presence
-whether power-cycle clears the issue
-```
-
-## 4. AI 诊断期望
-
-AI 不应该直接下结论“传感器坏了”。合理推理路径是：
-
-```text
-chip id 曾经 PASS -> 传感器和地址不是首要嫌疑
-software reset 后 FAIL -> reset recovery 路径可疑
-SDA low / BUSY set -> I2C 总线可能卡住
-power-cycle clears -> 不是永久接线错误
-```
-
-更合理的根因假设：
-
-- reset 后未执行 I2C bus recovery；
-- GPIO 模式切换导致 SDA/SCL 状态异常；
+- reset 后没有做 I2C bus recovery；
+- GPIO 模式切换让 SDA/SCL 状态异常；
 - I2C 外设 BUSY 标志残留；
-- 从设备处于未完成 transaction 状态。
+- 从设备停在未完成 transaction 状态。
 
-## 5. 修复方向
-
-应用层或 platform 层应实现：
+修复方向：
 
 ```text
 disable I2C peripheral
@@ -88,7 +76,7 @@ re-enable I2C peripheral
 retry sensor probe
 ```
 
-修复后 gate：
+回归标准：
 
 ```text
 power cycle sensor id PASS
@@ -96,10 +84,3 @@ software reset sensor id PASS
 diag i2c found BMP280
 reset recovery PASS
 ```
-
-## 6. 不应做的事
-
-- 不应直接把 I2C 频率降到很低后宣称修复；
-- 不应把 BMP280 地址硬编码改来改去；
-- 不应跳过 reset recovery gate；
-- 不应在没有 SDA/SCL 证据时断言模块损坏。

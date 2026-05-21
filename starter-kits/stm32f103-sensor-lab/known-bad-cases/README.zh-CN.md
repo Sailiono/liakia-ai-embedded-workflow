@@ -1,132 +1,181 @@
-# Known-Bad 故障设计
+# Known-Bad Case 使用指南
 
-本 Lab 的 known-bad 不是“地址写错”这类过于简单的问题，而是选择工程中常见、排查成本高、但能通过证据链缩短定位路径的问题。
+这个页面分成两部分。
 
-## Case A：I2C Bus Stuck After Software Reset
+如果你想把它当成练习，请先读 **练习模式**。这里会告诉你 case 文件在哪里、如何接入、如何编译烧录、观察哪些现象、把哪些 evidence 交给 AI，但不会一开始就把根因讲透。
 
-现象：
+等你跑完、收集证据、让 AI 做过诊断之后，再读 **答案解析**。
 
-```text
-冷启动后 BMP280 偶尔 PASS
-software reset 后 sensor gate FAIL
-重新断电上电又可能恢复
-```
+## 练习模式
 
-可能根因：
-
-- reset 后 I2C 外设状态未完全恢复；
-- SDA 被从设备或 MCU 配置拉低；
-- 应用层缺少 I2C bus recovery；
-- 初始化顺序中 GPIO open-drain / pull-up 状态不稳定。
-
-证据：
+known-bad case 只作用在应用层，不替换你自己生成的 CubeMX IOC 或 HAL 工程。推荐流程是：
 
 ```text
-I2C scan result: no ACK
-GPIOB_IDR: SDA low
-RCC_CSR: software reset flag set
-sensor reset recovery gate: FAIL
+自己生成 F103 HAL 工程
+复制 Liakia app layer
+注入或切换一个 known-bad 应用层 case
+编译并烧录
+运行同一套 gate
+采集 evidence
+让 AI 基于 evidence 诊断
+做最小修复
+重新回归
 ```
 
-价值：
+### Case B：BMP280 Data Quality Failure
 
-这类问题通常会被误判为传感器坏、线松、地址错。Liakia 要展示的是：通过 reset reason、GPIO 状态、I2C scan 和恢复动作，把问题从猜测变成证据链。
+第一轮先做这个 case。
 
-## Case B：BMP280 Calibration Sign Extension Bug
-
-现象：
+应用层参考位置：
 
 ```text
-chip id PASS
-I2C read PASS
-raw adc value looks normal
-temperature output out of physical range
+app-layer/src/liakia_lab_app.c
+app-layer/known-bad/case_b_bmp280_calibration/
 ```
 
-可能根因：
+最快注入方式：
 
-- BMP280 校准参数 signed / unsigned 类型处理错误；
-- little-endian 拼接错误；
-- 补偿算法中间变量宽度不够；
-- 浮点/整数转换边界错误。
+1. 先从能正常跑的基础 app 开始；
+2. 按 [case-b-bmp280-calibration.zh-CN.md](case-b-bmp280-calibration.zh-CN.md) 中的练习说明，临时修改一个很小的 signed 16-bit decode helper；
+3. 编译并烧录；
+4. 运行：
 
-证据：
+```powershell
+tools/run_starter_f103.ps1 `
+  -ProjectRoot C:\path\to\your\cubemx-project `
+  -SkipBuild `
+  -Elf Debug\app.elf `
+  -ComPort COM4 `
+  -Case case-b `
+  -ExpectedFailureGate data_quality `
+  -AllowExpectedFailure
+```
+
+先不要看答案。观察：
 
 ```text
-raw calibration bytes: readable
-raw adc temperature: in expected range
-compensated temperature: invalid
-data quality gate: FAIL
+sensor id
+sensor read
+telemetry once
+data_quality gate
 ```
 
-价值：
+然后运行：
 
-它能证明“总线能通”不等于“数据可信”。这比单纯读 chip id 更接近真实产品调试。
+```powershell
+tools/diagnose_starter_f103.ps1 `
+  -EvidenceDir C:\path\to\evidence-out\starter-f103-YYYYMMDD-HHMMSS `
+  -Case case-b
+```
 
-## Case C：UART DMA + IDLE Frame Race
+把 `ai_prompt.md` 交给 AI，要求它只能基于 evidence 解释失败原因。
 
-现象：
+### Case A：Reset-Related I2C Failure
+
+这是第二阶段的硬件状态 case。
+
+应用层关注位置：
 
 ```text
-shell command PASS
-低频 telemetry PASS
-高频 telemetry 偶发 CRC BAD
+platform I2C recovery path
+reset recovery gate
+register_probe_f103.ps1
 ```
 
-可能根因：
+练习方式：
 
-- USART IDLE 标志清除顺序错误；
-- DMA NDTR 快照时机错误；
-- ring buffer 写指针更新顺序错误；
-- 帧尾最后 1 byte 偶发丢失。
+1. 从能正常读取 BMP280 的工程开始；
+2. 在 platform 层加入一个不完整的 reset recovery 路径；
+3. 编译并烧录；
+4. 对比冷启动和 software reset 后的行为；
+5. 收集串口日志和 register probe 输出。
 
-证据：
+观察：
 
 ```text
-raw frame length occasionally shorter by 1 byte
-CRC BAD clustered at frame tail
-USART SR / DMA CNDTR snapshot inconsistent
+diag i2c before reset
+sensor id before reset
+diag i2c after reset
+sensor id after reset
+GPIOB_IDR / I2C1_SR1 / I2C1_SR2
 ```
 
-价值：
+### Case C：UART DMA + IDLE Race
 
-这是工程师真实会遇到的“偶现问题”。Liakia 的优势是把偶现变成统计证据和可重复 gate。
+这是高级后续 lab，需要 DMA/IDLE 接收路径。
 
-## Case D：Flash Config Persistence Alignment Bug
-
-现象：
+应用层关注位置：
 
 ```text
-config set 后立即读取 PASS
-software reset 后配置丢失或字段错位
+UART receive path
+DMA/IDLE frame boundary
+telemetry stream parser
 ```
 
-可能根因：
+练习方式：
 
-- F103 Flash half-word 写入粒度处理错误；
-- page erase 边界错误；
-- struct padding 未固定；
-- CRC 覆盖范围不一致；
-- version 字段升级策略不明确。
+1. 在 IOC 中扩展 UART DMA receive 和 IDLE interrupt；
+2. 加入高频 telemetry capture；
+3. 分别运行低频和高频 telemetry gate；
+4. 对比 CRC 和 frame length 统计。
 
-证据：
+观察：
 
 ```text
-pre-reset config readback: PASS
-post-reset config readback: FAIL
-flash raw dump: field offset mismatch
-persistence gate: FAIL
+frames_total
+crc_ok
+crc_bad
+bad frame length
+where the bad frame is truncated
 ```
 
-价值：
+### Case D：Flash Persistence Regression
 
-这类 bug 靠人工随手测试很容易漏掉，适合作为“自动化回归”的核心展示点。
+这是状态持久化和 reset 后验证 case。
 
-## 第一版建议实现顺序
+应用层关注位置：
+
+```text
+config record layout
+Flash page erase/write path
+post-reset config load path
+```
+
+练习方式：
+
+1. 增加 config get/set/save 命令；
+2. 保存一个配置值；
+3. 验证立即读回；
+4. software reset；
+5. 验证 reset 后读回；
+6. 如果 gate 失败，dump 原始 config record。
+
+观察：
+
+```text
+pre-reset config readback
+post-reset config readback
+raw Flash record
+CRC result
+record version and length
+```
+
+## 答案解析
+
+如果你想保留练习效果，不要从这里开始读。
+
+| Case | 主要现象 | 常见根因方向 | 最关键证据 |
+|---|---|---|---|
+| Case B | Chip ID 和 raw bytes 能读，但补偿后的温度不可信 | calibration endian、signed/unsigned、integer width | raw calibration bytes、decoded coefficients、raw ADC、compensated value |
+| Case A | 冷启动可能 PASS，software reset 后可能 FAIL | I2C bus recovery 或 reset-state 处理 | reset reason、SDA/SCL state、I2C status registers、reset 前后日志 |
+| Case C | 低频 telemetry PASS，高频 stream 偶发 CRC BAD | DMA/IDLE frame boundary race 或 ring-buffer 更新顺序 | frame lengths、CRC clusters、DMA NDTR、USART status |
+| Case D | 立即读回 PASS，reset 后读回 FAIL | Flash alignment、erase boundary、struct layout、CRC coverage、versioning | raw Flash record、reset 前后 config log、CRC fields |
+
+## 推荐顺序
 
 | 优先级 | Case | 原因 |
 |---|---|---|
 | P0 | [Case B](case-b-bmp280-calibration.zh-CN.md) | 只依赖 BMP280 和应用层，最容易跨用户环境复现 |
 | P1 | [Case D](case-d-flash-persistence-alignment.zh-CN.md) | 能展示 reset recovery 和 evidence 的价值 |
-| P2 | [Case A](case-a-i2c-bus-stuck-reset.zh-CN.md) | 需要更强硬件状态采集，展示效果好但实现要谨慎 |
-| P3 | [Case C](case-c-uart-dma-idle-race.zh-CN.md) | 专业度最高，但需要 DMA/IDLE 路径，适合第二阶段 |
+| P2 | [Case A](case-a-i2c-bus-stuck-reset.zh-CN.md) | 硬件状态故事强，但实现要谨慎 |
+| P3 | [Case C](case-c-uart-dma-idle-race.zh-CN.md) | 专业度最高，适合第二阶段 |

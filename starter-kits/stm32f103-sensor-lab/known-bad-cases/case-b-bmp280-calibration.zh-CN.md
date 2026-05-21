@@ -1,87 +1,90 @@
-# Case B：BMP280 Calibration Sign / Endian Bug
+# Case B：BMP280 Data Quality Failure
 
-## 1. 为什么这个 case 是第一优先级
+## 练习卡片
 
-它不依赖复杂硬件，也不依赖 DMA 或 Flash 写入。用户只要接好 BMP280，就能遇到一个真实工程常见问题：
+这是第一轮推荐的 known-bad 练习。它只需要 F103 板、USART1 Shell 和 BMP280。
 
-```text
-I2C 能通
-chip id 正确
-raw bytes 能读
-但补偿后的温度不可信
-```
-
-当前第一版只实现温度补偿 gate，气压补偿留作后续扩展。这能展示 Liakia 的核心观点：**协议能通不等于数据可信**。
-
-## 2. Known-bad 代码点
-
-示例 known-bad 文件：
+应用层参考位置：
 
 ```text
-app-layer/known-bad/case_b_bmp280_calibration/liakia_bmp280_case_b.c
+app-layer/src/liakia_lab_app.c
+app-layer/known-bad/case_b_bmp280_calibration/
 ```
 
-故意留下的问题：
+练习步骤：
+
+1. 先确认基础 app 可以运行 `version`、`diag i2c`、`sensor id` 和 `sensor read`；
+2. 在你复制到用户工程的 `liakia_lab_app.c` 中临时注入 known-bad helper；
+3. 编译并烧录；
+4. 使用 `-ExpectedFailureGate data_quality -AllowExpectedFailure` 运行 baseline；
+5. 用 `diagnose_starter_f103.ps1` 生成 `ai_prompt.md`。
+
+先不要看答案。先观察：
+
+```text
+sensor id
+raw calibration bytes
+raw temperature adc
+compensated temperature
+DATA_QUALITY result
+telemetry once
+```
+
+交给 AI 的 evidence：
+
+```text
+serial logs
+sensor read output
+calibration decode code
+temperature compensation code
+00_manifest.json
+test_summary.md
+```
+
+给 AI 的问题应该是：
+
+```text
+Chip ID 和 raw reads 看起来正常，但 data-quality gate 失败。
+请只基于 evidence 排序可能原因，并提出最小修复。
+```
+
+## 练习到这里先停止
+
+下面是答案解析。建议你收集 evidence 并让 AI 诊断后再读。
+
+## 答案解析
+
+第一版只检查 BMP280 温度补偿，气压补偿留作后续扩展。
+
+预期失败形态：
+
+```text
+SENSOR_ID addr=0x76 id=0x58 result=PASS
+RAW_CALIB result=PASS ...
+RAW_TEMP adc=... result=PASS
+COMP_TEMP x100=... result=FAIL
+DATA_QUALITY result=FAIL
+```
+
+常见根因方向：
+
+- BMP280 calibration little-endian 拼接；
+- signed / unsigned 转换；
+- 中间变量宽度；
+- 补偿公式不一致。
+
+教学用 bug 通常是 signed 16-bit little-endian decode 错误：
 
 ```c
-static int16_t S16(const uint8_t *p) {
+static int16_t S16Le(const uint8_t *p) {
   return (int16_t)(((uint16_t)p[0] << 8) | p[1]);
 }
 ```
 
-BMP280 calibration bytes 是 little-endian。`dig_T2` / `dig_T3` 这种 signed 16-bit 参数如果拼接顺序错误，chip id 和 I2C 读取都会 PASS，但补偿结果会偏离物理范围。
-
-## 3. 预期失败形态
-
-```text
-SENSOR_ID addr=0x76 id=0x58 result=PASS
-raw_calib_read result=PASS
-raw_temp range=normal
-temperature_x100 out_of_range
-DATA_QUALITY result=FAIL reason=compensated_temperature_invalid
-```
-
-## 4. 应收集证据
-
-```text
-chip id
-raw calibration bytes 0x88..0x8D
-decoded dig_T1 / dig_T2 / dig_T3
-raw temperature adc
-compensated temperature_x100
-expected physical range
-```
-
-推荐 data-quality gate：
-
-```text
-temperature_x100 must be between -4000 and 8500
-raw adc must not be 0x00000 or 0xFFFFF
-chip id must equal 0x58
-```
-
-## 5. AI 诊断期望
-
-AI 应该先排除：
-
-- I2C 地址错误；
-- 传感器完全无响应；
-- USART shell 问题；
-- SWD 烧录问题。
-
-然后聚焦：
-
-- calibration endian；
-- signed / unsigned；
-- integer width；
-- BMP280 compensation formula。
-
-## 6. 修复
-
-修复点：
+BMP280 calibration bytes 是 little-endian。修复为：
 
 ```c
-static int16_t S16(const uint8_t *p) {
+static int16_t S16Le(const uint8_t *p) {
   return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
 }
 ```
@@ -92,9 +95,10 @@ static int16_t S16(const uint8_t *p) {
 sensor id PASS
 raw calibration read PASS
 temperature range PASS
+data_quality PASS
 telemetry CRC PASS
 ```
 
-## 7. 展示价值
+展示价值：
 
-这个 case 对工程师有说服力，因为它不是“不会接线”，而是“底层读数都对，但算法数据不可信”。这类问题人工排查时常会在硬件、总线、传感器、算法之间来回摇摆；Liakia 的价值是把证据分层，让定位路径收敛。
+这个 case 说明 “I2C 能通” 不等于 “传感器数据可信”。底层读数可以 PASS，但应用层解释仍然可能错误。
