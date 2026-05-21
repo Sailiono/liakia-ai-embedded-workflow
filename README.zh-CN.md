@@ -1,6 +1,8 @@
 # Liakia
 
-**面向 STM32 团队的 AI 辅助嵌入式固件交付闭环。**
+**AI 辅助嵌入式固件交付闭环**
+
+面向需要可复现 build、flash、test、diagnose、evidence、handoff 的 STM32 团队。
 
 [English](README.md) | 中文说明
 
@@ -9,7 +11,9 @@
 [![Mode](https://img.shields.io/badge/AI-Human--in--the--loop-54d7ff)]()
 [![Evidence](https://img.shields.io/badge/Evidence-real_bench_%2B_remote_HIL-ffb84d)]()
 
-Liakia 把嵌入式固件交付整理成一条能在真实或远程 STM32 硬件上复现的流程：
+嵌入式交付最容易失控的地方，是代码修改、硬件验证和交接证据之间的断点。
+
+Liakia 把这些断点串成一条能在真实或远程 STM32 硬件上复现的人审闭环：
 
 ```text
 build -> flash -> test -> diagnose -> evidence -> handoff

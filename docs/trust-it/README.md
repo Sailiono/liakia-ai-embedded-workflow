@@ -17,6 +17,17 @@ The proof is not a slide. It is a set of redacted evidence packages, failure-to-
 | Is register-level evidence available? | [register_probe.ps1](../../tools/register_probe.ps1) |
 | Is AI constrained by human review? | [AI agent playbook](../../ai-agent/) |
 
+## Reviewer Checklist
+
+If you are reviewing Liakia as an engineer or engineering manager, use this order:
+
+- [ ] Open the remote HIL manifest and verify step, result, and duration fields.
+- [ ] Confirm the RTCM parser reports `CRC BAD = 0` and exits as a gate, not only as a log viewer.
+- [ ] Check USB CDC reset recovery evidence before and after reset.
+- [ ] Inspect whether `register_probe.ps1` is read-only and whether bit decode is visible.
+- [ ] Open the featured failure case and verify that it includes symptom, evidence, fix, and regression.
+- [ ] Check the AI agent playbook and confirm risky hardware actions stay under human review.
+
 ## Evidence Packages
 
 | Package | Type | Purpose | Result |

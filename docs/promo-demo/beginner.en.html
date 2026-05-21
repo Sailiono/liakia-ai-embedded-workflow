@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Experience the Liakia AI-assisted embedded debugging loop with an STM32F103C8T6 + BMP280 hands-on lab.">
     <title>Learn Liakia — Starter-F103 Sensor Lab</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-split-20260522">
+    <link rel="stylesheet" href="./styles.css?v=liakia-narrative-20260522">
   </head>
   <body>
     <main class="page-shell">
@@ -48,6 +48,39 @@
           <article><span>baseline</span><h3>Pass the normal firmware first</h3><p>Generate the CubeMX project, integrate the Liakia app layer, and pass shell, sensor id, data quality, and telemetry gates.</p><em>baseline first</em></article>
           <article><span>known-bad</span><h3>Then import broken code</h3><p>Each case provides broken app-layer files, a practice guide, and a separate answer key. The answer is intentionally last.</p><em>case folders / answer last</em></article>
           <article><span>evidence</span><h3>Use evidence, not guesses</h3><p>The runner creates logs, a manifest, a test summary, and ai_prompt.md so the debugging path is reviewable.</p><em>logs / manifest / AI prompt</em></article>
+        </div>
+      </section>
+
+      <section class="remote-section" aria-label="Failure and prompt preview">
+        <div class="section-heading">
+          <p>failure first</p>
+          <h2>You are not watching an all-green demo. You create a failure that can be reviewed.</h2>
+          <div class="section-lede">Starter Lab shows how a gate fails, how evidence is generated, what AI receives, and how the same case returns to PASS after a minimal fix.</div>
+        </div>
+        <div class="remote-grid">
+          <article class="remote-console">
+            <div class="pane-title">What the first failure looks like</div>
+            <pre><code>&gt;&gt; sensor read
+SENSOR_ID result=PASS id=0x58
+RAW_CAL bytes=24 result=PASS
+DATA_QUALITY result=FAIL
+gate=data_quality
+ai_prompt.md generated</code></pre>
+          </article>
+          <article class="remote-console">
+            <div class="pane-title">What AI receives</div>
+            <pre><code>Observed failure:
+- chip_id PASS
+- raw calibration present
+- decoded temperature invalid
+- telemetry CRC PASS
+
+Required output:
+observations
+ruled-out causes
+ranked hypotheses
+minimal fix scope</code></pre>
+          </article>
         </div>
       </section>
 

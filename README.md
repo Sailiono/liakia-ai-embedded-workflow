@@ -1,6 +1,8 @@
 # Liakia
 
-**AI-assisted embedded firmware delivery loop for STM32 teams.**
+**AI-Assisted Embedded Firmware Delivery Loop**
+
+For STM32 teams that need repeatable build, flash, test, diagnose, evidence, and handoff.
 
 [中文说明](README.zh-CN.md) | English
 
@@ -9,7 +11,9 @@
 [![Mode](https://img.shields.io/badge/AI-Human--in--the--loop-54d7ff)]()
 [![Evidence](https://img.shields.io/badge/Evidence-real_bench_%2B_remote_HIL-ffb84d)]()
 
-Liakia turns embedded firmware delivery into a repeatable loop on real or remote STM32 hardware:
+Embedded firmware delivery often breaks in the gaps between code changes, hardware validation, and handoff evidence.
+
+Liakia closes those gaps with a human-reviewed loop on real or remote STM32 hardware:
 
 ```text
 build -> flash -> test -> diagnose -> evidence -> handoff

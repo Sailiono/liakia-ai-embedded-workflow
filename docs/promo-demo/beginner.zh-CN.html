@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="用 STM32F103C8T6 + BMP280 亲手体验 Liakia AI 辅助嵌入式调试闭环。">
     <title>Learn Liakia — Starter-F103 Sensor Lab</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-split-20260522">
+    <link rel="stylesheet" href="./styles.css?v=liakia-narrative-20260522">
   </head>
   <body>
     <main class="page-shell">
@@ -48,6 +48,39 @@
           <article><span>baseline</span><h3>先跑通正常固件</h3><p>CubeMX 生成底层工程，接入 Liakia 应用层，确认 shell、sensor id、data quality 和 telemetry gates。</p><em>baseline first</em></article>
           <article><span>known-bad</span><h3>再导入故障代码</h3><p>每个 case 都提供 broken app-layer 文件、操作指南和独立答案。答案放在最后，避免提前泄题。</p><em>case folders / answer last</em></article>
           <article><span>evidence</span><h3>用证据而不是猜测</h3><p>runner 生成 logs、manifest、test summary 和 ai_prompt.md，让排查过程可以复盘。</p><em>logs / manifest / AI prompt</em></article>
+        </div>
+      </section>
+
+      <section class="remote-section" aria-label="Failure and prompt preview">
+        <div class="section-heading">
+          <p>failure first</p>
+          <h2>你不是看一个全绿 demo，而是亲手制造一次可复盘的失败。</h2>
+          <div class="section-lede">Starter Lab 的目标是让用户看到 gate 如何失败、证据如何生成、AI 看到什么，再通过最小修复把同一个 case 回归到 PASS。</div>
+        </div>
+        <div class="remote-grid">
+          <article class="remote-console">
+            <div class="pane-title">第一次失败会长什么样</div>
+            <pre><code>&gt;&gt; sensor read
+SENSOR_ID result=PASS id=0x58
+RAW_CAL bytes=24 result=PASS
+DATA_QUALITY result=FAIL
+gate=data_quality
+ai_prompt.md generated</code></pre>
+          </article>
+          <article class="remote-console">
+            <div class="pane-title">AI 会看到什么</div>
+            <pre><code>Observed failure:
+- chip_id PASS
+- raw calibration present
+- decoded temperature invalid
+- telemetry CRC PASS
+
+Required output:
+observations
+ruled-out causes
+ranked hypotheses
+minimal fix scope</code></pre>
+          </article>
         </div>
       </section>
 

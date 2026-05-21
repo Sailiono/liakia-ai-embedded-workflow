@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Liakia 专业展示：真实 STM32 bench evidence、remote HIL、USB CDC reset recovery、RTCM CRC gate 和项目接入路径。">
     <title>Liakia Professional — AI 辅助嵌入式交付证据链</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-split-20260522">
+    <link rel="stylesheet" href="./styles.css?v=liakia-narrative-20260522">
   </head>
   <body>
     <main class="page-shell">
@@ -68,6 +68,38 @@
         </div>
       </section>
 
+      <section class="usecase-section" aria-label="Before and after">
+        <div class="section-heading">
+          <p>before / after</p>
+          <h2>Liakia 改变的是验证和交接方式，不是只多一个脚本。</h2>
+          <div class="section-lede">它把原来散落在 IDE、烧录工具、串口窗口、聊天记录和人工记忆里的步骤，收敛成可以复跑、可审查、失败也留痕的交付链路。</div>
+        </div>
+        <div class="compare-grid">
+          <article class="compare-card">
+            <span>before liakia</span>
+            <h3>手工台架流程</h3>
+            <ul>
+              <li>工程师手动 build 和烧录。</li>
+              <li>串口测试靠记忆和临场操作。</li>
+              <li>失败日志散落在聊天记录和截图里。</li>
+              <li>修复后没有稳定 regression gate。</li>
+              <li>远程测试台依赖现场人员反复配合。</li>
+            </ul>
+          </article>
+          <article class="compare-card is-after">
+            <span>after liakia</span>
+            <h3>证据驱动闭环</h3>
+            <ul>
+              <li>一条 baseline runner 串起 build / flash / test / probe。</li>
+              <li>失败时也生成 manifest、logs 和 summary。</li>
+              <li>USB CDC reset recovery 变成必跑 gate。</li>
+              <li>RTCM CRC BAD = 0 可以直接审查。</li>
+              <li>remote HIL 从测试台回传 evidence package。</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section id="cases" class="case-section" aria-label="Featured case">
         <div class="section-heading">
           <p>featured case</p>
@@ -84,6 +116,19 @@
             <article class="case-card"><div class="case-head"><span>register proof</span><strong>USART Clock Missing</strong></div><p>通过 RCC/GPIO/USART 寄存器证据，把串口无输出从接线猜测收敛到 clock/config 问题。</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/01-usart-clock-missing.md">查看复盘</a></article>
             <article class="case-card"><div class="case-head"><span>transport proof</span><strong>RS422 DE Timing</strong></div><p>RTCM 尾部异常作为传输层时序风险处理，再由 CRC gate 验证回归。</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/02-rs422-de-timing.md">查看模式</a></article>
           </div>
+        </div>
+      </section>
+
+      <section class="usecase-section" aria-label="Team impact">
+        <div class="section-heading">
+          <p>team impact</p>
+          <h2>对团队的价值，是减少不可复现和不可交接。</h2>
+        </div>
+        <div class="usecase-grid">
+          <article><span>less repetition</span><h3>少做重复台架操作</h3><p>把 build、flash、串口 smoke test、协议 gate、reset recovery 收进 runner。</p><em>less manual bench work</em></article>
+          <article><span>less lost context</span><h3>修复不再只靠聊天记录</h3><p>失败现象、日志、manifest 和回归结果集中到 evidence package。</p><em>logs / summary / manifest</em></article>
+          <article><span>remote replay</span><h3>远程问题可以复现和回归</h3><p>硬件留在测试台电脑上，开发侧远程触发流程并拉回证据。</p><em>bench PC / remote HIL</em></article>
+          <article><span>handoff</span><h3>交付有证据包可审查</h3><p>中层和客户能看到每次修改后的测试覆盖、失败项和人工审核边界。</p><em>reviewable delivery</em></article>
         </div>
       </section>
 

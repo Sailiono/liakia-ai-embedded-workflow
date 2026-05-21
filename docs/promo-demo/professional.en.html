@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Liakia professional showcase: real STM32 bench evidence, remote HIL, USB CDC reset recovery, RTCM CRC gate, and project adoption path.">
     <title>Liakia Professional — AI-Assisted Embedded Delivery Evidence Loop</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-split-20260522">
+    <link rel="stylesheet" href="./styles.css?v=liakia-narrative-20260522">
   </head>
   <body>
     <main class="page-shell">
@@ -68,6 +68,38 @@
         </div>
       </section>
 
+      <section class="usecase-section" aria-label="Before and after">
+        <div class="section-heading">
+          <p>before / after</p>
+          <h2>Liakia changes validation and handoff, not just one script.</h2>
+          <div class="section-lede">It turns steps scattered across IDEs, flash tools, serial terminals, chat threads, and memory into a repeatable delivery chain that still leaves evidence when a gate fails.</div>
+        </div>
+        <div class="compare-grid">
+          <article class="compare-card">
+            <span>before liakia</span>
+            <h3>Manual bench workflow</h3>
+            <ul>
+              <li>Engineers build and flash by hand.</li>
+              <li>Serial tests depend on memory and ad-hoc commands.</li>
+              <li>Failure logs live in chat messages and screenshots.</li>
+              <li>Fixes often lack stable regression gates.</li>
+              <li>Remote benches require repeated operator help.</li>
+            </ul>
+          </article>
+          <article class="compare-card is-after">
+            <span>after liakia</span>
+            <h3>Evidence-driven loop</h3>
+            <ul>
+              <li>One baseline runner connects build / flash / test / probe.</li>
+              <li>Failures still produce manifest, logs, and summaries.</li>
+              <li>USB CDC reset recovery becomes a required gate.</li>
+              <li>RTCM CRC BAD = 0 can be reviewed directly.</li>
+              <li>Remote HIL pulls evidence back from the bench PC.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
       <section id="cases" class="case-section" aria-label="Featured case">
         <div class="section-heading">
           <p>featured case</p>
@@ -84,6 +116,19 @@
             <article class="case-card"><div class="case-head"><span>register proof</span><strong>USART Clock Missing</strong></div><p>RCC/GPIO/USART register evidence narrows silent serial output from wiring guesses to clock/config causes.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/01-usart-clock-missing.md">View replay</a></article>
             <article class="case-card"><div class="case-head"><span>transport proof</span><strong>RS422 DE Timing</strong></div><p>RTCM tail corruption is treated as a transport timing risk, then verified with a CRC gate.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/02-rs422-de-timing.md">View pattern</a></article>
           </div>
+        </div>
+      </section>
+
+      <section class="usecase-section" aria-label="Team impact">
+        <div class="section-heading">
+          <p>team impact</p>
+          <h2>The team value is fewer unreplayable fixes and fewer undocumented handoffs.</h2>
+        </div>
+        <div class="usecase-grid">
+          <article><span>less repetition</span><h3>Less repeated bench work</h3><p>Build, flash, serial smoke tests, protocol gates, and reset recovery move into a runner.</p><em>less manual bench work</em></article>
+          <article><span>less lost context</span><h3>Fixes do not live only in chat</h3><p>Symptoms, logs, manifests, and regression results stay in the evidence package.</p><em>logs / summary / manifest</em></article>
+          <article><span>remote replay</span><h3>Remote issues become replayable</h3><p>The hardware stays on the bench PC while the developer triggers the workflow and pulls evidence back.</p><em>bench PC / remote HIL</em></article>
+          <article><span>handoff</span><h3>Handoff becomes reviewable</h3><p>Managers and customers can inspect coverage, failed gates, and human-review boundaries after each change.</p><em>reviewable delivery</em></article>
         </div>
       </section>
 

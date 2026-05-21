@@ -40,6 +40,18 @@ Liakia is designed to wrap your current stack. It does not require replacing HAL
 
 The exact scope depends on board availability, hardware risk, protocol complexity, and existing test coverage.
 
+## What You Get After One Week
+
+A first pilot should not try to rebuild the whole engineering system. The practical target is to make one board and one delivery chain repeatable.
+
+- a repeatable baseline runner;
+- a `project-adapter.json` describing build, flash, test, probe, and evidence paths;
+- shell and protocol gates that can fail objectively;
+- an evidence manifest that is generated even when a gate fails;
+- a handoff report template;
+- an AI diagnosis prompt template;
+- team adoption notes that separate automatable steps from human-review steps.
+
 ## Integration Model
 
 Liakia uses an adapter-driven model:

@@ -3,19 +3,60 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="0; url=./professional.zh-CN.html">
-    <title>Liakia Professional Page</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-split-20260522">
+    <meta name="description" content="Liakia 是 AI 辅助嵌入式固件交付闭环：学习 Starter-F103 Lab，或审查真实 bench、remote HIL 和项目接入证据。">
+    <title>Liakia — 选择你的入口</title>
+    <link rel="stylesheet" href="./styles.css?v=liakia-narrative-20260522">
   </head>
   <body>
     <main class="page-shell">
-      <section class="usecase-section router-section">
-        <div class="section-heading">
-          <p>redirect</p>
-          <h2>正在打开 Liakia 专业展示页面。</h2>
-          <div class="section-lede">如果没有自动跳转，请点击下面的链接。</div>
+      <section class="hero router-hero" aria-label="Liakia promo router">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <img class="board-ghost" src="./assets/board.svg" alt="">
+        <nav class="topbar" aria-label="Promo router navigation">
+          <div class="brand"><span class="brand-mark"></span><span>Liakia</span></div>
+          <div class="nav-pills">
+            <span>Learn</span>
+            <span>Trust</span>
+            <span>Adopt</span>
+            <a href="./index.en.html">EN</a>
+            <a href="../index.html">文档首页</a>
+          </div>
+        </nav>
+        <div class="hero-content">
+          <p class="eyebrow">AI 辅助嵌入式固件交付闭环</p>
+          <h1>
+            <span>先选入口，</span>
+            <span>再看 Liakia</span>
+            <span>怎么落地。</span>
+          </h1>
+          <p class="hero-copy">
+            嵌入式交付最容易失控的地方，是代码修改、硬件验证和交接证据之间的断点。Liakia 把这些断点串成 build、flash、test、diagnose、evidence、handoff 的人审闭环。
+          </p>
         </div>
-        <a class="section-link" href="./professional.zh-CN.html">打开专业展示页面</a>
+      </section>
+
+      <section class="usecase-section router-section" aria-label="Choose Liakia entry">
+        <div class="section-heading">
+          <p>choose your entry</p>
+          <h2>两类读者分开进入，页面不再混在一起。</h2>
+          <div class="section-lede">如果你想动手体验，进入 Starter-F103 Lab；如果你想审查工程可信度或评估团队接入，进入专业展示页。</div>
+        </div>
+        <div class="router-grid router-grid-two">
+          <article class="route-card">
+            <span>learn it</span>
+            <h3>我想亲手体验</h3>
+            <p>用 STM32F103C8T6 + BMP280 搭一个低成本台架，导入 known-bad 应用层代码，先人工排查，再让 AI 基于同一份 evidence 排查。</p>
+            <a class="doc-link" href="./beginner.zh-CN.html">进入初学者页面</a>
+            <a class="text-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/learn-it/README.zh-CN.md">阅读 Learn it 文档</a>
+          </article>
+          <article class="route-card">
+            <span>trust / adopt it</span>
+            <h3>我想审查或接入</h3>
+            <p>查看 dpiny-RTK 真实 bench、remote HIL、USB CDC reset recovery、RTCM CRC gate、register probe 和一周接入路径。</p>
+            <a class="doc-link" href="./professional.zh-CN.html">进入专业展示页面</a>
+            <a class="text-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/trust-it/README.zh-CN.md">阅读 Trust it 文档</a>
+          </article>
+        </div>
       </section>
     </main>
   </body>

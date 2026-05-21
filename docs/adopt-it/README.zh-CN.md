@@ -40,6 +40,18 @@ Liakia 的定位是包住你们现有技术栈。它不要求替换 HAL、FreeRT
 
 实际范围取决于板卡可用性、硬件风险、协议复杂度和已有测试覆盖。
 
+## 一周试点结束后，你会得到什么
+
+第一阶段目标不是改造整个研发体系，而是先把一个板卡的一条交付链路跑通，让它可重复、可失败留痕、可审查。
+
+- 一个可重复执行的 baseline runner；
+- 一个描述 build、flash、test、probe、evidence 路径的 `project-adapter.json`；
+- 能客观失败的 shell 和 protocol gates；
+- 失败时也会生成的 evidence manifest；
+- handoff report 模板；
+- AI diagnosis prompt 模板；
+- 一份团队接入建议，区分哪些步骤适合自动化，哪些必须保留人工 review。
+
 ## 接入模型
 
 Liakia 使用 adapter-driven 模型：

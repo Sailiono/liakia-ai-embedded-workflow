@@ -17,6 +17,17 @@
 | 是否有寄存器级证据？ | [register_probe.ps1](../../tools/register_probe.ps1) |
 | AI 是否受人审边界约束？ | [AI agent playbook](../../ai-agent/) |
 
+## 审查清单
+
+如果你是嵌入式工程师或研发负责人，建议按这个顺序审查：
+
+- [ ] 打开 remote HIL manifest，确认 step、result、duration 字段是否完整。
+- [ ] 确认 RTCM parser 报告 `CRC BAD = 0`，并且它是 gate，不只是日志查看器。
+- [ ] 查看 USB CDC reset recovery 在 reset 前后是否都有证据。
+- [ ] 检查 `register_probe.ps1` 是否只读，以及是否有 bit decode。
+- [ ] 打开重点故障案例，确认是否包含现象、证据、修复和回归。
+- [ ] 检查 AI agent playbook，确认有硬件风险的动作仍然处在人审边界内。
+
 ## 证据包
 
 | 证据包 | 类型 | 目的 | 结果 |
