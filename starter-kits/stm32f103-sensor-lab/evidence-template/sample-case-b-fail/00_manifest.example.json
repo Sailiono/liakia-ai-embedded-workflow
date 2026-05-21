@@ -1,0 +1,38 @@
+{
+  "project": "Liakia Starter-F103 Sensor Lab",
+  "case": "case-b-bmp280-calibration",
+  "timestamp_start": "2026-05-21T10:00:00+08:00",
+  "timestamp_end": "2026-05-21T10:01:42+08:00",
+  "hardware": {
+    "mcu": "STM32F103C8T6",
+    "board": "Blue Pill compatible",
+    "sensor": "BMP280",
+    "debug_probe": "ST-LINK compatible",
+    "uart": "USART1 PA9/PA10",
+    "i2c": "I2C1 PB6/PB7"
+  },
+  "ports": {
+    "shell": "COMx"
+  },
+  "results": {
+    "build": "PASS",
+    "flash": "PASS",
+    "shell": "PASS",
+    "i2c_scan": "PASS",
+    "sensor_id": "PASS",
+    "raw_calibration": "PASS",
+    "data_quality": "FAIL",
+    "telemetry_crc": "SKIP_AFTER_FAIL",
+    "register_probe": "PASS"
+  },
+  "failure": {
+    "failed_gate": "data_quality",
+    "short_reason": "BMP280 compensated temperature is outside physical range",
+    "suspected_layer": "application"
+  },
+  "human_review_required": [
+    "Confirm BMP280 module variant and address",
+    "Compare calibration decoding with datasheet",
+    "Review signed 16-bit little-endian conversion"
+  ]
+}

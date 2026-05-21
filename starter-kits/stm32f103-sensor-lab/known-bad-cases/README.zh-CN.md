@@ -126,7 +126,7 @@ persistence gate: FAIL
 
 | 优先级 | Case | 原因 |
 |---|---|---|
-| P0 | Case B | 只依赖 BMP280 和应用层，最容易跨用户环境复现 |
-| P1 | Case D | 能展示 reset recovery 和 evidence 的价值 |
-| P2 | Case A | 需要更强硬件状态采集，展示效果好但实现要谨慎 |
-| P3 | Case C | 专业度最高，但需要 DMA/IDLE 路径，适合第二阶段 |
+| P0 | [Case B](case-b-bmp280-calibration.zh-CN.md) | 只依赖 BMP280 和应用层，最容易跨用户环境复现 |
+| P1 | [Case D](case-d-flash-persistence-alignment.zh-CN.md) | 能展示 reset recovery 和 evidence 的价值 |
+| P2 | [Case A](case-a-i2c-bus-stuck-reset.zh-CN.md) | 需要更强硬件状态采集，展示效果好但实现要谨慎 |
+| P3 | [Case C](case-c-uart-dma-idle-race.zh-CN.md) | 专业度最高，但需要 DMA/IDLE 路径，适合第二阶段 |

@@ -89,3 +89,8 @@ BMP280 比简单温度模块更适合做故障训练：
 | [missions/README.zh-CN.md](missions/README.zh-CN.md) | 任务剧情 |
 | [known-bad-cases/README.zh-CN.md](known-bad-cases/README.zh-CN.md) | 故障设计 |
 | [app-layer/README.zh-CN.md](app-layer/README.zh-CN.md) | 应用层接入契约 |
+| [test-gates.zh-CN.md](test-gates.zh-CN.md) | 测试 gate 和 PASS/FAIL 标准 |
+| [diagnosis-playbook.zh-CN.md](diagnosis-playbook.zh-CN.md) | AI 诊断输入和输出格式 |
+| [evidence-template/README.zh-CN.md](evidence-template/README.zh-CN.md) | 证据包模板和 Case B 样例 |
+| [troubleshooting.zh-CN.md](troubleshooting.zh-CN.md) | 常见问题排查 |
+| [future-automation.zh-CN.md](future-automation.zh-CN.md) | 后续脚本自动化计划 |

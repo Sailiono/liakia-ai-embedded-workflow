@@ -1,0 +1,12 @@
+[SENSOR] command=diag i2c
+I2C_SCAN found=0x76
+I2C_SCAN result=PASS count=1
+
+[SENSOR] command=sensor id
+SENSOR_ID addr=0x76 id=0x58 result=PASS
+
+[SENSOR] command=sensor read
+RAW_CALIB result=PASS bytes=70 6B 43 67 18 FC
+DECODED dig_T1=27504 dig_T2=17255 dig_T3=6396
+RAW_TEMP adc=519888 result=PASS
+COMP_TEMP x100=18542 result=FAIL reason=out_of_physical_range

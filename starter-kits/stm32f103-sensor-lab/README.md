@@ -63,6 +63,11 @@ Create IOC manually
 | [Missions](missions/README.zh-CN.md) | Step-by-step lab story |
 | [Known-bad cases](known-bad-cases/README.zh-CN.md) | Realistic failure modes for AI-assisted diagnosis |
 | [Application layer contract](app-layer/README.zh-CN.md) | How to integrate Liakia application code into generated HAL code |
+| [Test gates](test-gates.zh-CN.md) | PASS / FAIL criteria for shell, sensor, protocol, reset, and evidence gates |
+| [Diagnosis playbook](diagnosis-playbook.zh-CN.md) | How to give evidence to an AI assistant without turning debugging into guessing |
+| [Evidence template](evidence-template/README.zh-CN.md) | Manifest, log, and summary examples |
+| [Troubleshooting](troubleshooting.zh-CN.md) | Common hardware, UART, I2C, and reset failures |
+| [Automation plan](future-automation.zh-CN.md) | Planned runner and diagnosis scripts |
 
 ## Boundary
 

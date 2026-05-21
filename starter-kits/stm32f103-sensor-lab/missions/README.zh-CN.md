@@ -1,5 +1,16 @@
 # Starter-F103 Lab 任务剧情
 
+## 任务目录
+
+| Mission | 文档 | 目标 |
+|---|---|---|
+| 00 | [硬件连接与上电检查](00-hardware-check.zh-CN.md) | 让 ST-LINK、串口、I2C 物理链路可验证 |
+| 01 | [CubeMX / IOC 空工程](01-cubemx-ioc.zh-CN.md) | 用户自己生成底层 HAL 工程 |
+| 02 | [应用层接入](02-app-layer-integration.zh-CN.md) | 把 Liakia app-layer 接入用户工程 |
+| 03 | [BMP280 Bringup](03-bmp280-bringup.zh-CN.md) | 证明 I2C、chip id、telemetry 能跑 |
+| 04 | [Known-bad 诊断](04-known-bad-diagnosis.zh-CN.md) | 烧录有问题的应用层并采集证据 |
+| 05 | [修复与回归](05-fix-and-regression.zh-CN.md) | 修复问题并生成 evidence package |
+
 ## Mission 00：准备硬件
 
 目标：
