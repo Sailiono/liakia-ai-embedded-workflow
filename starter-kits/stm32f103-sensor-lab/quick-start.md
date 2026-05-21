@@ -41,6 +41,8 @@ Recommended setup:
 | Two 4.7k pull-up resistors | Only needed if the BMP280 module has no I2C pull-ups |
 | Jumper wires | SWD / UART / I2C / common ground |
 
+Detailed parts notes: [bom.md](bom.md).
+
 ## 2. Wiring
 
 SWD:
@@ -70,6 +72,8 @@ BMP280 SCL -> PB6 / I2C1_SCL
 BMP280 SDA -> PB7 / I2C1_SDA
 ```
 
+Full wiring notes: [wiring.md](wiring.md).
+
 ## 3. CubeMX / IOC
 
 Create a new project:
@@ -89,6 +93,8 @@ Required configuration:
 | GPIO | PC13 Output |
 
 For the first pass, do not enable FreeRTOS, USB CDC, UART DMA, or I2C 400 kHz. Keep the bringup small and observable.
+
+Detailed IOC checkpoints: [cubemx-ioc-guide.md](cubemx-ioc-guide.md).
 
 After code generation, confirm the empty project builds and flashes through ST-LINK.
 
@@ -113,6 +119,8 @@ Core/Src/liakia_lab_port_stm32f103.c
 ```
 
 If your generated project uses different HAL handles or LED pins, adjust `huart1`, `hi2c1`, and `GPIOC/GPIO_PIN_13` in `liakia_lab_port_stm32f103.c`.
+
+Detailed integration contract: [app-layer/README.md](app-layer/README.md).
 
 In `main.c`, include:
 
@@ -229,6 +237,8 @@ static int16_t S16Le(const uint8_t *p) {
 
 This simulates a BMP280 signed calibration endian bug. A reference fragment is also available under `app-layer/known-bad/`.
 
+Case design details: [known-bad-cases/case-b-bmp280-calibration.md](known-bad-cases/case-b-bmp280-calibration.md).
+
 Rebuild, flash, and run expected-failure mode:
 
 ```powershell
@@ -243,6 +253,8 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 ```
 
 The run should produce `EXPECTED_FAIL`, not a clean PASS. The important part is that the evidence package is still generated.
+
+Gate definitions: [test-gates.md](test-gates.md).
 
 ## 8. Generate Diagnosis Material
 
@@ -268,6 +280,8 @@ failure_triage.md
 ```
 
 Give `ai_prompt.md` to an AI assistant and require it to reason only from the evidence.
+
+AI diagnosis contract: [diagnosis-playbook.md](diagnosis-playbook.md).
 
 ## 9. Fix And Regress
 
@@ -305,6 +319,8 @@ register_probe PASS or an explicit skip reason
 manifest generated
 ```
 
+Evidence package format: [evidence-template/README.md](evidence-template/README.md).
+
 ## 10. Common Failures
 
 | Symptom | Check first |
@@ -314,3 +330,5 @@ manifest generated
 | `diag i2c` does not find BMP280 | Power, SDA/SCL, pull-ups, voltage, address |
 | `sensor id` passes but `sensor read` fails | calibration endian, signed/unsigned conversion, compensation formula |
 | failure after reset | reset recovery, I2C bus recovery, RCC_CSR reset reason |
+
+More troubleshooting notes: [troubleshooting.md](troubleshooting.md).

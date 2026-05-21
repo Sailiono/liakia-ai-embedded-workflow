@@ -233,6 +233,8 @@ static int16_t S16Le(const uint8_t *p) {
 
 这会模拟 BMP280 signed calibration endian bug。参考片段也放在 [app-layer/known-bad/](app-layer/known-bad/)。
 
+Case 设计细节见 [known-bad-cases/case-b-bmp280-calibration.zh-CN.md](known-bad-cases/case-b-bmp280-calibration.zh-CN.md)。
+
 重新编译、烧录，然后用预期失败模式运行：
 
 ```powershell
@@ -247,6 +249,8 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 ```
 
 此时结果应是 `EXPECTED_FAIL`，而不是普通 PASS。重点是 evidence package 必须生成。
+
+Gate 定义见 [test-gates.zh-CN.md](test-gates.zh-CN.md)。
 
 ## 8. 生成 AI 诊断材料
 
@@ -272,6 +276,8 @@ failure_triage.md
 ```
 
 把 `ai_prompt.md` 交给 AI，要求它只能基于证据分析，不允许直接猜硬件坏。
+
+AI 诊断约束见 [diagnosis-playbook.zh-CN.md](diagnosis-playbook.zh-CN.md)。
 
 ## 9. 修复并回归
 
@@ -308,6 +314,8 @@ reset_recovery PASS 或有明确日志说明
 register_probe PASS 或有明确跳过原因
 manifest generated
 ```
+
+证据包格式见 [evidence-template/README.zh-CN.md](evidence-template/README.zh-CN.md)。
 
 ## 10. 常见卡点
 

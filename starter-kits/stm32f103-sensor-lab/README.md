@@ -67,19 +67,19 @@ Create IOC manually
 | [Quick start](quick-start.md) | Complete English path from wiring to known-bad diagnosis and regression |
 | [中文快速上手](quick-start.zh-CN.md) | 同一实验的中文快速上手 |
 | [Chinese guide](README.zh-CN.md) | Main hands-on guide |
-| [BOM](bom.zh-CN.md) | Parts and selection notes |
-| [Wiring](wiring.zh-CN.md) | SWD, UART, and I2C wiring |
-| [CubeMX / IOC guide](cubemx-ioc-guide.zh-CN.md) | User-generated IOC checkpoints |
-| [Missions](missions/README.zh-CN.md) | Step-by-step lab story |
-| [Known-bad cases](known-bad-cases/README.zh-CN.md) | Realistic failure modes for AI-assisted diagnosis |
-| [Application layer contract](app-layer/README.zh-CN.md) | How to integrate Liakia application code into generated HAL code |
+| [BOM](bom.md) | Parts and selection notes |
+| [Wiring](wiring.md) | SWD, UART, and I2C wiring |
+| [CubeMX / IOC guide](cubemx-ioc-guide.md) | User-generated IOC checkpoints |
+| [Missions](missions/README.md) | Step-by-step lab story |
+| [Known-bad cases](known-bad-cases/README.md) | Realistic failure modes for AI-assisted diagnosis |
+| [Application layer contract](app-layer/README.md) | How to integrate Liakia application code into generated HAL code |
 | [F103 HAL port template](app-layer/port-template/) | Platform bridge template for generated CubeMX projects |
-| [Test gates](test-gates.zh-CN.md) | PASS / FAIL criteria for shell, sensor, protocol, reset, and evidence gates |
-| [Diagnosis playbook](diagnosis-playbook.zh-CN.md) | How to give evidence to an AI assistant without turning debugging into guessing |
-| [Evidence template](evidence-template/README.zh-CN.md) | Manifest, log, and summary examples |
-| [Troubleshooting](troubleshooting.zh-CN.md) | Common hardware, UART, I2C, and reset failures |
+| [Test gates](test-gates.md) | PASS / FAIL criteria for shell, sensor, protocol, reset, and evidence gates |
+| [Diagnosis playbook](diagnosis-playbook.md) | How to give evidence to an AI assistant without turning debugging into guessing |
+| [Evidence template](evidence-template/README.md) | Manifest, log, and summary examples |
+| [Troubleshooting](troubleshooting.md) | Common hardware, UART, I2C, and reset failures |
 | [Tools](tools/) | Starter runner, F103 register probe, and diagnosis prompt generation |
-| [Automation plan](future-automation.zh-CN.md) | Follow-up enhancements |
+| [Automation plan](future-automation.md) | Follow-up enhancements |
 
 ## Boundary
 
