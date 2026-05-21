@@ -2403,6 +2403,277 @@ h2 {
   line-height: 1.62;
 }
 
+.story-brief,
+.diagnosis-grid,
+.timeline-grid,
+.wiring-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.story-brief {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.story-brief article,
+.diagnosis-card,
+.timeline-lane,
+.wiring-notes,
+.wiring-visual,
+.evidence-folder {
+  border: 1px solid rgba(244, 241, 232, 0.16);
+  background: rgba(244, 241, 232, 0.055);
+  border-radius: 8px;
+  padding: 22px;
+}
+
+.story-brief span,
+.diagnosis-card span,
+.timeline-lane span,
+.level-meta b {
+  color: var(--green);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.story-brief strong {
+  display: block;
+  margin: 18px 0 10px;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.story-brief p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.wiring-section {
+  background:
+    linear-gradient(180deg, rgba(84, 215, 255, 0.045), transparent 42%),
+    #11140f;
+}
+
+.wiring-grid {
+  grid-template-columns: minmax(420px, 1.25fr) minmax(260px, 0.75fr);
+  align-items: stretch;
+}
+
+.wiring-visual {
+  padding: 12px;
+  overflow: hidden;
+}
+
+.wiring-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: contain;
+}
+
+.wiring-notes ul,
+.evidence-folder ul,
+.diagnosis-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wiring-notes li {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(244, 241, 232, 0.1);
+}
+
+.wiring-notes li:last-child,
+.evidence-folder li:last-child {
+  border-bottom: 0;
+}
+
+.wiring-notes b {
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 13px;
+}
+
+.wiring-notes span {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.mission-map {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.mission-step {
+  position: relative;
+  min-height: 132px;
+  border: 1px solid rgba(244, 241, 232, 0.14);
+  background: rgba(244, 241, 232, 0.052);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.mission-step::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -11px;
+  width: 10px;
+  height: 2px;
+  background: rgba(84, 215, 255, 0.45);
+}
+
+.mission-step:last-child::after {
+  display: none;
+}
+
+.mission-step span,
+.mission-step em {
+  display: block;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  font-style: normal;
+}
+
+.mission-step span {
+  color: var(--cyan);
+  font-weight: 800;
+}
+
+.mission-step strong {
+  display: block;
+  margin: 20px 0 10px;
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+.mission-step em {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.mission-step.is-pass {
+  border-color: rgba(128, 255, 114, 0.28);
+  background: rgba(128, 255, 114, 0.065);
+}
+
+.mission-step.is-warn {
+  border-color: rgba(255, 184, 77, 0.32);
+  background: rgba(255, 184, 77, 0.065);
+}
+
+.mission-step.is-fail {
+  border-color: rgba(255, 107, 100, 0.34);
+  background: rgba(255, 107, 100, 0.07);
+}
+
+.evidence-folder li {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(244, 241, 232, 0.1);
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 13px;
+}
+
+.evidence-folder li::before {
+  content: "";
+  width: 12px;
+  height: 9px;
+  margin-right: 10px;
+  border-radius: 2px;
+  background: var(--amber);
+  box-shadow: 0 -4px 0 rgba(255, 184, 77, 0.38);
+}
+
+.diagnosis-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.diagnosis-card.is-ai {
+  border-color: rgba(167, 139, 250, 0.34);
+  background:
+    linear-gradient(135deg, rgba(167, 139, 250, 0.11), rgba(84, 215, 255, 0.045)),
+    rgba(244, 241, 232, 0.055);
+}
+
+.diagnosis-card li {
+  min-height: 34px;
+  color: var(--muted);
+  line-height: 1.55;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(244, 241, 232, 0.09);
+}
+
+.diagnosis-card li:last-child {
+  border-bottom: 0;
+}
+
+.timeline-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.timeline-lane {
+  position: relative;
+  min-height: 380px;
+}
+
+.timeline-lane.is-ai {
+  border-color: rgba(84, 215, 255, 0.3);
+  background:
+    linear-gradient(135deg, rgba(84, 215, 255, 0.1), rgba(128, 255, 114, 0.045)),
+    rgba(244, 241, 232, 0.055);
+}
+
+.timeline-lane ol {
+  margin: 18px 0;
+  padding-left: 22px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.timeline-lane li::marker {
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+}
+
+.timeline-lane strong {
+  display: block;
+  margin-top: 18px;
+  border-top: 1px solid rgba(244, 241, 232, 0.12);
+  padding-top: 16px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+.level-meta {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.level-meta b {
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(84, 215, 255, 0.18);
+  background: rgba(84, 215, 255, 0.055);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: var(--cyan);
+  text-transform: none;
+}
+
 .compare-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2826,6 +3097,10 @@ h2 {
   .roi-model-grid,
   .remote-grid,
   .compare-grid,
+  .wiring-grid,
+  .mission-map,
+  .diagnosis-grid,
+  .timeline-grid,
   .video-board {
     grid-template-columns: 1fr;
   }
@@ -2904,8 +3179,30 @@ h2 {
   .remote-flow,
   .router-grid,
   .compare-grid,
+  .story-brief,
+  .wiring-grid,
+  .mission-map,
+  .diagnosis-grid,
+  .timeline-grid,
   .lab-comparison {
     grid-template-columns: 1fr;
+  }
+
+  .mission-step {
+    min-height: 96px;
+  }
+
+  .mission-step::after {
+    top: auto;
+    right: auto;
+    left: 22px;
+    bottom: -11px;
+    width: 2px;
+    height: 10px;
+  }
+
+  .wiring-visual img {
+    min-height: 260px;
   }
 
   .remote-flow div {

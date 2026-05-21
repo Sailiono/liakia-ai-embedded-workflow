@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Experience the Liakia AI-assisted embedded debugging loop with an STM32F103C8T6 + BMP280 hands-on lab.">
     <title>Learn Liakia — Starter-F103 Sensor Lab</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-narrative-20260522">
+    <link rel="stylesheet" href="./styles.css?v=liakia-beginner-journey-20260522">
   </head>
   <body>
     <main class="page-shell">
@@ -23,43 +23,81 @@
         <div class="hero-content">
           <p class="eyebrow">Starter-F103 Sensor Lab</p>
           <h1>
-            <span>Use one F103 board</span>
-            <span>to experience AI-assisted</span>
-            <span>embedded debugging.</span>
+            <span>Take over</span>
+            <span>a deliberately broken</span>
+            <span>F103 sensor bench.</span>
           </h1>
           <p class="hero-copy">
-            This is not a one-click fake demo. You generate the IOC, wire a BMP280, pass the baseline, import known-bad app-layer code, diagnose manually first, then ask AI to reason from the same evidence.
+            This is not a screenshot tutorial. It is a small embedded failure mission: wire the bench, pass the baseline, import a known-bad case, generate evidence, ask AI to reason from that evidence, then apply a minimal fix and prove PASS.
           </p>
           <div class="hero-actions">
-            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/learn-it/README.md">Read Learn it</a>
             <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.md">Start Quick Start</a>
+            <a href="#mission-map">View mission map</a>
           </div>
         </div>
       </section>
 
-      <section class="usecase-section" aria-label="What you will build">
+      <section class="usecase-section mission-brief-section" aria-label="Mission brief">
         <div class="section-heading">
-          <p>what you build</p>
-          <h2>A low-cost bench that still feels like real debugging.</h2>
-          <div class="section-lede">Starter Lab walks a beginner through build, flash, serial shell, I2C, reset recovery, sensor data, and evidence packaging instead of only showing project screenshots.</div>
+          <p>mission brief</p>
+          <h2>This is an engineering detective mission, not an all-green demo.</h2>
+          <div class="section-lede">You take over an F103 + BMP280 bench. I2C can read the chip ID and raw calibration exists, but the data_quality gate fails. Your job is not to guess the answer; it is to collect evidence, form hypotheses, and let AI narrow the search using the same evidence.</div>
         </div>
-        <div class="usecase-grid">
-          <article><span>hardware</span><h3>F103 + BMP280</h3><p>An STM32F103C8T6 board, ST-LINK, USB-UART, BMP280, and jumper wires form the bench.</p><em>Blue Pill / SWD / UART / I2C</em></article>
-          <article><span>baseline</span><h3>Pass the normal firmware first</h3><p>Generate the CubeMX project, integrate the Liakia app layer, and pass shell, sensor id, data quality, and telemetry gates.</p><em>baseline first</em></article>
-          <article><span>known-bad</span><h3>Then import broken code</h3><p>Each case provides broken app-layer files, a practice guide, and a separate answer key. The answer is intentionally last.</p><em>case folders / answer last</em></article>
-          <article><span>evidence</span><h3>Use evidence, not guesses</h3><p>The runner creates logs, a manifest, a test summary, and ai_prompt.md so the debugging path is reviewable.</p><em>logs / manifest / AI prompt</em></article>
+        <div class="story-brief">
+          <article><span>scene</span><strong>The bench does not look dead</strong><p>BMP280 chip_id = 0x58, I2C responds, and a broken wire is not the first suspect.</p></article>
+          <article><span>conflict</span><strong>The data quality gate fails</strong><p>Sensor output is not credible, but raw bytes and telemetry CRC show the whole path is not simply dead.</p></article>
+          <article><span>rule</span><strong>AI only sees evidence</strong><p>AI reads the manifest, serial log, raw values, and case notes before giving ranked hypotheses.</p></article>
         </div>
       </section>
 
-      <section class="remote-section" aria-label="Failure and prompt preview">
+      <section class="remote-section wiring-section" aria-label="Hardware wiring">
         <div class="section-heading">
-          <p>failure first</p>
-          <h2>You are not watching an all-green demo. You create a failure that can be reviewed.</h2>
-          <div class="section-lede">Starter Lab shows how a gate fails, how evidence is generated, what AI receives, and how the same case returns to PASS after a minimal fix.</div>
+          <p>bench wiring</p>
+          <h2>Build the bench clearly before the failure matters.</h2>
+          <div class="section-lede">The main visual is a simplified wiring diagram rather than a photo, so board variants and wire clutter do not distract. SWD flashes the target, USART1 shows shell/logs, I2C1 talks to BMP280, and all modules share ground.</div>
+        </div>
+        <div class="wiring-grid">
+          <article class="wiring-visual">
+            <img src="./assets/starter-f103-wiring.svg" alt="STM32F103 Blue Pill, ST-LINK, USB-UART and BMP280 wiring diagram">
+          </article>
+          <article class="wiring-notes">
+            <div class="pane-title">wiring checklist</div>
+            <ul>
+              <li><b>SWD</b><span>ST-LINK -> SWDIO / SWCLK / GND</span></li>
+              <li><b>UART</b><span>USB-UART -> PA9 / PA10 / GND</span></li>
+              <li><b>I2C</b><span>BMP280 -> PB6 SCL / PB7 SDA</span></li>
+              <li><b>Power</b><span>BMP280 uses 3V3 and all modules share ground</span></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="mission-map" class="usecase-section" aria-label="Mission map">
+        <div class="section-heading">
+          <p>mission map</p>
+          <h2>You move through one complete debugging journey.</h2>
+        </div>
+        <div class="mission-map">
+          <div class="mission-step"><span>01</span><strong>Wire</strong><em>bench</em></div>
+          <div class="mission-step"><span>02</span><strong>CubeMX</strong><em>IOC</em></div>
+          <div class="mission-step"><span>03</span><strong>App Layer</strong><em>integrate</em></div>
+          <div class="mission-step is-pass"><span>04</span><strong>Baseline</strong><em>PASS</em></div>
+          <div class="mission-step is-warn"><span>05</span><strong>Import Bug</strong><em>known-bad</em></div>
+          <div class="mission-step is-fail"><span>06</span><strong>Gate FAIL</strong><em>data_quality</em></div>
+          <div class="mission-step"><span>07</span><strong>AI Packet</strong><em>evidence</em></div>
+          <div class="mission-step"><span>08</span><strong>Minimal Fix</strong><em>human review</em></div>
+          <div class="mission-step is-pass"><span>09</span><strong>Regression</strong><em>PASS</em></div>
+        </div>
+      </section>
+
+      <section class="remote-section" aria-label="Failure scene">
+        <div class="section-heading">
+          <p>failure scene</p>
+          <h2>Failure is not the end. Failure becomes the evidence package.</h2>
         </div>
         <div class="remote-grid">
           <article class="remote-console">
-            <div class="pane-title">What the first failure looks like</div>
+            <div class="pane-title">serial console</div>
             <pre><code>&gt;&gt; sensor read
 DATA_QUALITY result=FAIL
 chip_id=0x58 PASS
@@ -68,54 +106,106 @@ telemetry_crc=PASS
 gate=data_quality
 ai_prompt.md generated</code></pre>
           </article>
-          <article class="remote-console">
-            <div class="pane-title">What AI receives</div>
-            <pre><code>Observed failure:
-- DATA_QUALITY result=FAIL
-- chip_id=0x58 PASS
-- raw_calib=present
-- telemetry_crc=PASS
-
-Required output:
-observations
-ruled-out causes
-ranked hypotheses
-minimal fix scope</code></pre>
+          <article class="evidence-folder">
+            <div class="pane-title">evidence folder</div>
+            <ul>
+              <li>00_manifest.json</li>
+              <li>sensor_test.log</li>
+              <li>serial_capture.log</li>
+              <li>ai_prompt.md</li>
+              <li>test_summary.md</li>
+            </ul>
           </article>
         </div>
       </section>
 
-      <section class="usecase-section" aria-label="Lab loop">
+      <section class="usecase-section" aria-label="AI diagnosis packet">
         <div class="section-heading">
-          <p>the learning loop</p>
-          <h2>Diagnose manually, ask AI with the same evidence, then open the answer.</h2>
+          <p>ai diagnosis packet</p>
+          <h2>AI is not guessing. It receives a case packet.</h2>
         </div>
-        <div class="lab-comparison">
-          <div><strong>1. Manual first</strong><span>Inspect the failed gate, serial output, and manifest. Record symptoms, hypotheses, ruled-out causes, and time spent.</span></div>
-          <div><strong>2. AI second</strong><span>Give AI the same evidence and require reasoning from logs, gate results, and raw values only.</span></div>
-          <div><strong>3. Answer last</strong><span>Open the answer key only after comparison; it validates the quality of the diagnosis.</span></div>
+        <div class="diagnosis-grid">
+          <article class="diagnosis-card">
+            <span>observed</span>
+            <ul>
+              <li>DATA_QUALITY result=FAIL</li>
+              <li>chip_id=0x58 PASS</li>
+              <li>raw_calib=present</li>
+              <li>telemetry_crc=PASS</li>
+            </ul>
+          </article>
+          <article class="diagnosis-card">
+            <span>ruled out</span>
+            <ul>
+              <li>sensor completely disconnected</li>
+              <li>I2C address completely wrong</li>
+              <li>no raw calibration data</li>
+              <li>telemetry transport fully broken</li>
+            </ul>
+          </article>
+          <article class="diagnosis-card is-ai">
+            <span>ask ai</span>
+            <ul>
+              <li>list observations</li>
+              <li>rank hypotheses</li>
+              <li>propose minimal fix scope</li>
+              <li>do not guess hardware failure</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="remote-section" aria-label="Manual vs AI timeline">
+        <div class="section-heading">
+          <p>manual vs ai</p>
+          <h2>Diagnose manually first, then ask AI with the same evidence.</h2>
+          <div class="section-lede">The point is not that AI is always right. The point is that AI helps narrow the search, while the engineer confirms the fix.</div>
+        </div>
+        <div class="timeline-grid">
+          <article class="timeline-lane">
+            <span>manual path</span>
+            <ol>
+              <li>read serial logs</li>
+              <li>suspect wiring or address</li>
+              <li>check I2C and chip ID</li>
+              <li>rule out disconnected hardware</li>
+              <li>continue into compensation data</li>
+            </ol>
+            <strong>Goal: train your own evidence-reading ability.</strong>
+          </article>
+          <article class="timeline-lane is-ai">
+            <span>ai-assisted path</span>
+            <ol>
+              <li>read ai_prompt.md</li>
+              <li>cite chip_id PASS</li>
+              <li>rule out full sensor disconnect</li>
+              <li>focus on raw calibration / compensation</li>
+              <li>propose minimal fix scope</li>
+            </ol>
+            <strong>Goal: narrow the search, then confirm as engineer.</strong>
+          </article>
         </div>
       </section>
 
       <section class="case-section" aria-label="Known-bad cases">
         <div class="section-heading">
           <p>case ladder</p>
-          <h2>Four cases increase debugging difficulty step by step.</h2>
+          <h2>Four known-bad cases work like progressive levels.</h2>
         </div>
         <div class="case-support-grid case-ladder-grid">
-          <article class="case-card"><div class="case-head"><span>case b · first</span><strong>BMP280 Data Quality</strong></div><p>I2C and chip ID pass, but compensated sensor data is not credible. Best first exposure to evidence-first diagnosis.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-b-bmp280-calibration/README.md">Open Case B</a></article>
-          <article class="case-card"><div class="case-head"><span>case a</span><strong>I2C Reset Recovery</strong></div><p>The bus can fail after reset, requiring reset recovery plus GPIO/I2C state reasoning.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-a-i2c-bus-stuck-reset/README.md">Open Case A</a></article>
-          <article class="case-card"><div class="case-head"><span>case d</span><strong>Flash Persistence</strong></div><p>A value appears to save, but reload after reset fails, requiring raw record, CRC, and reload evidence.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-d-flash-persistence-alignment/README.md">Open Case D</a></article>
-          <article class="case-card"><div class="case-head"><span>case c · advanced</span><strong>UART DMA/IDLE Stream</strong></div><p>Stream boundaries, rate, and truncation mimic harder UART/DMA timing failures in real projects.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-c-uart-dma-idle-race/README.md">Open Case C</a></article>
+          <article class="case-card"><div class="case-head"><span>level 1 · case b</span><strong>BMP280 Data Quality</strong></div><p>I2C and chip ID pass, but compensated sensor data is not credible.</p><div class="level-meta"><b>Difficulty ★★☆☆☆</b><b>Gate data_quality</b><b>30-60 min</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-b-bmp280-calibration/README.md">Open Case B</a></article>
+          <article class="case-card"><div class="case-head"><span>level 2 · case a</span><strong>I2C Reset Recovery</strong></div><p>The bus can fail after reset, requiring reset recovery plus GPIO/I2C state reasoning.</p><div class="level-meta"><b>Difficulty ★★★☆☆</b><b>Gate reset_recovery</b><b>45-90 min</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-a-i2c-bus-stuck-reset/README.md">Open Case A</a></article>
+          <article class="case-card"><div class="case-head"><span>level 3 · case d</span><strong>Flash Persistence</strong></div><p>A value appears to save, but reload after reset fails, requiring raw record, CRC, and reload evidence.</p><div class="level-meta"><b>Difficulty ★★★★☆</b><b>Gate config_reload</b><b>60-120 min</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-d-flash-persistence-alignment/README.md">Open Case D</a></article>
+          <article class="case-card"><div class="case-head"><span>level 4 · case c</span><strong>UART DMA/IDLE Stream</strong></div><p>Stream boundaries, rate, and truncation mimic harder UART/DMA timing failures in real projects.</p><div class="level-meta"><b>Difficulty ★★★★★</b><b>Gate stream_integrity</b><b>90-180 min</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-c-uart-dma-idle-race/README.md">Open Case C</a></article>
         </div>
       </section>
 
       <section class="closing-section" aria-label="Start now">
         <p>start now</p>
-        <h2>Complete one case, then inspect the professional proof.</h2>
+        <h2>Start with Case B, then inspect the professional proof.</h2>
         <div class="closing-band">
-          <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/learn-it/README.md">Learn it docs</a>
           <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.md">Quick Start</a>
+          <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-b-bmp280-calibration/README.md">Start Case B</a>
           <a href="./professional.en.html">Professional proof</a>
         </div>
       </section>
