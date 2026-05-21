@@ -61,19 +61,20 @@
           <article class="remote-console">
             <div class="pane-title">What the first failure looks like</div>
             <pre><code>&gt;&gt; sensor read
-SENSOR_ID result=PASS id=0x58
-RAW_CAL bytes=24 result=PASS
 DATA_QUALITY result=FAIL
+chip_id=0x58 PASS
+raw_calib=present
+telemetry_crc=PASS
 gate=data_quality
 ai_prompt.md generated</code></pre>
           </article>
           <article class="remote-console">
             <div class="pane-title">What AI receives</div>
             <pre><code>Observed failure:
-- chip_id PASS
-- raw calibration present
-- decoded temperature invalid
-- telemetry CRC PASS
+- DATA_QUALITY result=FAIL
+- chip_id=0x58 PASS
+- raw_calib=present
+- telemetry_crc=PASS
 
 Required output:
 observations

@@ -24,12 +24,12 @@
         <div class="hero-content">
           <p class="eyebrow">engineering proof for STM32 delivery</p>
           <h1>
-            <span>把嵌入式交付</span>
-            <span>从手工经验</span>
-            <span>变成可审查证据链。</span>
+            <span>别再让固件修复</span>
+            <span>卡在编译、烧录、</span>
+            <span>测试和交接之间。</span>
           </h1>
           <p class="hero-copy">
-            Liakia 用 dpiny-RTK 真实工程证明：build、flash、serial tests、RTCM CRC、USB CDC reset recovery、register probe 和 evidence manifest 可以组成可远程复现的人审闭环。
+            Liakia 用 dpiny-RTK 真实工程证明：build、flash、serial tests、RTCM CRC、USB CDC reset recovery、register probe 和 evidence manifest 可以组成可复现、可远程执行的人审闭环。
           </p>
           <div class="hero-actions">
             <a href="#proof">审查证据</a>
@@ -125,10 +125,10 @@
           <h2>对团队的价值，是减少不可复现和不可交接。</h2>
         </div>
         <div class="usecase-grid">
-          <article><span>less repetition</span><h3>少做重复台架操作</h3><p>把 build、flash、串口 smoke test、协议 gate、reset recovery 收进 runner。</p><em>less manual bench work</em></article>
-          <article><span>less lost context</span><h3>修复不再只靠聊天记录</h3><p>失败现象、日志、manifest 和回归结果集中到 evidence package。</p><em>logs / summary / manifest</em></article>
-          <article><span>remote replay</span><h3>远程问题可以复现和回归</h3><p>硬件留在测试台电脑上，开发侧远程触发流程并拉回证据。</p><em>bench PC / remote HIL</em></article>
-          <article><span>handoff</span><h3>交付有证据包可审查</h3><p>中层和客户能看到每次修改后的测试覆盖、失败项和人工审核边界。</p><em>reviewable delivery</em></article>
+          <article><span>impact 01</span><h3>减少重复台架操作</h3><p>把 build、flash、串口 smoke test、协议 gate、reset recovery 收进 runner。</p><em>less manual bench repetition</em></article>
+          <article><span>impact 02</span><h3>失败运行也保留证据</h3><p>失败现象、日志、manifest 和回归结果集中到 evidence package。</p><em>failed runs still generate evidence</em></article>
+          <article><span>impact 03</span><h3>真实 bug 沉淀成 regression gate</h3><p>像 USB CDC reset recovery 这类真实问题，会进入下一次 baseline。</p><em>real bugs become gates</em></article>
+          <article><span>impact 04</span><h3>硬件不搬动也能远程验证</h3><p>硬件留在测试台电脑上，开发侧远程触发流程并拉回证据。</p><em>remote hardware without moving device</em></article>
         </div>
       </section>
 

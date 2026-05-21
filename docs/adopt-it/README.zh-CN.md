@@ -40,6 +40,27 @@ Liakia 的定位是包住你们现有技术栈。它不要求替换 HAL、FreeRT
 
 实际范围取决于板卡可用性、硬件风险、协议复杂度和已有测试覆盖。
 
+## Liakia STM32 Pilot Package
+
+**交付周期：** 3-5 天，聚焦一个板卡和一条交付链路。
+
+**输入：**
+
+- 现有固件工程；
+- 编译和烧录方式；
+- 串口 Shell 或协议接口；
+- 目标板和连接说明；
+- 硬件风险说明和需要避免的动作。
+
+**输出：**
+
+- `project-adapter.json`；
+- baseline runner；
+- 1-3 个 serial 或 protocol gates；
+- evidence manifest；
+- handoff report；
+- 人审边界说明。
+
 ## 一周试点结束后，你会得到什么
 
 第一阶段目标不是改造整个研发体系，而是先把一个板卡的一条交付链路跑通，让它可重复、可失败留痕、可审查。

@@ -40,6 +40,27 @@ Liakia is designed to wrap your current stack. It does not require replacing HAL
 
 The exact scope depends on board availability, hardware risk, protocol complexity, and existing test coverage.
 
+## Liakia STM32 Pilot Package
+
+**Timeline:** 3-5 days for one board and one delivery chain.
+
+**Inputs:**
+
+- existing firmware project;
+- build and flash method;
+- serial shell or protocol interface;
+- target board and connection notes;
+- hardware risk notes and actions to avoid.
+
+**Outputs:**
+
+- `project-adapter.json`;
+- baseline runner;
+- 1-3 serial or protocol gates;
+- evidence manifest;
+- handoff report;
+- human-review boundary notes.
+
 ## What You Get After One Week
 
 A first pilot should not try to rebuild the whole engineering system. The practical target is to make one board and one delivery chain repeatable.

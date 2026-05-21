@@ -21,12 +21,12 @@
 
 如果你是嵌入式工程师或研发负责人，建议按这个顺序审查：
 
-- [ ] 打开 remote HIL manifest，确认 step、result、duration 字段是否完整。
-- [ ] 确认 RTCM parser 报告 `CRC BAD = 0`，并且它是 gate，不只是日志查看器。
-- [ ] 查看 USB CDC reset recovery 在 reset 前后是否都有证据。
-- [ ] 检查 `register_probe.ps1` 是否只读，以及是否有 bit decode。
-- [ ] 打开重点故障案例，确认是否包含现象、证据、修复和回归。
-- [ ] 检查 AI agent playbook，确认有硬件风险的动作仍然处在人审边界内。
+1. 先看 remote HIL manifest，确认 step、result、duration 字段是否完整。
+2. 再看 RTCM CRC gate，确认 `CRC BAD = 0`，并且它是 gate，不只是日志查看器。
+3. 再看 USB CDC reset case，确认 reset 前后都有证据。
+4. 再看 `register_probe.ps1`，确认它只读，并且有 bit decode。
+5. 再看 AI operation boundary，确认有硬件风险的动作仍然处在人审边界内。
+6. 最后看 adapter template，判断这套 loop 如何迁移到另一个 STM32 项目。
 
 ## 证据包
 

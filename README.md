@@ -11,9 +11,9 @@ For STM32 teams that need repeatable build, flash, test, diagnose, evidence, and
 [![Mode](https://img.shields.io/badge/AI-Human--in--the--loop-54d7ff)]()
 [![Evidence](https://img.shields.io/badge/Evidence-real_bench_%2B_remote_HIL-ffb84d)]()
 
-Embedded firmware delivery often breaks in the gaps between code changes, hardware validation, and handoff evidence.
+Stop losing firmware fixes between build, flash, test, and handoff.
 
-Liakia closes those gaps with a human-reviewed loop on real or remote STM32 hardware:
+Liakia turns those steps into a repeatable, evidence-backed loop on real or remote STM32 hardware:
 
 ```text
 build -> flash -> test -> diagnose -> evidence -> handoff

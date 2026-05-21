@@ -11,9 +11,9 @@
 [![Mode](https://img.shields.io/badge/AI-Human--in--the--loop-54d7ff)]()
 [![Evidence](https://img.shields.io/badge/Evidence-real_bench_%2B_remote_HIL-ffb84d)]()
 
-嵌入式交付最容易失控的地方，是代码修改、硬件验证和交接证据之间的断点。
+别再让固件修复卡在编译、烧录、串口验证和交接证据之间。
 
-Liakia 把这些断点串成一条能在真实或远程 STM32 硬件上复现的人审闭环：
+Liakia 把这些步骤串成一条能在真实或远程 STM32 硬件上复现的证据驱动、人审闭环：
 
 ```text
 build -> flash -> test -> diagnose -> evidence -> handoff
