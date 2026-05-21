@@ -42,11 +42,11 @@
             Liakia uses dpiny-RTK, a real STM32F407 + UM982 RTK firmware, as its first case study to show how build, flash, serial tests, RTCM CRC gates, USB CDC reset recovery, register probes, and evidence packaging become one repeatable delivery loop.
           </p>
           <div class="hero-actions" aria-label="Key proof points">
+            <a href="#paths">Starter Lab</a>
             <a href="#proof">View Evidence</a>
             <a href="#workflow">View Workflow</a>
             <a href="#remote-hil">Remote HIL</a>
             <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.md">Adapt STM32</a>
-            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow">GitHub</a>
           </div>
         </div>
 
@@ -77,6 +77,36 @@
             </div>
           </div>
         </aside>
+      </section>
+
+      <section id="paths" class="usecase-section" aria-label="Choose your path">
+        <div class="section-heading">
+          <p>choose your path</p>
+          <h2>Hands-on lab, engineering proof, and project adoption stay separate.</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>starter</span>
+            <h3>STM32F103C8T6 Sensor Lab</h3>
+            <p>Start from an empty IOC, wire a BMP280 sensor, integrate the Liakia application layer into your generated HAL project, then debug known-bad cases.</p>
+            <em>IOC / HAL / BMP280 / known-bad debug</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/tree/main/starter-kits/stm32f103-sensor-lab">Start the lab</a>
+          </article>
+          <article>
+            <span>engineering</span>
+            <h3>dpiny-RTK Engineering Case</h3>
+            <p>Inspect the real STM32F407 + UM982 evidence packages covering build, flash, shell, RTCM CRC, USB CDC reset, and remote HIL.</p>
+            <em>real bench / remote HIL / evidence</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/evidence/README.md">View evidence</a>
+          </article>
+          <article>
+            <span>team adoption</span>
+            <h3>Adapt Your STM32 Project</h3>
+            <p>Describe an existing firmware project with an adapter and keep HAL, FreeRTOS, CubeCLT, ST-LINK, and current debug habits.</p>
+            <em>project-adapter / workflow-template</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.md">Read adaptation guide</a>
+          </article>
+        </div>
       </section>
 
       <section id="proof" class="audience-section" aria-label="Evidence packages">

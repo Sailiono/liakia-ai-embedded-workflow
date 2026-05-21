@@ -33,12 +33,21 @@ Liakia 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 
 | AI 模型 | AI 辅助实现、日志分析、测试生成和报告草拟；工程师保留最终审核权 |
 | 可迁移场景 | STM32 板卡 bringup、固件回归、远程测试台验证、客户现场问题复现 |
 
+## 选择你的入口
+
+| 入口 | 适合谁 | 从这里开始 |
+|---|---|---|
+| 动手 Starter Lab | 想焊线、接传感器、亲手调一个 known-bad STM32F103C8T6 应用的人 | [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) |
+| 工程案例 | 想看真实 STM32F407 + RTK 工作流和证据包的嵌入式工程师 | [evidence/README.md](evidence/README.md) |
+| 接入你的项目 | 想把 build / flash / test / evidence 闭环迁移到自己 STM32 项目的团队 | [docs/adapt-your-stm32-project.zh-CN.md](docs/adapt-your-stm32-project.zh-CN.md) |
+
 ## 演示与文档
 
 | 资源 | 链接 |
 |---|---|
 | 中文交互演示 | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/) |
 | 英文交互演示 | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/promo-demo/index.en.html) |
+| STM32F103 动手 Starter Lab | [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) |
 | 证据包入口 | [evidence/README.md](evidence/README.md) |
 | 故障复盘案例 | [case-studies/](case-studies/) |
 | ROI 模型 | [docs/roi_model.md](docs/roi_model.md) |

@@ -93,11 +93,11 @@
             Liakia 以 dpiny-RTK 这个 STM32F407 + UM982 RTK 固件作为第一个真实案例，展示 build、flash、shell test、RTCM CRC、USB CDC reset recovery、SWD register probe 和 evidence manifest 如何串成可复现交付闭环。
           </p>
           <div class="hero-actions" aria-label="Key proof points">
+            <a href="#paths">F103 Lab</a>
             <a href="#pipeline">看流程</a>
             <a href="#evidence">看证据链</a>
             <a href="#cases">看故障案例</a>
             <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.zh-CN.md">如何接入</a>
-            <a href="#remote-hil">看远程硬件</a>
           </div>
         </div>
 
@@ -130,6 +130,36 @@
             </div>
           </div>
         </aside>
+      </section>
+
+      <section id="paths" class="usecase-section" aria-label="Choose your path">
+        <div class="section-heading">
+          <p>choose your path</p>
+          <h2>新手动手、工程师审查、团队接入，三条入口并列。</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>starter</span>
+            <h3>STM32F103C8T6 Sensor Lab</h3>
+            <p>从空 IOC 开始，焊线接 BMP280，把 Liakia 应用层接入自己生成的 HAL 工程，再用 known-bad case 体验真实排障。</p>
+            <em>IOC / HAL / BMP280 / known-bad debug</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/tree/main/starter-kits/stm32f103-sensor-lab">开始 Starter Lab</a>
+          </article>
+          <article>
+            <span>engineering</span>
+            <h3>dpiny-RTK Engineering Case</h3>
+            <p>查看 STM32F407 + UM982 RTK 的真实证据包，包括 build、flash、shell、RTCM CRC、USB CDC reset 和 remote HIL。</p>
+            <em>real bench / remote HIL / evidence</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/evidence/README.md">查看工程证据</a>
+          </article>
+          <article>
+            <span>team adoption</span>
+            <h3>Adapt Your STM32 Project</h3>
+            <p>用 adapter 描述已有工程的构建、烧录、测试和证据输出，不强制更换 HAL、FreeRTOS、CubeCLT 或现有调试习惯。</p>
+            <em>project-adapter / workflow-template</em>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.zh-CN.md">查看接入指南</a>
+          </article>
+        </div>
       </section>
 
       <section class="audience-section" aria-label="Why this workflow matters">

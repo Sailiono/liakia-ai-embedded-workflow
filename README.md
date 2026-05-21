@@ -33,12 +33,21 @@ requirement -> code change -> build -> flash -> serial tests
 | AI model | AI assists implementation, log analysis, test generation, and report drafting; engineers keep final review authority |
 | Reuse target | STM32 board bringup, firmware regression, remote bench validation, and customer issue reproduction |
 
+## Choose Your Path
+
+| Path | Best for | Start here |
+|---|---|---|
+| Hands-on Starter Lab | New users who want to wire a real STM32F103C8T6 board and debug a known-bad sensor application | [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) |
+| Engineering Case | Embedded engineers who want to inspect the real STM32F407 + RTK workflow and evidence packages | [evidence/README.md](evidence/README.md) |
+| Adapt Your Project | Teams who want to bring the same build / flash / test / evidence loop to their own STM32 firmware | [docs/adapt-your-stm32-project.md](docs/adapt-your-stm32-project.md) |
+
 ## Demo And Documentation
 
 | Resource | Link |
 |---|---|
 | Interactive demo, English | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/promo-demo/index.en.html) |
 | Interactive demo, Chinese | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/) |
+| Hands-on STM32F103 starter lab | [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) |
 | Evidence index | [evidence/README.md](evidence/README.md) |
 | Failure-to-fix cases | [case-studies/](case-studies/) |
 | ROI model | [docs/roi_model.md](docs/roi_model.md) |
