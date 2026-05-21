@@ -29,6 +29,14 @@ Core/Src/liakia_lab_app.c
 Core/Src/liakia_lab_port_stm32f103.c   # 用户实现
 ```
 
+第一版已经提供一个可改的 F103 HAL 桥接模板：
+
+```text
+app-layer/port-template/liakia_lab_port_stm32f103.c
+```
+
+用户可以复制到 `Core/Src/`，再按自己的 CubeMX 工程调整 `huart1`、`hi2c1` 和 LED 引脚。
+
 ## main.c 接入
 
 ```c
@@ -73,11 +81,12 @@ LiakiaStatus LiakiaPlatform_I2cReadMem(uint8_t addr7, uint8_t reg, uint8_t *data
 | `version` | 输出应用版本、MCU、build id |
 | `led on/off` | 验证 GPIO |
 | `sensor id` | 读取 BMP280 chip id |
-| `sensor read` | 输出温度/气压原始值和补偿值 |
+| `sensor read` | 输出 BMP280 温度原始值、校准参数和补偿值 |
 | `telemetry once` | 输出一帧带 CRC 的 telemetry |
-| `config get/set/save` | 验证配置持久化 |
 | `diag i2c` | 输出 I2C scan 摘要 |
 | `reset` | 软件复位，用于 reset recovery gate |
+
+`config get/set/save` 属于后续 Case D：Flash persistence，不在当前基础 app 中实现，避免新手第一轮同时处理传感器和 Flash 两条问题线。
 
 ## Known-Bad 应用层原则
 

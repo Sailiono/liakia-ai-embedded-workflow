@@ -23,6 +23,8 @@ Liakia 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 
 
 **dpiny-RTK 是示范案例，Liakia 才是工作流。**
 
+这个 README 主要作为导览页使用。选择下面一个入口后，尽量沿着对应目录或指南读完，不需要在整个仓库里来回找文件。
+
 ## 一眼看懂
 
 | 领域 | 本仓库包含什么 |
@@ -37,7 +39,7 @@ Liakia 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 
 
 | 入口 | 适合谁 | 从这里开始 |
 |---|---|---|
-| 动手 Starter Lab | 想焊线、接传感器、亲手调一个 known-bad STM32F103C8T6 应用的人 | [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) |
+| 动手 Starter Lab | 想焊线、接传感器、亲手调一个 known-bad STM32F103C8T6 应用的人 | [starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md](starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md) |
 | 工程案例 | 想看真实 STM32F407 + RTK 工作流和证据包的嵌入式工程师 | [evidence/README.md](evidence/README.md) |
 | 接入你的项目 | 想把 build / flash / test / evidence 闭环迁移到自己 STM32 项目的团队 | [docs/adapt-your-stm32-project.zh-CN.md](docs/adapt-your-stm32-project.zh-CN.md) |
 
@@ -47,7 +49,7 @@ Liakia 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 
 |---|---|
 | 中文交互演示 | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/) |
 | 英文交互演示 | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/promo-demo/index.en.html) |
-| STM32F103 动手 Starter Lab | [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) |
+| STM32F103 动手 Starter Lab | [starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md](starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md) |
 | 证据包入口 | [evidence/README.md](evidence/README.md) |
 | 故障复盘案例 | [case-studies/](case-studies/) |
 | ROI 模型 | [docs/roi_model.md](docs/roi_model.md) |
@@ -230,6 +232,7 @@ Case 04 是目前最强的公开案例，因为它绑定了真实测试台复盘
 
 ```text
 firmware/dpiny-rtk/       参考 STM32 固件案例
+starter-kits/             STM32F103 动手实验和快速上手
 tools/                    baseline runner、串口测试、RTCM 解析器、寄存器 probe
 workflow-template/        adapter 驱动的可复用工作流模板
 evidence/                 公开展示、本地测试台、远程 HIL 证据包

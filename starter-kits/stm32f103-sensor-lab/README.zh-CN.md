@@ -1,6 +1,14 @@
-# Liakia Starter-F103 Sensor Lab
+# Liakia Starter-F103 传感器实验
 
 这是 Liakia 面向新手和潜在客户的真实动手入口。
+
+如果你要直接开始做实验，先读：
+
+```text
+quick-start.zh-CN.md
+```
+
+本目录包含完成 F103 实验需要的硬件、接线、IOC、应用层、known-bad、测试 gate、诊断和 evidence 文档；不需要回到仓库其他目录才能完成这个 Lab。
 
 它不替代 dpiny-RTK 工程案例，而是和专业入口并列：
 
@@ -73,7 +81,7 @@ BMP280 比简单温度模块更适合做故障训练：
 - 有固定 chip id；
 - 有校准参数区；
 - 有 signed / unsigned 和 little-endian 处理；
-- 有温度、气压补偿算法；
+- 有温度补偿算法，后续可扩展气压补偿；
 - 有 reset 后重新初始化问题；
 - 容易做数据质量 gate。
 
@@ -83,12 +91,15 @@ BMP280 比简单温度模块更适合做故障训练：
 
 | 文件 | 内容 |
 |---|---|
+| [quick-start.zh-CN.md](quick-start.zh-CN.md) | 从硬件、IOC、应用层、known-bad 到回归 PASS 的完整中文快速上手 |
+| [quick-start.md](quick-start.md) | English quick start for the same hands-on lab |
 | [bom.zh-CN.md](bom.zh-CN.md) | 物料清单和选型说明 |
 | [wiring.zh-CN.md](wiring.zh-CN.md) | 焊线和接线说明 |
 | [cubemx-ioc-guide.zh-CN.md](cubemx-ioc-guide.zh-CN.md) | IOC 配置检查点 |
 | [missions/README.zh-CN.md](missions/README.zh-CN.md) | 任务剧情 |
 | [known-bad-cases/README.zh-CN.md](known-bad-cases/README.zh-CN.md) | 故障设计 |
 | [app-layer/README.zh-CN.md](app-layer/README.zh-CN.md) | 应用层接入契约 |
+| [app-layer/port-template/](app-layer/port-template/) | CubeMX HAL 工程的 F103 平台桥接模板 |
 | [test-gates.zh-CN.md](test-gates.zh-CN.md) | 测试 gate 和 PASS/FAIL 标准 |
 | [diagnosis-playbook.zh-CN.md](diagnosis-playbook.zh-CN.md) | AI 诊断输入和输出格式 |
 | [evidence-template/README.zh-CN.md](evidence-template/README.zh-CN.md) | 证据包模板和 Case B 样例 |
@@ -108,6 +119,8 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -ComPort COM4 `
   -Case case-b
 ```
+
+如果暂时不想烧录，必须显式加 `-SkipFlash`。没有 `-Elf` 时 runner 会失败，避免误测旧固件。
 
 只生成 AI 诊断 prompt：
 

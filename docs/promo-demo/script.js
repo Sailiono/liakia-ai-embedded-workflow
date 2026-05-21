@@ -136,7 +136,7 @@ validation:
   {
     kicker: "stage 05 / validation runner",
     title: "Baseline 测试 Runner",
-    copy: "不是展示“测试通过”四个字，而是把环境、烧录、串口、输入校验和 RTCM 解析按真实基线顺序跑出来。",
+    copy: "不是展示“测试通过”四个字，而是把环境、烧录、串口、输入校验、USB CDC reset 和 RTCM 解析按真实基线顺序跑出来。",
     html: `
       <div class="visual tech-visual validation-console">
         <div class="runner-grid">
@@ -146,6 +146,7 @@ validation:
             <div class="test-line"><span>FLASH-01</span><strong>SWD flash + verify</strong><em>pending</em></div>
             <div class="test-line"><span>FUNC-01</span><strong>shell/config/reset</strong><em>pending</em></div>
             <div class="test-line"><span>VAL-05</span><strong>invalid input isolation</strong><em>pending</em></div>
+            <div class="test-line"><span>USB-07</span><strong>CDC reset recovery</strong><em>pending</em></div>
             <div class="test-line"><span>RTCM-02</span><strong>CRC BAD: 0</strong><em>pending</em></div>
           </div>
           <div class="runner-log" id="runnerLog" aria-live="polite"></div>
@@ -371,12 +372,13 @@ function runValidation() {
   });
 
   const lines = [
-    { text: "> run_test_baseline.ps1 -BuildPreset Debug -ComPort COM11 -RtcmPort COM6", tone: "cmd" },
+    { text: "> run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7", tone: "cmd" },
     { text: "[ENV-02] CMake / Ninja / Arm GCC / STM32CubeProgrammer detected", tone: "ok" },
     { text: "[BUILD-01] Debug firmware build completed", tone: "ok" },
     { text: "[FLASH-01] SWD download, verify, reset completed", tone: "ok" },
     { text: "[FUNC-01] help/status/config/save/reset PASS", tone: "ok" },
     { text: "[VAL-05] invalid input did not mutate config", tone: "ok" },
+    { text: "[USB-07] CDC reset recovery PASS", tone: "ok" },
     { text: "[RTCM-02] CRC BAD: 0", tone: "ok" },
     { text: "summary.md + manifest.json written", tone: "ok" }
   ];

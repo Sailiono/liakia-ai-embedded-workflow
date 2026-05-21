@@ -2,6 +2,14 @@
 
 This starter lab is the hands-on entry point for Liakia.
 
+If you want to run the lab, start here:
+
+```text
+quick-start.md
+```
+
+This folder contains the hardware, wiring, IOC, application layer, known-bad case, test gates, diagnosis, and evidence documents needed to complete the F103 lab.
+
 It is intentionally separate from the dpiny-RTK engineering case:
 
 | Path | Audience | Purpose |
@@ -56,6 +64,8 @@ Create IOC manually
 
 | Document | Purpose |
 |---|---|
+| [Quick start](quick-start.md) | Complete English path from wiring to known-bad diagnosis and regression |
+| [中文快速上手](quick-start.zh-CN.md) | 同一实验的中文快速上手 |
 | [Chinese guide](README.zh-CN.md) | Main hands-on guide |
 | [BOM](bom.zh-CN.md) | Parts and selection notes |
 | [Wiring](wiring.zh-CN.md) | SWD, UART, and I2C wiring |
@@ -63,6 +73,7 @@ Create IOC manually
 | [Missions](missions/README.zh-CN.md) | Step-by-step lab story |
 | [Known-bad cases](known-bad-cases/README.zh-CN.md) | Realistic failure modes for AI-assisted diagnosis |
 | [Application layer contract](app-layer/README.zh-CN.md) | How to integrate Liakia application code into generated HAL code |
+| [F103 HAL port template](app-layer/port-template/) | Platform bridge template for generated CubeMX projects |
 | [Test gates](test-gates.zh-CN.md) | PASS / FAIL criteria for shell, sensor, protocol, reset, and evidence gates |
 | [Diagnosis playbook](diagnosis-playbook.zh-CN.md) | How to give evidence to an AI assistant without turning debugging into guessing |
 | [Evidence template](evidence-template/README.zh-CN.md) | Manifest, log, and summary examples |

@@ -28,7 +28,7 @@ app-layer/known-bad/case_b_bmp280_calibration/
 ```text
 sensor id PASS
 raw calibration bytes readable
-temperature / pressure data-quality gate FAIL
+temperature data-quality gate FAIL
 ```
 
 这比 I2C 地址写错更适合展示，因为表面上“传感器已经能读”，但数据仍然不可信。
@@ -43,8 +43,8 @@ sensor id output
 sensor read output
 telemetry once output
 raw calibration bytes
-raw adc temperature / pressure
-compensated temperature / pressure
+raw adc temperature
+compensated temperature
 data quality gate result
 ```
 

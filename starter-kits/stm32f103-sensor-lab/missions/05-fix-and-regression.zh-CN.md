@@ -26,7 +26,7 @@ static int16_t S16(const uint8_t *p) {
 
 ## 回归命令
 
-第一版手工执行：
+可以手工执行：
 
 ```text
 version
@@ -39,10 +39,14 @@ version
 sensor id
 ```
 
-后续自动化脚本会封装为：
+也可以使用当前自动化脚本封装为：
 
 ```powershell
-tools/run_starter_f103.ps1 -ComPort COMx -Case case-b
+starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
+  -ProjectRoot C:\path\to\your\cubemx-project `
+  -Elf Debug\app.elf `
+  -ComPort COMx `
+  -Case case-b
 ```
 
 ## PASS 标准

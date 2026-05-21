@@ -95,7 +95,7 @@
 
     <rect x="22" y="68" width="656" height="42" rx="8" fill="#080a08" stroke="#f4f1e8" stroke-opacity=".14"/>
     <text x="42" y="95" class="green mono">$</text>
-    <text x="74" y="95" class="mono">tools/run_test_baseline.ps1 -BuildPreset Debug -UsbPort COM7</text>
+    <text x="74" y="95" class="monoSmall">run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7</text>
 
     <text x="30" y="138" class="monoSmall" fill="#54d7ff">PASS dependency check</text>
     <text x="30" y="164" class="monoSmall">PASS Debug firmware build</text>

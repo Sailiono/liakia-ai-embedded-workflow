@@ -1,6 +1,6 @@
 # Starter-F103 Test Gates
 
-这个文档定义 Starter-F103 Lab 的测试 gate。第一版可以手工执行，后续会由脚本自动化。
+这个文档定义 Starter-F103 Lab 的测试 gate。当前既可以手工执行，也可以由 `tools/run_starter_f103.ps1` 自动执行主要 gate。
 
 ## Gate 总览
 
@@ -12,7 +12,7 @@
 | shell | 验证 USART1 Shell | 是 |
 | i2c_scan | 验证 BMP280 是否可见 | 是 |
 | sensor_id | 验证 chip id | 是 |
-| sensor_quality | 验证 raw bytes 和补偿数据 | 是 |
+| data_quality | 验证 raw bytes 和补偿数据 | 是 |
 | telemetry_crc | 验证输出帧 CRC | 是 |
 | reset_recovery | 验证 software reset 后恢复 | 否，第一版可选 |
 | register_probe | 采集只读寄存器证据 | 否，但建议执行 |
@@ -90,7 +90,7 @@ i2c_no_ack
 timeout
 ```
 
-## Sensor Quality Gate
+## Data Quality Gate
 
 命令：
 
@@ -105,10 +105,9 @@ raw calibration bytes readable
 raw temperature adc non-zero
 decoded calibration values plausible
 temperature_x100 between -4000 and 8500
-pressure_pa between 30000 and 110000, if pressure path is enabled
 ```
 
-Case B 的主要失败点就是这个 gate。
+当前基础 app 只启用 BMP280 温度补偿路径；气压补偿留到后续扩展。Case B 的主要失败点就是这个 gate。
 
 ## Telemetry CRC Gate
 
@@ -170,7 +169,7 @@ reset 后 sensor id FAIL
 ```text
 RCC_APB1ENR
 RCC_APB2ENR
-GPIOA_CRL
+GPIOA_CRH
 GPIOB_CRL
 GPIOB_IDR
 USART1_BRR

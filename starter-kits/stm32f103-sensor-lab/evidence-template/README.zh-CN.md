@@ -2,7 +2,7 @@
 
 这个目录定义 Starter-F103 Lab 每次运行后应该留下什么证据。
 
-第一版可以手工整理，后续由 `tools/run_starter_f103.ps1` 自动生成。
+第一版既可以手工整理，也可以由 `tools/run_starter_f103.ps1` 自动生成。
 
 ## 目录结构
 

@@ -90,7 +90,7 @@
             <h3>STM32F103C8T6 Sensor Lab</h3>
             <p>Start from an empty IOC, wire a BMP280 sensor, integrate the Liakia application layer into your generated HAL project, then debug known-bad cases.</p>
             <em>IOC / HAL / BMP280 / known-bad debug</em>
-            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/tree/main/starter-kits/stm32f103-sensor-lab">Start the lab</a>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.md">Start the lab</a>
           </article>
           <article>
             <span>engineering</span>
@@ -203,7 +203,7 @@ PULL: summary.md + manifest.json + logs</code></pre>
         </div>
       </section>
 
-      <section class="case-section" aria-label="Failure case">
+      <section id="cases" class="case-section" aria-label="Failure case">
         <div class="section-heading">
           <p>failure-to-fix</p>
           <h2>The strongest public case: USB CDC reset recovery became a regression gate.</h2>
@@ -281,6 +281,153 @@ PULL: summary.md + manifest.json + logs</code></pre>
           </article>
         </div>
         <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adapt-your-stm32-project.md">How to adapt your STM32 project</a>
+      </section>
+
+      <section id="roi" class="roi-model-section" aria-label="ROI model">
+        <div class="section-heading">
+          <p>roi model</p>
+          <h2>The ROI story is not just low token cost; it is reduced cycle time, risk, and handoff ambiguity.</h2>
+        </div>
+        <div class="roi-model-grid">
+          <article class="roi-panel manual-model">
+            <span>traditional manual estimate</span>
+            <h3>15-25 person-days</h3>
+            <div class="effort-list">
+              <div><strong>CMake / CubeCLT migration</strong><em>0.5-1 day</em></div>
+              <div><strong>USB CDC shell framework</strong><em>1-2 days</em></div>
+              <div><strong>UM982 initialization state machine</strong><em>1-2 days</em></div>
+              <div><strong>RTCM forwarding and validation</strong><em>1-2 days</em></div>
+              <div><strong>Automation and evidence archive</strong><em>3-5 days</em></div>
+              <div><strong>Integration debug buffer</strong><em>3-8 days</em></div>
+            </div>
+          </article>
+          <article class="roi-panel compression-model">
+            <span>ai-assisted compression</span>
+            <h3>3 person-days + about ¥10 API spend</h3>
+            <div class="compression-matrix">
+              <div><b>Implementation</b><i>Driver scaffolds, shell commands, and configuration structures</i></div>
+              <div><b>Build feedback</b><i>Compiler warnings and errors are analyzed quickly</i></div>
+              <div><b>Test scripts</b><i>PowerShell runners and protocol parsers become reusable gates</i></div>
+              <div><b>Log analysis</b><i>Serial logs and register dumps are turned into ranked hypotheses</i></div>
+              <div><b>Handoff</b><i>Manifest, summaries, and reports are archived for review</i></div>
+            </div>
+          </article>
+          <article class="roi-panel guardrail-model">
+            <span>human judgement retained</span>
+            <h3>What AI should not compress away</h3>
+            <ul>
+              <li>Schematic, power, isolation, and safety review.</li>
+              <li>EMC/ESD, protocol boundaries, and production risk decisions.</li>
+              <li>Final code review, hardware assumptions, and acceptance sign-off.</li>
+            </ul>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/roi_model.md">Read ROI model</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="usecases" class="usecase-section" aria-label="Commercial use cases">
+        <div class="section-heading">
+          <p>commercial use cases</p>
+          <h2>Map this showcase to real boards, field issues, and team delivery processes.</h2>
+        </div>
+        <div class="usecase-grid">
+          <article>
+            <span>01</span>
+            <h3>STM32 board bringup automation</h3>
+            <p>Industrial I/O boards, sensor gateways, communication adapters, motor-control peripherals, and flight-system add-ons.</p>
+            <em>CMake / SWD / serial shell / register probe / evidence package</em>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Firmware regression workflow</h3>
+            <p>Multi-version maintenance, small-batch iteration, field bug fixes, and legacy firmware modernization.</p>
+            <em>protocol tests / CRC parser / summary templates / artifact tracking</em>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>AI-assisted failure diagnosis</h3>
+            <p>HardFault, silent UART, DMA idle-line issues, USB CDC enumeration failures, and watchdog reset loops.</p>
+            <em>failure capture / register targets / AI playbook / human checklist</em>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Remote hardware-in-the-loop</h3>
+            <p>Useful when prototypes stay in a lab, at a teammate's desk, or on a customer bench.</p>
+            <em>remote command / bench PC / ST-LINK / serial gates / evidence pullback</em>
+          </article>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/commercial-use-cases.md">Read commercial use cases</a>
+      </section>
+
+      <section id="video" class="video-section" aria-label="Three minute demo script">
+        <div class="section-heading">
+          <p>3-minute demo script</p>
+          <h2>A short demo should move through the evidence loop, not through abstract claims.</h2>
+        </div>
+        <div class="video-board">
+          <div class="video-screen" aria-label="Demo video storyboard preview">
+            <div class="screen-toolbar">
+              <span></span><span></span><span></span>
+              <strong>demo_capture.timeline</strong>
+            </div>
+            <div class="screen-terminal">
+              <p><b>00:40</b> PS&gt; tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7</p>
+              <p><em>PASS</em> build / flash / shell</p>
+              <p><em>PASS</em> USB CDC reset recovery</p>
+              <p><em>PASS</em> RTCM parser CRC BAD: 0</p>
+              <p><em>PASS</em> register probe summary</p>
+              <p><em>DONE</em> evidence-out/baseline/manifest.json</p>
+            </div>
+          </div>
+          <div class="storyline">
+            <div><span>0:00</span><strong>Pain</strong><p>Manual builds, manual flashing, serial checks, and missing debug records.</p></div>
+            <div><span>0:20</span><strong>Goal</strong><p>Use STM32F407 + UM982 to demonstrate a build-flash-test-debug-report loop.</p></div>
+            <div><span>0:40</span><strong>One command</strong><p>Build, flash, shell, RTCM parser, and USB CDC reset gate run continuously.</p></div>
+            <div><span>1:10</span><strong>Evidence</strong><p>Show manifest, build log, flash log, RTCM CRC log, and handoff report.</p></div>
+            <div><span>1:40</span><strong>Fault</strong><p>Use USART clock, RS422 DE, RTCM CRC, or USB CDC reset as the failure replay.</p></div>
+            <div><span>2:45</span><strong>Regression</strong><p>After the fix, the same gates pass and the engineer archives the result.</p></div>
+          </div>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/demo-video-script.md">Read the 3-minute script</a>
+      </section>
+
+      <section id="evidence" class="evidence-section">
+        <div class="section-heading">
+          <p>evidence loop</p>
+          <h2>The strongest promotion point is the evidence chain.</h2>
+        </div>
+        <div class="evidence-grid">
+          <article>
+            <h3>Environment</h3>
+            <p>CMake, Ninja, Arm GCC, and STM32CubeProgrammer are checked before the run.</p>
+            <span>01_environment_check.log</span>
+          </article>
+          <article>
+            <h3>Firmware artifacts</h3>
+            <p>ELF, HEX, BIN, sizes, and hashes are captured for handoff.</p>
+            <span>dpiny-RTK.elf/.hex/.bin</span>
+          </article>
+          <article>
+            <h3>Hardware flash</h3>
+            <p>SWD download, verify, and reset transcripts remain reviewable.</p>
+            <span>03_flash_verify.log</span>
+          </article>
+          <article>
+            <h3>Functional proof</h3>
+            <p>Shell commands, configuration behavior, and reset recovery become gates.</p>
+            <span>04_shell_test.log</span>
+          </article>
+          <article>
+            <h3>Protocol truth</h3>
+            <p>RTCM frames, message coverage, and CRC BAD 0 are verified by parser.</p>
+            <span>05_rtcm_parse.log</span>
+          </article>
+          <article>
+            <h3>Remote loop</h3>
+            <p>Hardware can stay on a bench PC while the developer triggers the same runner remotely.</p>
+            <span>remote-hil-redacted-2026-05-20</span>
+          </article>
+        </div>
       </section>
 
       <section class="closing-section">

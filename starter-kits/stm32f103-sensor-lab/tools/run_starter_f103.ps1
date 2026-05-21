@@ -112,9 +112,9 @@ function Invoke-Flash([string]$LogPath) {
     Write-Host "== flash ==" -ForegroundColor Cyan
 
     if ([string]::IsNullOrWhiteSpace($Elf)) {
-        $lines = @("[FLASH] SKIP_NO_ELF: pass -Elf path\to\firmware.elf to enable flash gate")
+        $lines = @("[FLASH] FAIL_NO_ELF: pass -Elf path\to\firmware.elf or use -SkipFlash explicitly")
         Write-StepLog $LogPath $lines
-        return New-Step "flash" "SKIP_NO_ELF" $LogPath $false @{ elf = $Elf }
+        return New-Step "flash" "FAIL" $LogPath $true @{ elf = $Elf; reason = "missing_elf" }
     }
 
     $resolvedElf = Resolve-LabPath $projectFullPath $Elf
@@ -234,6 +234,9 @@ function Invoke-ResetRecovery([string]$LogFile) {
         $before = Invoke-SerialCommand $serial "version" 1200
         $lines += ">> version"
         $lines += ($before -split "`r?`n")
+        $beforeSensor = Invoke-SerialCommand $serial "sensor id" 1200
+        $lines += ">> sensor id"
+        $lines += ($beforeSensor -split "`r?`n")
         $serial.Write("reset`r`n")
         $lines += ">> reset"
         Start-Sleep -Milliseconds 1800
@@ -243,7 +246,13 @@ function Invoke-ResetRecovery([string]$LogFile) {
         $after = Invoke-SerialCommand $serial "version" 2000
         $lines += ">> version after reset"
         $lines += ($after -split "`r?`n")
-        $ok = ((Test-ContainsAll $before @("Liakia", "STM32F103")) -and (Test-ContainsAll $after @("Liakia", "STM32F103")))
+        $afterSensor = Invoke-SerialCommand $serial "sensor id" 2000
+        $lines += ">> sensor id after reset"
+        $lines += ($afterSensor -split "`r?`n")
+        $ok = ((Test-ContainsAll $before @("Liakia", "STM32F103")) -and
+               (Test-ContainsAll $after @("Liakia", "STM32F103")) -and
+               (Test-ContainsAll $beforeSensor @("SENSOR_ID", "id=0x58", "result=PASS")) -and
+               (Test-ContainsAll $afterSensor @("SENSOR_ID", "id=0x58", "result=PASS")))
     } catch {
         $lines += "[ERROR] $($_.Exception.Message)"
     } finally {
@@ -387,7 +396,7 @@ Invoke-SerialGate "sensor_id" @("sensor id") {
 Invoke-SerialGate "data_quality" @("sensor read") {
     param($Text)
     return (($Text -match "DATA_QUALITY result=PASS") -or ($Text -match "COMP_TEMP.*result=PASS"))
-} (Join-Path $logDir "07_sensor_quality.log") $true | Out-Null
+} (Join-Path $logDir "07_data_quality.log") $true | Out-Null
 
 Invoke-SerialGate "telemetry_crc" @("telemetry once") {
     param($Text)

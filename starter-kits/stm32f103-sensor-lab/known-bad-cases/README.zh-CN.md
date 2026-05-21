@@ -40,7 +40,7 @@ sensor reset recovery gate: FAIL
 chip id PASS
 I2C read PASS
 raw adc value looks normal
-temperature / pressure output out of physical range
+temperature output out of physical range
 ```
 
 可能根因：

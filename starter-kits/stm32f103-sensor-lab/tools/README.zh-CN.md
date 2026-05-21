@@ -28,11 +28,15 @@ register_probe
 evidence manifest
 ```
 
+`-Elf` 是真实烧录 gate 的必要输入。如果暂时不想烧录，必须显式传 `-SkipFlash`；否则缺少 `-Elf` 会被记录为失败。
+
 如果是在复现 known-bad，可以使用：
 
 ```powershell
 .\run_starter_f103.ps1 `
   -ProjectRoot C:\path\to\your\cubemx-project `
+  -SkipBuild `
+  -Elf Debug\app.elf `
   -ComPort COM4 `
   -Case case-b `
   -ExpectedFailureGate data_quality `

@@ -23,6 +23,8 @@ requirement -> code change -> build -> flash -> serial tests
 
 **dpiny-RTK is the demo case. Liakia is the workflow.**
 
+Use this README as a navigation page. Pick one path below, then stay inside that folder or guide until the demo is complete.
+
 ## At A Glance
 
 | Area | What is included |
@@ -37,7 +39,7 @@ requirement -> code change -> build -> flash -> serial tests
 
 | Path | Best for | Start here |
 |---|---|---|
-| Hands-on Starter Lab | New users who want to wire a real STM32F103C8T6 board and debug a known-bad sensor application | [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) |
+| Hands-on Starter Lab | New users who want to wire a real STM32F103C8T6 board and debug a known-bad sensor application | [starter-kits/stm32f103-sensor-lab/quick-start.md](starter-kits/stm32f103-sensor-lab/quick-start.md) |
 | Engineering Case | Embedded engineers who want to inspect the real STM32F407 + RTK workflow and evidence packages | [evidence/README.md](evidence/README.md) |
 | Adapt Your Project | Teams who want to bring the same build / flash / test / evidence loop to their own STM32 firmware | [docs/adapt-your-stm32-project.md](docs/adapt-your-stm32-project.md) |
 
@@ -47,7 +49,7 @@ requirement -> code change -> build -> flash -> serial tests
 |---|---|
 | Interactive demo, English | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/promo-demo/index.en.html) |
 | Interactive demo, Chinese | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/) |
-| Hands-on STM32F103 starter lab | [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) |
+| Hands-on STM32F103 starter lab | [starter-kits/stm32f103-sensor-lab/quick-start.md](starter-kits/stm32f103-sensor-lab/quick-start.md) |
 | Evidence index | [evidence/README.md](evidence/README.md) |
 | Failure-to-fix cases | [case-studies/](case-studies/) |
 | ROI model | [docs/roi_model.md](docs/roi_model.md) |
@@ -230,6 +232,7 @@ They do not imply the same ratio for all embedded projects.
 
 ```text
 firmware/dpiny-rtk/       Reference STM32 firmware case
+starter-kits/             Hands-on STM32F103 sensor lab and quick starts
 tools/                    Baseline runner, serial tests, RTCM parser, register probe
 workflow-template/        Adapter-driven reusable workflow scaffold
 evidence/                 Public showcase, local bench, and remote HIL evidence packages

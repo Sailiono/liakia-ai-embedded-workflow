@@ -19,13 +19,33 @@
 |---|---|---|
 | Case B：BMP280 calibration / compensation issue | [case_b_bmp280_calibration/liakia_bmp280_case_b.c](case_b_bmp280_calibration/liakia_bmp280_case_b.c) | `sensor id PASS`，但 `sensor read` 或 data-quality gate FAIL |
 
+## 推荐接入方式
+
+为了让新手路径最短，第一版推荐直接在复制到用户工程的 `liakia_lab_app.c` 中制造这一处 known-bad：
+
+```c
+static int16_t S16Le(const uint8_t *p) {
+  return (int16_t)(((uint16_t)p[0] << 8) | p[1]);
+}
+```
+
+修复时再改回：
+
+```c
+static int16_t S16Le(const uint8_t *p) {
+  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
+}
+```
+
+`case_b_bmp280_calibration/` 里的文件用于展示这个问题的独立应用层片段，便于代码 review 和 AI 诊断时引用；它不是完整 CubeMX 工程。
+
 这个 case 不是 I2C 地址写错。它的设计目标是模拟工程中更麻烦的情况：
 
 ```text
 总线能通
 chip id 正确
 raw bytes 能读
-但补偿后的温度/气压不可信
+但补偿后的温度不可信
 ```
 
 这类问题能展示 Liakia 的核心价值：协议层和数据质量 gate 能把“看起来能跑”的代码拦下来，并把 AI 分析限定在有证据的范围内。

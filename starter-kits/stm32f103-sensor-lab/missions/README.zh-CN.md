@@ -96,7 +96,7 @@ sensor/protocol/reset/persistence one or more FAIL
 evidence package GENERATED
 ```
 
-## Mission 05：AI 辅助诊断
+## Mission 04B：AI 辅助诊断
 
 目标：
 
@@ -111,7 +111,7 @@ root cause hypothesis is evidence-backed
 fix scope is limited to application layer or IOC config
 ```
 
-## Mission 06：修复与回归
+## Mission 05：修复与回归
 
 目标：
 
