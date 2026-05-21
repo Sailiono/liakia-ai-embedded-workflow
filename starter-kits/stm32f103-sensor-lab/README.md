@@ -67,7 +67,8 @@ Create IOC manually
 | [Diagnosis playbook](diagnosis-playbook.zh-CN.md) | How to give evidence to an AI assistant without turning debugging into guessing |
 | [Evidence template](evidence-template/README.zh-CN.md) | Manifest, log, and summary examples |
 | [Troubleshooting](troubleshooting.zh-CN.md) | Common hardware, UART, I2C, and reset failures |
-| [Automation plan](future-automation.zh-CN.md) | Planned runner and diagnosis scripts |
+| [Tools](tools/) | Starter runner, F103 register probe, and diagnosis prompt generation |
+| [Automation plan](future-automation.zh-CN.md) | Follow-up enhancements |
 
 ## Boundary
 

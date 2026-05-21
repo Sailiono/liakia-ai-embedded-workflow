@@ -8,6 +8,9 @@
 #define BMP280_ADDR_PRIMARY 0x76u
 #define BMP280_ADDR_ALT 0x77u
 #define BMP280_REG_ID 0xD0u
+#define BMP280_REG_CALIB_T1 0x88u
+#define BMP280_REG_CTRL_MEAS 0xF4u
+#define BMP280_REG_TEMP_MSB 0xFAu
 #define BMP280_EXPECTED_ID 0x58u
 
 static char line_buf[96];
@@ -17,6 +20,21 @@ static uint32_t last_telemetry_ms;
 static void WriteLine(const char *s) {
   LiakiaPlatform_UartWrite(s, (uint16_t)strlen(s));
   LiakiaPlatform_UartWrite("\r\n", 2);
+}
+
+static void WaitMs(uint32_t delay_ms) {
+  uint32_t start = LiakiaPlatform_Millis();
+
+  while ((LiakiaPlatform_Millis() - start) < delay_ms) {
+  }
+}
+
+static uint16_t U16Le(const uint8_t *p) {
+  return (uint16_t)(((uint16_t)p[1] << 8) | p[0]);
+}
+
+static int16_t S16Le(const uint8_t *p) {
+  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
 }
 
 static uint16_t Crc16Ccitt(const uint8_t *data, uint16_t len) {
@@ -50,6 +68,45 @@ static LiakiaStatus Bmp280ReadId(uint8_t *id, uint8_t *addr) {
   return LIAKIA_ERR;
 }
 
+static LiakiaStatus Bmp280ReadTemperature(uint8_t addr, int32_t *raw_temp, int32_t *temperature_x100) {
+  uint8_t calib_raw[6];
+  uint8_t temp_raw[3];
+  uint8_t ctrl = 0x25u;
+  uint16_t dig_t1;
+  int16_t dig_t2;
+  int16_t dig_t3;
+  int32_t var1;
+  int32_t var2;
+  int32_t t_fine;
+
+  if (LiakiaPlatform_I2cReadMem(addr, BMP280_REG_CALIB_T1, calib_raw, sizeof(calib_raw), 100) != LIAKIA_OK) {
+    return LIAKIA_ERR;
+  }
+
+  if (LiakiaPlatform_I2cWriteMem(addr, BMP280_REG_CTRL_MEAS, &ctrl, 1, 100) != LIAKIA_OK) {
+    return LIAKIA_ERR;
+  }
+
+  WaitMs(10);
+
+  if (LiakiaPlatform_I2cReadMem(addr, BMP280_REG_TEMP_MSB, temp_raw, sizeof(temp_raw), 100) != LIAKIA_OK) {
+    return LIAKIA_ERR;
+  }
+
+  dig_t1 = U16Le(&calib_raw[0]);
+  dig_t2 = S16Le(&calib_raw[2]);
+  dig_t3 = S16Le(&calib_raw[4]);
+  *raw_temp = ((int32_t)temp_raw[0] << 12) | ((int32_t)temp_raw[1] << 4) | ((int32_t)temp_raw[2] >> 4);
+
+  var1 = (((*raw_temp >> 3) - ((int32_t)dig_t1 << 1)) * (int32_t)dig_t2) >> 11;
+  var2 = (((((*raw_temp >> 4) - (int32_t)dig_t1) * ((*raw_temp >> 4) - (int32_t)dig_t1)) >> 12) *
+          (int32_t)dig_t3) >> 14;
+  t_fine = var1 + var2;
+  *temperature_x100 = (t_fine * 5 + 128) >> 8;
+
+  return LIAKIA_OK;
+}
+
 static void CmdVersion(void) {
   WriteLine("Liakia Starter-F103 Lab");
   WriteLine("target=STM32F103C8T6 sensor=BMP280 shell=USART1");
@@ -67,6 +124,35 @@ static void CmdSensorId(void) {
 
   snprintf(out, sizeof(out), "SENSOR_ID addr=0x%02X id=0x%02X result=%s",
            addr, id, id == BMP280_EXPECTED_ID ? "PASS" : "FAIL");
+  WriteLine(out);
+}
+
+static void CmdSensorRead(void) {
+  uint8_t id = 0;
+  uint8_t addr = 0;
+  int32_t raw_temp = 0;
+  int32_t temperature_x100 = 0;
+  const char *quality;
+  char out[128];
+
+  if (Bmp280ReadId(&id, &addr) != LIAKIA_OK || id != BMP280_EXPECTED_ID) {
+    WriteLine("SENSOR_READ FAIL reason=sensor_id");
+    return;
+  }
+
+  if (Bmp280ReadTemperature(addr, &raw_temp, &temperature_x100) != LIAKIA_OK) {
+    WriteLine("SENSOR_READ FAIL reason=temperature_read");
+    return;
+  }
+
+  quality = (temperature_x100 >= -4000 && temperature_x100 <= 8500) ? "PASS" : "FAIL";
+  snprintf(out, sizeof(out), "RAW_TEMP adc=%ld result=%s",
+           (long)raw_temp, raw_temp > 0 ? "PASS" : "FAIL");
+  WriteLine(out);
+  snprintf(out, sizeof(out), "COMP_TEMP x100=%ld result=%s",
+           (long)temperature_x100, quality);
+  WriteLine(out);
+  snprintf(out, sizeof(out), "DATA_QUALITY result=%s", quality);
   WriteLine(out);
 }
 
@@ -121,6 +207,8 @@ static void Dispatch(const char *cmd) {
     WriteLine("LED PASS state=off");
   } else if (strcmp(cmd, "sensor id") == 0) {
     CmdSensorId();
+  } else if (strcmp(cmd, "sensor read") == 0) {
+    CmdSensorRead();
   } else if (strcmp(cmd, "telemetry once") == 0) {
     CmdTelemetryOnce();
   } else if (strcmp(cmd, "diag i2c") == 0) {
@@ -137,7 +225,7 @@ void LiakiaLab_Init(void) {
   line_len = 0;
   last_telemetry_ms = LiakiaPlatform_Millis();
   WriteLine("Liakia Starter-F103 ready");
-  WriteLine("type: version | sensor id | diag i2c | telemetry once");
+  WriteLine("type: version | sensor id | sensor read | diag i2c | telemetry once");
 }
 
 void LiakiaLab_Tick(void) {

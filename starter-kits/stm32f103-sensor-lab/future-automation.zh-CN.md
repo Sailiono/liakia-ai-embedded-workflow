@@ -1,8 +1,16 @@
-# 后续自动化实现计划
+# 后续自动化增强计划
 
-本阶段先把内容写完整。后续再补脚本和工程结构。
+当前仓库已经提供第一版脚本：
 
-## P0：run_starter_f103.ps1
+```text
+tools/run_starter_f103.ps1
+tools/diagnose_starter_f103.ps1
+tools/register_probe_f103.ps1
+```
+
+后续计划集中在增强真实硬件覆盖、known-bad app variants 和网页交互。
+
+## 已实现：run_starter_f103.ps1
 
 目标：
 
@@ -22,7 +30,7 @@
 - 每个 gate 都有日志和 exit code；
 - manifest 明确 PASS / FAIL / SKIP。
 
-## P1：diagnose_starter_f103.ps1
+## 已实现：diagnose_starter_f103.ps1
 
 目标：
 
@@ -35,7 +43,7 @@
 
 不直接调用在线 AI，先生成可复制的 prompt，保持工具链简单。
 
-## P2：register_probe_f103.ps1
+## 已实现：register_probe_f103.ps1
 
 目标：
 
@@ -61,7 +69,7 @@ RCC_CSR
 FLASH_SR
 ```
 
-## P3：known-bad app variants
+## P1：known-bad app variants
 
 把以下 case 的应用层文件补齐：
 
@@ -81,7 +89,7 @@ minimal fix hint
 regression checklist
 ```
 
-## P4：网页互动模块
+## P2：网页互动模块
 
 网页上新增 Starter Lab 展示模块：
 

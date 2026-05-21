@@ -93,4 +93,34 @@ BMP280 比简单温度模块更适合做故障训练：
 | [diagnosis-playbook.zh-CN.md](diagnosis-playbook.zh-CN.md) | AI 诊断输入和输出格式 |
 | [evidence-template/README.zh-CN.md](evidence-template/README.zh-CN.md) | 证据包模板和 Case B 样例 |
 | [troubleshooting.zh-CN.md](troubleshooting.zh-CN.md) | 常见问题排查 |
-| [future-automation.zh-CN.md](future-automation.zh-CN.md) | 后续脚本自动化计划 |
+| [tools/](tools/) | Starter runner、F103 register probe、诊断 prompt 生成脚本 |
+| [future-automation.zh-CN.md](future-automation.zh-CN.md) | 后续增强计划 |
+
+## 当前脚本入口
+
+完整 baseline：
+
+```powershell
+starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
+  -ProjectRoot C:\path\to\your\cubemx-project `
+  -BuildCommand "cmake --build --preset Debug" `
+  -Elf build/Debug/app.elf `
+  -ComPort COM4 `
+  -Case case-b
+```
+
+只生成 AI 诊断 prompt：
+
+```powershell
+starter-kits/stm32f103-sensor-lab/tools/diagnose_starter_f103.ps1 `
+  -EvidenceDir C:\path\to\your\cubemx-project\evidence-out\starter-f103-YYYYMMDD-HHMMSS `
+  -Case case-b
+```
+
+只读寄存器探查：
+
+```powershell
+starter-kits/stm32f103-sensor-lab/tools/register_probe_f103.ps1 `
+  -Target rcc,gpio,usart,i2c,flash,fault `
+  -OutputJson evidence-out/register_probe_f103_summary.json
+```

@@ -186,7 +186,7 @@ FLASH_SR
 
 ## 自动化脚本契约
 
-后续 `tools/run_starter_f103.ps1` 应支持：
+当前 `tools/run_starter_f103.ps1` 支持：
 
 ```powershell
 tools/run_starter_f103.ps1 `
@@ -199,3 +199,16 @@ tools/run_starter_f103.ps1 `
 ```
 
 脚本不应假设用户工程目录结构固定。用户工程由 IOC 生成，Liakia runner 只负责调用用户提供的 build / flash / test 参数。
+
+如果用户正在复现 known-bad，可以显式声明预期失败：
+
+```powershell
+tools/run_starter_f103.ps1 `
+  -ProjectRoot C:\path\to\user\cubemx-project `
+  -BuildCommand "cmake --build --preset Debug" `
+  -Elf build/Debug/app.elf `
+  -ComPort COM4 `
+  -Case case-b `
+  -ExpectedFailureGate data_quality `
+  -AllowExpectedFailure
+```
