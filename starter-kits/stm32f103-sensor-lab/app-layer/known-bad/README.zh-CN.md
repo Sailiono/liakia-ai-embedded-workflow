@@ -1,6 +1,6 @@
-# Known-Bad 应用层重定向
+# 故障应用层重定向
 
-known-bad 代码现在按完整实验包组织在：
+故障代码现在按完整实验包组织在：
 
 ```text
 ../../known-bad-cases/
@@ -12,6 +12,6 @@ known-bad 代码现在按完整实验包组织在：
 - 练习指南；
 - 单独的答案解析。
 
-第一推荐 case：
+第一推荐练习：
 
 [Case B：BMP280 数据质量失败](../../known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md)

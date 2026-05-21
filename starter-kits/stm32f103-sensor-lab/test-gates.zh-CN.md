@@ -1,10 +1,10 @@
-# Starter-F103 Test Gates
+# Starter-F103 测试关卡
 
-这个文档定义 Starter-F103 Lab 的测试 gate。当前既可以手工执行，也可以由 `tools/run_starter_f103.ps1` 自动执行主要 gate。
+这份文档定义 Starter-F103 Lab 每次运行时要检查什么。你可以手工执行这些命令，也可以交给 `tools/run_starter_f103.ps1` 自动执行主要检查项。
 
-## Gate 总览
+## 关卡总览
 
-| Gate | 目的 | 失败是否阻断后续 |
+| 关卡 | 目的 | 失败后是否阻断 |
 |---|---|---|
 | environment | 检查工具链和串口参数 | 是 |
 | build | 编译用户工程 | 是 |
@@ -12,13 +12,13 @@
 | shell | 验证 USART1 Shell | 是 |
 | i2c_scan | 验证 BMP280 是否可见 | 是 |
 | sensor_id | 验证 chip id | 是 |
-| data_quality | 验证 raw bytes 和补偿数据 | 是 |
+| data_quality | 验证原始字节和补偿数据是否可信 | 是 |
 | telemetry_crc | 验证输出帧 CRC | 是 |
-| reset_recovery | 验证 software reset 后恢复 | 否，第一版可选 |
-| register_probe | 采集只读寄存器证据 | 否，但建议执行 |
-| evidence | 生成 manifest 和 summary | 是 |
+| reset_recovery | 验证 software reset 后是否恢复 | 否，第一版可选 |
+| register_probe | 采集只读寄存器快照 | 否，但建议执行 |
+| evidence | 生成运行清单和摘要 | 是 |
 
-## Shell Gate
+## Shell 关卡
 
 命令：
 
@@ -45,7 +45,7 @@ prompt 超时
 未知命令污染后续输出
 ```
 
-## I2C Scan Gate
+## I2C Scan 关卡
 
 命令：
 
@@ -68,7 +68,7 @@ BUSY stuck
 多个未知设备
 ```
 
-## Sensor ID Gate
+## Sensor ID 关卡
 
 命令：
 
@@ -90,7 +90,7 @@ i2c_no_ack
 timeout
 ```
 
-## Data Quality Gate
+## Data Quality 关卡
 
 命令：
 
@@ -107,9 +107,9 @@ decoded calibration values plausible
 temperature_x100 between -4000 and 8500
 ```
 
-当前基础 app 只启用 BMP280 温度补偿路径；气压补偿留到后续扩展。Case B 的主要失败点就是这个 gate。
+当前基础应用只启用 BMP280 温度补偿路径；气压补偿留到后续扩展。Case B 的主要失败点就是这个关卡。
 
-## Telemetry CRC Gate
+## Telemetry CRC 关卡
 
 命令：
 
@@ -133,7 +133,7 @@ frame truncated
 unexpected payload length
 ```
 
-## Reset Recovery Gate
+## Reset Recovery 关卡
 
 命令：
 
@@ -160,9 +160,9 @@ reset 后 I2C no ACK
 reset 后 sensor id FAIL
 ```
 
-这个 gate 对 Case A 和 Case D 很重要。
+这个关卡对 Case A 和 Case D 很重要。
 
-## Register Probe Gate
+## Register Probe 关卡
 
 建议读取：
 
@@ -181,7 +181,7 @@ RCC_CSR
 FLASH_SR
 ```
 
-第一版可以把 register probe 做成可选项。没有 ST-LINK register dump 时，仍然可以通过串口 evidence 完成 Case B。
+第一版可以把寄存器快照做成可选项。没有 ST-LINK register dump 时，仍然可以通过串口证据完成 Case B。
 
 ## 自动化脚本契约
 
@@ -199,7 +199,7 @@ tools/run_starter_f103.ps1 `
 
 脚本不应假设用户工程目录结构固定。用户工程由 IOC 生成，Liakia runner 只负责调用用户提供的 build / flash / test 参数。
 
-如果用户正在复现 known-bad，可以显式声明预期失败：
+如果用户正在复现故障练习，可以显式声明预期失败：
 
 ```powershell
 tools/run_starter_f103.ps1 `

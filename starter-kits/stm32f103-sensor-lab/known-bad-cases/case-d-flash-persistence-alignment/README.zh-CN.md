@@ -1,8 +1,8 @@
 # Case D — Flash Persistence 失败
 
-这是高级持久化练习，适合已经完成基础 sensor lab，并希望测试 reset-state 和 raw-record evidence 的用户。
+这是高级持久化练习，适合已经完成基础传感器实验，并希望测试 reset 后状态和原始记录证据的用户。
 
-在保存配置、reset、采集 raw record 之前，不要打开 [ANSWER.zh-CN.md](ANSWER.zh-CN.md)。
+在保存配置、reset、采集原始记录之前，不要打开 [ANSWER.zh-CN.md](ANSWER.zh-CN.md)。
 
 ## 文件内容
 
@@ -32,7 +32,7 @@ app-layer/src/liakia_config_case_d.c -> Core/Src/liakia_config_case_d.c
 5. 验证立即读回；
 6. reset 板子；
 7. 验证 reset 后读回；
-8. 如果 gate 失败，dump raw record bytes。
+8. 如果检查失败，dump 原始记录字节。
 
 ## 需要采集的证据
 

@@ -46,7 +46,7 @@ frame_ready = 1;
 HAL_UART_Receive_DMA(huart, rx_dma_buf, sizeof(rx_dma_buf));
 ```
 
-如果 consumer 和 IRQ 共享状态，要用 critical section 或明确的 single-producer/single-consumer handoff 规则保护 `frame_ready` / `frame_len`。
+如果 consumer 和 IRQ 共享状态，要用 critical section 或明确的 single-producer/single-consumer 交接规则保护 `frame_ready` / `frame_len`。
 
 ## 回归验证
 

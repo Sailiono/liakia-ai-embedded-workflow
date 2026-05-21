@@ -1,6 +1,6 @@
-# Evidence Template
+# 证据包模板
 
-这个目录定义 Starter-F103 Lab 每次运行后应该留下什么证据。
+这个目录定义 Starter-F103 Lab 每次运行后应该留下哪些材料。
 
 第一版既可以手工整理，也可以由 `tools/run_starter_f103.ps1` 自动生成。
 
@@ -89,3 +89,14 @@ data_quality
 
 Analyze the imported application-layer data path against the raw bytes and gate output.
 ```
+
+## 中文阅读提示
+
+模板里的字段名保留英文，是为了方便脚本解析和跨语言复用。中文文档中可以把它们理解为：
+
+| 字段 | 含义 |
+|---|---|
+| `manifest` | 本次运行清单 |
+| `gate` | 某个自动检查项 |
+| `summary` | 给人看的摘要 |
+| `evidence` | 可复查证据 |

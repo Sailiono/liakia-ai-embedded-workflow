@@ -62,8 +62,8 @@ SWD frequency
 - forced measurement 后是否等待转换；
 - calibration bytes 读取长度；
 - decoded values 是否还能和 raw bytes 对上；
-- 导入的 known-bad app-layer 文件是否改变了数据路径；
-- data-quality gate 是在 compensation 前还是后失败。
+- 导入的故障应用层文件是否改变了数据路径；
+- data-quality 检查是在 compensation 前还是后失败。
 
 ## reset 后失败
 

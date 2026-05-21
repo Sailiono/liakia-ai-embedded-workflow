@@ -1,6 +1,6 @@
 # Mission 03：BMP280 Bringup
 
-这个任务验证 I2C 总线、BMP280 chip id、基础 telemetry 和数据质量 gate。
+这个任务验证 I2C 总线、BMP280 chip id、基础 telemetry 和数据质量检查。
 
 ## 目标
 
@@ -14,7 +14,7 @@ telemetry once 能输出带 CRC 的帧摘要
 
 1. 确认 BMP280 接到 PB6/PB7；
 2. 确认 SDA/SCL 上拉到 3.3V；
-3. 烧录基础 app-layer；
+3. 烧录基础应用层；
 4. 打开串口；
 5. 依次输入命令。
 
@@ -35,7 +35,7 @@ SENSOR_ID addr=0x76 id=0x58 result=PASS
 TELEMETRY LK 76 58 xx crc=xxxx result=PASS
 ```
 
-如果你的 BMP280 模块地址是 0x77，应记录在 evidence 中。基础 app-layer 会尝试 0x76 和 0x77，这样在导入任何 known-bad case 前，地址差异已经有明确证据。
+如果你的 BMP280 模块地址是 0x77，应记录到证据中。基础应用层会尝试 0x76 和 0x77，这样在导入任何故障练习前，地址差异已经有明确证据。
 
 ## 通过标准
 

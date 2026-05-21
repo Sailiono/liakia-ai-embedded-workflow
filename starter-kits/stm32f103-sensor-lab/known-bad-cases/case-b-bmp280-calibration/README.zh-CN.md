@@ -1,8 +1,8 @@
 # Case B — BMP280 数据质量失败
 
-这是第一推荐的 known-bad 练习。它使用基础 Starter Lab 的 STM32F103C8T6 + BMP280 硬件。
+这是第一推荐的故障练习。它使用基础 Starter Lab 的 STM32F103C8T6 + BMP280 硬件。
 
-在你运行故障代码并生成 evidence 之前，不要打开 [ANSWER.zh-CN.md](ANSWER.zh-CN.md)。
+在你运行故障代码并生成证据包之前，不要打开 [ANSWER.zh-CN.md](ANSWER.zh-CN.md)。
 
 ## 文件内容
 
@@ -74,7 +74,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -AllowExpectedFailure
 ```
 
-这个 case 预期会失败，但 runner 仍然必须生成 evidence package。
+这个 case 预期会失败，但脚本仍然必须生成证据包。
 
 ## AI 诊断任务
 
@@ -89,8 +89,8 @@ starter-kits/stm32f103-sensor-lab/tools/diagnose_starter_f103.ps1 `
 向 AI 提问：
 
 ```text
-只能基于这些 evidence，不要在日志没有证明前假设传感器坏了。
-解释为什么 chip ID 和 raw bytes 可以 PASS，但 data-quality gate 会 FAIL。
+只能基于这些证据，不要在日志没有证明前假设传感器坏了。
+解释为什么 chip ID 和原始字节可以 PASS，但 data-quality 检查会 FAIL。
 建议优先检查哪一小块代码。
 ```
 

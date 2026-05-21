@@ -1,8 +1,8 @@
-# Starter-F103 Tools
+# Starter-F103 工具
 
 ## run_starter_f103.ps1
 
-完整运行 Starter-F103 baseline：
+运行 Starter-F103 的完整基线：
 
 ```powershell
 .\run_starter_f103.ps1 `
@@ -13,7 +13,7 @@
   -Case case-b
 ```
 
-它会执行：
+它会依次执行：
 
 ```text
 build
@@ -28,9 +28,9 @@ register_probe
 evidence manifest
 ```
 
-`-Elf` 是真实烧录 gate 的必要输入。如果暂时不想烧录，必须显式传 `-SkipFlash`；否则缺少 `-Elf` 会被记录为失败。
+`-Elf` 是真实烧录所需的固件产物。如果暂时不想烧录，必须显式传 `-SkipFlash`；否则缺少 `-Elf` 会被记录为失败，避免误以为已经测过新固件。
 
-如果是在复现 known-bad，可以使用：
+复现故障练习时，可以使用：
 
 ```powershell
 .\run_starter_f103.ps1 `
@@ -43,11 +43,11 @@ evidence manifest
   -AllowExpectedFailure
 ```
 
-这样 manifest 会标记为 `EXPECTED_FAIL`，适合教学和复盘。
+这时 `manifest` 会标记为 `EXPECTED_FAIL`，适合教学和复盘。
 
 ## diagnose_starter_f103.ps1
 
-读取 evidence package，生成 AI prompt 和 triage 摘要：
+读取证据包，生成 AI 诊断提示词和 triage 摘要：
 
 ```powershell
 .\diagnose_starter_f103.ps1 `

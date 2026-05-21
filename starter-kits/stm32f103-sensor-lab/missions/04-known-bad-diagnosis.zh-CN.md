@@ -1,19 +1,19 @@
-# Mission 04：Known-Bad 诊断
+# Mission 04：故障练习诊断
 
-这个任务是 Starter Lab 的核心。用户导入一个故意改错的应用层 case，烧录后观察 gate 失败，再用 evidence 定位问题。
+这个任务是 Starter Lab 的核心。用户导入一个故意改错的应用层 case，烧录后观察自动检查失败，再用证据定位问题。
 
 ## 原则
 
-known-bad 代码以 case 文件夹提供。CubeMX IOC、HAL 初始化、接线、编译、烧录仍然由用户自己完成。
+故障代码以 case 文件夹提供。CubeMX IOC、HAL 初始化、接线、编译、烧录仍然由用户自己完成。
 
 这样能证明：
 
 ```text
 底层工程由用户自己生成
 故障代码是用户主动导入的
-自动化 gate 能拦住失败
+自动化检查能拦住失败
 AI 分析基于日志、协议帧和寄存器证据
-修复动作保持最小、可 review
+修复动作保持最小、可复核
 ```
 
 ## 第一推荐 case
@@ -28,7 +28,7 @@ known-bad-cases/case-b-bmp280-calibration/
 
 [Case B 练习指南](../known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md)
 
-在生成失败 evidence package 并尝试 AI 诊断之前，不要打开答案文件。
+在生成失败证据包并尝试 AI 诊断之前，不要打开答案文件。
 
 ## 采集证据
 
@@ -44,7 +44,7 @@ raw calibration or raw protocol bytes
 gate result
 ```
 
-如果有 register probe，记录：
+如果有寄存器快照，记录：
 
 ```text
 RCC_APB1ENR
@@ -66,7 +66,7 @@ USART1_BRR
 导入的 case 文件夹：known-bad-cases/case-b-bmp280-calibration
 日志：贴 diag i2c / sensor id / sensor read / telemetry once 输出
 代码：只贴导入的 app-layer 文件或可疑函数
-约束：优先基于 evidence 推理，不要在日志不支持时怀疑硬件
+约束：优先基于证据推理，不要在日志不支持时怀疑硬件
 ```
 
 完成这一步后，再去读 case 的答案解析。

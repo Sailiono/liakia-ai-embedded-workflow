@@ -90,6 +90,14 @@ a {
     linear-gradient(180deg, #11130f 0%, #18211f 100%);
 }
 
+.beginner-hero .hero-content {
+  max-width: 650px;
+}
+
+.beginner-hero .hero-copy {
+  max-width: 620px;
+}
+
 .professional-hero {
   background:
     linear-gradient(120deg, rgba(16, 18, 15, 0.96) 0%, rgba(16, 18, 15, 0.82) 48%, rgba(37, 30, 22, 0.78) 100%),
@@ -3135,9 +3143,18 @@ h2 {
 }
 
 @media (max-width: 760px) {
+  html,
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+  }
+
   .hero {
     min-height: auto;
     padding-bottom: 42px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .topbar {
@@ -3146,23 +3163,39 @@ h2 {
   }
 
   h1 {
-    font-size: 42px;
+    font-size: 36px;
+    width: calc(100vw - 72px) !important;
+    max-width: calc(100vw - 72px) !important;
+    line-height: 1.1;
+    word-break: break-word;
   }
 
   h2,
   .closing-section h2 {
-    font-size: 32px;
+    font-size: 28px;
+    width: calc(100vw - 72px) !important;
+    max-width: calc(100vw - 72px) !important;
+    line-height: 1.18;
+    word-break: break-word;
+  }
+
+  .hero-content,
+  .section-heading,
+  .hero-copy,
+  .section-lede {
+    width: calc(100vw - 72px) !important;
+    max-width: calc(100vw - 72px) !important;
+    min-width: 0;
+    word-break: break-word;
   }
 
   .hero-copy {
-    font-size: 17px;
+    font-size: 15px;
+    line-height: 1.75;
   }
 
   .board-ghost {
-    width: 92vw;
-    right: -32vw;
-    bottom: 18vh;
-    opacity: 0.18;
+    display: none;
   }
 
   .pipeline,

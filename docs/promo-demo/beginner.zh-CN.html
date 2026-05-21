@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="用 STM32F103C8T6 + BMP280 亲手体验 Liakia AI 辅助嵌入式调试闭环。">
-    <title>Learn Liakia — Starter-F103 Sensor Lab</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-beginner-journey-20260522">
+    <title>Liakia 初学者路径 — Starter-F103 Sensor Lab</title>
+    <link rel="stylesheet" href="./styles.css?v=liakia-cn-polish-20260522">
   </head>
   <body>
     <main class="page-shell">
@@ -13,7 +13,7 @@
         <div class="hero-grid" aria-hidden="true"></div>
         <img class="board-ghost" src="./assets/board.svg" alt="">
         <nav class="topbar" aria-label="Beginner navigation">
-          <div class="brand"><span class="brand-mark"></span><span>Liakia Learn it</span></div>
+          <div class="brand"><span class="brand-mark"></span><span>Liakia 学习路径</span></div>
           <div class="nav-pills">
             <a href="../index.html">首页</a>
             <a href="./beginner.en.html">EN</a>
@@ -21,17 +21,17 @@
           </div>
         </nav>
         <div class="hero-content">
-          <p class="eyebrow">Starter-F103 Sensor Lab</p>
+          <p class="eyebrow">Starter-F103 传感器实验</p>
           <h1>
             <span>接手一块</span>
             <span>故意坏掉的 F103</span>
             <span>传感器台架。</span>
           </h1>
           <p class="hero-copy">
-            你不是在看教程截图，而是在完成一次小型嵌入式故障任务：搭台架、跑 baseline、导入 known-bad、生成 evidence、让 AI 基于证据推理，再做最小修复并回归 PASS。
+            你不是在看教程截图，而是在完成一次小型嵌入式故障任务：搭台架、跑通基线、导入故障代码、生成证据包，让 AI 基于证据推理，再做最小修复并回归 PASS。
           </p>
           <div class="hero-actions">
-            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">开始 Quick Start</a>
+            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">开始快速上手</a>
             <a href="#mission-map">查看任务地图</a>
           </div>
         </div>
@@ -39,29 +39,29 @@
 
       <section class="usecase-section mission-brief-section" aria-label="Mission brief">
         <div class="section-heading">
-          <p>mission brief</p>
+          <p>任务简报</p>
           <h2>这是一次工程侦探任务，不是全绿演示。</h2>
-          <div class="section-lede">你接手一块 F103 + BMP280 小台架。I2C 能读到 chip ID，raw calibration 也存在，但 data_quality gate 失败。你的任务不是直接猜答案，而是收集证据、提出假设、让 AI 基于同一份 evidence 协助缩小范围。</div>
+          <div class="section-lede">你接手一块 F103 + BMP280 小台架。I2C 能读到 chip ID，校准原始值也存在，但 data_quality 检查失败。你的任务不是直接猜答案，而是先收集证据、提出假设，再让 AI 基于同一份材料帮你缩小排查范围。</div>
         </div>
         <div class="story-brief">
-          <article><span>scene</span><strong>台架看起来没坏</strong><p>BMP280 chip_id = 0x58，I2C 通信存在，硬件断线不是第一嫌疑。</p></article>
-          <article><span>conflict</span><strong>数据质量 gate 失败</strong><p>传感器数据不可信，但 raw bytes 和 telemetry CRC 又显示链路不是完全失效。</p></article>
-          <article><span>rule</span><strong>AI 只能看证据</strong><p>AI 不直接猜硬件坏，而是阅读 manifest、serial log、raw value 和 case notes 后给出 ranked hypotheses。</p></article>
+          <article><span>现场</span><strong>台架看起来没坏</strong><p>BMP280 chip_id = 0x58，I2C 通信存在，硬件断线不是第一嫌疑。</p></article>
+          <article><span>冲突</span><strong>数据质量检查失败</strong><p>传感器数据不可信，但原始字节和 telemetry CRC 又说明链路不是完全失效。</p></article>
+          <article><span>规则</span><strong>AI 只能看证据</strong><p>AI 不直接猜硬件坏，而是阅读运行清单、串口日志、原始值和 case 说明后给出假设排序。</p></article>
         </div>
       </section>
 
-      <section class="remote-section wiring-section" aria-label="Hardware wiring">
+      <section id="wiring" class="remote-section wiring-section" aria-label="Hardware wiring">
         <div class="section-heading">
-          <p>bench wiring</p>
+          <p>台架接线</p>
           <h2>先把台架搭清楚，后面的失败才有意义。</h2>
           <div class="section-lede">主视觉用简化接线图而不是真实照片，避免线束外观差异干扰。关键是：SWD 用来烧录，USART1 用来看 shell 和日志，I2C1 用来接 BMP280，GND 必须共地。</div>
         </div>
         <div class="wiring-grid">
-          <article class="wiring-visual">
+          <article id="wiring-visual" class="wiring-visual">
             <img src="./assets/starter-f103-wiring.svg" alt="STM32F103 Blue Pill, ST-LINK, USB-UART and BMP280 wiring diagram">
           </article>
           <article class="wiring-notes">
-            <div class="pane-title">wiring checklist</div>
+            <div class="pane-title">接线检查表</div>
             <ul>
               <li><b>SWD</b><span>ST-LINK -> SWDIO / SWCLK / GND</span></li>
               <li><b>UART</b><span>USB-UART -> PA9 / PA10 / GND</span></li>
@@ -74,30 +74,30 @@
 
       <section id="mission-map" class="usecase-section" aria-label="Mission map">
         <div class="section-heading">
-          <p>mission map</p>
+          <p>任务地图</p>
           <h2>你会经历一条完整的排障旅程。</h2>
         </div>
         <div class="mission-map">
-          <div class="mission-step"><span>01</span><strong>Wire</strong><em>接线</em></div>
+          <div class="mission-step"><span>01</span><strong>接线</strong><em>台架搭建</em></div>
           <div class="mission-step"><span>02</span><strong>CubeMX</strong><em>生成 IOC</em></div>
-          <div class="mission-step"><span>03</span><strong>App Layer</strong><em>接入应用层</em></div>
-          <div class="mission-step is-pass"><span>04</span><strong>Baseline</strong><em>PASS</em></div>
-          <div class="mission-step is-warn"><span>05</span><strong>Import Bug</strong><em>known-bad</em></div>
-          <div class="mission-step is-fail"><span>06</span><strong>Gate FAIL</strong><em>data_quality</em></div>
-          <div class="mission-step"><span>07</span><strong>AI Packet</strong><em>evidence</em></div>
-          <div class="mission-step"><span>08</span><strong>Minimal Fix</strong><em>人审确认</em></div>
-          <div class="mission-step is-pass"><span>09</span><strong>Regression</strong><em>PASS</em></div>
+          <div class="mission-step"><span>03</span><strong>应用层</strong><em>接入代码</em></div>
+          <div class="mission-step is-pass"><span>04</span><strong>基线通过</strong><em>PASS</em></div>
+          <div class="mission-step is-warn"><span>05</span><strong>导入故障</strong><em>故意写错的应用层</em></div>
+          <div class="mission-step is-fail"><span>06</span><strong>检查失败</strong><em>data_quality</em></div>
+          <div class="mission-step"><span>07</span><strong>诊断材料</strong><em>证据包</em></div>
+          <div class="mission-step"><span>08</span><strong>最小修复</strong><em>人审确认</em></div>
+          <div class="mission-step is-pass"><span>09</span><strong>回归通过</strong><em>PASS</em></div>
         </div>
       </section>
 
       <section class="remote-section" aria-label="Failure scene">
         <div class="section-heading">
-          <p>failure scene</p>
+          <p>失败现场</p>
           <h2>失败不是终点，失败会变成证据包。</h2>
         </div>
         <div class="remote-grid">
           <article class="remote-console">
-            <div class="pane-title">serial console</div>
+            <div class="pane-title">串口输出</div>
             <pre><code>&gt;&gt; sensor read
 DATA_QUALITY result=FAIL
 chip_id=0x58 PASS
@@ -107,7 +107,7 @@ gate=data_quality
 ai_prompt.md generated</code></pre>
           </article>
           <article class="evidence-folder">
-            <div class="pane-title">evidence folder</div>
+            <div class="pane-title">证据包目录</div>
             <ul>
               <li>00_manifest.json</li>
               <li>sensor_test.log</li>
@@ -121,12 +121,12 @@ ai_prompt.md generated</code></pre>
 
       <section class="usecase-section" aria-label="AI diagnosis packet">
         <div class="section-heading">
-          <p>ai diagnosis packet</p>
+          <p>AI 诊断材料</p>
           <h2>AI 不是乱猜，它收到的是一份案件包。</h2>
         </div>
         <div class="diagnosis-grid">
           <article class="diagnosis-card">
-            <span>observed</span>
+            <span>已经观察到</span>
             <ul>
               <li>DATA_QUALITY result=FAIL</li>
               <li>chip_id=0x58 PASS</li>
@@ -135,7 +135,7 @@ ai_prompt.md generated</code></pre>
             </ul>
           </article>
           <article class="diagnosis-card">
-            <span>ruled out</span>
+            <span>可以先排除</span>
             <ul>
               <li>传感器完全未连接</li>
               <li>I2C 地址完全错误</li>
@@ -144,11 +144,11 @@ ai_prompt.md generated</code></pre>
             </ul>
           </article>
           <article class="diagnosis-card is-ai">
-            <span>ask ai</span>
+            <span>交给 AI 的任务</span>
             <ul>
-              <li>列出 observations</li>
-              <li>给出 ranked hypotheses</li>
-              <li>提出 minimal fix scope</li>
+              <li>列出观察结果</li>
+              <li>给出假设排序</li>
+              <li>提出最小修复范围</li>
               <li>不要直接猜硬件坏</li>
             </ul>
           </article>
@@ -157,13 +157,13 @@ ai_prompt.md generated</code></pre>
 
       <section class="remote-section" aria-label="Manual vs AI timeline">
         <div class="section-heading">
-          <p>manual vs ai</p>
+          <p>人工排查 vs AI 辅助</p>
           <h2>先自己排查，再让 AI 用同一份证据排查。</h2>
           <div class="section-lede">这个对比不是为了证明 AI 永远更准，而是让你直观看到：AI 能把搜索范围变窄，工程师仍然负责确认修复。</div>
         </div>
         <div class="timeline-grid">
           <article class="timeline-lane">
-            <span>manual path</span>
+            <span>人工路径</span>
             <ol>
               <li>看串口日志</li>
               <li>怀疑接线或地址</li>
@@ -174,7 +174,7 @@ ai_prompt.md generated</code></pre>
             <strong>目标：训练你自己的证据阅读能力。</strong>
           </article>
           <article class="timeline-lane is-ai">
-            <span>ai-assisted path</span>
+            <span>AI 辅助路径</span>
             <ol>
               <li>读取 ai_prompt.md</li>
               <li>引用 chip_id PASS</li>
@@ -189,22 +189,22 @@ ai_prompt.md generated</code></pre>
 
       <section class="case-section" aria-label="Known-bad cases">
         <div class="section-heading">
-          <p>case ladder</p>
-          <h2>四个 known-bad case 像关卡一样逐步进阶。</h2>
+          <p>故障关卡</p>
+          <h2>四个故障练习像关卡一样逐步进阶。</h2>
         </div>
         <div class="case-support-grid case-ladder-grid">
-          <article class="case-card"><div class="case-head"><span>level 1 · case b</span><strong>BMP280 数据质量</strong></div><p>I2C 和 chip ID 都能通过，但补偿后的传感器数据不可信。</p><div class="level-meta"><b>难度 ★★☆☆☆</b><b>Gate data_quality</b><b>30-60 min</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md">打开 Case B</a></article>
-          <article class="case-card"><div class="case-head"><span>level 2 · case a</span><strong>I2C Reset Recovery</strong></div><p>reset 后总线恢复失败，需要结合 reset recovery、GPIO/I2C 状态和恢复逻辑分析。</p><div class="level-meta"><b>难度 ★★★☆☆</b><b>Gate reset_recovery</b><b>45-90 min</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-a-i2c-bus-stuck-reset/README.zh-CN.md">打开 Case A</a></article>
-          <article class="case-card"><div class="case-head"><span>level 3 · case d</span><strong>Flash 持久化</strong></div><p>配置看似写入成功，但 reset 后恢复异常，需要对比 raw record、CRC 和 reload 逻辑。</p><div class="level-meta"><b>难度 ★★★★☆</b><b>Gate config_reload</b><b>60-120 min</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-d-flash-persistence-alignment/README.zh-CN.md">打开 Case D</a></article>
-          <article class="case-card"><div class="case-head"><span>level 4 · case c</span><strong>UART DMA/IDLE Stream</strong></div><p>stream 边界、速率和截断问题更接近真实工程里难定位的串口/DMA 时序故障。</p><div class="level-meta"><b>难度 ★★★★★</b><b>Gate stream_integrity</b><b>90-180 min</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-c-uart-dma-idle-race/README.zh-CN.md">打开 Case C</a></article>
+          <article class="case-card"><div class="case-head"><span>第 1 关 · Case B</span><strong>BMP280 数据质量</strong></div><p>I2C 和 chip ID 都能通过，但补偿后的传感器数据不可信。</p><div class="level-meta"><b>难度 ★★☆☆☆</b><b>检查 data_quality</b><b>30-60 分钟</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md">打开 Case B</a></article>
+          <article class="case-card"><div class="case-head"><span>第 2 关 · Case A</span><strong>I2C reset 后恢复失败</strong></div><p>reset 后总线恢复失败，需要结合 reset recovery、GPIO/I2C 状态和恢复逻辑分析。</p><div class="level-meta"><b>难度 ★★★☆☆</b><b>检查 reset_recovery</b><b>45-90 分钟</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-a-i2c-bus-stuck-reset/README.zh-CN.md">打开 Case A</a></article>
+          <article class="case-card"><div class="case-head"><span>第 3 关 · Case D</span><strong>Flash 配置持久化失败</strong></div><p>配置看似写入成功，但 reset 后恢复异常，需要对比原始记录、CRC 和 reload 逻辑。</p><div class="level-meta"><b>难度 ★★★★☆</b><b>检查 config_reload</b><b>60-120 分钟</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-d-flash-persistence-alignment/README.zh-CN.md">打开 Case D</a></article>
+          <article class="case-card"><div class="case-head"><span>第 4 关 · Case C</span><strong>UART DMA/IDLE 数据流异常</strong></div><p>数据流边界、速率和截断问题更接近真实工程里难定位的串口/DMA 时序故障。</p><div class="level-meta"><b>难度 ★★★★★</b><b>检查 stream_integrity</b><b>90-180 分钟</b></div><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-c-uart-dma-idle-race/README.zh-CN.md">打开 Case C</a></article>
         </div>
       </section>
 
       <section class="closing-section" aria-label="Start now">
-        <p>start now</p>
+        <p>现在开始</p>
         <h2>先完成 Case B，再去看专业证据。</h2>
         <div class="closing-band">
-          <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">Quick Start</a>
+          <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">快速上手</a>
           <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md">从 Case B 开始</a>
           <a href="./professional.zh-CN.html">看专业展示</a>
         </div>

@@ -1,6 +1,8 @@
-# AI 诊断 Playbook
+# AI 诊断方法
 
-这个文档定义 Starter-F103 Lab 中如何向 AI 提供信息，以及 AI 应该如何约束自己的判断。
+这份文档说明 Starter-F103 Lab 中应该怎样把失败现场交给 AI，以及 AI 的输出应该受到哪些限制。
+
+核心原则很简单：先给证据，再要推理。不要让 AI 在信息不足时直接猜硬件坏了。
 
 ## 不推荐的问法
 
@@ -8,13 +10,13 @@
 我的传感器读不出来，帮我看看。
 ```
 
-这种问法信息不足，AI 只能猜。
+这种问法缺少硬件、日志、代码和失败边界，AI 只能猜。
 
 ## 推荐输入结构
 
 ```text
 目标：
-  我在 STM32F103C8T6 + BMP280 Lab 中运行 known-bad Case B。
+  我在 STM32F103C8T6 + BMP280 Lab 中运行 Case B。
 
 硬件：
   MCU: STM32F103C8T6
@@ -26,14 +28,13 @@
 当前现象：
   sensor id PASS
   raw sensor/protocol bytes readable
-  后续某个 data-quality gate FAIL
-  data-quality gate FAIL
+  data-quality 检查 FAIL
 
 日志：
   粘贴 version / diag i2c / sensor id / sensor read / telemetry once 输出
 
 相关代码：
-  粘贴导入的 known-bad app-layer 文件，或最小可疑函数
+  粘贴导入的故障应用层文件，或最小可疑函数
 
 约束：
   先排查应用层；
@@ -44,7 +45,7 @@
 
 ## AI 输出格式
 
-要求 AI 按以下格式输出：
+要求 AI 按以下结构输出。标题可以保留英文，便于后续脚本或英文读者复用；正文可以用中文。
 
 ```markdown
 ## Observations
@@ -69,7 +70,7 @@
 
 ## Regression Plan
 
-- 重新运行哪些 gate
+- 重新运行哪些检查项
 - PASS 标准
 ```
 
@@ -87,8 +88,7 @@
 - diag i2c found 0x76
 - sensor id returns 0x58 PASS
 - raw sensor bytes are readable
-- a later data-quality gate FAILs
-- data-quality gate FAIL
+- data-quality 检查 FAIL
 
 请分析：
 1. 哪些方向可以排除；
@@ -100,7 +100,7 @@
 约束：
 - 不要改 IOC，除非证据指向底层配置；
 - 不要重写整个驱动；
-- 根据 evidence 排列假设，不要跳到预设答案。
+- 根据证据排列假设，不要跳到预设答案。
 ```
 
 ## 人工审核边界
@@ -117,7 +117,7 @@ AI 不应直接决定：
 
 - 改硬件接线；
 - 提高供电电压；
-- 关闭保护性 gate；
+- 关闭保护性检查；
 - 改 Flash 地址；
 - 改 SWD / BOOT 配置；
 - 跳过失败项并标记 PASS。
@@ -126,9 +126,9 @@ AI 不应直接决定：
 
 | 优先级 | 证据 | 用途 |
 |---|---|---|
-| P0 | 自动化测试输出 | 判断哪个 gate 失败 |
-| P0 | 原始串口日志 | 看实际命令响应 |
-| P1 | raw sensor bytes | 区分总线问题和算法问题 |
+| P0 | 自动化测试输出 | 判断哪一项失败 |
+| P0 | 原始串口日志 | 查看实际命令响应 |
+| P1 | 传感器原始字节 | 区分总线问题和算法问题 |
 | P1 | 寄存器快照 | 区分外设配置和应用层问题 |
 | P2 | 逻辑分析仪截图 | 处理 I2C/UART 时序和偶发问题 |
 | P2 | 代码 diff | 确认修复范围 |

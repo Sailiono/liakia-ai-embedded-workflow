@@ -1,4 +1,6 @@
-# Starter-F103 Lab 任务剧情
+# Starter-F103 Lab 任务路线
+
+这组任务把 Starter-F103 Lab 拆成几个小阶段。你可以把它当成“学习路线图”，逐步确认硬件、IOC、应用层、传感器、故障复现和回归验证。
 
 ## 任务目录
 
@@ -7,9 +9,9 @@
 | 00 | [硬件连接与上电检查](00-hardware-check.zh-CN.md) | 让 ST-LINK、串口、I2C 物理链路可验证 |
 | 01 | [CubeMX / IOC 空工程](01-cubemx-ioc.zh-CN.md) | 用户自己生成底层 HAL 工程 |
 | 02 | [应用层接入](02-app-layer-integration.zh-CN.md) | 把 Liakia app-layer 接入用户工程 |
-| 03 | [BMP280 Bringup](03-bmp280-bringup.zh-CN.md) | 证明 I2C、chip id、telemetry 能跑 |
-| 04 | [Known-bad 诊断](04-known-bad-diagnosis.zh-CN.md) | 烧录有问题的应用层并采集证据 |
-| 05 | [修复与回归](05-fix-and-regression.zh-CN.md) | 修复问题并生成 evidence package |
+| 03 | [BMP280 Bring-up](03-bmp280-bringup.zh-CN.md) | 证明 I2C、chip id、telemetry 能跑 |
+| 04 | [故障练习诊断](04-known-bad-diagnosis.zh-CN.md) | 烧录有问题的应用层并采集证据 |
+| 05 | [修复与回归](05-fix-and-regression.zh-CN.md) | 修复问题并生成证据包 |
 
 ## Mission 00：准备硬件
 
@@ -61,7 +63,7 @@ shell version PASS
 led command PASS
 ```
 
-## Mission 03：BMP280 Bringup
+## Mission 03：BMP280 Bring-up
 
 目标：
 
@@ -78,13 +80,14 @@ raw calibration read PASS
 telemetry frame emitted
 ```
 
-## Mission 04：烧录 Known-Bad 应用层
+## Mission 04：烧录故障应用层
 
 目标：
 
-- 切换到 known-bad app-layer；
-- 运行 baseline；
-- 观察至少一个 gate 失败。
+- 切换到某个故障练习的 app-layer；
+- 运行基线脚本；
+- 观察至少一个检查项失败；
+- 生成失败证据包。
 
 预期结果：
 
@@ -116,9 +119,9 @@ fix scope is limited to application layer or IOC config
 目标：
 
 - 用户修改应用层或 IOC；
-- 重新生成/编译/烧录；
-- 重新运行 baseline；
-- 输出 evidence manifest。
+- 重新生成、编译、烧录；
+- 重新运行基线脚本；
+- 输出运行清单。
 
 通过标准：
 

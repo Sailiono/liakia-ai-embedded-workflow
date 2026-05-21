@@ -51,5 +51,5 @@ immediate readback PASS
 software reset
 post-reset readback PASS
 raw record CRC PASS
-manifest records the persistence gate result
+manifest records the persistence check result
 ```

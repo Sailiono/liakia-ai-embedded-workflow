@@ -1,8 +1,8 @@
 # Case C — UART DMA/IDLE Stream 失败
 
-这是高级 known-bad 练习，需要在 IOC 中扩展 UART DMA receive 和 IDLE interrupt。
+这是高级故障练习，需要在 IOC 中扩展 UART DMA receive 和 IDLE interrupt。
 
-在采集低频和高频 stream evidence 之前，不要打开 [ANSWER.zh-CN.md](ANSWER.zh-CN.md)。
+在采集低频和高频 stream 证据之前，不要打开 [ANSWER.zh-CN.md](ANSWER.zh-CN.md)。
 
 ## 文件内容
 
@@ -67,7 +67,7 @@ USART SR flags
 向 AI 提问：
 
 ```text
-基于低频和高频 evidence。
+基于低频和高频证据。
 找出 PASS stream 和 FAIL stream 的差异。
 判断更像 parser logic、CRC logic、buffer lifetime，还是 DMA/IDLE ordering。
 建议优先检查哪一个 callback 或 IRQ path。

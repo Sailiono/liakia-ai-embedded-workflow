@@ -1,6 +1,6 @@
 # Case A — I2C Reset Recovery 失败
 
-这是硬件状态类练习。建议先让基础 BMP280 Lab 跑通，再做 reset-recovery gate 或手工 reset 对比。
+这是硬件状态类练习。建议先让基础 BMP280 Lab 跑通，再做 reset-recovery 检查或手工 reset 对比。
 
 在采集冷启动和 software reset 后的证据之前，不要打开 [ANSWER.zh-CN.md](ANSWER.zh-CN.md)。
 
@@ -59,7 +59,7 @@ sensor id
 sensor read
 ```
 
-如果已经启用 ST-LINK register probe，额外抓：
+如果已经启用 ST-LINK 寄存器快照，额外抓：
 
 ```text
 RCC_CSR
@@ -74,7 +74,7 @@ I2C1_CR1
 向 AI 提问：
 
 ```text
-只能基于 reset 前后日志和 register probe。
+只能基于 reset 前后日志和寄存器快照。
 对比 cold boot 和 software reset 后的行为。
 判断更像接线、设备地址，还是 reset-state recovery 问题。
 建议优先检查哪一个 platform-layer 函数。

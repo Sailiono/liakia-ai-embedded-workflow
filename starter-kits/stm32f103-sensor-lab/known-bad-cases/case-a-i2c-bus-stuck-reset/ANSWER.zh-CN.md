@@ -27,7 +27,7 @@ LiakiaStatus LiakiaPlatform_I2cBusRecover(void) {
 }
 ```
 
-这会让应用或测试 gate 误以为 bus 已经恢复，但实际上没有产生 SCL recovery clocks，也没有重新初始化外设或清理错误状态。
+这会让应用或测试脚本误以为 bus 已经恢复，但实际上没有产生 SCL recovery clocks，也没有重新初始化外设或清理错误状态。
 
 ## 最小修复
 

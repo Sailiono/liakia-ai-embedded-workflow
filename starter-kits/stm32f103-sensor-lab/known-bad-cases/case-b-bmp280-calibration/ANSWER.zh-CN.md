@@ -10,7 +10,7 @@ RAW_CALIB result=PASS ...
 RAW_TEMP adc=... result=PASS
 ```
 
-但计算出的温度不可信，或者 data-quality gate 失败：
+但计算出的温度不可信，或者 data-quality 检查失败：
 
 ```text
 COMP_TEMP x100=... result=FAIL
@@ -39,11 +39,11 @@ static int16_t S16Le(const uint8_t *p) {
 
 ## 这个 case 的价值
 
-这不是总线不通，也不是芯片地址写错。I2C、chip ID、raw calibration read 都可能 PASS，问题只在解码和补偿之后暴露。这个场景很适合展示 evidence-first 的 AI 诊断能力。
+这不是总线不通，也不是芯片地址写错。I2C、chip ID、raw calibration read 都可能 PASS，问题只在解码和补偿之后暴露。这个场景很适合展示证据优先的 AI 诊断能力。
 
 ## 最小修复
 
-恢复 signed 16-bit little-endian decode helper，重新编译、烧录，然后去掉 expected-failure 参数重新跑 baseline。
+恢复 signed 16-bit little-endian decode helper，重新编译、烧录，然后去掉 expected-failure 参数重新跑基线脚本。
 
 预期回归：
 

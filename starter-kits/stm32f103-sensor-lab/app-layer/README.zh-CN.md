@@ -13,10 +13,10 @@ Liakia 提供：
 
 - 应用层入口函数；
 - Shell 命令协议；
-- BMP280 sensor gate；
-- telemetry frame 和 CRC gate；
-- known-bad case 的应用层实现；
-- 测试脚本和 evidence 结构。
+- BMP280 传感器检查；
+- telemetry frame 和 CRC 检查；
+- 故障练习所需的应用层实现；
+- 测试脚本和证据包结构。
 
 ## 预期文件布局
 
@@ -29,7 +29,7 @@ Core/Src/liakia_lab_app.c
 Core/Src/liakia_lab_port_stm32f103.c   # 用户实现
 ```
 
-第一版已经提供一个可改的 F103 HAL 桥接模板：
+第一版已经提供一个可修改的 F103 HAL 桥接模板：
 
 ```text
 app-layer/port-template/liakia_lab_port_stm32f103.c
@@ -84,13 +84,13 @@ LiakiaStatus LiakiaPlatform_I2cReadMem(uint8_t addr7, uint8_t reg, uint8_t *data
 | `sensor read` | 输出 BMP280 温度原始值、校准参数和补偿值 |
 | `telemetry once` | 输出一帧带 CRC 的 telemetry |
 | `diag i2c` | 输出 I2C scan 摘要 |
-| `reset` | 软件复位，用于 reset recovery gate |
+| `reset` | 软件复位，用于 reset recovery 检查 |
 
-`config get/set/save` 属于后续 Case D：Flash persistence，不在当前基础 app 中实现，避免新手第一轮同时处理传感器和 Flash 两条问题线。
+`config get/set/save` 属于后续 Case D：Flash persistence，不在当前基础应用中实现，避免新手第一轮同时处理传感器和 Flash 两条问题线。
 
-## Known-Bad 应用层原则
+## 故障练习应用层原则
 
-known-bad 代码只放在应用层，不修改 CubeMX 生成的底层驱动。这样用户可以清楚看到：
+故障代码只放在应用层，不修改 CubeMX 生成的底层驱动。这样用户可以清楚看到：
 
 ```text
 底层工程是自己生成的；
@@ -99,7 +99,7 @@ Liakia 通过测试和证据链定位问题；
 修复后同一套工程能回归 PASS。
 ```
 
-known-bad 实验包入口见：
+故障练习入口见：
 
 ```text
 known-bad-cases/
