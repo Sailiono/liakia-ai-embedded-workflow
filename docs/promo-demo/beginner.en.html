@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Experience the Liakia AI-assisted embedded debugging loop with an STM32F103C8T6 + BMP280 hands-on lab.">
+    <title>Learn Liakia — Starter-F103 Sensor Lab</title>
+    <link rel="stylesheet" href="./styles.css?v=liakia-split-20260522">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero beginner-hero" aria-label="Beginner lab hero">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <img class="board-ghost" src="./assets/board.svg" alt="">
+        <nav class="topbar" aria-label="Beginner navigation">
+          <div class="brand"><span class="brand-mark"></span><span>Liakia Learn it</span></div>
+          <div class="nav-pills">
+            <a href="../index.en.html">Home</a>
+            <a href="./beginner.zh-CN.html">中文</a>
+            <a href="./professional.en.html">Professional</a>
+          </div>
+        </nav>
+        <div class="hero-content">
+          <p class="eyebrow">Starter-F103 Sensor Lab</p>
+          <h1>
+            <span>Use one F103 board</span>
+            <span>to experience AI-assisted</span>
+            <span>embedded debugging.</span>
+          </h1>
+          <p class="hero-copy">
+            This is not a one-click fake demo. You generate the IOC, wire a BMP280, pass the baseline, import known-bad app-layer code, diagnose manually first, then ask AI to reason from the same evidence.
+          </p>
+          <div class="hero-actions">
+            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/learn-it/README.md">Read Learn it</a>
+            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.md">Start Quick Start</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="usecase-section" aria-label="What you will build">
+        <div class="section-heading">
+          <p>what you build</p>
+          <h2>A low-cost bench that still feels like real debugging.</h2>
+          <div class="section-lede">Starter Lab walks a beginner through build, flash, serial shell, I2C, reset recovery, sensor data, and evidence packaging instead of only showing project screenshots.</div>
+        </div>
+        <div class="usecase-grid">
+          <article><span>hardware</span><h3>F103 + BMP280</h3><p>An STM32F103C8T6 board, ST-LINK, USB-UART, BMP280, and jumper wires form the bench.</p><em>Blue Pill / SWD / UART / I2C</em></article>
+          <article><span>baseline</span><h3>Pass the normal firmware first</h3><p>Generate the CubeMX project, integrate the Liakia app layer, and pass shell, sensor id, data quality, and telemetry gates.</p><em>baseline first</em></article>
+          <article><span>known-bad</span><h3>Then import broken code</h3><p>Each case provides broken app-layer files, a practice guide, and a separate answer key. The answer is intentionally last.</p><em>case folders / answer last</em></article>
+          <article><span>evidence</span><h3>Use evidence, not guesses</h3><p>The runner creates logs, a manifest, a test summary, and ai_prompt.md so the debugging path is reviewable.</p><em>logs / manifest / AI prompt</em></article>
+        </div>
+      </section>
+
+      <section class="usecase-section" aria-label="Lab loop">
+        <div class="section-heading">
+          <p>the learning loop</p>
+          <h2>Diagnose manually, ask AI with the same evidence, then open the answer.</h2>
+        </div>
+        <div class="lab-comparison">
+          <div><strong>1. Manual first</strong><span>Inspect the failed gate, serial output, and manifest. Record symptoms, hypotheses, ruled-out causes, and time spent.</span></div>
+          <div><strong>2. AI second</strong><span>Give AI the same evidence and require reasoning from logs, gate results, and raw values only.</span></div>
+          <div><strong>3. Answer last</strong><span>Open the answer key only after comparison; it validates the quality of the diagnosis.</span></div>
+        </div>
+      </section>
+
+      <section class="case-section" aria-label="Known-bad cases">
+        <div class="section-heading">
+          <p>case ladder</p>
+          <h2>Four cases increase debugging difficulty step by step.</h2>
+        </div>
+        <div class="case-support-grid case-ladder-grid">
+          <article class="case-card"><div class="case-head"><span>case b · first</span><strong>BMP280 Data Quality</strong></div><p>I2C and chip ID pass, but compensated sensor data is not credible. Best first exposure to evidence-first diagnosis.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-b-bmp280-calibration/README.md">Open Case B</a></article>
+          <article class="case-card"><div class="case-head"><span>case a</span><strong>I2C Reset Recovery</strong></div><p>The bus can fail after reset, requiring reset recovery plus GPIO/I2C state reasoning.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-a-i2c-bus-stuck-reset/README.md">Open Case A</a></article>
+          <article class="case-card"><div class="case-head"><span>case d</span><strong>Flash Persistence</strong></div><p>A value appears to save, but reload after reset fails, requiring raw record, CRC, and reload evidence.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-d-flash-persistence-alignment/README.md">Open Case D</a></article>
+          <article class="case-card"><div class="case-head"><span>case c · advanced</span><strong>UART DMA/IDLE Stream</strong></div><p>Stream boundaries, rate, and truncation mimic harder UART/DMA timing failures in real projects.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-c-uart-dma-idle-race/README.md">Open Case C</a></article>
+        </div>
+      </section>
+
+      <section class="closing-section" aria-label="Start now">
+        <p>start now</p>
+        <h2>Complete one case, then inspect the professional proof.</h2>
+        <div class="closing-band">
+          <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/learn-it/README.md">Learn it docs</a>
+          <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.md">Quick Start</a>
+          <a href="./professional.en.html">Professional proof</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

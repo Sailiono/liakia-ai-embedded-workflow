@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="用 STM32F103C8T6 + BMP280 亲手体验 Liakia AI 辅助嵌入式调试闭环。">
+    <title>Learn Liakia — Starter-F103 Sensor Lab</title>
+    <link rel="stylesheet" href="./styles.css?v=liakia-split-20260522">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero beginner-hero" aria-label="Beginner lab hero">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <img class="board-ghost" src="./assets/board.svg" alt="">
+        <nav class="topbar" aria-label="Beginner navigation">
+          <div class="brand"><span class="brand-mark"></span><span>Liakia Learn it</span></div>
+          <div class="nav-pills">
+            <a href="../index.html">首页</a>
+            <a href="./beginner.en.html">EN</a>
+            <a href="./professional.zh-CN.html">专业版</a>
+          </div>
+        </nav>
+        <div class="hero-content">
+          <p class="eyebrow">Starter-F103 Sensor Lab</p>
+          <h1>
+            <span>用一块 F103</span>
+            <span>亲手体验 AI 辅助</span>
+            <span>嵌入式排障。</span>
+          </h1>
+          <p class="hero-copy">
+            这不是“点一下跑完”的假 demo。你会自己生成 IOC、焊线接 BMP280、跑通 baseline，再导入 known-bad 应用层代码，先人工排查，再让 AI 用同一份 evidence 排查。
+          </p>
+          <div class="hero-actions">
+            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/learn-it/README.zh-CN.md">阅读 Learn it</a>
+            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">开始 Quick Start</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="usecase-section" aria-label="What you will build">
+        <div class="section-heading">
+          <p>what you build</p>
+          <h2>一个便宜但足够真实的排障台架。</h2>
+          <div class="section-lede">Starter Lab 让初学者真正经历嵌入式开发里会遇到的 build、flash、串口、I2C、reset、传感器数据和证据归档，而不是只看项目截图。</div>
+        </div>
+        <div class="usecase-grid">
+          <article><span>hardware</span><h3>F103 + BMP280</h3><p>STM32F103C8T6、ST-LINK、USB-UART、BMP280 和杜邦线组成低成本台架。</p><em>Blue Pill / SWD / UART / I2C</em></article>
+          <article><span>baseline</span><h3>先跑通正常固件</h3><p>CubeMX 生成底层工程，接入 Liakia 应用层，确认 shell、sensor id、data quality 和 telemetry gates。</p><em>baseline first</em></article>
+          <article><span>known-bad</span><h3>再导入故障代码</h3><p>每个 case 都提供 broken app-layer 文件、操作指南和独立答案。答案放在最后，避免提前泄题。</p><em>case folders / answer last</em></article>
+          <article><span>evidence</span><h3>用证据而不是猜测</h3><p>runner 生成 logs、manifest、test summary 和 ai_prompt.md，让排查过程可以复盘。</p><em>logs / manifest / AI prompt</em></article>
+        </div>
+      </section>
+
+      <section class="usecase-section" aria-label="Lab loop">
+        <div class="section-heading">
+          <p>the learning loop</p>
+          <h2>先人工排查，再让 AI 排查，最后看答案。</h2>
+        </div>
+        <div class="lab-comparison">
+          <div><strong>1. 人工优先</strong><span>观察 FAIL gate、串口输出和 manifest，记录现象、假设、排除项和耗时。</span></div>
+          <div><strong>2. AI 第二</strong><span>把同一份 evidence 交给 AI，要求它只能基于日志、gate result 和 raw value 推理。</span></div>
+          <div><strong>3. 答案最后</strong><span>完成对比后再打开 ANSWER，用来校验你的诊断质量。</span></div>
+        </div>
+      </section>
+
+      <section class="case-section" aria-label="Known-bad cases">
+        <div class="section-heading">
+          <p>case ladder</p>
+          <h2>四个 case 逐步增加排障难度。</h2>
+        </div>
+        <div class="case-support-grid case-ladder-grid">
+          <article class="case-card"><div class="case-head"><span>case b · first</span><strong>BMP280 数据质量</strong></div><p>I2C 和 chip ID 都能通过，但补偿后的传感器数据不可信。适合第一次体验 evidence-first 诊断。</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md">打开 Case B</a></article>
+          <article class="case-card"><div class="case-head"><span>case a</span><strong>I2C Reset Recovery</strong></div><p>reset 后总线恢复失败，需要结合 reset recovery、GPIO/I2C 状态和恢复逻辑分析。</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-a-i2c-bus-stuck-reset/README.zh-CN.md">打开 Case A</a></article>
+          <article class="case-card"><div class="case-head"><span>case d</span><strong>Flash 持久化</strong></div><p>配置看似写入成功，但 reset 后恢复异常，需要对比 raw record、CRC 和 reload 逻辑。</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-d-flash-persistence-alignment/README.zh-CN.md">打开 Case D</a></article>
+          <article class="case-card"><div class="case-head"><span>case c · advanced</span><strong>UART DMA/IDLE Stream</strong></div><p>stream 边界、速率和截断问题更接近真实工程里难定位的串口/DMA 时序故障。</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/known-bad-cases/case-c-uart-dma-idle-race/README.zh-CN.md">打开 Case C</a></article>
+        </div>
+      </section>
+
+      <section class="closing-section" aria-label="Start now">
+        <p>start now</p>
+        <h2>先完成一个 case，再去看专业证据。</h2>
+        <div class="closing-band">
+          <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/learn-it/README.zh-CN.md">Learn it 文档</a>
+          <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">Quick Start</a>
+          <a href="./professional.zh-CN.html">看专业展示</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

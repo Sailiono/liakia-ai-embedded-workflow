@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Liakia professional showcase: real STM32 bench evidence, remote HIL, USB CDC reset recovery, RTCM CRC gate, and project adoption path.">
+    <title>Liakia Professional — AI-Assisted Embedded Delivery Evidence Loop</title>
+    <link rel="stylesheet" href="./styles.css?v=liakia-split-20260522">
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero professional-hero" aria-label="Professional hero">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="signal-rail" aria-hidden="true"><span></span><span></span><span></span></div>
+        <img class="board-ghost" src="./assets/board.svg" alt="">
+        <nav class="topbar" aria-label="Professional navigation">
+          <div class="brand"><span class="brand-mark"></span><span>Liakia Professional</span></div>
+          <div class="nav-pills">
+            <a href="../index.en.html">Home</a>
+            <a href="./professional.zh-CN.html">中文</a>
+            <a href="./beginner.en.html">Beginner</a>
+          </div>
+        </nav>
+        <div class="hero-content">
+          <p class="eyebrow">engineering proof for STM32 delivery</p>
+          <h1>
+            <span>Turn embedded delivery</span>
+            <span>from manual experience</span>
+            <span>into reviewable evidence.</span>
+          </h1>
+          <p class="hero-copy">
+            Liakia uses the real dpiny-RTK firmware case to prove that build, flash, serial tests, RTCM CRC, USB CDC reset recovery, register probes, and evidence manifests can form a remote-capable human-reviewed loop.
+          </p>
+          <div class="hero-actions">
+            <a href="#proof">Inspect proof</a>
+            <a href="#remote-hil">Remote HIL</a>
+            <a href="#adopt">Adopt it</a>
+            <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/trust-it/README.md">Trust it docs</a>
+          </div>
+        </div>
+        <aside class="mission-panel" aria-label="Latest baseline dashboard">
+          <div class="panel-header"><span>remote baseline</span><strong>LAST RUN: PASS</strong></div>
+          <div class="terminal">
+            <p><span>$</span> tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7</p>
+            <p><span>PASS</span> build / flash / shell</p>
+            <p><span>PASS</span> USB CDC reset recovery</p>
+            <p><span>PASS</span> RTCM parser CRC BAD: 0</p>
+            <p><span>DONE</span> manifest + logs + summaries</p>
+          </div>
+          <div class="metric-strip">
+            <div><strong>8</strong><span>test gates</span></div>
+            <div><strong>52</strong><span>remote RTCM frames</span></div>
+            <div><strong>0</strong><span>CRC bad</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="proof" class="audience-section" aria-label="Proof first">
+        <div class="section-heading">
+          <p>proof first</p>
+          <h2>Inspect evidence before accepting the narrative.</h2>
+          <div class="section-lede">The professional page does not teach the beginner lab. It gives engineers, managers, and customers a focused proof path.</div>
+        </div>
+        <div class="audience-grid">
+          <article><span>real bench</span><h3>Local Bench PASS</h3><p>Real hardware baseline with build, flash, serial gates, USB CDC reset, and evidence manifest.</p></article>
+          <article><span>remote hil</span><h3>Remote Bench PASS</h3><p>The board stays on a bench PC; the developer triggers the workflow remotely and pulls back summary, manifest, and logs.</p></article>
+          <article><span>protocol gate</span><h3>RTCM CRC BAD: 0</h3><p>Protocol output is asserted by a parser gate rather than manually eyeballed from logs.</p></article>
+        </div>
+      </section>
+
+      <section id="cases" class="case-section" aria-label="Featured case">
+        <div class="section-heading">
+          <p>featured case</p>
+          <h2>A real bug should become the next regression gate.</h2>
+        </div>
+        <div class="case-grid">
+          <article class="case-card is-featured">
+            <div class="case-head"><span>real bench replay</span><strong>USB CDC Reset Recovery</strong></div>
+            <p>Windows could enumerate the USB CDC port, but the shell could become unavailable after software reset. Liakia turned the issue into a reset recovery gate in the baseline runner: the shell must respond before and after reset.</p>
+            <div class="case-flow"><span>post-flash probe</span><span>reset command</span><span>COM recovery wait</span><span>version command</span><span>regression PASS</span></div>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/04-usb-cdc-reset-recovery.md">View full case</a>
+          </article>
+          <div class="case-support-grid">
+            <article class="case-card"><div class="case-head"><span>register proof</span><strong>USART Clock Missing</strong></div><p>RCC/GPIO/USART register evidence narrows silent serial output from wiring guesses to clock/config causes.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/01-usart-clock-missing.md">View replay</a></article>
+            <article class="case-card"><div class="case-head"><span>transport proof</span><strong>RS422 DE Timing</strong></div><p>RTCM tail corruption is treated as a transport timing risk, then verified with a CRC gate.</p><a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/case-studies/02-rs422-de-timing.md">View pattern</a></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="remote-hil" class="remote-section" aria-label="Remote HIL">
+        <div class="section-heading">
+          <p>remote hil</p>
+          <h2>The hardware stays on the bench. Evidence is generated on the bench.</h2>
+        </div>
+        <div class="remote-grid">
+          <article class="remote-proof">
+            <div class="remote-head"><span>remote baseline · redacted</span><strong>PASS</strong></div>
+            <p>The target board, ST-LINK, USB CDC, UART shell, and RTCM capture port stay connected to the bench PC. The developer triggers the same runner remotely; the bench PC generates the evidence package.</p>
+            <div class="remote-stats"><div><strong>8/8</strong><span>steps passed</span></div><div><strong>52</strong><span>RTCM frames</span></div><div><strong>0</strong><span>CRC bad</span></div><div><strong>21.11s</strong><span>CDC reset gate</span></div></div>
+            <a class="doc-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/evidence/remote-hil-redacted-2026-05-20/test_summary.md">View remote evidence</a>
+          </article>
+          <article class="remote-console">
+            <div class="pane-title">remote_bench.summary</div>
+            <pre><code>ssh bench "tools/run_test_baseline.ps1 ..."
+PASS Debug firmware build
+PASS SWD flash + verify
+PASS functional serial test
+PASS RTCM stream test
+PASS USB CDC reset recovery
+
+RTCM: 4593 bytes / 52 frames / CRC BAD 0
+PULL: summary.md + manifest.json + logs</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="workflow" class="usecase-section" aria-label="Delivery loop">
+        <div class="section-heading">
+          <p>delivery loop</p>
+          <h2>The value is the loop, not a single script.</h2>
+        </div>
+        <div class="usecase-grid">
+          <article><span>01</span><h3>Build</h3><p>CMake, Ninja, CubeCLT, and Arm GCC become a scripted process.</p><em>build transcript</em></article>
+          <article><span>02</span><h3>Flash</h3><p>STM32CubeProgrammer handles SWD download, verify, and reset.</p><em>flash verify</em></article>
+          <article><span>03</span><h3>Test</h3><p>Serial shell, input validation, RTCM parser, and USB CDC reset gates run automatically.</p><em>serial / protocol / reset</em></article>
+          <article><span>04</span><h3>Evidence</h3><p>Manifest, logs, summaries, hashes, and handoff reports are archived for review.</p><em>manifest / handoff</em></article>
+        </div>
+      </section>
+
+      <section id="adopt" class="usecase-section" aria-label="Adopt your STM32 project">
+        <div class="section-heading">
+          <p>adopt it</p>
+          <h2>Adoption wraps the existing stack; it does not replace it.</h2>
+          <div class="section-lede">Liakia describes the existing build, flash, test, probe, and evidence outputs with an adapter-driven runner instead of forcing a new IDE, RTOS, or driver framework.</div>
+        </div>
+        <div class="usecase-grid">
+          <article><span>day 1</span><h3>Build / Artifact</h3><p>Confirm build command, output ELF/HEX/BIN, and artifact hashes.</p><em>project-adapter.json</em></article>
+          <article><span>day 2</span><h3>Flash / Verify</h3><p>Add STM32CubeProgrammer transcript collection so flashing is evidenced, not assumed.</p><em>SWD / verify / reset</em></article>
+          <article><span>day 3-4</span><h3>Serial / Protocol Gates</h3><p>Turn shell commands, domain commands, protocol output, CRC/frame parsing into automated gates.</p><em>tests / parser / fail gate</em></article>
+          <article><span>day 5</span><h3>Evidence / Handoff</h3><p>Generate manifest, summary, handoff report, and human review boundaries.</p><em>reviewable delivery</em></article>
+        </div>
+        <a class="section-link" href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/docs/adopt-it/README.md">Read Adopt it docs</a>
+      </section>
+
+      <section class="closing-section" aria-label="Closing">
+        <p>scope</p>
+        <h2>AI accelerates delivery work, but does not replace engineering judgement.</h2>
+        <div class="closing-band">
+          <span>human-in-the-loop</span>
+          <span>evidence first</span>
+          <span>remote bench</span>
+          <span>transferable template</span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

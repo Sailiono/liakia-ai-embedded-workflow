@@ -77,6 +77,26 @@ a {
   z-index: -1;
 }
 
+.router-hero,
+.beginner-hero,
+.professional-hero {
+  min-height: 76vh;
+}
+
+.beginner-hero {
+  background:
+    linear-gradient(120deg, rgba(16, 18, 15, 0.94) 0%, rgba(16, 18, 15, 0.78) 52%, rgba(18, 36, 33, 0.72) 100%),
+    radial-gradient(circle at 80% 34%, rgba(84, 215, 255, 0.16), transparent 34%),
+    linear-gradient(180deg, #11130f 0%, #18211f 100%);
+}
+
+.professional-hero {
+  background:
+    linear-gradient(120deg, rgba(16, 18, 15, 0.96) 0%, rgba(16, 18, 15, 0.82) 48%, rgba(37, 30, 22, 0.78) 100%),
+    radial-gradient(circle at 84% 36%, rgba(255, 184, 77, 0.18), transparent 34%),
+    linear-gradient(180deg, #11130f 0%, #1b2019 100%);
+}
+
 .hero-grid {
   position: absolute;
   inset: 0;
@@ -372,6 +392,54 @@ h1 span {
   color: var(--muted);
   font-size: 17px;
   line-height: 1.72;
+}
+
+.router-section {
+  padding-top: 70px;
+}
+
+.router-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.route-card {
+  min-height: 360px;
+  border: 1px solid rgba(244, 241, 232, 0.16);
+  background: rgba(244, 241, 232, 0.055);
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.route-card span {
+  color: var(--green);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.route-card h3 {
+  margin: 24px 0 12px;
+  font-size: 28px;
+  line-height: 1.18;
+}
+
+.route-card p {
+  margin: 0 0 22px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.text-link {
+  margin-top: 12px;
+  color: var(--cyan);
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 13px;
+  font-weight: 760;
 }
 
 h2 {
@@ -2331,6 +2399,10 @@ h2 {
   line-height: 1.62;
 }
 
+.case-ladder-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .video-section {
   background:
     linear-gradient(180deg, rgba(128, 255, 114, 0.04), transparent 44%),
@@ -2783,6 +2855,7 @@ h2 {
 
   .remote-stats,
   .remote-flow,
+  .router-grid,
   .lab-comparison {
     grid-template-columns: 1fr;
   }

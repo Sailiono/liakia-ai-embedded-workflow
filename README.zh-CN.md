@@ -1,155 +1,67 @@
 # Liakia
 
-**AI 原生嵌入式交付闭环示范项目**
+**面向 STM32 团队的 AI 辅助嵌入式固件交付闭环。**
 
 [English](README.md) | 中文说明
 
-[![MCU](https://img.shields.io/badge/MCU-STM32F407VET6-blue)](https://www.st.com)
-[![GNSS](https://img.shields.io/badge/GNSS-Unicore_UM982-green)](https://www.unicorecomm.com)
-[![RTCM](https://img.shields.io/badge/RTCM-3.x_MSM4-orange)](https://www.rtcm.org)
-[![Build](https://img.shields.io/badge/Build-CMake_%2B_Ninja-blueviolet)]()
-[![Workflow](https://img.shields.io/badge/Workflow-Human--in--the--loop_AI-80ff72)]()
+[![Workflow](https://img.shields.io/badge/Workflow-build_flash_test_evidence-80ff72)]()
+[![MCU](https://img.shields.io/badge/MCU-STM32-blue)](https://www.st.com)
+[![Mode](https://img.shields.io/badge/AI-Human--in--the--loop-54d7ff)]()
+[![Evidence](https://img.shields.io/badge/Evidence-real_bench_%2B_remote_HIL-ffb84d)]()
 
-[![AI Embedded Workflow Demo](docs/promo-demo/preview.svg)](https://sailiono.github.io/liakia-ai-embedded-workflow/)
-
-Liakia 是一个公开展示用的 **人审闭环 AI 嵌入式交付工作流** 项目。
-
-它用 **dpiny-RTK** 这个真实的 STM32F407 + UM982 RTK 基准站固件作为第一个硬件案例，但核心价值是固件外侧的交付闭环：
+Liakia 把嵌入式固件交付整理成一条能在真实或远程 STM32 硬件上复现的流程：
 
 ```text
-需求 -> 代码修改 -> 编译 -> 烧录 -> 串口测试
--> 协议 gate -> 寄存器 probe -> 证据包 -> 交付
+build -> flash -> test -> diagnose -> evidence -> handoff
 ```
+
+这个仓库用 **dpiny-RTK** 作为工程可信度案例，用 **Starter-F103 Sensor Lab** 作为动手学习路径。
 
 **dpiny-RTK 是示范案例，Liakia 才是工作流。**
 
-这个 README 是导览页，但不是直接把链接堆出来。它先说明 Liakia 解决什么问题，再把不同读者导向对应 demo。
+## Liakia 是什么
 
-## Liakia 是干什么的
-
-Liakia 不是一个固件库，也不是单一 RTK 产品。它展示的是一种嵌入式交付工作流：把原来靠手工经验推进的固件工作，整理成可复现的闭环：
-
-```text
-编译固件
-烧录目标板
-运行硬件相关测试
-采集协议和寄存器证据
-生成交付证据包
-让 AI 建议保持在人审边界内
-```
-
-这个仓库用两条路径来证明这套方法：
-
-- **专业工程案例**：基于真实的 dpiny-RTK STM32F407 + UM982 固件和测试台证据；
-- **动手 Starter Lab**：基于低成本 STM32F103C8T6 + BMP280，让读者自己焊线、生成 IOC、接入应用层、制造 known-bad、观察失败并修复。
-
-## 本仓库证明什么
-
-| 领域 | 本仓库包含什么 |
-|---|---|
-| 参考固件 | STM32F407 + FreeRTOS 的 UM982 RTK 基准站控制固件 |
-| 交付闭环 | CMake 编译、SWD 烧录、串口测试、RTCM CRC gate、USB CDC reset gate、寄存器 probe、证据 manifest |
-| 硬件证据 | 已脱敏的本地测试台和远程硬件在环证据包 |
-| AI 模型 | AI 辅助实现、日志分析、测试生成和报告草拟；工程师保留最终审核权 |
-| 可迁移场景 | STM32 板卡 bringup、固件回归、远程测试台验证、客户现场问题复现 |
-
-## 为什么要做 Starter Lab
-
-dpiny-RTK 工程案例能证明这套流程可以落到真实项目和测试台证据上，但它不是最适合新读者第一次上手的入口。
-
-Starter Lab 的目的不同：它让读者用便宜的 F103 板和 BMP280 传感器搭一个小台架，亲手接入应用层，烧录一个带已知问题的应用，观察 gate 失败，生成 AI 诊断材料，再做最小修复并回归 PASS。它故意不直接提供完整可烧录工程，因为真正有价值的是让读者经历“自己生成底层工程，再用证据链定位应用层问题”的过程。
-
-如果你想先感受这套流程，就走 Starter Lab。如果你想审查更接近真实交付的证据，就看工程案例。
-
-## 选择你的入口
-
-| 入口 | 适合谁 | 从这里开始 |
-|---|---|---|
-| 动手 Starter Lab | 想焊线、接传感器、亲手调一个 known-bad STM32F103C8T6 应用的人 | [starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md](starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md) |
-| 工程案例 | 想看真实 STM32F407 + RTK 工作流和证据包的嵌入式工程师 | [evidence/README.md](evidence/README.md) |
-| 接入你的项目 | 想把 build / flash / test / evidence 闭环迁移到自己 STM32 项目的团队 | [docs/adapt-your-stm32-project.zh-CN.md](docs/adapt-your-stm32-project.zh-CN.md) |
-
-## 演示与文档
-
-| 资源 | 链接 |
-|---|---|
-| 中文交互演示 | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/) |
-| 英文交互演示 | [GitHub Pages](https://sailiono.github.io/liakia-ai-embedded-workflow/promo-demo/index.en.html) |
-| STM32F103 动手 Starter Lab | [starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md](starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md) |
-| 证据包入口 | [evidence/README.md](evidence/README.md) |
-| 故障复盘案例 | [case-studies/](case-studies/) |
-| ROI 模型 | [docs/roi_model.md](docs/roi_model.md) |
-| 商业落地场景 | [docs/commercial-use-cases.md](docs/commercial-use-cases.md) |
-| 接入你的 STM32 项目 | [docs/adapt-your-stm32-project.zh-CN.md](docs/adapt-your-stm32-project.zh-CN.md) |
-| 远程硬件在环流程 | [docs/remote-hardware-debug-flow.md](docs/remote-hardware-debug-flow.md) |
-| AI 操作手册 | [ai-agent/](ai-agent/) |
-| 可复用工作流模板 | [workflow-template/](workflow-template/) |
-
-## 工作流原则
-
-这套工作流遵循几个很具体的工程规则：
+Liakia 不是一个固件库，也不是单一 RTK 产品。它是一套让嵌入式固件工作变得可复现、可审查、可交接的流程：
 
 - 从命令行编译固件；
 - 通过 SWD 烧录并校验目标板；
-- 自动测试串口 Shell 行为；
-- 用 CRC gate 验证 RTCM 输出；
-- 验证 USB CDC reset recovery；
-- 采集只读寄存器级证据；
-- 生成交付证据包；
-- 让 AI 操作保持在明确的人审边界内。
+- 自动运行串口、协议、reset 和寄存器级 gates；
+- 生成包含日志、manifest、summary 的 evidence package；
+- 让 AI 辅助实现和诊断，但最终审核权保留给工程师。
 
-这不是让 AI 盲目替代嵌入式工程师。目标模型是：
+## 选择你的路径
 
-```text
-AI 加速实现、日志分析、测试生成和文档整理。
-工程师负责硬件假设、安全边界、代码 review 和最终验收。
-```
+| 路径 | 适合你在什么时候看 | 入口 |
+|---|---|---|
+| **Learn it / 亲手体验** | 你想用低成本 STM32F103 + BMP280 台架，亲自体验 AI 辅助排障。 | [docs/learn-it/README.zh-CN.md](docs/learn-it/README.zh-CN.md) |
+| **Trust it / 审查证据** | 你想看真实 bench、remote HIL、故障复盘和工程边界。 | [docs/trust-it/README.zh-CN.md](docs/trust-it/README.zh-CN.md) |
+| **Adopt it / 接入项目** | 你想把 build / flash / test / evidence 闭环接入自己的 STM32 工程。 | [docs/adopt-it/README.zh-CN.md](docs/adopt-it/README.zh-CN.md) |
 
-## 参考固件
+## 网页入口
 
-固件源码位于：
-
-```text
-firmware/dpiny-rtk/
-```
-
-仓库根目录仍保留 CMake 构建入口：
-
-```powershell
-cmake --preset Debug
-cmake --build --preset Debug
-```
-
-主要固件元素：
-
-| 子系统 | 说明 |
+| 页面 | 用途 |
 |---|---|
-| MCU | STM32F407VET6, Cortex-M4F |
-| RTOS | FreeRTOS 任务模型 |
-| GNSS / RTK | UM982 集成与 RTCM 输出配置 |
-| 接口 | USB CDC Shell、USART 调试 Shell、双路 RS422 RTCM 输出 |
-| 可靠性 | Watchdog 策略和 Flash 配置持久化 |
-| 验证 | Shell 测试、RTCM 解析器、USB CDC reset recovery、寄存器 probe |
+| [初学者页面](https://sailiono.github.io/liakia-ai-embedded-workflow/promo-demo/beginner.zh-CN.html) | 面向想亲手搭 F103 台架的人。 |
+| [专业展示页面](https://sailiono.github.io/liakia-ai-embedded-workflow/promo-demo/professional.zh-CN.html) | 面向工程师、研发负责人和潜在客户，展示证据链、远程 HIL、故障复盘和接入路径。 |
+| [英文首页](https://sailiono.github.io/liakia-ai-embedded-workflow/index.en.html) | 英文读者入口。 |
 
-这个固件不是合成出来的玩具项目，而是一个真实嵌入式案例。它包含足够的硬件交互，可以覆盖编译、烧录、串口、协议、USB 和寄存器级诊断。
+## 一眼看证据
 
-## 工作流入口
+| 证据 | 公开入口 |
+|---|---|
+| 真实本地测试台证据 | [evidence/realrun-redacted-2026-05-20/](evidence/realrun-redacted-2026-05-20/) |
+| 远程硬件在环证据 | [evidence/remote-hil-redacted-2026-05-20/](evidence/remote-hil-redacted-2026-05-20/) |
+| USB CDC reset recovery 案例 | [case-studies/04-usb-cdc-reset-recovery.md](case-studies/04-usb-cdc-reset-recovery.md) |
+| RTCM CRC gate | [tools/rtcm_parse.ps1](tools/rtcm_parse.ps1) |
+| 只读寄存器 probe | [tools/register_probe.ps1](tools/register_probe.ps1) |
+| 可复用 adapter 工作流 | [workflow-template/](workflow-template/) |
 
-主 baseline runner：
+## 主要命令
+
+参考工程 baseline runner：
 
 ```powershell
 tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7
-```
-
-它可以执行依赖检查、Debug 固件编译、SWD 烧录与校验、Shell 回归、输入校验、RTCM 解析、USB CDC reset recovery、只读寄存器 probe，以及 evidence manifest 生成。
-
-组件级 runner：
-
-```powershell
-tools/functional_test.ps1 -BuildPreset Debug -ComPort COM4
-tools/rtcm_parse.ps1 -Port COM6 -ReadSecs 10 -OutputJson evidence-out/rtcm_summary.json
-tools/usb_cdc_reset_test.ps1 -UsbPort COM7
-tools/register_probe.ps1 -Target rcc,gpio,usart,usb,fault -OutputJson evidence-out/register_probe_summary.json
 ```
 
 可复用工作流模板：
@@ -158,126 +70,30 @@ tools/register_probe.ps1 -Target rcc,gpio,usart,usb,fault -OutputJson evidence-o
 workflow-template/run_workflow.ps1 -Adapter workflow-template/project-adapter.json -Stage all
 ```
 
-如果省略 `-UsbPort`，baseline manifest 会记录 `SKIP_NO_USB_PORT`，而不是悄悄隐藏 USB CDC reset gate。
+Starter-F103 Lab runner：
 
-## 证据包
-
-仓库包含已脱敏的证据包，方便读者在没有原始测试台硬件的情况下查看交付闭环。
-
-| 证据包 | 类型 | 目的 | 结果 |
-|---|---|---|---|
-| [public-showcase-baseline-2026-05-18](evidence/public-showcase-baseline-2026-05-18/) | 公开展示样例 | 展示 evidence 格式和可公开的寄存器 decode 示例 | PASS |
-| [realrun-redacted-2026-05-20](evidence/realrun-redacted-2026-05-20/) | 本地测试台运行 | 展示已移除敏感测试台信息的真实硬件 baseline | PASS |
-| [remote-hil-redacted-2026-05-20](evidence/remote-hil-redacted-2026-05-20/) | 远程硬件在环运行 | 展示远程编译、烧录、串口 gate、RTCM CRC、USB CDC reset recovery 和证据回收 | PASS |
-
-典型证据内容：
-
-```text
-00_manifest.json
-01_environment_check.log
-02_build_debug.log
-03_flash_verify.log
-04_shell_test.log
-05_rtcm_parse.log
-06_register_probe.log
-firmware_sha256.txt
-test_summary.md
-handoff_report.md
+```powershell
+starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
+  -ProjectRoot C:\work\f103-liakia `
+  -Elf Debug\f103-liakia.elf `
+  -ComPort COM4 `
+  -Case case-b
 ```
 
-公开仓库中的证据已经脱敏。客户交付时应在目标硬件上重新生成原始测试台日志、串口 transcript、STM32CubeProgrammer 输出、寄存器 dump、artifact hash 和时间戳。
+## 边界
 
-## 故障复盘案例
+Liakia 主要压缩可重复的固件交付工作：编译修复、烧录验证、串口回归、协议 gate、日志分析、证据归档和 handoff 准备。
 
-| 案例 | 证据等级 | 展示重点 |
-|---|---|---|
-| [USART clock missing](case-studies/01-usart-clock-missing.md) | 中高，公开复盘 | 寄存器证据如何把 clock enable 问题和接线、波特率猜测区分开 |
-| [RS422 DE timing](case-studies/02-rs422-de-timing.md) | 诊断模式 | RS422 DE 时序应作为传输层故障模式被验证 |
-| [RTCM CRC validation](case-studies/03-rtcm-crc-validation.md) | 验证模式 | 协议 gate 应在无帧、CRC 错误或消息类型缺失时失败 |
-| [USB CDC reset recovery](case-studies/04-usb-cdc-reset-recovery.md) | 高，真实测试台复盘 | 一次 reset 相关 USB CDC 故障如何变成可重复 regression gate |
+它不替代原理图审核、安全决策、EMC/ESD、量产测试治具设计和最终工程验收。
 
-Case 04 是目前最强的公开案例，因为它绑定了真实测试台复盘，并且 baseline runner 已经纳入 USB CDC recovery gate。
+## 仓库地图
 
-## 远程硬件在环
-
-远程 HIL 流程让目标板、ST-LINK、USB CDC 口、UART Shell 和 RTCM 适配器保持连接在测试台电脑上。开发者远程触发编译、烧录、串口测试、协议 gate 和证据回收。
-
-```text
-开发工作站
-  -> 远程测试台命令
-  -> 在测试台电脑上编译
-  -> 通过本地 ST-LINK 烧录目标板
-  -> 运行本地串口和 RTCM gates
-  -> 拉回证据包
-```
-
-公开仓库只保留脱敏后的主机信息。
-
-## 可复用工作流模板
-
-[workflow-template/](workflow-template/) 中的模板展示了如何让另一个 STM32 项目通过 adapter 描述编译、烧录、测试、寄存器 probe 和 evidence 输出。
-
-这个模板刻意保持保守：
-
-- 不强制切换 IDE；
-- 不要求更换固件框架；
-- 测试以子进程运行，因此 gate 失败后仍能生成 evidence；
-- 拆分 build、flash、test、probe、evidence 阶段；
-- 把 summary 写入适合交付审查的 manifest。
-
-## AI 操作边界
-
-[ai-agent/](ai-agent/) 中的 AI 操作手册定义了：
-
-- AI 可以做什么；
-- AI 不能做什么；
-- 何时必须人工 review；
-- flash 前和 commit 前 checklist；
-- failure triage report 模板；
-- 如何保持修复最小化且基于证据。
-
-这很重要，因为嵌入式项目一旦越过错误边界，可能损坏硬件或引入安全风险。
-
-## ROI 边界
-
-本案例中的公开 ROI 粗略估算如下：
-
-| 路径 | 估算 |
-|---|---:|
-| AI 辅助交付 | 约 3 人天 + 约 10 元 API 消耗 |
-| 保守纯人工估算 | 约 15-25 人天 |
-| 粗略周期压缩 | 在本项目条件下约 80%+ |
-
-这些数字的前提是：已有硬件平台、已有 STM32/HAL 基础、目标集中在固件 bringup、自动化验证和证据归档。不包含 PCB 重新设计、EMC 认证、环境测试、安全认证或量产测试治具开发。
-
-这不代表所有嵌入式项目都能达到相同比例。
-
-## 仓库结构
-
-```text
-firmware/dpiny-rtk/       参考 STM32 固件案例
-starter-kits/             STM32F103 动手实验和快速上手
-tools/                    baseline runner、串口测试、RTCM 解析器、寄存器 probe
-workflow-template/        adapter 驱动的可复用工作流模板
-evidence/                 公开展示、本地测试台、远程 HIL 证据包
-case-studies/             故障复盘与诊断案例
-ai-agent/                 AI 操作约束、checklist 和模板
-docs/promo-demo/          中英文交互式展示页
-docs/                     ROI、商业场景、视频脚本、远程 HIL 文档
-```
-
-## 范围与限制
-
-这个仓库不是：
-
-- 生产验收记录；
-- 认证包；
-- EMC、ESD、安全或环境试验报告；
-- 工程 review 的替代品；
-- 所有嵌入式项目都能达到同等压缩比例的承诺。
-
-它是一个基于真实固件案例和脱敏测试台证据的嵌入式交付闭环公开展示。
-
-## 版权
-
-Copyright (c) 2026 **Clark Cui**. All rights reserved.
+| 区域 | 用途 |
+|---|---|
+| [firmware/dpiny-rtk/](firmware/dpiny-rtk/) | STM32F407 + UM982 RTK 参考工程案例。 |
+| [starter-kits/stm32f103-sensor-lab/](starter-kits/stm32f103-sensor-lab/) | 低成本动手 Lab 和 known-bad 排障 case。 |
+| [evidence/](evidence/) | public、real bench、remote HIL 三类证据包。 |
+| [case-studies/](case-studies/) | 故障复盘案例。 |
+| [workflow-template/](workflow-template/) | 面向其他 STM32 项目的 adapter-driven 工作流模板。 |
+| [ai-agent/](ai-agent/) | 人审闭环 AI 操作规则和 checklist。 |
+| [docs/](docs/) | Learn、Trust、Adopt、ROI、商业场景和网页文档。 |
