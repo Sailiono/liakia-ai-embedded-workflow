@@ -1,181 +1,73 @@
-# Known-Bad Case Guide
+# Known-Bad Lab Packs
 
-This page is written in two parts.
+These are hands-on fault-injection packs for the STM32F103C8T6 starter lab.
 
-Read **Practice Mode** first if you want to run the lab as an exercise. It tells you where the case files are, what to build, what to observe, and what evidence to give to AI. It does not explain the root cause upfront.
+Each case is a self-contained folder. The folder gives you intentionally broken application-layer or port-layer code, a practice guide, and a separate answer key. Do not open the answer key until you have imported the code, flashed the board, collected evidence, and tried an AI-assisted diagnosis.
 
-Read **Answer Key** only after you have collected evidence and tried the diagnosis path.
-
-## Practice Mode
-
-The known-bad cases are application-layer exercises. They do not replace your CubeMX-generated IOC or HAL project. The intended workflow is:
+The goal is to make the workflow tangible:
 
 ```text
-generate your own F103 HAL project
-copy the Liakia app layer
-inject or switch to one known-bad application case
-build and flash
-run the same gates
+import broken app-layer code
+build and flash the F103 board
+observe the failure
+run Liakia gates
 collect evidence
 ask AI to diagnose from evidence
-apply a minimal fix
+apply the minimal fix
 rerun regression
+then read the answer key
 ```
 
-### Case B: BMP280 Data Quality Failure
+## Case Folders
 
-Use this case first.
+| Case | Practice guide | Code to import | Level |
+|---|---|---|---|
+| Case B: BMP280 data quality failure | [case-b-bmp280-calibration/README.md](case-b-bmp280-calibration/README.md) | complete `liakia_lab_app.c` replacement | First runnable case |
+| Case A: I2C reset recovery failure | [case-a-i2c-bus-stuck-reset/README.md](case-a-i2c-bus-stuck-reset/README.md) | `liakia_lab_port_stm32f103.c` replacement | Hardware-state case |
+| Case C: UART DMA/IDLE stream failure | [case-c-uart-dma-idle-race/README.md](case-c-uart-dma-idle-race/README.md) | DMA/IDLE receive fragment | Advanced serial case |
+| Case D: Flash persistence failure | [case-d-flash-persistence-alignment/README.md](case-d-flash-persistence-alignment/README.md) | config persistence fragment | Advanced persistence case |
 
-Application references:
+## Recommended Order
 
-```text
-app-layer/src/liakia_lab_app.c
-app-layer/known-bad/case_b_bmp280_calibration/
-```
+Start with **Case B**. It uses the same BMP280 wiring as the base starter lab and can be reproduced without extending the IOC beyond USART1, I2C1, GPIO, and SWD.
 
-Fast injection path:
+After Case B, use the other packs according to the capability you want to test:
 
-1. Start from the working base app.
-2. Temporarily modify the small signed 16-bit decode helper as described in [case-b-bmp280-calibration.md](case-b-bmp280-calibration.md).
-3. Build and flash.
-4. Run:
+- use Case A to exercise reset-state evidence and I2C recovery reasoning;
+- use Case C to exercise high-rate serial framing and DMA/IDLE diagnostics;
+- use Case D to exercise persistence, reset recovery, raw record inspection, and regression gates.
+
+## Common Exercise Rules
+
+1. Build and run the normal base application first.
+2. Back up the working file before importing a known-bad file.
+3. Import only one case at a time.
+4. Do not change CubeMX-generated HAL code unless the case guide explicitly asks for an IOC extension.
+5. Treat the first failing run as expected. The important output is the evidence package, not a clean PASS.
+6. Give AI the generated evidence and ask it to reason from logs, raw values, and gate results only.
+7. Read `ANSWER.md` only after your own diagnosis attempt.
+
+## Runner Pattern
+
+Most cases use the same runner shape:
 
 ```powershell
-tools/run_starter_f103.ps1 `
-  -ProjectRoot C:\path\to\your\cubemx-project `
+starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
+  -ProjectRoot C:\work\f103-liakia `
   -SkipBuild `
-  -Elf Debug\app.elf `
+  -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
   -Case case-b `
   -ExpectedFailureGate data_quality `
   -AllowExpectedFailure
 ```
 
-Do not read the answer first. Observe:
-
-```text
-sensor id
-sensor read
-telemetry once
-data_quality gate
-```
-
-Then run:
+Generate an AI diagnosis packet from the evidence directory:
 
 ```powershell
-tools/diagnose_starter_f103.ps1 `
-  -EvidenceDir C:\path\to\evidence-out\starter-f103-YYYYMMDD-HHMMSS `
+starter-kits/stm32f103-sensor-lab/tools/diagnose_starter_f103.ps1 `
+  -EvidenceDir C:\work\f103-liakia\evidence-out\starter-f103-YYYYMMDD-HHMMSS `
   -Case case-b
 ```
 
-Give `ai_prompt.md` to AI and ask it to explain the failure using only the evidence.
-
-### Case A: Reset-Related I2C Failure
-
-This is a second-stage hardware-state case.
-
-Application area:
-
-```text
-platform I2C recovery path
-reset recovery gate
-register_probe_f103.ps1
-```
-
-How to run it as an exercise:
-
-1. Start from a working BMP280 bringup.
-2. Add a deliberately incomplete reset-recovery path in the platform layer.
-3. Build and flash.
-4. Compare cold boot and software reset behavior.
-5. Collect serial logs and register probe output.
-
-Observe:
-
-```text
-diag i2c before reset
-sensor id before reset
-diag i2c after reset
-sensor id after reset
-GPIOB_IDR / I2C1_SR1 / I2C1_SR2
-```
-
-### Case C: UART DMA + IDLE Race
-
-This case is for an advanced follow-up lab because it requires a DMA/IDLE receive path.
-
-Application area:
-
-```text
-UART receive path
-DMA/IDLE frame boundary
-telemetry stream parser
-```
-
-How to run it as an exercise:
-
-1. Extend the IOC with UART DMA receive and IDLE interrupt.
-2. Add high-rate telemetry capture.
-3. Run low-rate and high-rate telemetry gates.
-4. Compare CRC and frame length statistics.
-
-Observe:
-
-```text
-frames_total
-crc_ok
-crc_bad
-bad frame length
-where the bad frame is truncated
-```
-
-### Case D: Flash Persistence Regression
-
-This case is for persistence and reset-state validation.
-
-Application area:
-
-```text
-config record layout
-Flash page erase/write path
-post-reset config load path
-```
-
-How to run it as an exercise:
-
-1. Add config get/set/save commands.
-2. Save a value.
-3. Verify immediate readback.
-4. Software reset.
-5. Verify post-reset readback.
-6. Dump the raw config record if the gate fails.
-
-Observe:
-
-```text
-pre-reset config readback
-post-reset config readback
-raw Flash record
-CRC result
-record version and length
-```
-
-## Answer Key
-
-Do not start here if you want the exercise effect.
-
-| Case | Main symptom | Likely root cause family | Best evidence |
-|---|---|---|---|
-| Case B | Chip ID and raw bytes are readable, but compensated temperature is not credible | Calibration endian, signed/unsigned handling, or integer width | raw calibration bytes, decoded coefficients, raw ADC, compensated value |
-| Case A | Cold boot may pass, software reset may fail | I2C bus recovery or reset-state handling | reset reason, SDA/SCL state, I2C status registers, before/after reset logs |
-| Case C | Low-rate telemetry passes, high-rate stream occasionally reports CRC BAD | DMA/IDLE frame boundary race or ring-buffer update order | frame lengths, CRC clusters, DMA NDTR, USART status |
-| Case D | Immediate config readback passes, post-reset config readback fails | Flash alignment, erase boundary, struct layout, CRC coverage, or versioning | raw Flash record, pre/post reset config logs, CRC fields |
-
-## Recommended Order
-
-| Priority | Case | Why |
-|---|---|---|
-| P0 | [Case B](case-b-bmp280-calibration.md) | Requires only BMP280 and application code; easiest to reproduce across user environments |
-| P1 | [Case D](case-d-flash-persistence-alignment.md) | Shows reset recovery and evidence value |
-| P2 | [Case A](case-a-i2c-bus-stuck-reset.md) | Strong hardware-state story, but implementation needs care |
-| P3 | [Case C](case-c-uart-dma-idle-race.md) | Highest technical depth; best for a second-stage lab |
+Use each case guide for the exact import path and expected gate name.

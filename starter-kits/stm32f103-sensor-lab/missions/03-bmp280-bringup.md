@@ -35,7 +35,7 @@ SENSOR_ID addr=0x76 id=0x58 result=PASS
 TELEMETRY LK 76 58 xx crc=xxxx result=PASS
 ```
 
-If your BMP280 address is `0x77`, record that in evidence. The base app tries both `0x76` and `0x77`; known-bad Case B may intentionally constrain behavior so address differences remain visible in evidence.
+If your BMP280 address is `0x77`, record that in evidence. The base app tries both `0x76` and `0x77`; this makes address differences visible before any known-bad case is imported.
 
 ## PASS Criteria
 

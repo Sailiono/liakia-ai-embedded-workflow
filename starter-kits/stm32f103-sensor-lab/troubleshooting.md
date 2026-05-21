@@ -61,9 +61,9 @@ This is usually not a wiring problem. Check:
 - BMP280 power mode;
 - wait time after forced measurement;
 - calibration byte count;
-- signed / unsigned conversion;
-- little-endian assembly;
-- compensation formula.
+- whether decoded values still match the raw bytes;
+- whether the imported known-bad app-layer file changed the data path;
+- whether the data-quality gate is failing before or after compensation.
 
 ## Failure After Reset
 

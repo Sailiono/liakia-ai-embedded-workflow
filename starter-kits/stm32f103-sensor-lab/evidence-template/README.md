@@ -87,5 +87,5 @@ data_quality
 
 ## Next Step
 
-Analyze calibration endian / signed decode / integer width in application layer.
+Analyze the imported application-layer data path against the raw bytes and gate output.
 ```

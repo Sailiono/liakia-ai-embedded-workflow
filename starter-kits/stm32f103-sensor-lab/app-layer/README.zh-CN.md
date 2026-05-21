@@ -99,10 +99,10 @@ Liakia 通过测试和证据链定位问题；
 修复后同一套工程能回归 PASS。
 ```
 
-第一版 known-bad 应用层入口见：
+known-bad 实验包入口见：
 
 ```text
-app-layer/known-bad/
+known-bad-cases/
 ```
 
-建议用户先接入基础 `liakia_lab_app.c`，确认 shell 和 sensor id 能跑，再切换到 known-bad case 体验故障诊断。
+建议用户先接入基础 `liakia_lab_app.c`，确认 shell 和 sensor id 能跑，再进入某个 case 文件夹，导入其中故意改错的代码。每个 case 文件夹都包含练习指南和单独的答案解析。

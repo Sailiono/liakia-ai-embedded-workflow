@@ -25,16 +25,15 @@
 
 当前现象：
   sensor id PASS
-  raw calibration readable
-  raw temperature ADC looks non-zero
-  compensated temperature out of range
+  raw sensor/protocol bytes readable
+  后续某个 data-quality gate FAIL
   data-quality gate FAIL
 
 日志：
   粘贴 version / diag i2c / sensor id / sensor read / telemetry once 输出
 
 相关代码：
-  粘贴 calibration decode 和 compensation 函数
+  粘贴导入的 known-bad app-layer 文件，或最小可疑函数
 
 约束：
   先排查应用层；
@@ -87,8 +86,8 @@
 - version PASS
 - diag i2c found 0x76
 - sensor id returns 0x58 PASS
-- raw calibration bytes are readable
-- compensated temperature is outside physical range
+- raw sensor bytes are readable
+- a later data-quality gate FAILs
 - data-quality gate FAIL
 
 请分析：
@@ -101,7 +100,7 @@
 约束：
 - 不要改 IOC，除非证据指向底层配置；
 - 不要重写整个驱动；
-- 优先检查 calibration endian、signed/unsigned 和 integer width。
+- 根据 evidence 排列假设，不要跳到预设答案。
 ```
 
 ## 人工审核边界

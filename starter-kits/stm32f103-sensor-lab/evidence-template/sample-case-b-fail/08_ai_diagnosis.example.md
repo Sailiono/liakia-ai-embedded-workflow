@@ -19,19 +19,13 @@
 
 | Rank | Hypothesis | Evidence | How to confirm |
 |---|---|---|---|
-| 1 | Signed 16-bit calibration endian bug | `dig_T2` / `dig_T3` decoded suspiciously | Compare `S16()` with datasheet little-endian layout |
-| 2 | Signed / unsigned mix-up | raw bytes readable but compensated value invalid | Print decoded calibration values |
-| 3 | Compensation integer width issue | output invalid after formula path | Check intermediate variable types |
+| 1 | Imported application-layer decode path is inconsistent with raw bytes | decoded values look suspicious | Compare the imported code with the sensor datasheet and the base app |
+| 2 | Data-quality gate is checking a later algorithm stage | raw bytes readable but final value invalid | Print each intermediate value |
+| 3 | Runtime path differs from the file you intended to flash | output still matches an old build | Confirm build artifact hash and flash transcript |
 
 ## Minimal Fix
 
-Check signed little-endian decode:
-
-```c
-static int16_t S16(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
-```
+Inspect the smallest imported application-layer helper that transforms raw bytes into decoded values. Do not rewrite the full driver until the evidence points to a broader problem.
 
 ## Regression Plan
 

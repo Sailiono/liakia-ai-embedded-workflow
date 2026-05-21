@@ -1,37 +1,34 @@
 # Mission 04：Known-Bad 诊断
 
-这个任务是 Starter Lab 的核心。用户烧录有问题的应用层，观察自动化 gate 失败，然后用证据链定位问题。
+这个任务是 Starter Lab 的核心。用户导入一个故意改错的应用层 case，烧录后观察 gate 失败，再用 evidence 定位问题。
 
 ## 原则
 
-known-bad 只放在应用层，不修改用户自己生成的 IOC 和 HAL 底层工程。
+known-bad 代码以 case 文件夹提供。CubeMX IOC、HAL 初始化、接线、编译、烧录仍然由用户自己完成。
 
 这样能证明：
 
 ```text
-底层工程是用户自己生成的
-应用层问题可以被测试 gate 捕获
+底层工程由用户自己生成
+故障代码是用户主动导入的
+自动化 gate 能拦住失败
 AI 分析基于日志、协议帧和寄存器证据
-修复动作可以保持最小化
+修复动作保持最小、可 review
 ```
 
-## 第一版推荐：Case B
+## 第一推荐 case
 
-使用：
+使用 Case B 文件夹：
 
 ```text
-app-layer/known-bad/case_b_bmp280_calibration/
+known-bad-cases/case-b-bmp280-calibration/
 ```
 
-预期现象：
+先按练习指南操作：
 
-```text
-sensor id PASS
-raw calibration bytes readable
-temperature data-quality gate FAIL
-```
+[Case B 练习指南](../known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md)
 
-这比 I2C 地址写错更适合展示，因为表面上“传感器已经能读”，但数据仍然不可信。
+在生成失败 evidence package 并尝试 AI 诊断之前，不要打开答案文件。
 
 ## 采集证据
 
@@ -39,13 +36,12 @@ temperature data-quality gate FAIL
 
 ```text
 version output
+diag i2c output
 sensor id output
 sensor read output
 telemetry once output
-raw calibration bytes
-raw adc temperature
-compensated temperature
-data quality gate result
+raw calibration or raw protocol bytes
+gate result
 ```
 
 如果有 register probe，记录：
@@ -62,23 +58,15 @@ USART1_BRR
 
 ## AI 输入要求
 
-不要只把一句“温度不对”扔给 AI。应该提供：
+不要只把一句现象扔给 AI。应该提供：
 
 ```text
 硬件：STM32F103C8T6 + BMP280
 接口：I2C1 PB6/PB7 100 kHz
-现象：chip id PASS，但补偿后数据超范围
-日志：贴 sensor id / sensor read / telemetry once 输出
-代码：贴 calibration 读取和补偿函数
-约束：优先查应用层，不怀疑硬件，除非证据支持
+导入的 case 文件夹：known-bad-cases/case-b-bmp280-calibration
+日志：贴 diag i2c / sensor id / sensor read / telemetry once 输出
+代码：只贴导入的 app-layer 文件或可疑函数
+约束：优先基于 evidence 推理，不要在日志不支持时怀疑硬件
 ```
 
-## 预期定位方向
-
-Case B 的重点不是总线，而是：
-
-- BMP280 校准参数 little-endian 拼接；
-- signed / unsigned 类型；
-- 中间变量宽度；
-- 补偿公式是否和 datasheet 一致；
-- raw adc 正常但 compensated value 异常。
+完成这一步后，再去读 case 的答案解析。

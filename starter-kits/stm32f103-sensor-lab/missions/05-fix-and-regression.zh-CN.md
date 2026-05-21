@@ -2,6 +2,14 @@
 
 这个任务把故障排查闭环收口：修复不是终点，回归证据才是终点。
 
+请在完成以下步骤后再做这个 mission：
+
+1. 导入一个 known-bad case；
+2. 复现失败 gate；
+3. 生成 evidence package；
+4. 让 AI 基于 evidence 诊断；
+5. 阅读该 case 的答案解析并核对自己的判断。
+
 ## 修复原则
 
 修复必须满足：
@@ -9,20 +17,19 @@
 - 修改范围最小；
 - 能解释为什么改；
 - 和 evidence 中的失败现象对应；
+- 避免无关 IOC、HAL、clock-tree 修改；
 - 重新运行同一组 gate；
 - 生成新的 evidence package。
 
-## Case B 修复示例
+## 按 case 修复
 
-如果 AI 和人工 review 确认问题是 BMP280 calibration little-endian 拼接错误，修复点应该集中在应用层：
+每个 known-bad 文件夹都有自己的答案文件：
 
-```c
-static int16_t S16(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
+```text
+known-bad-cases/<case-folder>/ANSWER.zh-CN.md
 ```
 
-不应顺手重构整个驱动，不应改 IOC，不应调整时钟树。
+用答案文件核对你的诊断，然后只做和 evidence 匹配的最小修改。不要把一个局部修复扩大成驱动重写。
 
 ## 回归命令
 
@@ -59,28 +66,24 @@ i2c scan PASS
 sensor id PASS
 data quality PASS
 telemetry CRC PASS
-reset recovery PASS
+reset recovery PASS 或明确 skip reason
 manifest GENERATED
 ```
 
-## Handoff 摘要
+## Handoff 摘要模板
 
 修复完成后，应输出一段简短 handoff：
 
 ```text
 Issue:
-  BMP280 chip id passed but compensated temperature was invalid.
+  哪个 gate 失败，原始输出是什么。
 
 Evidence:
-  Raw calibration bytes and raw ADC values were readable.
-  Failure was isolated to application-layer compensation.
+  哪些日志、raw values、寄存器或内存证据支持诊断。
 
 Fix:
-  Corrected signed 16-bit little-endian decoding for calibration values.
+  修改了哪个文件、哪一小段代码，以及为什么这是最小有效修复。
 
 Regression:
-  sensor id PASS
-  data quality PASS
-  telemetry CRC PASS
-  reset recovery PASS
+  重新运行了哪些 gate，PASS 标准是什么。
 ```

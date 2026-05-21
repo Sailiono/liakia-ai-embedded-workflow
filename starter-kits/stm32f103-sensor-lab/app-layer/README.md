@@ -99,4 +99,10 @@ Liakia uses gates and evidence to locate the problem;
 after the fix, the same project can regress to PASS.
 ```
 
-Start with the base `liakia_lab_app.c`, confirm shell and `sensor id`, then inject a known-bad case.
+Start with the base `liakia_lab_app.c`, confirm shell and `sensor id`, then import a known-bad lab pack from:
+
+```text
+known-bad-cases/
+```
+
+Each case folder contains the broken file to import, a practice guide, and a separate answer key.

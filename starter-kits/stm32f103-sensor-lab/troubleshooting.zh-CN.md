@@ -61,9 +61,9 @@ SWD frequency
 - BMP280 power mode；
 - forced measurement 后是否等待转换；
 - calibration bytes 读取长度；
-- signed / unsigned；
-- little-endian 拼接；
-- compensation 公式。
+- decoded values 是否还能和 raw bytes 对上；
+- 导入的 known-bad app-layer 文件是否改变了数据路径；
+- data-quality gate 是在 compensation 前还是后失败。
 
 ## reset 后失败
 

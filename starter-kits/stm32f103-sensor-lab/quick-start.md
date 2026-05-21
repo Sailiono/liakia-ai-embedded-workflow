@@ -19,7 +19,7 @@ After the lab, you should have an evidence package containing:
 - per-gate logs;
 - an `ai_prompt.md` file ready for evidence-based AI diagnosis.
 
-The recommended first case is **Case B: BMP280 calibration endian bug**. It is not a trivial wrong-address bug:
+The recommended first case is **Case B: BMP280 data quality failure**. It is not a trivial wrong-address bug:
 
 ```text
 I2C works
@@ -222,10 +222,10 @@ If you do not want to flash, pass `-SkipFlash` explicitly. Missing `-Elf` is tre
 For the easiest training path, use the Case B practice card:
 
 ```text
-known-bad-cases/case-b-bmp280-calibration.md
+known-bad-cases/case-b-bmp280-calibration/README.md
 ```
 
-That page gives the application-layer location and the minimal injection instructions. Treat the known-bad change as a black-box exercise first: apply it, build it, flash it, and inspect the evidence before reading the answer key.
+That folder gives you the intentionally broken application-layer file and the practice guide. Treat the known-bad code as a black-box exercise first: import it, build it, flash it, inspect the evidence, and only then read `ANSWER.md`.
 
 Rebuild, flash, and run expected-failure mode:
 
@@ -273,7 +273,7 @@ AI diagnosis contract: [diagnosis-playbook.md](diagnosis-playbook.md).
 
 ## 9. Fix And Regress
 
-After AI diagnosis and human review, apply the minimal fix identified by the evidence. If you are stuck, read the Answer Key section in [case-b-bmp280-calibration.md](known-bad-cases/case-b-bmp280-calibration.md).
+After AI diagnosis and human review, apply the minimal fix identified by the evidence. If you are stuck, read [case-b-bmp280-calibration/ANSWER.md](known-bad-cases/case-b-bmp280-calibration/ANSWER.md).
 
 Rebuild, flash, and re-run the baseline without expected-failure flags:
 
@@ -310,7 +310,7 @@ Evidence package format: [evidence-template/README.md](evidence-template/README.
 | ST-LINK cannot connect | GND, SWDIO/SWCLK, BOOT0, SWD frequency, NRST |
 | No serial output | TX/RX crossing, COM port, 115200 8N1, receive interrupt |
 | `diag i2c` does not find BMP280 | Power, SDA/SCL, pull-ups, voltage, address |
-| `sensor id` passes but `sensor read` fails | calibration endian, signed/unsigned conversion, compensation formula |
+| `sensor id` passes but `sensor read` fails | compare raw bytes, decoded values, data-quality gate, and the imported case file |
 | failure after reset | reset recovery, I2C bus recovery, RCC_CSR reset reason |
 
 More troubleshooting notes: [troubleshooting.md](troubleshooting.md).

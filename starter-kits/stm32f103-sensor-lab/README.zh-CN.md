@@ -80,8 +80,8 @@ BMP280 比简单温度模块更适合做故障训练：
 - 有 I2C 总线；
 - 有固定 chip id；
 - 有校准参数区；
-- 有 signed / unsigned 和 little-endian 处理；
-- 有温度补偿算法，后续可扩展气压补偿；
+- 有多步 raw data decode 和补偿计算；
+- 后续可扩展气压补偿和更多数据质量 gate；
 - 有 reset 后重新初始化问题；
 - 容易做数据质量 gate。
 

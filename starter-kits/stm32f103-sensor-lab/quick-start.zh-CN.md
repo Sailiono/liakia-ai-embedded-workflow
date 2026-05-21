@@ -17,7 +17,7 @@
 - 每个 gate 的日志；
 - 可直接交给 AI 分析的 `ai_prompt.md`。
 
-第一版推荐复现 **Case B：BMP280 calibration endian bug**。它不是地址写错，而是：
+第一版推荐复现 **Case B：BMP280 数据质量失败**。它不是地址写错，而是：
 
 ```text
 I2C 能通
@@ -218,10 +218,10 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 最快的教学方式是按 Case B 练习卡片操作：
 
 ```text
-known-bad-cases/case-b-bmp280-calibration.zh-CN.md
+known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md
 ```
 
-该页面会给出应用层位置和最小注入方式。第一遍请把 known-bad 改动当成黑盒练习：先应用、编译、烧录、观察 evidence，再去看答案解析。
+该文件夹会给出故意改错的应用层文件和练习指南。第一遍请把 known-bad 代码当成黑盒练习：先导入、编译、烧录、观察 evidence，再去看 `ANSWER.zh-CN.md`。
 
 重新编译、烧录，然后用预期失败模式运行：
 
@@ -269,7 +269,7 @@ AI 诊断约束见 [diagnosis-playbook.zh-CN.md](diagnosis-playbook.zh-CN.md)。
 
 ## 9. 修复并回归
 
-AI 诊断和人工 review 后，只做 evidence 指向的最小修复。如果卡住，再去看 [case-b-bmp280-calibration.zh-CN.md](known-bad-cases/case-b-bmp280-calibration.zh-CN.md) 的答案解析。
+AI 诊断和人工 review 后，只做 evidence 指向的最小修复。如果卡住，再去看 [case-b-bmp280-calibration/ANSWER.zh-CN.md](known-bad-cases/case-b-bmp280-calibration/ANSWER.zh-CN.md)。
 
 重新编译、烧录、运行 baseline：
 
@@ -306,7 +306,7 @@ manifest generated
 | ST-LINK 连接失败 | GND、SWDIO/SWCLK、BOOT0、SWD 频率、NRST |
 | 串口无输出 | TX/RX 是否交叉、COM 口、115200 8N1、是否启动接收中断 |
 | `diag i2c` 找不到 BMP280 | 供电、SDA/SCL、上拉、电压、模块地址 |
-| `sensor id` PASS 但 `sensor read` FAIL | calibration endian、signed/unsigned、补偿公式 |
+| `sensor id` PASS 但 `sensor read` FAIL | 对比 raw bytes、decoded values、data-quality gate 和导入的 case 文件 |
 | reset 后失败 | reset recovery、I2C bus recovery、RCC_CSR reset reason |
 
 排查细节见 [troubleshooting.zh-CN.md](troubleshooting.zh-CN.md)。

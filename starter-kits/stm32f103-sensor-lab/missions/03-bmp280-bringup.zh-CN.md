@@ -35,7 +35,7 @@ SENSOR_ID addr=0x76 id=0x58 result=PASS
 TELEMETRY LK 76 58 xx crc=xxxx result=PASS
 ```
 
-如果你的 BMP280 模块地址是 0x77，应记录在 evidence 中。第一版基础 app-layer 会尝试 0x76 和 0x77，known-bad Case B 则故意固定 0x76，使地址变化也能成为可解释证据。
+如果你的 BMP280 模块地址是 0x77，应记录在 evidence 中。基础 app-layer 会尝试 0x76 和 0x77，这样在导入任何 known-bad case 前，地址差异已经有明确证据。
 
 ## 通过标准
 

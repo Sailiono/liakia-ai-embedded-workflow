@@ -2,6 +2,14 @@
 
 This mission closes the debug loop. The fix is not the finish line; regression evidence is.
 
+Do this mission only after you have:
+
+1. imported a known-bad case;
+2. reproduced the failing gate;
+3. generated the evidence package;
+4. asked AI to diagnose from evidence;
+5. reviewed the answer key for that case.
+
 ## Fix Principles
 
 The fix must:
@@ -9,20 +17,19 @@ The fix must:
 - be minimal;
 - explain why the change is needed;
 - match the failed evidence;
+- avoid unrelated IOC, HAL, or clock-tree changes;
 - rerun the same gates;
 - generate a new evidence package.
 
-## Case B Fix Example
+## Case-Specific Fix
 
-If AI plus human review confirms the issue is BMP280 calibration little-endian decoding, the fix belongs in the application layer:
+Each known-bad folder has its own answer key:
 
-```c
-static int16_t S16(const uint8_t *p) {
-  return (int16_t)(((uint16_t)p[1] << 8) | p[0]);
-}
+```text
+known-bad-cases/<case-folder>/ANSWER.md
 ```
 
-Do not casually rewrite the driver, change IOC, or adjust the clock tree.
+Use that answer key to confirm your diagnosis, then apply the smallest code change that matches the evidence. Do not replace a focused fix with a driver rewrite.
 
 ## Regression Commands
 
@@ -59,28 +66,24 @@ i2c scan PASS
 sensor id PASS
 data quality PASS
 telemetry CRC PASS
-reset recovery PASS
+reset recovery PASS or explicit skip reason
 manifest GENERATED
 ```
 
-## Handoff Summary
+## Handoff Summary Template
 
 After the fix, produce a short handoff:
 
 ```text
 Issue:
-  BMP280 chip id passed but compensated temperature was invalid.
+  What failed, using gate names and exact output.
 
 Evidence:
-  Raw calibration bytes and raw ADC values were readable.
-  Failure was isolated to application-layer compensation.
+  Which logs, raw values, and register or memory evidence supported the diagnosis.
 
 Fix:
-  Corrected signed 16-bit little-endian decoding for calibration values.
+  File changed, exact code area, and why this is the smallest valid fix.
 
 Regression:
-  sensor id PASS
-  data quality PASS
-  telemetry CRC PASS
-  reset recovery PASS
+  Gates rerun and PASS criteria.
 ```

@@ -25,16 +25,15 @@ Hardware:
 
 Current symptoms:
   sensor id PASS
-  raw calibration readable
-  raw temperature ADC is non-zero
-  compensated temperature out of physical range
+  raw sensor/protocol bytes are readable
+  one later data-quality gate fails
   data-quality gate FAIL
 
 Logs:
   Paste version / diag i2c / sensor id / sensor read / telemetry once output.
 
 Relevant code:
-  Paste calibration decode and compensation functions.
+  Paste the imported known-bad app-layer file or the smallest suspicious functions.
 
 Constraints:
   First inspect the application layer.
@@ -87,8 +86,8 @@ Symptoms:
 - version PASS
 - diag i2c found 0x76
 - sensor id returns 0x58 PASS
-- raw calibration bytes are readable
-- compensated temperature is outside the physical range
+- raw sensor bytes are readable
+- a later data-quality gate FAILs
 - data-quality gate FAIL
 
 Please analyze:
@@ -101,7 +100,7 @@ Please analyze:
 Constraints:
 - Do not change IOC unless evidence points to low-level configuration.
 - Do not rewrite the whole driver.
-- Prioritize calibration endian, signed/unsigned handling, and integer width.
+- Rank hypotheses from evidence instead of jumping to a predefined answer.
 ```
 
 ## Human Review Boundary
