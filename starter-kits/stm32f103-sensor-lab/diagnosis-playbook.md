@@ -14,7 +14,7 @@ This is under-specified. The assistant can only guess.
 
 ```text
 Goal:
-  I am running known-bad Case B in the STM32F103C8T6 + BMP280 lab.
+  I am running known-bad Case A in the STM32F103C8T6 + BMP280 lab.
 
 Hardware:
   MCU: STM32F103C8T6
@@ -73,7 +73,7 @@ Ask the assistant to answer in this structure:
 - PASS criteria
 ```
 
-## Case B Example Prompt
+## Case A Example Prompt
 
 ```text
 You are an embedded firmware debugging assistant. Analyze only from evidence. Do not invent broken hardware claims.

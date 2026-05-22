@@ -1,4 +1,4 @@
-# Case A 答案 — I2C Reset Recovery 失败
+# Case B 答案 — I2C Reset Recovery 失败
 
 ## 预期现象
 

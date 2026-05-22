@@ -10,7 +10,7 @@
   -BuildCommand "cmake --build --preset Debug" `
   -Elf build/Debug/app.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 它会依次执行：
@@ -38,7 +38,7 @@ evidence manifest
   -SkipBuild `
   -Elf Debug\app.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -ExpectedFailureGate data_quality `
   -AllowExpectedFailure
 ```
@@ -52,7 +52,7 @@ evidence manifest
 ```powershell
 .\diagnose_starter_f103.ps1 `
   -EvidenceDir C:\path\to\evidence-out\starter-f103-YYYYMMDD-HHMMSS `
-  -Case case-b
+  -Case case-a
 ```
 
 输出：

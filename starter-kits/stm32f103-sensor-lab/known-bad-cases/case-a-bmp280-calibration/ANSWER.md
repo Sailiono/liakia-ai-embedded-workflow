@@ -1,4 +1,4 @@
-# Case B Answer — BMP280 Data Quality Failure
+# Case A Answer — BMP280 Data Quality Failure
 
 ## Expected Symptom
 

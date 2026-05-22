@@ -38,10 +38,10 @@ The cases are intentionally not all equally easy. They are designed to show wher
 
 | Recommended order | Case | What it trains |
 |---:|---|---|
-| 1 | Case B — BMP280 data quality | I2C and chip ID pass, but decoded sensor data is not credible. |
-| 2 | Case A — I2C reset recovery | The bus can fail after reset, requiring state and recovery reasoning. |
-| 3 | Case D — Flash persistence | A value saves but does not survive reset correctly. |
-| 4 | Case C — UART DMA/IDLE stream | Stream boundaries and timing create a harder diagnosis problem. |
+| 1 | Case A — BMP280 data quality | I2C and chip ID pass, but decoded sensor data is not credible. |
+| 2 | Case B — I2C reset recovery | The bus can fail after reset, requiring state and recovery reasoning. |
+| 3 | Case C — Flash persistence | A value saves but does not survive reset correctly. |
+| 4 | Case D — UART DMA/IDLE stream | Stream boundaries and timing create a harder diagnosis problem. |
 
 Each case folder contains broken app-layer files, a practice guide, and a separate answer key. Do not open the answer key before your own attempt.
 
@@ -49,7 +49,7 @@ Each case folder contains broken app-layer files, a practice guide, and a separa
 
 Use AI as a diagnosis partner, not as an oracle.
 
-1. Run the failing case and generate evidence.
+1. Run the failing case bnd generate evidence.
 2. Spend 15-30 minutes diagnosing manually.
 3. Record the symptom, ruled-out causes, hypothesis, and elapsed time.
 4. Generate `ai_prompt.md`.

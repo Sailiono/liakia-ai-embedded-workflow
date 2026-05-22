@@ -1,8 +1,8 @@
 param(
     [Parameter(Mandatory = $true)]
     [string]$EvidenceDir,
-    [ValidateSet("case-b", "case-a", "case-c", "case-d", "generic")]
-    [string]$Case = "case-b",
+    [ValidateSet("case-a", "case-b", "case-c", "case-d", "generic")]
+    [string]$Case = "case-a",
     [int]$MaxLogChars = 5000
 )
 
@@ -51,16 +51,16 @@ function Read-LogSnippet([string]$Path, [int]$Limit) {
 
 function Get-CaseFocus([string]$CaseName) {
     switch ($CaseName) {
-        "case-a" {
+        "case-b" {
             return "Focus on software-reset I2C recovery, SDA/SCL idle state, I2C BUSY, RCC_CSR reset reason, and GPIOB PB6/PB7 mode."
         }
-        "case-b" {
+        "case-a" {
             return "Focus on BMP280 calibration endian, signed 16-bit decode, integer width, raw ADC plausibility, and data-quality gates."
         }
-        "case-c" {
+        "case-d" {
             return "Focus on USART IDLE interrupt ordering, DMA NDTR snapshot timing, ring buffer indexes, frame truncation, and CRC clustering."
         }
-        "case-d" {
+        "case-c" {
             return "Focus on Flash half-word writes, page erase boundary, struct padding, CRC range, config version, and post-reset reload."
         }
     }

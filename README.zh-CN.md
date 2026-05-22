@@ -84,7 +84,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -ProjectRoot C:\work\f103-liakia `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 ## 边界

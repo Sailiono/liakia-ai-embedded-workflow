@@ -86,7 +86,7 @@ First-pass command set:
 | `diag i2c` | Print I2C scan summary |
 | `reset` | Software reset for reset recovery gate |
 
-`config get/set/save` belongs to the later Case D Flash persistence path. It is intentionally excluded from the base app so the first user run does not mix sensor and Flash problems.
+`config get/set/save` belongs to the later Case C Flash persistence path. It is intentionally excluded from the base app so the first user run does not mix sensor and Flash problems.
 
 ## Known-Bad Principle
 

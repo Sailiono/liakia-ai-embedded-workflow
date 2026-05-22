@@ -107,7 +107,7 @@ decoded calibration values plausible
 temperature_x100 between -4000 and 8500
 ```
 
-The base application currently enables only the BMP280 temperature compensation path. Pressure compensation is reserved for later expansion. Case B fails primarily at this gate.
+The base application currently enables only the BMP280 temperature compensation path. Pressure compensation is reserved for later expansion. Case A fails primarily at this gate.
 
 ## Telemetry CRC Gate
 
@@ -160,7 +160,7 @@ I2C no ACK after reset
 sensor id fails after reset
 ```
 
-This gate becomes more important for Case A and Case D.
+This gate becomes more important for Case B and Case C.
 
 ## Register Probe Gate
 
@@ -181,7 +181,7 @@ RCC_CSR
 FLASH_SR
 ```
 
-The first lab can treat register probing as optional. Case B can still be completed with serial evidence only, but register snapshots improve handoff quality.
+The first lab can treat register probing as optional. Case A can still be completed with serial evidence only, but register snapshots improve handoff quality.
 
 ## Automation Contract
 
@@ -193,7 +193,7 @@ tools/run_starter_f103.ps1 `
   -BuildCommand "cmake --build --preset Debug" `
   -Elf build/Debug/app.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -OutputDir evidence-out/starter-f103
 ```
 
@@ -207,7 +207,7 @@ tools/run_starter_f103.ps1 `
   -BuildCommand "cmake --build --preset Debug" `
   -Elf build/Debug/app.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -ExpectedFailureGate data_quality `
   -AllowExpectedFailure
 ```

@@ -16,7 +16,7 @@
 
 ```text
 目标：
-  我在 STM32F103C8T6 + BMP280 Lab 中运行 Case B。
+  我在 STM32F103C8T6 + BMP280 Lab 中运行 Case A。
 
 硬件：
   MCU: STM32F103C8T6
@@ -74,7 +74,7 @@
 - PASS 标准
 ```
 
-## Case B 示例提示词
+## Case A 示例提示词
 
 ```text
 你是嵌入式固件调试助手。请基于证据分析，不要凭空猜硬件损坏。

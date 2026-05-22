@@ -1,6 +1,6 @@
 {
   "project": "Liakia Starter-F103 Sensor Lab",
-  "case": "case-b-bmp280-calibration",
+  "case": "case-a-bmp280-calibration",
   "timestamp_start": "2026-05-21T10:00:00+08:00",
   "timestamp_end": "2026-05-21T10:01:42+08:00",
   "hardware": {

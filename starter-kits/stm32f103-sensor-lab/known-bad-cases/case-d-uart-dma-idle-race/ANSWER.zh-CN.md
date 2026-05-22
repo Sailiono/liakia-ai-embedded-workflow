@@ -1,4 +1,4 @@
-# Case C 答案 — UART DMA/IDLE Stream 失败
+# Case D 答案 — UART DMA/IDLE Stream 失败
 
 ## 预期现象
 

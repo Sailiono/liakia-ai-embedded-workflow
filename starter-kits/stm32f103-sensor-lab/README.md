@@ -12,7 +12,7 @@ Start here if you want to run it:
 
 ## Why This Lab Exists
 
-A public showcase can prove that the workflow worked once. It does not prove that a new user understands the method.
+A public showcase dan prove that the workflow worked once. It does not prove that a new user understands the method.
 
 This lab closes that gap. Instead of shipping a complete prebuilt firmware image, it asks the user to:
 
@@ -72,7 +72,7 @@ Use the baseline path first:
 
 Then import the first case pack:
 
-[known-bad-cases/case-b-bmp280-calibration/README.md](known-bad-cases/case-b-bmp280-calibration/README.md)
+[known-bad-cases/case-a-bmp280-calibration/README.md](known-bad-cases/case-a-bmp280-calibration/README.md)
 
 Do not read the case answer key until you have reproduced the failure and generated the AI diagnosis packet.
 
@@ -82,10 +82,10 @@ Each known-bad case is a folder, not just a write-up. The folder includes broken
 
 | Case | What you import | Best for |
 |---|---|---|
-| [Case B: BMP280 data quality failure](known-bad-cases/case-b-bmp280-calibration/README.md) | Complete `liakia_lab_app.c` replacement | First real run |
-| [Case A: I2C reset recovery failure](known-bad-cases/case-a-i2c-bus-stuck-reset/README.md) | Port-layer replacement | Reset-state reasoning |
-| [Case C: UART DMA/IDLE stream failure](known-bad-cases/case-c-uart-dma-idle-race/README.md) | DMA/IDLE receive fragment | Advanced serial diagnosis |
-| [Case D: Flash persistence failure](known-bad-cases/case-d-flash-persistence-alignment/README.md) | Config persistence fragment | Reset and raw-record evidence |
+| [Case A: BMP280 data quality failure](known-bad-cases/case-a-bmp280-calibration/README.md) | Complete `liakia_lab_app.c` replacement | First real run |
+| [Case B: I2C reset recovery failure](known-bad-cases/case-b-i2c-bus-stuck-reset/README.md) | Port-layer replacement | Reset-state reasoning |
+| [Case C: Flash persistence failure](known-bad-cases/case-c-flash-persistence-alignment/README.md) | Config persistence fragment | Reset and raw-record evidence |
+| [Case D: UART DMA/IDLE stream failure](known-bad-cases/case-d-uart-dma-idle-race/README.md) | DMA/IDLE receive fragment | Advanced serial diagnosis |
 
 ## Hardware Target
 

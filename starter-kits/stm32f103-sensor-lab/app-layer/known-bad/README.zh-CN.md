@@ -14,4 +14,4 @@
 
 第一推荐练习：
 
-[Case B：BMP280 数据质量失败](../../known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md)
+[Case A：BMP280 数据质量失败](../../known-bad-cases/case-a-bmp280-calibration/README.zh-CN.md)

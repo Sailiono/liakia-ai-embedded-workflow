@@ -18,15 +18,15 @@ the fix remains minimal and reviewable
 
 ## Recommended First Case
 
-Use the Case B folder:
+Use the Case A folder:
 
 ```text
-known-bad-cases/case-b-bmp280-calibration/
+known-bad-cases/case-a-bmp280-calibration/
 ```
 
 Follow its practice guide first:
 
-[Case B practice guide](../known-bad-cases/case-b-bmp280-calibration/README.md)
+[Case A practice guide](../known-bad-cases/case-a-bmp280-calibration/README.md)
 
 Do not open the answer key until the failing evidence package exists and you have tried the AI diagnosis prompt.
 
@@ -63,7 +63,7 @@ Do not send only a single symptom sentence to the AI. Provide:
 ```text
 Hardware: STM32F103C8T6 + BMP280
 Interface: I2C1 PB6/PB7 100 kHz
-Imported case folder: known-bad-cases/case-b-bmp280-calibration
+Imported case folder: known-bad-cases/case-a-bmp280-calibration
 Logs: paste diag i2c / sensor id / sensor read / telemetry once
 Code: paste only the imported app-layer file or the suspicious functions
 Constraint: reason from evidence first; do not blame hardware unless logs support it

@@ -14,4 +14,4 @@ Use the case folders there instead of importing fragments from this legacy locat
 
 Recommended first case:
 
-[Case B: BMP280 data quality failure](../../known-bad-cases/case-b-bmp280-calibration/README.md)
+[Case A: BMP280 data quality failure](../../known-bad-cases/case-a-bmp280-calibration/README.md)

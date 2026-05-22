@@ -107,7 +107,7 @@ decoded calibration values plausible
 temperature_x100 between -4000 and 8500
 ```
 
-当前基础应用只启用 BMP280 温度补偿路径；气压补偿留到后续扩展。Case B 的主要失败点就是这个关卡。
+当前基础应用只启用 BMP280 温度补偿路径；气压补偿留到后续扩展。Case A 的主要失败点就是这个关卡。
 
 ## Telemetry CRC 关卡
 
@@ -160,7 +160,7 @@ reset 后 I2C no ACK
 reset 后 sensor id FAIL
 ```
 
-这个关卡对 Case A 和 Case D 很重要。
+这个关卡对 Case B 和 Case C 很重要。
 
 ## Register Probe 关卡
 
@@ -181,7 +181,7 @@ RCC_CSR
 FLASH_SR
 ```
 
-第一版可以把寄存器快照做成可选项。没有 ST-LINK register dump 时，仍然可以通过串口证据完成 Case B。
+第一版可以把寄存器快照做成可选项。没有 ST-LINK register dump 时，仍然可以通过串口证据完成 Case A。
 
 ## 自动化脚本契约
 
@@ -193,7 +193,7 @@ tools/run_starter_f103.ps1 `
   -BuildCommand "cmake --build --preset Debug" `
   -Elf build/Debug/app.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -OutputDir evidence-out/starter-f103
 ```
 
@@ -207,7 +207,7 @@ tools/run_starter_f103.ps1 `
   -BuildCommand "cmake --build --preset Debug" `
   -Elf build/Debug/app.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -ExpectedFailureGate data_quality `
   -AllowExpectedFailure
 ```

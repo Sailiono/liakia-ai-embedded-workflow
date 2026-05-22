@@ -1,4 +1,4 @@
-# Case A — I2C Reset Recovery 失败
+# Case B — I2C Reset Recovery 失败
 
 这是硬件状态类练习。建议先让基础 BMP280 Lab 跑通，再做 reset-recovery 检查或手工 reset 对比。
 
@@ -7,7 +7,7 @@
 ## 文件内容
 
 ```text
-case-a-i2c-bus-stuck-reset/
+case-b-i2c-bus-stuck-reset/
   app-layer/port-template/liakia_lab_port_stm32f103.c
   README.md
   README.zh-CN.md

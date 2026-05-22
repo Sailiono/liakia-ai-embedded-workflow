@@ -18,15 +18,15 @@ AI 分析基于日志、协议帧和寄存器证据
 
 ## 第一推荐 case
 
-使用 Case B 文件夹：
+使用 Case A 文件夹：
 
 ```text
-known-bad-cases/case-b-bmp280-calibration/
+known-bad-cases/case-a-bmp280-calibration/
 ```
 
 先按练习指南操作：
 
-[Case B 练习指南](../known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md)
+[Case A 练习指南](../known-bad-cases/case-a-bmp280-calibration/README.zh-CN.md)
 
 在生成失败证据包并尝试 AI 诊断之前，不要打开答案文件。
 
@@ -63,7 +63,7 @@ USART1_BRR
 ```text
 硬件：STM32F103C8T6 + BMP280
 接口：I2C1 PB6/PB7 100 kHz
-导入的 case 文件夹：known-bad-cases/case-b-bmp280-calibration
+导入的 case 文件夹：known-bad-cases/case-a-bmp280-calibration
 日志：贴 diag i2c / sensor id / sensor read / telemetry once 输出
 代码：只贴导入的 app-layer 文件或可疑函数
 约束：优先基于证据推理，不要在日志不支持时怀疑硬件

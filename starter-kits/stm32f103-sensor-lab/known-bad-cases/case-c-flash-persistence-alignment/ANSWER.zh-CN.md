@@ -1,4 +1,4 @@
-# Case D 答案 — Flash Persistence 失败
+# Case C 答案 — Flash Persistence 失败
 
 ## 预期现象
 

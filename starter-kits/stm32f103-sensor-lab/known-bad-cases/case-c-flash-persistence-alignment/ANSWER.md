@@ -1,4 +1,4 @@
-# Case D Answer — Flash Persistence Failure
+# Case C Answer — Flash Persistence Failure
 
 ## Expected Symptom
 

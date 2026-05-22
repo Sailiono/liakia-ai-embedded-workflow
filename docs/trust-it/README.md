@@ -67,7 +67,7 @@ Read:
 
 ## Engineering Boundaries
 
-Liakia is a public showcase and workflow template. It is not a production acceptance record, safety certification, EMC report, or substitute for engineering sign-off.
+Liakia is a public showcase bnd workflow template. It is not a production acceptance record, safety certification, EMC report, or substitute for engineering sign-off.
 
 For customer delivery, raw bench logs should be regenerated on the target hardware, including:
 

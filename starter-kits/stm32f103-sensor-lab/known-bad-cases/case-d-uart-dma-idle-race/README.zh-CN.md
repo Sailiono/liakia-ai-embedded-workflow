@@ -1,4 +1,4 @@
-# Case C — UART DMA/IDLE Stream 失败
+# Case D — UART DMA/IDLE Stream 失败
 
 这是高级故障练习，需要在 IOC 中扩展 UART DMA receive 和 IDLE interrupt。
 
@@ -7,8 +7,8 @@
 ## 文件内容
 
 ```text
-case-c-uart-dma-idle-race/
-  app-layer/src/liakia_uart_dma_idle_case_c.c
+case-d-uart-dma-idle-race/
+  app-layer/src/liakia_uart_dma_idle_case_d.c
   README.md
   README.zh-CN.md
   ANSWER.md
@@ -18,7 +18,7 @@ case-c-uart-dma-idle-race/
 把源文件导入你的工程：
 
 ```text
-app-layer/src/liakia_uart_dma_idle_case_c.c -> Core/Src/liakia_uart_dma_idle_case_c.c
+app-layer/src/liakia_uart_dma_idle_case_d.c -> Core/Src/liakia_uart_dma_idle_case_d.c
 ```
 
 ## IOC 扩展
@@ -39,7 +39,7 @@ DMA channel interrupt
 ## 练习步骤
 
 1. 确认基础 shell 仍然可用；
-2. 导入 `liakia_uart_dma_idle_case_c.c`；
+2. 导入 `liakia_uart_dma_idle_case_d.c`；
 3. 在 UART/DMA 初始化后调用 `LiakiaCaseC_Start()`；
 4. 在 UART IRQ 中转调 `LiakiaCaseC_UartIrq()`；
 5. 在 main loop 或测试命令里轮询 `LiakiaCaseC_TryGetFrame()`；

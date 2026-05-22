@@ -1,4 +1,4 @@
-# Case A — I2C Reset Recovery Failure
+# Case B — I2C Reset Recovery Failure
 
 This is a hardware-state exercise. It is best after the base BMP280 lab already works and after you have a reset-recovery gate or manual reset test.
 
@@ -7,7 +7,7 @@ Do not open [ANSWER.md](ANSWER.md) before collecting cold-boot and post-reset ev
 ## Files In This Pack
 
 ```text
-case-a-i2c-bus-stuck-reset/
+case-b-i2c-bus-stuck-reset/
   app-layer/port-template/liakia_lab_port_stm32f103.c
   README.md
   README.zh-CN.md

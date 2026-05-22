@@ -53,7 +53,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -ProjectRoot C:\path\to\your\cubemx-project `
   -Elf Debug\app.elf `
   -ComPort COMx `
-  -Case case-b
+  -Case case-a
 ```
 
 ## PASS 标准

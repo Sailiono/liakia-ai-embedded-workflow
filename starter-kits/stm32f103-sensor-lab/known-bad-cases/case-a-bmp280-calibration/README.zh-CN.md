@@ -1,4 +1,4 @@
-# Case B — BMP280 数据质量失败
+# Case A — BMP280 数据质量失败
 
 这是第一推荐的故障练习。它使用基础 Starter Lab 的 STM32F103C8T6 + BMP280 硬件。
 
@@ -7,7 +7,7 @@
 ## 文件内容
 
 ```text
-case-b-bmp280-calibration/
+case-a-bmp280-calibration/
   app-layer/src/liakia_lab_app.c
   README.md
   README.zh-CN.md
@@ -69,7 +69,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -SkipBuild `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -ExpectedFailureGate data_quality `
   -AllowExpectedFailure
 ```
@@ -83,7 +83,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 ```powershell
 starter-kits/stm32f103-sensor-lab/tools/diagnose_starter_f103.ps1 `
   -EvidenceDir C:\work\f103-liakia\evidence-out\starter-f103-YYYYMMDD-HHMMSS `
-  -Case case-b
+  -Case case-a
 ```
 
 向 AI 提问：

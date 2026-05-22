@@ -74,10 +74,10 @@ FLASH_SR
 Add application-layer files for:
 
 ```text
-case-a-i2c-bus-stuck-reset
-case-b-bmp280-calibration
-case-c-uart-dma-idle-race
-case-d-flash-persistence-alignment
+case-a-bmp280-calibration
+case-b-i2c-bus-stuck-reset
+case-c-flash-persistence-alignment
+case-d-uart-dma-idle-race
 ```
 
 Each case should include:

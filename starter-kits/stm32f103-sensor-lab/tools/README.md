@@ -10,7 +10,7 @@ Run the full Starter-F103 baseline:
   -BuildCommand "cmake --build --preset Debug" `
   -Elf build/Debug/app.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 It executes:
@@ -38,7 +38,7 @@ Expected-failure mode for known-bad training:
   -SkipBuild `
   -Elf Debug\app.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -ExpectedFailureGate data_quality `
   -AllowExpectedFailure
 ```
@@ -52,7 +52,7 @@ Read an evidence package and generate an AI prompt plus a triage summary:
 ```powershell
 .\diagnose_starter_f103.ps1 `
   -EvidenceDir C:\path\to\evidence-out\starter-f103-YYYYMMDD-HHMMSS `
-  -Case case-b
+  -Case case-a
 ```
 
 Outputs:

@@ -22,7 +22,7 @@ Generate an empty HAL project that builds, flashes, and keeps SWD debug access a
 | Feature | Reason |
 |---|---|
 | FreeRTOS | First verify bare-loop peripherals and evidence chain |
-| UART DMA | Introduce later in Case C |
+| UART DMA | Introduce later in Case D |
 | I2C 400 kHz | Makes wiring and pull-up issues harder to isolate |
 | USB CDC | Blue Pill USB hardware varies; keep the first path lower-friction |
 

@@ -26,7 +26,7 @@ evidence-out/starter-f103-YYYYMMDD-HHMMSS/
 ```json
 {
   "project": "Liakia Starter-F103 Sensor Lab",
-  "case": "case-b-bmp280-calibration",
+  "case": "case-a-bmp280-calibration",
   "timestamp_start": "YYYY-MM-DDTHH:mm:ss+08:00",
   "timestamp_end": "YYYY-MM-DDTHH:mm:ss+08:00",
   "hardware": {

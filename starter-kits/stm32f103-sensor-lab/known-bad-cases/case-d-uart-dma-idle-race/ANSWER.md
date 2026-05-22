@@ -1,4 +1,4 @@
-# Case C Answer — UART DMA/IDLE Stream Failure
+# Case D Answer — UART DMA/IDLE Stream Failure
 
 ## Expected Symptom
 

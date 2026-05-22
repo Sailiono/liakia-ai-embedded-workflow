@@ -74,10 +74,10 @@ FLASH_SR
 把以下 case 的应用层文件补齐：
 
 ```text
-case-a-i2c-bus-stuck-reset
-case-b-bmp280-calibration
-case-c-uart-dma-idle-race
-case-d-flash-persistence-alignment
+case-a-bmp280-calibration
+case-b-i2c-bus-stuck-reset
+case-c-flash-persistence-alignment
+case-d-uart-dma-idle-race
 ```
 
 每个 case 都应有：

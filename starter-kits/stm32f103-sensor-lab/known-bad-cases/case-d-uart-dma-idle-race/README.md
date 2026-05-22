@@ -1,4 +1,4 @@
-# Case C — UART DMA/IDLE Stream Failure
+# Case D — UART DMA/IDLE Stream Failure
 
 This is an advanced known-bad exercise. It requires an IOC extension for UART DMA receive and IDLE interrupt handling.
 
@@ -7,8 +7,8 @@ Do not open [ANSWER.md](ANSWER.md) before collecting low-rate and high-rate stre
 ## Files In This Pack
 
 ```text
-case-c-uart-dma-idle-race/
-  app-layer/src/liakia_uart_dma_idle_case_c.c
+case-d-uart-dma-idle-race/
+  app-layer/src/liakia_uart_dma_idle_case_d.c
   README.md
   README.zh-CN.md
   ANSWER.md
@@ -18,7 +18,7 @@ case-c-uart-dma-idle-race/
 Import the source file into your project:
 
 ```text
-app-layer/src/liakia_uart_dma_idle_case_c.c -> Core/Src/liakia_uart_dma_idle_case_c.c
+app-layer/src/liakia_uart_dma_idle_case_d.c -> Core/Src/liakia_uart_dma_idle_case_d.c
 ```
 
 ## IOC Extension
@@ -39,7 +39,7 @@ Keep the first attempt simple. Do not add FreeRTOS or multiple producers until t
 ## Practice Steps
 
 1. Confirm the base shell still works.
-2. Import `liakia_uart_dma_idle_case_c.c`.
+2. Import `liakia_uart_dma_idle_case_d.c`.
 3. Call `LiakiaCaseC_Start()` after UART/DMA init.
 4. Forward the UART IRQ to `LiakiaCaseC_UartIrq()`.
 5. Poll `LiakiaCaseC_TryGetFrame()` from the main loop or a test command.

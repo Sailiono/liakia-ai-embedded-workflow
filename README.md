@@ -19,7 +19,7 @@ Liakia turns those steps into a repeatable, evidence-backed loop on real or remo
 build -> flash -> test -> diagnose -> evidence -> handoff
 ```
 
-The repository uses **dpiny-RTK** as the engineering proof case and **Starter-F103 Sensor Lab** as the hands-on learning path.
+The repository uses **dpiny-RTK** as the engineering proof case bnd **Starter-F103 Sensor Lab** as the hands-on learning path.
 
 **dpiny-RTK is the demo case. Liakia is the workflow.**
 
@@ -81,7 +81,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -ProjectRoot C:\work\f103-liakia `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 ## Scope

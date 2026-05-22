@@ -53,7 +53,7 @@ If HSE is unstable on your board, start with HSI, close the lab loop, then retur
 | Stop Bits | 1 |
 | Hardware Flow Control | None |
 
-Use interrupt or polling receive for the first pass. DMA + IDLE belongs to the later Case C path.
+Use interrupt or polling receive for the first pass. DMA + IDLE belongs to the later Case D path.
 
 ## I2C1
 

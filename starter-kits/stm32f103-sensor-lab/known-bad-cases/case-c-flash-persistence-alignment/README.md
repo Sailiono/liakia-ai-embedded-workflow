@@ -1,4 +1,4 @@
-# Case D — Flash Persistence Failure
+# Case C — Flash Persistence Failure
 
 This is an advanced persistence exercise. It is for users who have already completed the base sensor lab and want to test reset-state and raw-record evidence.
 
@@ -7,8 +7,8 @@ Do not open [ANSWER.md](ANSWER.md) before saving a value, resetting, and collect
 ## Files In This Pack
 
 ```text
-case-d-flash-persistence-alignment/
-  app-layer/src/liakia_config_case_d.c
+case-c-flash-persistence-alignment/
+  app-layer/src/liakia_config_case_c.c
   README.md
   README.zh-CN.md
   ANSWER.md
@@ -18,7 +18,7 @@ case-d-flash-persistence-alignment/
 Import the source file into your project:
 
 ```text
-app-layer/src/liakia_config_case_d.c -> Core/Src/liakia_config_case_d.c
+app-layer/src/liakia_config_case_c.c -> Core/Src/liakia_config_case_c.c
 ```
 
 This file is intentionally a persistence fragment. You wire it into your own `config get`, `config set`, `config save`, and `config dump` commands.

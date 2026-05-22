@@ -7,8 +7,8 @@ param(
     [string]$ConnectArgs = "port=SWD freq=4000",
     [string]$ComPort = "COM4",
     [int]$Baud = 115200,
-    [ValidateSet("case-b", "case-a", "case-c", "case-d", "generic")]
-    [string]$Case = "case-b",
+    [ValidateSet("case-a", "case-b", "case-c", "case-d", "generic")]
+    [string]$Case = "case-a",
     [string]$OutputDir = "",
     [string]$ExpectedFailureGate = "",
     [switch]$AllowExpectedFailure,

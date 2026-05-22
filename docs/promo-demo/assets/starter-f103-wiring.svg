@@ -27,8 +27,13 @@
     <path d="M318 358H178" stroke="#80ff72" stroke-width="6" stroke-linecap="round" stroke-dasharray="12 12"/>
     <path d="M798 238H936" stroke="#ffb84d" stroke-width="6" stroke-linecap="round"/>
     <path d="M798 278H936" stroke="#ffb84d" stroke-width="6" stroke-linecap="round" stroke-dasharray="12 12"/>
-    <path d="M410 430V470H670" stroke="#8a8f89" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M450 430V500H670" stroke="#ff6b64" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g>
+    <line x1="450" y1="430" x2="450" y2="462" stroke="#ff6b64" stroke-width="5" stroke-linecap="round"/>
+    <line x1="450" y1="462" x2="704" y2="462" stroke="#ff6b64" stroke-width="5" stroke-linecap="round"/>
+    <line x1="410" y1="430" x2="410" y2="512" stroke="#8a8f89" stroke-width="5" stroke-linecap="round"/>
+    <line x1="410" y1="512" x2="704" y2="512" stroke="#8a8f89" stroke-width="5" stroke-linecap="round"/>
   </g>
 
   <g transform="translate(318 100)">
@@ -78,14 +83,11 @@
     <text x="69" y="98" text-anchor="middle" fill="#b8beb8" font-family="Segoe UI, Arial" font-size="13">sensor gate</text>
   </g>
 
-  <circle cx="670" cy="470" r="5" fill="#8a8f89"/>
-  <circle cx="670" cy="500" r="5" fill="#ff6b64"/>
-  <text x="520" y="462" fill="#8a8f89" font-family="Cascadia Code, Consolas, monospace" font-size="12">GND shared rail</text>
-  <text x="520" y="492" fill="#ff6b64" font-family="Cascadia Code, Consolas, monospace" font-size="12">3V3 sensor power</text>
-
-  <g transform="translate(724 430)">
+  <circle cx="704" cy="462" r="5" fill="#ff6b64"/>
+  <circle cx="704" cy="512" r="5" fill="#8a8f89"/>
+  <g transform="translate(742 438)">
     <rect width="234" height="74" rx="12" fill="#171c18" stroke="#f4f1e8" stroke-opacity="0.18"/>
-    <text x="18" y="28" fill="#8a8f89" font-family="Cascadia Code, Consolas, monospace" font-size="13">GND: shared ground</text>
-    <text x="18" y="54" fill="#ff6b64" font-family="Cascadia Code, Consolas, monospace" font-size="13">3V3: sensor power</text>
+    <text x="18" y="28" fill="#ff6b64" font-family="Cascadia Code, Consolas, monospace" font-size="13">3V3: sensor power</text>
+    <text x="18" y="54" fill="#8a8f89" font-family="Cascadia Code, Consolas, monospace" font-size="13">GND: shared ground</text>
   </g>
 </svg>

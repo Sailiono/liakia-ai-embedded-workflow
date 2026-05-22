@@ -86,7 +86,7 @@ LiakiaStatus LiakiaPlatform_I2cReadMem(uint8_t addr7, uint8_t reg, uint8_t *data
 | `diag i2c` | 输出 I2C scan 摘要 |
 | `reset` | 软件复位，用于 reset recovery 检查 |
 
-`config get/set/save` 属于后续 Case D：Flash persistence，不在当前基础应用中实现，避免新手第一轮同时处理传感器和 Flash 两条问题线。
+`config get/set/save` 属于后续 Case C：Flash persistence，不在当前基础应用中实现，避免新手第一轮同时处理传感器和 Flash 两条问题线。
 
 ## 故障练习应用层原则
 

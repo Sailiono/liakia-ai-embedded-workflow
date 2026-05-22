@@ -1,4 +1,4 @@
-# Case A Answer — I2C Reset Recovery Failure
+# Case B Answer — I2C Reset Recovery Failure
 
 ## Expected Symptom
 

@@ -190,7 +190,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -BuildCommand "cmake --build --preset Debug" `
   -Elf build\Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 如果你用 STM32CubeIDE 编译，可以先在 IDE 里 build，然后让 runner 跳过 build：
@@ -201,7 +201,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -SkipBuild `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 如果你暂时不想烧录，必须显式写 `-SkipFlash`。没有 `-Elf` 时 runner 会失败，避免误以为已经测试了新固件。
@@ -214,10 +214,10 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 
 | 训练顺序 | Case | 练习重点 | 入口 |
 |---:|---|---|---|
-| 1 | Case B | BMP280 chip ID 正常但数据质量失败，适合第一次体验证据驱动诊断 | [case-b-bmp280-calibration](known-bad-cases/case-b-bmp280-calibration/README.zh-CN.md) |
-| 2 | Case A | reset 后 I2C 恢复失败，需要结合 reset recovery、GPIO/I2C 状态推理 | [case-a-i2c-bus-stuck-reset](known-bad-cases/case-a-i2c-bus-stuck-reset/README.zh-CN.md) |
-| 3 | Case D | Flash 配置持久化失败，需要对比 reset 前后记录和原始存储记录 | [case-d-flash-persistence-alignment](known-bad-cases/case-d-flash-persistence-alignment/README.zh-CN.md) |
-| 4 | Case C | UART DMA/IDLE stream 边界问题，需要分析速率、截断和 CRC/帧边界 | [case-c-uart-dma-idle-race](known-bad-cases/case-c-uart-dma-idle-race/README.zh-CN.md) |
+| 1 | Case A | BMP280 chip ID 正常但数据质量失败，适合第一次体验证据驱动诊断 | [case-a-bmp280-calibration](known-bad-cases/case-a-bmp280-calibration/README.zh-CN.md) |
+| 2 | Case B | reset 后 I2C 恢复失败，需要结合 reset recovery、GPIO/I2C 状态推理 | [case-b-i2c-bus-stuck-reset](known-bad-cases/case-b-i2c-bus-stuck-reset/README.zh-CN.md) |
+| 3 | Case C | Flash 配置持久化失败，需要对比 reset 前后记录和原始存储记录 | [case-c-flash-persistence-alignment](known-bad-cases/case-c-flash-persistence-alignment/README.zh-CN.md) |
+| 4 | Case D | UART DMA/IDLE stream 边界问题，需要分析速率、截断和 CRC/帧边界 | [case-d-uart-dma-idle-race](known-bad-cases/case-d-uart-dma-idle-race/README.zh-CN.md) |
 
 每个 case 文件夹都包含三类内容：
 
@@ -234,7 +234,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 5. 再生成 AI 诊断提示词，让 AI 只基于相同证据给出诊断。
 6. 对比人工路径和 AI 路径，最后打开答案验证。
 
-以下以 Case B 为例。其他 case 的导入文件、预期失败项和手工观察点以各自文件夹内指南为准。
+以下以 Case A 为例。其他 case 的导入文件、预期失败项和手工观察点以各自文件夹内指南为准。
 
 ```powershell
 starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
@@ -242,7 +242,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -SkipBuild `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -ExpectedFailureGate data_quality `
   -AllowExpectedFailure
 ```
@@ -275,7 +275,7 @@ C:\work\f103-liakia\evidence-out\starter-f103-20260521-120000
 ```powershell
 starter-kits/stm32f103-sensor-lab/tools/diagnose_starter_f103.ps1 `
   -EvidenceDir C:\work\f103-liakia\evidence-out\starter-f103-20260521-120000 `
-  -Case case-b
+  -Case case-a
 ```
 
 输出：
@@ -303,7 +303,7 @@ AI 诊断约束见 [diagnosis-playbook.zh-CN.md](diagnosis-playbook.zh-CN.md)。
 
 完成对比后，再打开当前 case 的 `ANSWER.zh-CN.md`。答案不是为了提前泄题，而是用来校验你和 AI 的诊断是否真正基于证据。
 
-AI 诊断和人工复核后，只做证据指向的最小修复。如果卡住，再去看当前 case 的答案文件，例如 [case-b-bmp280-calibration/ANSWER.zh-CN.md](known-bad-cases/case-b-bmp280-calibration/ANSWER.zh-CN.md)。
+AI 诊断和人工复核后，只做证据指向的最小修复。如果卡住，再去看当前 case 的答案文件，例如 [case-a-bmp280-calibration/ANSWER.zh-CN.md](known-bad-cases/case-a-bmp280-calibration/ANSWER.zh-CN.md)。
 
 重新编译、烧录、运行基线脚本：
 
@@ -313,7 +313,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -SkipBuild `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 通过标准：

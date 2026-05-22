@@ -194,7 +194,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -BuildCommand "cmake --build --preset Debug" `
   -Elf build\Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 If you build from STM32CubeIDE, build in the IDE first, then run:
@@ -205,7 +205,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -SkipBuild `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 If you do not want to flash, pass `-SkipFlash` explicitly. Missing `-Elf` is treated as a failure so the runner does not silently test an old firmware image.
@@ -218,10 +218,10 @@ Recommended progression:
 
 | Order | Case | Training Focus | Entry |
 |---:|---|---|---|
-| 1 | Case B | BMP280 chip ID passes, but data quality fails. Best first exposure to evidence-first diagnosis. | [case-b-bmp280-calibration](known-bad-cases/case-b-bmp280-calibration/README.md) |
-| 2 | Case A | I2C recovery fails after reset, requiring reset recovery plus GPIO/I2C state reasoning. | [case-a-i2c-bus-stuck-reset](known-bad-cases/case-a-i2c-bus-stuck-reset/README.md) |
-| 3 | Case D | Flash persistence fails across reset, requiring raw record and reload evidence. | [case-d-flash-persistence-alignment](known-bad-cases/case-d-flash-persistence-alignment/README.md) |
-| 4 | Case C | UART DMA/IDLE stream boundary failure, requiring rate, truncation, CRC, and frame-boundary analysis. | [case-c-uart-dma-idle-race](known-bad-cases/case-c-uart-dma-idle-race/README.md) |
+| 1 | Case A | BMP280 chip ID passes, but data quality fails. Best first exposure to evidence-first diagnosis. | [case-a-bmp280-calibration](known-bad-cases/case-a-bmp280-calibration/README.md) |
+| 2 | Case B | I2C recovery fails after reset, requiring reset recovery plus GPIO/I2C state reasoning. | [case-b-i2c-bus-stuck-reset](known-bad-cases/case-b-i2c-bus-stuck-reset/README.md) |
+| 3 | Case C | Flash persistence fails across reset, requiring raw record and reload evidence. | [case-c-flash-persistence-alignment](known-bad-cases/case-c-flash-persistence-alignment/README.md) |
+| 4 | Case D | UART DMA/IDLE stream boundary failure, requiring rate, truncation, CRC, and frame-boundary analysis. | [case-d-uart-dma-idle-race](known-bad-cases/case-d-uart-dma-idle-race/README.md) |
 
 Each case folder contains:
 
@@ -238,7 +238,7 @@ Use this loop for every case:
 5. Generate the AI prompt and ask AI to reason from the same evidence.
 6. Compare manual diagnosis with AI-assisted diagnosis, then open the answer key.
 
-The command below uses Case B as the first example. Other cases define their own import files, expected failure gates, and observation points in their case folders.
+The command below uses Case A as the first example. Other cases define their own import files, expected failure gates, and observation points in their case folders.
 
 ```powershell
 starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
@@ -246,7 +246,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -SkipBuild `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b `
+  -Case case-a `
   -ExpectedFailureGate data_quality `
   -AllowExpectedFailure
 ```
@@ -279,7 +279,7 @@ run:
 ```powershell
 starter-kits/stm32f103-sensor-lab/tools/diagnose_starter_f103.ps1 `
   -EvidenceDir C:\work\f103-liakia\evidence-out\starter-f103-20260521-120000 `
-  -Case case-b
+  -Case case-a
 ```
 
 Outputs:
@@ -307,7 +307,7 @@ Compare your manual result with the AI result:
 
 Only after that comparison should you open the current case `ANSWER.md`. The answer key is for validation, not for shortcutting the exercise.
 
-After AI diagnosis and human review, apply the minimal fix identified by the evidence. If you are stuck, read the selected case answer, for example [case-b-bmp280-calibration/ANSWER.md](known-bad-cases/case-b-bmp280-calibration/ANSWER.md).
+After AI diagnosis and human review, apply the minimal fix identified by the evidence. If you are stuck, read the selected case answer, for example [case-a-bmp280-calibration/ANSWER.md](known-bad-cases/case-a-bmp280-calibration/ANSWER.md).
 
 Rebuild, flash, and re-run the baseline without expected-failure flags:
 
@@ -317,7 +317,7 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
   -SkipBuild `
   -Elf Debug\f103-liakia.elf `
   -ComPort COM4 `
-  -Case case-b
+  -Case case-a
 ```
 
 Expected result:

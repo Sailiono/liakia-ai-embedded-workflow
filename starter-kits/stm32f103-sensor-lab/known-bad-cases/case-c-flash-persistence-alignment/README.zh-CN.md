@@ -1,4 +1,4 @@
-# Case D — Flash Persistence 失败
+# Case C — Flash Persistence 失败
 
 这是高级持久化练习，适合已经完成基础传感器实验，并希望测试 reset 后状态和原始记录证据的用户。
 
@@ -7,8 +7,8 @@
 ## 文件内容
 
 ```text
-case-d-flash-persistence-alignment/
-  app-layer/src/liakia_config_case_d.c
+case-c-flash-persistence-alignment/
+  app-layer/src/liakia_config_case_c.c
   README.md
   README.zh-CN.md
   ANSWER.md
@@ -18,7 +18,7 @@ case-d-flash-persistence-alignment/
 把源文件导入你的工程：
 
 ```text
-app-layer/src/liakia_config_case_d.c -> Core/Src/liakia_config_case_d.c
+app-layer/src/liakia_config_case_c.c -> Core/Src/liakia_config_case_c.c
 ```
 
 这个文件是持久化片段。你需要把它接到自己的 `config get`、`config set`、`config save` 和 `config dump` 命令后面。
