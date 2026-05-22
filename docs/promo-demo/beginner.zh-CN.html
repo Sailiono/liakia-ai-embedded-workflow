@@ -23,12 +23,12 @@
         <div class="hero-content">
           <p class="eyebrow">Starter-F103 传感器实验</p>
           <h1>
-            <span>一块带故障的</span>
-            <span>F103 传感器台架，</span>
-            <span>等你来排查。</span>
+            <span>这套 F103</span>
+            <span>传感器实验台架，</span>
+            <span>故意留了故障。</span>
           </h1>
           <p class="hero-copy">
-            这不是看图学流程。你要亲手搭台架、跑通基线、导入故障代码、生成证据包，再让 AI 基于同一份证据协助分析，最后做最小修复并回归 PASS。
+            这不是看图学流程。你要亲手把台架搭起来，跑通基线、导入故障代码、生成证据包，再让 AI 基于同一份证据协助分析，最后做最小修复并回归 PASS。
           </p>
           <div class="hero-actions">
             <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">开始快速上手</a>
@@ -41,7 +41,7 @@
         <div class="section-heading">
           <p>任务简报</p>
           <h2>这是一次真实排障练习，不是只展示成功结果。</h2>
-          <div class="section-lede">这块 F103 + BMP280 小台架能读到 chip ID，校准原始值也存在，但 data_quality 检查失败。你的任务不是直接猜答案，而是先收集证据、提出假设，再让 AI 基于同一份材料帮你缩小排查范围。</div>
+          <div class="section-lede">这套 F103 + BMP280 实验台架能读到 chip ID，校准原始值也存在，但 data_quality 检查失败。你的任务不是直接猜答案，而是先收集证据、提出假设，再让 AI 基于同一份材料帮你缩小排查范围。</div>
         </div>
         <div class="story-brief">
           <article><span>现场</span><strong>台架看起来没坏</strong><p>BMP280 chip_id = 0x58，I2C 通信存在，硬件断线不是第一嫌疑。</p></article>
@@ -53,7 +53,7 @@
       <section id="wiring" class="remote-section wiring-section" aria-label="Hardware wiring">
         <div class="section-heading">
           <p>台架接线</p>
-          <h2>先把台架搭清楚，后面的失败才有意义。</h2>
+          <h2>先把接线搭清楚，后面的失败才有意义。</h2>
           <div class="section-lede">主视觉用简化接线图而不是真实照片，避免线束外观差异干扰。关键是：SWD 用来烧录，USART1 用来看 shell 和日志，I2C1 用来接 BMP280，GND 必须共地。</div>
         </div>
         <div class="wiring-grid">
