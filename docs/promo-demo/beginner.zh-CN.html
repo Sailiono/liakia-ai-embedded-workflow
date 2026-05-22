@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="用 STM32F103C8T6 + BMP280 亲手体验 Liakia AI 辅助嵌入式调试闭环。">
     <title>Liakia 初学者路径 — Starter-F103 Sensor Lab</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-cn-polish-20260522">
+    <link rel="stylesheet" href="./styles.css?v=liakia-style-split-20260522">
   </head>
-  <body>
+  <body class="beginner-page">
     <main class="page-shell">
       <section class="hero beginner-hero" aria-label="Beginner lab hero">
         <div class="hero-grid" aria-hidden="true"></div>
@@ -67,6 +67,7 @@
               <li><b>UART</b><span>USB-UART -> PA9 / PA10 / GND</span></li>
               <li><b>I2C</b><span>BMP280 -> PB6 SCL / PB7 SDA</span></li>
               <li><b>Power</b><span>BMP280 使用 3V3，所有模块共地</span></li>
+              <li class="risk-note"><b>Risk</b><span>不要把 5V 接到 BMP280 或 F103 的 3V3 逻辑侧。</span></li>
             </ul>
           </article>
         </div>

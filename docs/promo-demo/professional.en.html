@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Liakia professional showcase: real STM32 bench evidence, remote HIL, USB CDC reset recovery, RTCM CRC gate, and project adoption path.">
     <title>Liakia Professional — AI-Assisted Embedded Delivery Evidence Loop</title>
-    <link rel="stylesheet" href="./styles.css?v=liakia-narrative-20260522">
+    <link rel="stylesheet" href="./styles.css?v=liakia-style-split-20260522">
   </head>
-  <body>
+  <body class="professional-page">
     <main class="page-shell">
       <section class="hero professional-hero" aria-label="Professional hero">
         <div class="hero-grid" aria-hidden="true"></div>
@@ -30,6 +30,7 @@
           </h1>
           <p class="hero-copy">
             Liakia uses the real dpiny-RTK firmware case to prove that build, flash, serial tests, RTCM CRC, USB CDC reset recovery, register probes, and evidence manifests can form a repeatable, remote-capable, human-reviewed loop.
+            AI provides speed; the engineer defines direction, boundaries, and acceptance.
           </p>
           <div class="hero-actions">
             <a href="#proof">Inspect proof</a>
@@ -41,7 +42,7 @@
         <aside class="mission-panel" aria-label="Latest baseline dashboard">
           <div class="panel-header"><span>remote baseline</span><strong>LAST RUN: PASS</strong></div>
           <div class="terminal">
-            <p><span>$</span> tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7</p>
+            <p><span>$</span> tools/run_test_baseline.ps1<br><span></span> -BuildPreset Debug -ComPort COM4<br><span></span> -RtcmPort COM6 -UsbPort COM7</p>
             <p><span>PASS</span> build / flash / shell</p>
             <p><span>PASS</span> USB CDC reset recovery</p>
             <p><span>PASS</span> RTCM parser CRC BAD: 0</p>
@@ -97,6 +98,57 @@
               <li>Remote HIL pulls evidence back from the bench PC.</li>
             </ul>
           </article>
+        </div>
+      </section>
+
+      <section class="control-section" aria-label="Engineer and AI control model">
+        <div class="section-heading">
+          <p>control model</p>
+          <h2>AI is the throttle. The engineer is the steering wheel and brake.</h2>
+          <div class="section-lede">This is not a demo of AI writing firmware by itself. Liakia shows how an engineer turns judgement, boundaries, and debugging method into an executable workflow: AI accelerates execution, fills gaps, organizes evidence, and captures proven routines as reusable skills.</div>
+        </div>
+        <div class="control-grid">
+          <article class="control-card is-ai">
+            <span>AI accelerates execution</span>
+            <h3>Throttle</h3>
+            <ul>
+              <li>Runs build / flash / test steps quickly inside a defined process.</li>
+              <li>Reads logs, summaries, and manifests to catch missing checks.</li>
+              <li>Drafts diagnosis packets, reports, and next-step proposals.</li>
+              <li>Captures proven workflows as skills for repeated use.</li>
+            </ul>
+          </article>
+          <article class="control-card is-engineer">
+            <span>Engineer controls direction</span>
+            <h3>Steering and brake</h3>
+            <ul>
+              <li>Defines objectives, risk boundaries, and what PASS means.</li>
+              <li>Decides which failures become long-term regression gates.</li>
+              <li>Controls flash, reset, and register-read hardware boundaries.</li>
+              <li>Reviews whether evidence is enough for acceptance and handoff.</li>
+            </ul>
+          </article>
+        </div>
+        <div class="control-slogan">
+          <strong>The engineer defines the method; AI executes it. The engineer captures the workflow; AI reuses it.</strong>
+          <span>Speed comes from AI. Trust comes from engineering boundaries and evidence loops.</span>
+        </div>
+      </section>
+
+      <section class="capability-section" aria-label="Engineering capability stack">
+        <div class="section-heading">
+          <p>capability stack</p>
+          <h2>Liakia demonstrates the ability to organize complex embedded delivery work.</h2>
+        </div>
+        <div class="capability-grid">
+          <article><span>01</span><h3>Problem modeling</h3><p>Turns an intermittent post-reset shell failure into a repeatable reset recovery gate.</p></article>
+          <article><span>02</span><h3>Bench automation</h3><p>Connects CMake, CubeProgrammer, COM ports, RTCM, and reset recovery into a baseline runner.</p></article>
+          <article><span>03</span><h3>Protocol validation</h3><p>Uses an RTCM parser and CRC BAD = 0 to prove usable output instead of eyeballing logs.</p></article>
+          <article><span>04</span><h3>Register diagnosis</h3><p>Selects RCC, GPIO, USART, and USB read-only registers as low-level evidence.</p></article>
+          <article><span>05</span><h3>Evidence engineering</h3><p>Makes both PASS and FAIL runs produce manifests, logs, summaries, and handoff entry points.</p></article>
+          <article><span>06</span><h3>AI boundary design</h3><p>Defines pre-flash checks, failure triage, and human-review stop conditions.</p></article>
+          <article><span>07</span><h3>Transferable abstraction</h3><p>Uses project-adapter and workflow-template to turn dpiny-RTK into an adoptable process.</p></article>
+          <article><span>08</span><h3>Skill capture</h3><p>Packages a proven complex operation so AI can repeat the same workflow later.</p></article>
         </div>
       </section>
 
