@@ -2641,7 +2641,8 @@ h2 {
 }
 
 .mission-step span,
-.mission-step em {
+.mission-step em,
+.mission-step small {
   display: block;
   font-family: "Cascadia Code", Consolas, monospace;
   font-size: 12px;
@@ -2663,6 +2664,14 @@ h2 {
 .mission-step em {
   color: var(--muted);
   line-height: 1.45;
+}
+
+.mission-step small {
+  margin-top: 8px;
+  color: rgba(244, 241, 232, 0.52);
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 800;
 }
 
 .mission-step.is-pass {

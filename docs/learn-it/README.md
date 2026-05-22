@@ -49,7 +49,7 @@ Each case folder contains broken app-layer files, a practice guide, and a separa
 
 Use AI as a diagnosis partner, not as an oracle.
 
-1. Run the failing case bnd generate evidence.
+1. Run the failing case and generate evidence.
 2. Spend 15-30 minutes diagnosing manually.
 3. Record the symptom, ruled-out causes, hypothesis, and elapsed time.
 4. Generate `ai_prompt.md`.

@@ -1,6 +1,6 @@
 # Liakia
 
-**AI-Assisted Embedded Firmware Delivery Loop**
+**AI-Assisted Embedded Firmware Delivery Loop for STM32 Teams**
 
 For STM32 teams that need repeatable build, flash, test, diagnose, evidence, and handoff.
 
@@ -11,15 +11,15 @@ For STM32 teams that need repeatable build, flash, test, diagnose, evidence, and
 [![Mode](https://img.shields.io/badge/AI-Human--in--the--loop-54d7ff)]()
 [![Evidence](https://img.shields.io/badge/Evidence-real_bench_%2B_remote_HIL-ffb84d)]()
 
-Stop losing firmware fixes between build, flash, test, and handoff.
+Still burning engineering hours between build, flash, serial testing, and handoff?
 
-Liakia turns those steps into a repeatable, evidence-backed loop on real or remote STM32 hardware:
+Liakia turns those fragile handoffs into a repeatable, evidence-backed loop on real or remote STM32 hardware:
 
 ```text
 build -> flash -> test -> diagnose -> evidence -> handoff
 ```
 
-The repository uses **dpiny-RTK** as the engineering proof case bnd **Starter-F103 Sensor Lab** as the hands-on learning path.
+The repository uses **dpiny-RTK** as the engineering proof case and **Starter-F103 Sensor Lab** as the hands-on learning path.
 
 **dpiny-RTK is the demo case. Liakia is the workflow.**
 
