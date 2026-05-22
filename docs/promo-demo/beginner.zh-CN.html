@@ -23,12 +23,12 @@
         <div class="hero-content">
           <p class="eyebrow">Starter-F103 传感器实验</p>
           <h1>
-            <span>接手一块</span>
-            <span>故意坏掉的 F103</span>
-            <span>传感器台架。</span>
+            <span>一块带故障的</span>
+            <span>F103 传感器台架，</span>
+            <span>等你来排查。</span>
           </h1>
           <p class="hero-copy">
-            你不是在看教程截图，而是在完成一次小型嵌入式故障任务：搭台架、跑通基线、导入故障代码、生成证据包，让 AI 基于证据推理，再做最小修复并回归 PASS。
+            这不是看图学流程。你要亲手搭台架、跑通基线、导入故障代码、生成证据包，再让 AI 基于同一份证据协助分析，最后做最小修复并回归 PASS。
           </p>
           <div class="hero-actions">
             <a href="https://github.com/Sailiono/liakia-ai-embedded-workflow/blob/main/starter-kits/stm32f103-sensor-lab/quick-start.zh-CN.md">开始快速上手</a>
@@ -40,13 +40,13 @@
       <section class="usecase-section mission-brief-section" aria-label="Mission brief">
         <div class="section-heading">
           <p>任务简报</p>
-          <h2>这是一次工程侦探任务，不是全绿演示。</h2>
-          <div class="section-lede">你接手一块 F103 + BMP280 小台架。I2C 能读到 chip ID，校准原始值也存在，但 data_quality 检查失败。你的任务不是直接猜答案，而是先收集证据、提出假设，再让 AI 基于同一份材料帮你缩小排查范围。</div>
+          <h2>这是一次真实排障练习，不是只展示成功结果。</h2>
+          <div class="section-lede">这块 F103 + BMP280 小台架能读到 chip ID，校准原始值也存在，但 data_quality 检查失败。你的任务不是直接猜答案，而是先收集证据、提出假设，再让 AI 基于同一份材料帮你缩小排查范围。</div>
         </div>
         <div class="story-brief">
           <article><span>现场</span><strong>台架看起来没坏</strong><p>BMP280 chip_id = 0x58，I2C 通信存在，硬件断线不是第一嫌疑。</p></article>
           <article><span>冲突</span><strong>数据质量检查失败</strong><p>传感器数据不可信，但原始字节和 telemetry CRC 又说明链路不是完全失效。</p></article>
-          <article><span>规则</span><strong>AI 只能看证据</strong><p>AI 不直接猜硬件坏，而是阅读运行清单、串口日志、原始值和 case 说明后给出假设排序。</p></article>
+          <article><span>规则</span><strong>AI 只能看证据</strong><p>AI 不直接猜硬件坏，而是阅读运行清单、串口日志、原始值和故障说明后给出假设排序。</p></article>
         </div>
       </section>
 
