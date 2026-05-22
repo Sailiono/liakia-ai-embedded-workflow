@@ -10,6 +10,10 @@ param(
 
     [string]$ConnectArgs = $(if ($env:DPINY_PROGRAMMER_CONNECT) { $env:DPINY_PROGRAMMER_CONNECT } else { 'port=SWD freq=4000' }),
 
+    [int]$CommandTimeoutMs = $(if ($env:LIAKIA_COMMAND_TIMEOUT_MS) { [int]$env:LIAKIA_COMMAND_TIMEOUT_MS } else { 60000 }),
+
+    [switch]$AllowDangerousShellCommands,
+
     [switch]$SkipBuild,
     [switch]$SkipFlash,
     [switch]$SkipPersistence
@@ -45,9 +49,19 @@ function Exec([string]$exe, [string[]]$args) {
     $p = New-Object System.Diagnostics.Process
     $p.StartInfo = $pinfo
     [void]$p.Start()
-    $stdout = $p.StandardOutput.ReadToEnd()
-    $stderr = $p.StandardError.ReadToEnd()
-    $p.WaitForExit()
+    $stdoutTask = $p.StandardOutput.ReadToEndAsync()
+    $stderrTask = $p.StandardError.ReadToEndAsync()
+
+    if (-not $p.WaitForExit($CommandTimeoutMs)) {
+        try {
+            $p.Kill()
+            [void]$p.WaitForExit(5000)
+        } catch { }
+        throw "Command timed out after ${CommandTimeoutMs}ms: $exe"
+    }
+
+    $stdout = $stdoutTask.Result
+    $stderr = $stderrTask.Result
 
     if ($stdout) { Write-ReportLine ("STDOUT:`n" + $stdout.TrimEnd()) }
     if ($stderr) { Write-ReportLine ("STDERR:`n" + $stderr.TrimEnd()) }
@@ -137,6 +151,48 @@ function Serial-SendLine([System.IO.Ports.SerialPort]$sp, [string]$line) {
     $sp.Write("$line`r`n")
 }
 
+$script:LastDangerousCommandAt = @{}
+$script:DangerousShellCommands = @("baud", "save", "reset", "erase", "bootloader")
+$script:DangerousMinIntervalMs = @{
+    "reset" = 5000
+    "save" = 3000
+}
+
+function Get-ShellCommandName([string]$line) {
+    $trimmed = $line.Trim()
+    if (-not $trimmed) { return "" }
+    return (($trimmed -split "\s+")[0]).ToLowerInvariant()
+}
+
+function Assert-ShellCommandAllowed([string]$line, [string]$reason = "") {
+    $command = Get-ShellCommandName $line
+    if (-not $command -or $script:DangerousShellCommands -notcontains $command) {
+        return
+    }
+
+    $allowed = [bool]$AllowDangerousShellCommands -or ($env:LIAKIA_ALLOW_DANGEROUS_COMMANDS -eq "1")
+    if (-not $allowed) {
+        throw "Dangerous shell command '$command' is blocked. Re-run with -AllowDangerousShellCommands or set LIAKIA_ALLOW_DANGEROUS_COMMANDS=1. Command: $line"
+    }
+
+    if ($script:DangerousMinIntervalMs.ContainsKey($command) -and $script:LastDangerousCommandAt.ContainsKey($command)) {
+        $elapsed = [int]((Get-Date) - $script:LastDangerousCommandAt[$command]).TotalMilliseconds
+        $minInterval = [int]$script:DangerousMinIntervalMs[$command]
+        if ($elapsed -lt $minInterval) {
+            throw "Dangerous shell command '$command' repeated after ${elapsed}ms; minimum interval is ${minInterval}ms."
+        }
+    }
+
+    $script:LastDangerousCommandAt[$command] = Get-Date
+    $suffix = if ($reason) { " reason=$reason" } else { "" }
+    Write-ReportLine "SAFETY: dangerous shell command allowed: $command$suffix"
+}
+
+function Send-ShellLine([System.IO.Ports.SerialPort]$sp, [string]$line, [string]$reason = "") {
+    Assert-ShellCommandAllowed $line $reason
+    Serial-SendLine $sp $line
+}
+
 function Serial-ReadUntil([System.IO.Ports.SerialPort]$sp, [string]$pattern, [int]$timeoutMs = 2000) {
     $sw = [System.Diagnostics.Stopwatch]::StartNew()
     $buf = ""
@@ -223,36 +279,36 @@ try {
     [void](Serial-Drain $sp 250)
 
     # Get prompt
-    Serial-SendLine $sp ''
+    Send-ShellLine $sp ''
     $out = Serial-ReadUntil $sp '>' 2000
     Write-ReportLine ("SERIAL <<`n{0}" -f $out.TrimEnd())
 
-    Serial-SendLine $sp 'help'
+    Send-ShellLine $sp 'help'
     $out = Serial-ReadUntil $sp 'Available commands' 2000
     Write-ReportLine ("SERIAL <<`n{0}" -f $out.TrimEnd())
     Assert-Match 'help prints command list' $out 'Available commands'
 
-    Serial-SendLine $sp 'status'
+    Send-ShellLine $sp 'status'
     $out = Serial-ReadUntil $sp 'System Status' 2000
     Write-ReportLine ("SERIAL <<`n{0}" -f $out.TrimEnd())
     Assert-Match 'status prints system status' $out '---\s*System Status\s*---'
 
-    Serial-SendLine $sp 'config'
+    Send-ShellLine $sp 'config'
     $out = Serial-ReadUntil $sp 'Configuration' 2000
     Write-ReportLine ("SERIAL <<`n{0}" -f $out.TrimEnd())
     Assert-Match 'config prints configuration header' $out '---\s*Configuration\s*---'
 
     if (-not $SkipPersistence) {
-        Serial-SendLine $sp 'baud 1 57600'
+        Send-ShellLine $sp 'baud 1 57600' 'persistence-test'
         $out = Serial-ReadUntil $sp 'baudrate set' 2000
         Write-ReportLine ("SERIAL <<`n{0}" -f $out.TrimEnd())
         Assert-Match 'baud command accepted' $out 'UART1 baudrate set to 57600'
 
-        Serial-SendLine $sp 'save'
+        Send-ShellLine $sp 'save' 'persistence-test'
         $out = Serial-ReadUntil $sp 'saved|saved to Flash|Configuration saved' 3000
         Write-ReportLine ("SERIAL <<`n{0}" -f $out.TrimEnd())
 
-        Serial-SendLine $sp 'reset'
+        Send-ShellLine $sp 'reset' 'persistence-test'
         Write-ReportLine "Reset issued. Waiting for device reboot and COM re-open..."
         try { $sp.Close() } catch { }
         $sp = $null
@@ -266,10 +322,10 @@ try {
         $sp = Open-Serial $ComPort 115200
         [void](Serial-Drain $sp 500)
 
-        Serial-SendLine $sp ''
+        Send-ShellLine $sp ''
         [void](Serial-ReadUntil $sp '>' 2000)
 
-        Serial-SendLine $sp 'config'
+        Send-ShellLine $sp 'config'
         $out = Serial-ReadUntil $sp 'UART1 Baud' 2000
         Write-ReportLine ("SERIAL <<`n{0}" -f $out.TrimEnd())
         Assert-Match 'config persistence UART1 baud=57600' $out 'UART1 Baud:\s*57600'

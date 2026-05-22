@@ -6,7 +6,8 @@ param(
     [int]$ResponseTimeoutMs = 4000,
     [int]$ResetWaitMs = 2500,
     [string[]]$ExpectedKeywords = @("dpiny-RTK", "STM32F407", "FreeRTOS"),
-    [string]$OutputJson = ""
+    [string]$OutputJson = "",
+    [switch]$AllowDangerousShellCommands
 )
 
 Set-StrictMode -Version Latest
@@ -73,6 +74,20 @@ function Invoke-ShellCommand([string]$PortName, [string]$Command, [int]$TimeoutM
     }
 }
 
+function Assert-DangerousCommandAllowed([string]$Command) {
+    $commandName = (($Command.Trim() -split "\s+")[0]).ToLowerInvariant()
+    if ($commandName -ne "reset") {
+        return
+    }
+
+    $allowed = [bool]$AllowDangerousShellCommands -or ($env:LIAKIA_ALLOW_DANGEROUS_COMMANDS -eq "1")
+    if (-not $allowed) {
+        throw "USB CDC reset gate is blocked because it sends the shell reset command. Re-run with -AllowDangerousShellCommands or set LIAKIA_ALLOW_DANGEROUS_COMMANDS=1."
+    }
+
+    Write-Host "[SAFETY] dangerous shell command allowed: reset reason=usb-cdc-reset-recovery" -ForegroundColor Yellow
+}
+
 function Assert-VersionResponse([string]$Name, [string]$Text, [string[]]$Keywords) {
     foreach ($keyword in $Keywords) {
         if ($Text -notmatch [regex]::Escape($keyword)) {
@@ -114,6 +129,7 @@ try {
     Assert-VersionResponse "USB CDC shell responded before reset" $before $ExpectedKeywords
 
     Write-Host "Issuing software reset..."
+    Assert-DangerousCommandAllowed "reset"
     [void](Invoke-ShellCommand $UsbPort "reset" 500)
     Start-Sleep -Milliseconds $ResetWaitMs
 

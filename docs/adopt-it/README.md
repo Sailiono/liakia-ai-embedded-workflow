@@ -42,7 +42,7 @@ The exact scope depends on board availability, hardware risk, protocol complexit
 
 ## Liakia STM32 Pilot Package
 
-**Timeline:** 3-5 days for one board and one delivery chain.
+**Timeline:** 3-5 days for one Windows/STM32 bench, one board, and one delivery chain. Broader cross-platform rollout, new protocol gates, remote network hardening, or production CI should be scoped separately.
 
 **Inputs:**
 

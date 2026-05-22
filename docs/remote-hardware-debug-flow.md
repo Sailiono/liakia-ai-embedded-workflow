@@ -41,6 +41,7 @@ tools/run_test_baseline.ps1 `
   -ComPort <shell-uart> `
   -RtcmPort <rtcm-uart> `
   -UsbPort <usb-cdc> `
+  -AllowDangerousShellCommands `
   -RtcmReadSecs 10
 ```
 

@@ -24,6 +24,14 @@
     "baudrate": 115200,
     "require_dtr_rts": true
   },
+  "safety": {
+    "dangerous_commands": ["reset", "save", "erase", "bootloader"],
+    "require_explicit_allow": true,
+    "min_interval_ms": {
+      "reset": 5000,
+      "save": 3000
+    }
+  },
   "tests": [
     {
       "name": "shell",

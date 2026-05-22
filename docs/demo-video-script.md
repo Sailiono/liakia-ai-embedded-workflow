@@ -27,7 +27,7 @@ Narration:
 Show a terminal running the baseline command.
 
 ```powershell
-tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7
+tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7 -AllowDangerousShellCommands
 ```
 
 Highlight:

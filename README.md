@@ -10,6 +10,7 @@ For STM32 teams that need repeatable build, flash, test, diagnose, evidence, and
 [![MCU](https://img.shields.io/badge/MCU-STM32-blue)](https://www.st.com)
 [![Mode](https://img.shields.io/badge/AI-Human--in--the--loop-54d7ff)]()
 [![Evidence](https://img.shields.io/badge/Evidence-real_bench_%2B_remote_HIL-ffb84d)]()
+[![License](https://img.shields.io/badge/License-MIT-f4f1e8)](LICENSE)
 
 Still burning engineering hours between build, flash, serial testing, and handoff?
 
@@ -65,7 +66,13 @@ Liakia is not a firmware library and not a single RTK product. It is a workflow 
 Reference baseline runner:
 
 ```powershell
-tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7
+tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6
+```
+
+Full hardware regression with persistence/reset gates must opt in to dangerous shell commands:
+
+```powershell
+tools/run_test_baseline.ps1 -BuildPreset Debug -ComPort COM4 -RtcmPort COM6 -UsbPort COM7 -AllowDangerousShellCommands
 ```
 
 Reusable workflow template:
@@ -89,6 +96,8 @@ starter-kits/stm32f103-sensor-lab/tools/run_starter_f103.ps1 `
 Liakia is designed to compress repeatable firmware delivery work: build repair, flash verification, serial regression, protocol gates, log analysis, evidence packaging, and handoff preparation.
 
 It does **not** replace schematic review, safety decisions, EMC/ESD work, production test fixture design, or final engineering approval.
+
+`tools/functional_test.ps1` and `tools/run_test_baseline.ps1` are the dpiny-RTK reference runners. For a new STM32 project, start from `workflow-template/project-adapter.json` and `workflow-template/run_workflow.ps1`.
 
 ## Repository Map
 

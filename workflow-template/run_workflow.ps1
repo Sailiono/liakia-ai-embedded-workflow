@@ -3,6 +3,7 @@ param(
     [ValidateSet("env", "build", "flash", "test", "probe", "evidence", "all")]
     [string]$Stage = "all",
     [string]$OutputDir = ".\evidence-out",
+    [int]$ScriptTimeoutSec = 300,
     [switch]$DryRun
 )
 
@@ -50,6 +51,14 @@ function Convert-HashtableToArgumentList([hashtable]$ArgsTable) {
         }
     }
     return $result
+}
+
+function Quote-ProcessArgument([string]$Value) {
+    if ($null -eq $Value) { return '""' }
+    if ($Value -match '[\s"]') {
+        return '"' + ($Value -replace '"', '\"') + '"'
+    }
+    return $Value
 }
 
 function Resolve-WorkflowPath([string]$Root, [string]$PathValue) {
@@ -107,8 +116,38 @@ function Invoke-WorkflowScript([string]$Name, [string]$Script, [hashtable]$Argum
 
     $pwsh = Resolve-Pwsh
     $processArgs = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $Script) + $argList
-    $output = @(& $pwsh @processArgs 2>&1)
-    $exitCode = $LASTEXITCODE
+    $pinfo = New-Object System.Diagnostics.ProcessStartInfo
+    $pinfo.FileName = $pwsh
+    $pinfo.Arguments = (($processArgs | ForEach-Object { Quote-ProcessArgument ([string]$_) }) -join " ")
+    $pinfo.RedirectStandardOutput = $true
+    $pinfo.RedirectStandardError = $true
+    $pinfo.UseShellExecute = $false
+    $pinfo.CreateNoWindow = $true
+
+    $process = New-Object System.Diagnostics.Process
+    $process.StartInfo = $pinfo
+    [void]$process.Start()
+    $stdoutTask = $process.StandardOutput.ReadToEndAsync()
+    $stderrTask = $process.StandardError.ReadToEndAsync()
+
+    $timedOut = $false
+    if (-not $process.WaitForExit($ScriptTimeoutSec * 1000)) {
+        $timedOut = $true
+        try {
+            $process.Kill()
+            [void]$process.WaitForExit(5000)
+        } catch { }
+    }
+
+    $stdout = $stdoutTask.Result
+    $stderr = $stderrTask.Result
+    $exitCode = if ($timedOut) { -1 } else { $process.ExitCode }
+    $output = @()
+    if ($stdout) { $output += ($stdout -split "\r?\n") }
+    if ($stderr) { $output += ($stderr -split "\r?\n" | ForEach-Object { "STDERR: $_" }) }
+    if ($timedOut) {
+        $output += "[TIMEOUT] $Name exceeded ${ScriptTimeoutSec}s and was terminated."
+    }
     $output | Tee-Object -FilePath $LogPath | ForEach-Object { Write-Host $_ }
 
     return [pscustomobject]@{
@@ -157,13 +196,15 @@ function Write-WorkflowManifest {
     $failedSteps = @($script:stepResults | Where-Object { $_.result -eq "FAIL" })
     $failedStepName = if ($failedSteps.Count -gt 0) { $failedSteps[0].name } else { $null }
     $json = [ordered]@{
+        schema_version = "liakia.workflow_manifest.v1"
         project = $projectName
         adapter = $adapterFullPath
         project_root = $projectRoot
-        generated_at = (Get-Date).ToString("s")
+        generated_at = (Get-Date).ToString("o")
         stage = $Stage
         build_dir = $buildDir
         elf = $elf
+        safety = $safety
         tests = @($tests | ForEach-Object { $_.name })
         steps = $script:stepResults
         failed_step = $failedStepName
@@ -195,6 +236,7 @@ if ($config) {
     $flashTool = $config.flash.tool
     $connectArgs = if (Has-Property $config.flash "connect") { $config.flash.connect } else { "port=SWD freq=4000" }
     $tests = if (Has-Property $config "tests") { @($config.tests) } else { @() }
+    $safety = if (Has-Property $config "safety") { $config.safety } else { $null }
     $probeEnabled = if ((Has-Property $config "register_probe") -and (Has-Property $config.register_probe "enabled")) { [bool]$config.register_probe.enabled } else { $true }
     $probeTargets = if ((Has-Property $config "register_probe") -and (Has-Property $config.register_probe "targets")) { @($config.register_probe.targets) } else { @("all") }
 } else {
@@ -207,6 +249,7 @@ if ($config) {
     $flashTool = Read-AdapterScalar $adapterFullPath "tool" "STM32_Programmer_CLI"
     $connectArgs = "port=SWD freq=4000"
     $tests = @()
+    $safety = $null
     $probeEnabled = $true
     $probeTargets = @("all")
 }
